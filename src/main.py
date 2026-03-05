@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 import argparse
+import json
 import os
+import re
 import subprocess
 import sys
 from datetime import datetime, timedelta, timezone
+from typing import Any
 
 try:
     import yaml  # type: ignore
@@ -92,6 +95,264 @@ def resolve_sidebar_date_label(fetch_days: int | None) -> str | None:
     return None
 
 
+def normalize_arxiv_id(value: Any) -> str:
+    text = str(value or "").strip().lower()
+    if not text:
+        return ""
+    if text.startswith("arxiv:"):
+        text = text.split(":", 1)[1].strip()
+    if text.startswith("http://") or text.startswith("https://"):
+        text = text.split("?", 1)[0].split("#", 1)[0]
+        text = text.rstrip("/")
+        if "/abs/" in text:
+            text = text.rsplit("/abs/", 1)[-1]
+        elif "/pdf/" in text:
+            text = text.rsplit("/pdf/", 1)[-1]
+        else:
+            text = text.rsplit("/", 1)[-1]
+    if text.endswith(".pdf"):
+        text = text[: -len(".pdf")]
+    text = text.strip()
+    matched = re.match(r"^(\d{4}\.\d{4,5})(?:v\d+)?$", text)
+    if matched:
+        return matched.group(1)
+    return text
+
+
+def parse_trace_ids(cli_values: list[str] | None) -> list[str]:
+    raw_parts: list[str] = []
+    for value in cli_values or []:
+        raw_parts.extend(re.split(r"[,\s]+", str(value or "").strip()))
+    env_value = str(os.getenv("DPR_TRACE_ARXIV_IDS") or "").strip()
+    if env_value:
+        raw_parts.extend(re.split(r"[,\s]+", env_value))
+
+    seen: set[str] = set()
+    result: list[str] = []
+    for item in raw_parts:
+        token = normalize_arxiv_id(item)
+        if not token or token in seen:
+            continue
+        seen.add(token)
+        result.append(token)
+    return result
+
+
+def load_json_safe(path: str) -> Any:
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception as exc:
+        print(f"[TRACE] 读取失败: {path} | {exc}", flush=True)
+        return None
+
+
+def build_paper_index(papers: Any, trace_set: set[str]) -> dict[str, dict[str, Any]]:
+    index: dict[str, dict[str, Any]] = {}
+    if not isinstance(papers, list):
+        return index
+    for item in papers:
+        if not isinstance(item, dict):
+            continue
+        pid = normalize_arxiv_id(item.get("id") or item.get("paper_id") or item.get("link"))
+        if not pid or pid not in trace_set or pid in index:
+            continue
+        index[pid] = item
+    return index
+
+
+def collect_query_hits(queries: Any, trace_set: set[str]) -> dict[str, list[dict[str, Any]]]:
+    hits: dict[str, list[dict[str, Any]]] = {pid: [] for pid in trace_set}
+    if not isinstance(queries, list):
+        return hits
+
+    for q in queries:
+        if not isinstance(q, dict):
+            continue
+        query_tag = str(q.get("paper_tag") or q.get("tag") or q.get("query_text") or "").strip()
+
+        sim_scores = q.get("sim_scores")
+        if isinstance(sim_scores, dict):
+            for raw_pid, meta in sim_scores.items():
+                pid = normalize_arxiv_id(raw_pid)
+                if pid not in trace_set:
+                    continue
+                score = None
+                rank = None
+                if isinstance(meta, dict):
+                    score = meta.get("score")
+                    rank = meta.get("rank")
+                elif isinstance(meta, (int, float)):
+                    score = float(meta)
+                hits[pid].append(
+                    {
+                        "source": "sim_scores",
+                        "query": query_tag,
+                        "score": score,
+                        "rank": rank,
+                    }
+                )
+
+        ranked = q.get("ranked")
+        if isinstance(ranked, list):
+            for idx, item in enumerate(ranked, start=1):
+                if not isinstance(item, dict):
+                    continue
+                pid = normalize_arxiv_id(item.get("paper_id") or item.get("id"))
+                if pid not in trace_set:
+                    continue
+                hits[pid].append(
+                    {
+                        "source": "ranked",
+                        "query": query_tag,
+                        "score": item.get("score"),
+                        "rank": item.get("rank") or idx,
+                        "star_rating": item.get("star_rating"),
+                    }
+                )
+    return hits
+
+
+def print_trace_retrieval(stage: str, path: str, trace_ids: list[str]) -> None:
+    if not os.path.exists(path):
+        print(f"[TRACE][{stage}] 文件不存在: {path}", flush=True)
+        return
+    data = load_json_safe(path)
+    if data is None:
+        return
+
+    trace_set = set(trace_ids)
+    if isinstance(data, list):
+        paper_index = build_paper_index(data, trace_set)
+        query_hits = {pid: [] for pid in trace_set}
+    elif isinstance(data, dict):
+        paper_index = build_paper_index(data.get("papers"), trace_set)
+        query_hits = collect_query_hits(data.get("queries"), trace_set)
+    else:
+        print(f"[TRACE][{stage}] 非法 JSON 结构: {type(data)}", flush=True)
+        return
+
+    print(f"[TRACE][{stage}] path={path}", flush=True)
+    for pid in trace_ids:
+        paper = paper_index.get(pid)
+        hits = query_hits.get(pid) or []
+        best_rank = None
+        best_score = None
+        for hit in hits:
+            rank = hit.get("rank")
+            score = hit.get("score")
+            if isinstance(rank, (int, float)):
+                best_rank = int(rank) if best_rank is None else min(best_rank, int(rank))
+            if isinstance(score, (int, float)):
+                best_score = float(score) if best_score is None else max(best_score, float(score))
+        title = ""
+        published = ""
+        if isinstance(paper, dict):
+            title = str(paper.get("title") or "").strip()
+            published = str(paper.get("published") or "").strip()
+        title_suffix = f" | title={title}" if title else ""
+        pub_suffix = f" | published={published}" if published else ""
+        print(
+            f"[TRACE][{stage}] id={pid} | in_papers={'Y' if paper else 'N'} | query_hits={len(hits)}"
+            f" | best_rank={best_rank if best_rank is not None else '-'}"
+            f" | best_score={f'{best_score:.6f}' if best_score is not None else '-'}"
+            f"{pub_suffix}{title_suffix}",
+            flush=True,
+        )
+
+
+def print_trace_llm(stage: str, path: str, trace_ids: list[str]) -> None:
+    if not os.path.exists(path):
+        print(f"[TRACE][{stage}] 文件不存在: {path}", flush=True)
+        return
+    data = load_json_safe(path)
+    if not isinstance(data, dict):
+        print(f"[TRACE][{stage}] 非法 JSON 结构: {type(data)}", flush=True)
+        return
+
+    trace_set = set(trace_ids)
+    paper_index = build_paper_index(data.get("papers"), trace_set)
+    query_hits = collect_query_hits(data.get("queries"), trace_set)
+    llm_ranked = data.get("llm_ranked")
+    llm_index: dict[str, dict[str, Any]] = {}
+    if isinstance(llm_ranked, list):
+        for idx, item in enumerate(llm_ranked, start=1):
+            if not isinstance(item, dict):
+                continue
+            pid = normalize_arxiv_id(item.get("paper_id") or item.get("id"))
+            if pid not in trace_set or pid in llm_index:
+                continue
+            llm_index[pid] = {"rank": idx, "score": item.get("score"), "item": item}
+
+    print(f"[TRACE][{stage}] path={path}", flush=True)
+    for pid in trace_ids:
+        paper = paper_index.get(pid)
+        llm_item = llm_index.get(pid)
+        hits = query_hits.get(pid) or []
+        llm_rank = llm_item.get("rank") if llm_item else None
+        llm_score = llm_item.get("score") if llm_item else None
+        print(
+            f"[TRACE][{stage}] id={pid} | in_papers={'Y' if paper else 'N'} | query_hits={len(hits)}"
+            f" | in_llm_ranked={'Y' if llm_item else 'N'}"
+            f" | llm_rank={llm_rank if llm_rank is not None else '-'}"
+            f" | llm_score={f'{float(llm_score):.6f}' if isinstance(llm_score, (int, float)) else '-'}",
+            flush=True,
+        )
+
+
+def print_trace_recommend(stage: str, path: str, trace_ids: list[str]) -> None:
+    if not os.path.exists(path):
+        print(f"[TRACE][{stage}] 文件不存在: {path}", flush=True)
+        return
+    data = load_json_safe(path)
+    if not isinstance(data, dict):
+        print(f"[TRACE][{stage}] 非法 JSON 结构: {type(data)}", flush=True)
+        return
+
+    deep = data.get("deep_dive")
+    quick = data.get("quick_skim")
+    deep_index: dict[str, dict[str, Any]] = {}
+    quick_index: dict[str, dict[str, Any]] = {}
+    if isinstance(deep, list):
+        for idx, item in enumerate(deep, start=1):
+            if not isinstance(item, dict):
+                continue
+            pid = normalize_arxiv_id(item.get("id") or item.get("paper_id"))
+            if pid and pid not in deep_index:
+                deep_index[pid] = {"rank": idx, "item": item}
+    if isinstance(quick, list):
+        for idx, item in enumerate(quick, start=1):
+            if not isinstance(item, dict):
+                continue
+            pid = normalize_arxiv_id(item.get("id") or item.get("paper_id"))
+            if pid and pid not in quick_index:
+                quick_index[pid] = {"rank": idx, "item": item}
+
+    print(f"[TRACE][{stage}] path={path}", flush=True)
+    for pid in trace_ids:
+        deep_item = deep_index.get(pid)
+        quick_item = quick_index.get(pid)
+        zone = "none"
+        pos = "-"
+        item = None
+        if deep_item:
+            zone = "deep_dive"
+            pos = str(deep_item["rank"])
+            item = deep_item["item"]
+        elif quick_item:
+            zone = "quick_skim"
+            pos = str(quick_item["rank"])
+            item = quick_item["item"]
+        llm_score = item.get("llm_score") if isinstance(item, dict) else None
+        selection_source = item.get("selection_source") if isinstance(item, dict) else None
+        print(
+            f"[TRACE][{stage}] id={pid} | zone={zone} | rank={pos}"
+            f" | llm_score={f'{float(llm_score):.6f}' if isinstance(llm_score, (int, float)) else '-'}"
+            f" | source={selection_source or '-'}",
+            flush=True,
+        )
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Daily Paper Reader pipeline (steps 0~6).",
@@ -129,6 +390,12 @@ def main() -> None:
         choices=("auto", "standard", "skims"),
         help="Force fetch-run mode: auto(按阈值), standard(非skims), skims(强制skims).",
     )
+    parser.add_argument(
+        "--trace-arxiv-id",
+        action="append",
+        default=None,
+        help="可重复传入，追踪指定 arXiv ID 在各阶段是否命中；支持逗号分隔多个值。",
+    )
     args = parser.parse_args()
 
     python = sys.executable
@@ -150,6 +417,31 @@ def main() -> None:
             f"fetch_mode={fetch_mode}",
             flush=True,
         )
+    trace_ids = parse_trace_ids(args.trace_arxiv_id)
+    if trace_ids:
+        print(f"[TRACE] 启用论文追踪: {', '.join(trace_ids)}", flush=True)
+
+    archive_dir = os.path.join(ROOT_DIR, "archive", run_date_token)
+    raw_path = os.path.join(archive_dir, "raw", f"arxiv_papers_{run_date_token}.json")
+    bm25_path = os.path.join(
+        archive_dir,
+        "filtered",
+        f"arxiv_papers_{run_date_token}.bm25.json",
+    )
+    embedding_path = os.path.join(
+        archive_dir,
+        "filtered",
+        f"arxiv_papers_{run_date_token}.embedding.json",
+    )
+    rrf_path = os.path.join(archive_dir, "filtered", f"arxiv_papers_{run_date_token}.json")
+    rerank_path = os.path.join(archive_dir, "rank", f"arxiv_papers_{run_date_token}.json")
+    llm_path = os.path.join(archive_dir, "rank", f"arxiv_papers_{run_date_token}.llm.json")
+    recommend_mode = "skims" if use_skims_mode else "standard"
+    recommend_path = os.path.join(
+        archive_dir,
+        "recommend",
+        f"arxiv_papers_{run_date_token}.{recommend_mode}.json",
+    )
 
     if args.run_enrich:
         run_step(
@@ -166,10 +458,14 @@ def main() -> None:
             *(["--ignore-seen"] if args.fetch_ignore_seen else []),
         ],
     )
+    if trace_ids:
+        print_trace_retrieval("RAW", raw_path, trace_ids)
     run_step(
         "Step 2.1 - BM25",
         [python, os.path.join(SRC_DIR, "2.1.retrieval_papers_bm25.py")],
     )
+    if trace_ids:
+        print_trace_retrieval("BM25", bm25_path, trace_ids)
     run_step(
         "Step 2.2 - Embedding",
         [
@@ -181,18 +477,26 @@ def main() -> None:
             str(args.embedding_batch_size),
         ],
     )
+    if trace_ids:
+        print_trace_retrieval("EMBEDDING", embedding_path, trace_ids)
     run_step(
         "Step 2.3 - RRF",
         [python, os.path.join(SRC_DIR, "2.3.retrieval_papers_rrf.py")],
     )
+    if trace_ids:
+        print_trace_retrieval("RRF", rrf_path, trace_ids)
     run_step(
         "Step 3 - Rerank",
         [python, os.path.join(SRC_DIR, "3.rank_papers.py")],
     )
+    if trace_ids:
+        print_trace_retrieval("RERANK", rerank_path, trace_ids)
     run_step(
         "Step 4 - LLM refine",
         [python, os.path.join(SRC_DIR, "4.llm_refine_papers.py")],
     )
+    if trace_ids:
+        print_trace_llm("LLM", llm_path, trace_ids)
     run_step(
         "Step 5 - Select",
         [
@@ -201,6 +505,8 @@ def main() -> None:
             *(["--modes", "skims"] if use_skims_mode else []),
         ],
     )
+    if trace_ids:
+        print_trace_recommend("RECOMMEND", recommend_path, trace_ids)
     run_step(
         "Step 6 - Generate Docs",
         [
