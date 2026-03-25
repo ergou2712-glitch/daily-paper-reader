@@ -25,3 +25,27 @@ subscriptions:
     stage: A
     diff_threshold_pct: 15
   keyword_recall_mode: or
+  intent_profiles:
+    - tag: 信任测量
+      description: 请帮我查找关于信任测量的论文
+      enabled: true
+      keywords:
+        - keyword: human factor
+          keyword_cn: 人因工程
+          query: h
+        - keyword: trust measure
+          keyword_cn: 信任测量
+          query: t
+        - keyword: trust measurement
+          keyword_cn: 信任测量
+          query: methods and metrics for measuring trust
+        - keyword: trust metrics
+          keyword_cn: 信任指标
+          query: quantitative metrics used to assess trust
+      intent_queries:
+        - query: papers on trust measurement methodologies and metrics
+          query_cn: 关于信任测量方法和指标的论文
+          enabled: true
+          source: manual
+          note: ''
+      updated_at: '2026-03-25T09:18:20.465Z'
