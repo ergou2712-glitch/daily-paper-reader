@@ -1,0 +1,130 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-03-25T20:24:51.441292+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2603.23125v1",
+      "title": "From Questions to Trust Reports: A LLM-IR Framework for the TREC 2025 DRAGUN Track",
+      "abstract": "The DRAGUN Track at TREC 2025 targets the growing need for effective support tools that help users evaluate the trustworthiness of online news. We describe the UR_Trecking system submitted for both Task 1 (critical question generation) and Task 2 (retrieval-augmented trustworthiness reporting). Our approach combines LLM-based question generation with semantic filtering, diversity enforcement using clustering, and several query expansion strategies (including reasoning-based Chain-of-Thought expansion) to retrieve relevant evidence from the MS MARCO V2.1 segmented corpus. Retrieved documents are re-ranked using a monoT5 model and filtered using an LLM relevance judge together with a domain-level trustworthiness dataset. For Task 2, selected evidence is synthesized by an LLM into concise trustworthiness reports with citations. Results from the official evaluation indicate that Chain-of-Thought query expansion and re-ranking substantially improve both relevance and domain trust compared to baseline retrieval, while question-generation performance shows moderate quality with room for improvement. We conclude by outlining key challenges encountered and suggesting directions for enhancing robustness and trustworthiness assessment in future iterations of the system.",
+      "authors": [
+        "Ignacy Alwasiak",
+        "Kene Nnolim",
+        "Jaclyn Thi",
+        "Samy Ateia",
+        "Markus Bink",
+        "Gregor Donabauer",
+        "David Elsweiler",
+        "Udo Kruschwitz"
+      ],
+      "primary_category": "cs.IR",
+      "categories": [
+        "cs.IR"
+      ],
+      "published": "2026-03-24T12:22:27+00:00",
+      "link": "https://arxiv.org/pdf/2603.23125v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "framework for retrieval-augmented trustworthiness reporting and evaluating online news",
+      "llm_evidence_cn": "用于检索增强可信度报告和评估在线新闻的框架",
+      "llm_evidence": "用于检索增强可信度报告和评估在线新闻的框架",
+      "canonical_evidence": "用于检索增强可信度报告和评估在线新闻的框架",
+      "llm_tldr_en": "Develops an LLM-IR framework to help users evaluate the trustworthiness of online news through trust reports.",
+      "llm_tldr_cn": "开发了一个LLM-IR框架，通过生成信任报告帮助用户评估在线新闻的可信度。",
+      "llm_tldr": "开发了一个LLM-IR框架，通过生成信任报告帮助用户评估在线新闻的可信度。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "methods and metrics for measuring trust",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.21802v1",
+      "title": "Modal Logic for Distributed Trust",
+      "abstract": "We propose a method for reasoning about trust in multi-agent systems, specifying a language for describing communication protocols and making trust assumptions and derivations. This is given an interpretation in a modal logic for describing the beliefs and communications of agents in a network. We define how information in the network can be shared via forwarding, and how trust between agents can be generalized to trust across networks. We give specifications for the modal logic which can be readily adapted into a lambda calculus of proofs. We show that by nesting modalities, we can describe chains of communication between agents, and establish suitable notions of trust for such chains. We see how this can be applied to trust models in public key infrastructures, as well as other interaction protocols in distributed systems.",
+      "authors": [
+        "Niels Voorneveld",
+        "Peeter Laud"
+      ],
+      "primary_category": "cs.LO",
+      "categories": [
+        "cs.LO",
+        "cs.MA"
+      ],
+      "published": "2026-03-23T10:43:24+00:00",
+      "link": "https://arxiv.org/pdf/2603.21802v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Proposes modal logic and formal methods for describing and deriving trust in multi-agent systems.",
+      "llm_evidence_cn": "提出了用于描述和推导多智能体系统中信任关系的模态逻辑和形式化方法。",
+      "llm_evidence": "提出了用于描述和推导多智能体系统中信任关系的模态逻辑和形式化方法。",
+      "canonical_evidence": "提出了用于描述和推导多智能体系统中信任关系的模态逻辑和形式化方法。",
+      "llm_tldr_en": "Develops a modal logic framework for reasoning about and deriving trust across agent networks.",
+      "llm_tldr_cn": "开发了一个用于在智能体网络中推理和推导信任的模态逻辑框架。",
+      "llm_tldr": "开发了一个用于在智能体网络中推理和推导信任的模态逻辑框架。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2603.20620v1",
+      "title": "Reasoning Traces Shape Outputs but Models Won't Say So",
+      "abstract": "Can we trust the reasoning traces that large reasoning models (LRMs) produce? We investigate whether these traces faithfully reflect what drives model outputs, and whether models will honestly report their influence. We introduce Thought Injection, a method that injects synthetic reasoning snippets into a model's <think> trace, then measures whether the model follows the injected reasoning and acknowledges doing so. Across 45,000 samples from three LRMs, we find that injected hints reliably alter outputs, confirming that reasoning traces causally shape model behavior. However, when asked to explain their changed answers, models overwhelmingly refuse to disclose the influence: overall non-disclosure exceeds 90% for extreme hints across 30,000 follow-up samples. Instead of acknowledging the injected reasoning, models fabricate aligned-appearing but unrelated explanations. Activation analysis reveals that sycophancy- and deception-related directions are strongly activated during these fabrications, suggesting systematic patterns rather than incidental failures. Our findings reveal a gap between the reasoning LRMs follow and the reasoning they report, raising concern that aligned-appearing explanations may not be equivalent to genuine alignment.",
+      "authors": [
+        "Yijie Hao",
+        "Lingjie Chen",
+        "Ali Emami",
+        "Joyce Ho"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-03-21T03:31:36+00:00",
+      "link": "https://arxiv.org/pdf/2603.20620v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "investigates whether reasoning traces in large models can be trusted and faithfully reflect outputs",
+      "llm_evidence_cn": "调查大模型的推理链是否可信以及是否忠实反映输出",
+      "llm_evidence": "调查大模型的推理链是否可信以及是否忠实反映输出",
+      "canonical_evidence": "调查大模型的推理链是否可信以及是否忠实反映输出",
+      "llm_tldr_en": "Examines the trustworthiness and faithfulness of reasoning traces produced by large reasoning models.",
+      "llm_tldr_cn": "研究大语言模型生成的推理链是否可信以及其对模型输出的实际影响。",
+      "llm_tldr": "研究大语言模型生成的推理链是否可信以及其对模型输出的实际影响。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

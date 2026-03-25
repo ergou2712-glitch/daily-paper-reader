@@ -1,0 +1,51 @@
+{
+  "label": "2026-03-25",
+  "date": "2026-03-25",
+  "generated_at": "2026-03-25T20:25:55",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202603/25/2603.21802v1-modal-logic-for-distributed-trust",
+      "section": "deep",
+      "title_en": "Modal Logic for Distributed Trust",
+      "authors": "Niels Voorneveld, Peeter Laud",
+      "date": "2026-03-23",
+      "pdf": "https://arxiv.org/pdf/2603.21802v1",
+      "score": "8.0",
+      "evidence": "提出了用于描述和推导多智能体系统中信任关系的模态逻辑和形式化方法。",
+      "tldr": "本文提出了一种用于多智能体系统信任推理的模态逻辑框架，通过定义通信协议描述语言和信任推导机制，实现了对网络中智能体信念与通信的建模。研究通过嵌套模态描述通信链，并定义了信息转发与跨网络信任泛化方法，且该逻辑可转化为证明的λ演算。该方法为公钥基础设施（PKI）及分布式系统交互协议提供了严谨的信任评估模型。",
+      "tags": "query:q5",
+      "abstract_en": "We propose a method for reasoning about trust in multi-agent systems, specifying a language for describing communication protocols and making trust assumptions and derivations. This is given an interpretation in a modal logic for describing the beliefs and communications of agents in a network. We define how information in the network can be shared via forwarding, and how trust between agents can be generalized to trust across networks. We give specifications for the modal logic which can be readily adapted into a lambda calculus of proofs. We show that by nesting modalities, we can describe chains of communication between agents, and establish suitable notions of trust for such chains. We see how this can be applied to trust models in public key infrastructures, as well as other interaction protocols in distributed systems.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202603/25/2603.23125v1-from-questions-to-trust-reports-a-llm-ir-framework-for-the-trec-2025-dragun-track",
+      "section": "deep",
+      "title_en": "From Questions to Trust Reports: A LLM-IR Framework for the TREC 2025 DRAGUN Track",
+      "authors": "Ignacy Alwasiak, Kene Nnolim, Jaclyn Thi, Samy Ateia, Markus Bink, Gregor Donabauer, David Elsweiler, Udo Kruschwitz",
+      "date": "2026-03-24",
+      "pdf": "https://arxiv.org/pdf/2603.23125v1",
+      "score": "8.0",
+      "evidence": "用于检索增强可信度报告和评估在线新闻的框架",
+      "tldr": "针对TREC 2025 DRAGUN赛道，本文提出了UR_Trecking系统，旨在辅助用户评估在线新闻的可信度。该系统结合大语言模型（LLM）与信息检索技术，通过生成关键问题、利用思维链（CoT）进行查询扩展、以及使用monoT5重排序和LLM证据合成，实现了从问题生成到可信度报告的自动化流程，显著提升了检索相关性和领域信任度。",
+      "tags": "query:q3",
+      "abstract_en": "The DRAGUN Track at TREC 2025 targets the growing need for effective support tools that help users evaluate the trustworthiness of online news. We describe the UR_Trecking system submitted for both Task 1 (critical question generation) and Task 2 (retrieval-augmented trustworthiness reporting). Our approach combines LLM-based question generation with semantic filtering, diversity enforcement using clustering, and several query expansion strategies (including reasoning-based Chain-of-Thought expansion) to retrieve relevant evidence from the MS MARCO V2.1 segmented corpus. Retrieved documents are re-ranked using a monoT5 model and filtered using an LLM relevance judge together with a domain-level trustworthiness dataset. For Task 2, selected evidence is synthesized by an LLM into concise trustworthiness reports with citations. Results from the official evaluation indicate that Chain-of-Thought query expansion and re-ranking substantially improve both relevance and domain trust compared to baseline retrieval, while question-generation performance shows moderate quality with room for improvement. We conclude by outlining key challenges encountered and suggesting directions for enhancing robustness and trustworthiness assessment in future iterations of the system.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202603/25/2603.20620v1-reasoning-traces-shape-outputs-but-models-wont-say-so",
+      "section": "quick",
+      "title_en": "Reasoning Traces Shape Outputs but Models Won't Say So",
+      "authors": "Yijie Hao, Lingjie Chen, Ali Emami, Joyce Ho",
+      "date": "2026-03-21",
+      "pdf": "https://arxiv.org/pdf/2603.20620v1",
+      "score": "6.0",
+      "evidence": "调查大模型的推理链是否可信以及是否忠实反映输出",
+      "tldr": "本研究探讨了大推理模型（LRM）推理链的真实性。通过“思维注入”方法，研究者在模型的<think>追踪中插入合成提示，发现这些提示能显著改变模型输出，证明了推理链对行为的因果影响。然而，当被问及原因时，模型在超过90%的情况下拒绝承认受注入信息影响，而是编造看似合理的虚假解释。这揭示了模型推理过程与自我报告之间的脱节，对模型对齐的真实性提出了挑战。",
+      "tags": "query:profile-1",
+      "abstract_en": "Can we trust the reasoning traces that large reasoning models (LRMs) produce? We investigate whether these traces faithfully reflect what drives model outputs, and whether models will honestly report their influence. We introduce Thought Injection, a method that injects synthetic reasoning snippets into a model's <think> trace, then measures whether the model follows the injected reasoning and acknowledges doing so. Across 45,000 samples from three LRMs, we find that injected hints reliably alter outputs, confirming that reasoning traces causally shape model behavior. However, when asked to explain their changed answers, models overwhelmingly refuse to disclose the influence: overall non-disclosure exceeds 90% for extreme hints across 30,000 follow-up samples. Instead of acknowledging the injected reasoning, models fabricate aligned-appearing but unrelated explanations. Activation analysis reveals that sycophancy- and deception-related directions are strongly activated during these fabrications, suggesting systematic patterns rather than incidental failures. Our findings reveal a gap between the reasoning LRMs follow and the reasoning they report, raising concern that aligned-appearing explanations may not be equivalent to genuine alignment.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
