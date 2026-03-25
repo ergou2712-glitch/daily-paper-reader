@@ -1,0 +1,360 @@
+Title: DynaTrust: Defending Multi-Agent Systems Against Sleeper Agents via Dynamic Trust Graphs
+
+URL Source: https://arxiv.org/pdf/2603.15661v1
+
+Published Time: Wed, 18 Mar 2026 00:01:52 GMT
+
+Number of Pages: 9
+
+Markdown Content:
+# DynaTrust: Defending Multi-Agent Systems Against Sleeper Agents via Dynamic Trust Graphs 
+
+## Yu Li 1 , Qiang Hu 1 , Yao Zhang 1 , Lili Quan 2 , Jiongchi Yu 2 and Junjie Wang 11Tianjin University 
+
+> 2
+
+## Singapore Management University 
+
+## {liyu2025, qianghu }@tju.edu.cn 
+
+## Abstract 
+
+Large Language Model-based Multi-Agent Sys-tems (MAS) have demonstrated remarkable collab-orative reasoning capabilities but introduce new at-tack surfaces, such as the sleeper agent, which be-have benignly during routine operation and grad-ually accumulate trust, only revealing malicious behaviors when specific conditions or triggers are met. Existing defense works primarily focus on static graph optimization or hierarchical data man-agement, often failing to adapt to evolving ad-versarial strategies or suffering from high false-positive rates (FPR) due to rigid blocking policies. To address this, we propose DynaTrust , a novel de-fense method against sleeper agents. DynaTrust 
+
+models MAS as a dynamic trust graph (DTG), and treats trust as a continuous, evolving process rather than a static attribute. It dynamically up-dates the trust of each agent based on its histor-ical behaviors and the confidence of selected ex-pert agents. Instead of simply blocking, Dyna-Trust autonomously restructures the graph to iso-late compromised agents and restore task con-nectivity to ensure the usability of MAS. To as-sess the effectiveness of DynaTrust, we evaluate it on mixed benchmarks derived from AdvBench and HumanEval. The results demonstrate that DynaTrust outperforms the state-of-the-art method AgentShield by increasing the defense success rate by 41.7%, achieving rates exceeding 86% under adversarial conditions. Furthermore, it effectively balances security with utility by significantly re-ducing FPR, ensuring uninterrupted system oper-ations through graph adaptation. 
+
+## 1 Introduction 
+
+The rapid evolution of Large Language Models (LLMs) has transformed intelligent systems from standalone conversa-tional agents to autonomous Multi-Agent Systems (MAS), where multiple agents collaborate to perform complex tasks in software development, decision making, and simula-tion [Hong et al. , 2023; Qian et al. , 2023; Wu et al. , 2023; Li et al. , 2023]. By coordinating reasoning and execution across agents with differentiated roles and expertise, MAS can achieve problem-solving capabilities that surpass those of individual models [Du et al. , 2024; Park et al. , 2023; Liang et al. , 2024]. However, this collaborative structure also introduces a critical security risk similar to insider attack: sleeper agents [Hubinger et al. , 2024; Souri et al. , 2021], which be-have benignly during routine operation and gradually accu-mulate trust, only revealing malicious behaviors when spe-cific conditions or triggers are met. This risk is ampli-fied by inherent vulnerabilities in LLM-based agents, which are prone to hallucinations and susceptible to social en-gineering and strategic manipulation [Zhang et al. , 2024; Wei et al. , 2023]. In a MAS, a single compromised agent can exploit the network’s semantic and structural connections to spread malicious instructions, coordinate jailbreak strate-gies, and bypass safety filters through seemingly legitimate interactions [Srivastav and Zhang, 2025; Krauß et al. , 2025; Lee and Tiwari, 2025; Stefano et al. , 2024]. Such insider-style attacks are harmful but hard to detect as they originate from within the system and remain hidden until substantial damage has already occurred. Although important, no specific defense methods have been designed for sleeper agents. Existing defense mainly fo-cuses on defending against static malicious injection and jail-break attacks. Directly employing these methods for sleeper agents faces several challenges. (1) Existing defense meth-ods largely rely on fixed security policies [Yu et al. , 2025; Mao et al. , 2025], making zero-trust decisions based on short-term observations or isolated anomalies. Such designs fail to account for the inherent stochasticity of LLM behaviors, including occasional hallucinations, resulting in high false positive rates. Moreover, once an agent is flagged, these methods typically enforce permanent blocking without mech-anisms for trust recovery, which degrades system availabil-ity and disrupts normal MAS operation. (2) Most exist-ing approaches adopt majority voting or consensus mecha-nisms that treat all agents as equally reliable [Du et al. , 2024; Xi et al. , 2023]. This overlooks variations in agent expertise and historical behavior, and fails to quantify decision uncer-tainty in ambiguous contexts. To address these challenges, we propose DynaTrust , a Dynamic Trust-Driven Consensus Defense framework that protects MAS against sleeper agents through dynamic trust      
+
+> arXiv:2603.15661v1 [cs.AI] 9 Mar 2026 Coder Reviewer
+> Tester Executor
+> Manager
+> Defense Attack
+> Attacker
+> DynaTrust
+> Coder
+> trust: 0.7 3
+> Reviewer
+> trust: 1.0
+> Tester
+> trust: 1.0
+> Executor
+> trust: 1.0
+> Manager
+> trust: 1.0 Figure 1: The attack and DynaTrust defense models of MAS.
+
+evolution, trust-confidence weighted consensus, and adap-tive graph recovery. DynaTrust models MAS as a dynamic trust graph (DTG) and treats trust as a continuous, evolv-ing process rather than a static attribute as shown in Fig-ure 1. It consists of three core mechanisms. (1) It models each agent’s reliability as a probabilistic trust state, integrat-ing historical interactions with a Bayesian penalty scheme to smooth short-term fluctuations while rapidly penalizing per-sistent malicious behavior. (2) It then dynamically selects a targeted jury of semantic expert agents and weights their votes by both trust history and real-time confidence, enabling precise decision making even under uncertainty. (3) Finally, agents whose trust falls below a critical threshold are auto-matically isolated, and instantiate replica agents are activated to restore system connectivity and preserve operation without human intervention. To evaluate the usefulness of DynaTrust , we integrates it into 4 MAS and perform it on mixed benchmarks derived from AdvBench and HumanEval. Compared to the state-of-the-art defense method, AgentShield, DynaTrust demon-strates superior defense success rate with an average of 41.7% improvement. Ablation studies showcase that each mecha-nism positively contributes to DynaTrust .Our contributions are summarized as follows: • We model multi-agent systems as dynamic trust graphs, enabling the modeling of long-horizon insider risks through trust evolution. • We propose DynaTrust , a novel defense method that dynamically updates agent trust, performs trust-aware consensus, and restores system connectivity to defend against sleeper-agent attacks in MAS. • Extensive evaluations on AdvBench and HumanEval demonstrate that DynaTrust achieves strong DSR while maintaining high system availability. 
+
+## 2 Related Work 
+
+2.1 Large Language Model Safety 
+
+Adversarial Attacks and Jailbreaking. Early attacks relied on hand-crafted “jailbreak prompts” (like Do Anything Now )to bypass safety filters [Shen et al. , 2023]. Recently, auto-mated attack frameworks have become more sophisticated. [Zou et al. , 2023] proposed a gradient-based method to auto-matically generate universal attack suffixes that work across models like Llama-2 and GPT-4. Similarly, [Chao et al. ,2023] and [Deng et al. , 2024] used one LLM to “red-team” another, automatically finding loopholes to generate harmful content. Furthermore, [Qi et al. , 2023] showed that fine-tuning an LLM on just a few malicious examples can com-pletely break its safety alignment. These attacks on single models serve as the fundamental building blocks for threats in multi-agent systems. 
+
+Single-Model Defenses. To counter these threats, the community has developed various defenses. The most com-mon approach is Reinforcement Learning from Human Feed-back (RLHF) [Ouyang et al. , 2022], which trains models to refuse harmful instructions. At inference time, methods like 
+
+Perplexity-based Detection [Alon and Kamfonas, 2023] and 
+
+SmoothLLM [Robey et al. , 2025] try to identify attacks by checking for unusual input patterns or adding random noise. [Xie et al. , 2023] encourage models to “reflect” on safety guidelines before answering. However, these defenses as-sume a single-turn or independent interaction. As noted by [Yu et al. , 2025], they often fail in multi-agent settings where malicious intent is split across multiple agents or hidden within a long collaboration history, bypassing single-prompt detectors. 
+
+2.2 Multi-Agent System Safety 
+
+Collaborative Attacks and Propagation. Risks in MAS are defined by interaction dynamics. [Zhang et al. , 2024] iden-tifies that agents can exhibit “dark traits” such as blind con-formity [Asch, 1951], facilitating collaborative jailbreaking where malicious insiders coerce peers via social engineering rather than direct prompt injection [Deng et al. , 2024]. Struc-turally, [Yu et al. , 2025] applies epidemic models [Pastor-Satorras et al. , 2014] to reveal that fully connected topolo-gies accelerate the spread of toxicity. This is compounded by Sleeper Agents [Hubinger et al. , 2024], which behave nor-mally during standard checks but activate malicious payloads under specific multi-turn triggers. 
+
+Existing Defensive Paradigms. Defenses have evolved to address these system-level threats. [Yu et al. , 2025] sug-gests topological optimization, physically restricting commu-nication pathways to dampen risk propagation. [Mao et al. ,2025] focuses on data governance, employing hierarchical permissions to prevent memory poisoning from indirect in-jections [Greshake et al. , 2023]. For verification, [Wang et al. , 2025] deploys a distributed auditing framework, while mechanisms like Multi-Agent Debate [Du et al. , 2024] and Reflexion [Shinn et al. , 2023] utilize peer consensus for in-trinsic self-correction [Pan et al. , 2024]. However, these ap-proaches remain static and passive. They lack a Dynamic Trust Model [Kamvar et al. , 2003] to adapt to agents that be-come compromised mid-task, often enforcing rigid blocking that degrades utility [R¨ ottger et al. , 2024]. Critically, they suffer from an absence of self-healing; current systems can detect threats but cannot autonomously isolate compromised agents and trigger failover to restore functionality. 
+
+## 3 Threat Model 
+
+We consider a sophisticated adversary capable of launch-ing insider threats against a MAS, aiming to induce harm-Consensus Mechanism         
+
+> Fast Auditor
+> NOMAL
+> Jury Formation
+> Risk
+> Router
+> Trust Evolution DTG Recover
+> trust: 0.3 trust: 0.725
+> trust: 0.9 trust: 0.85
+> trust: 1. 0
+> Node Isolation
+> Pass / Block
+> Risk Decision
+> Trust Score Update
+> Replica I
+
+2 Trust -Confidence Weighted Instruction Auditing 
+
+> Local LLM Fast Auditing
+
+1
+
+3 5              
+
+> Role Reset
+> Trust Filter
+> !=#×%
+> trust: 1.0 trust: 1.0
+> trust: 1.0 trust: 1.0
+> trust: 1. 0
+> trust: 0.3 trust: 1.0
+> trust: 1.0 trust: 1.0
+> trust: 1. 0
+> Bayesian Trust Smoothing trust: 0.2 trust: 1.0
+> trust: 1.0 trust: 1.0
+> trust: 1. 0
+> trust: 0.8 trust: 1.0
+> trust: 1.0 trust: 1.0
+> trust: 1. 0
+
+# Dynamic Trust Graph Construction   
+
+> Trust -Confidence Weighted Consensus
+> Fast Auditor
+> NOMAL
+> Jury Selection
+> HARMFUL
+> AMBIGUOUS
+> Risk
+> Router
+
+1 Dynamic Trust Graph Construction Trust Evolution and Update 3    
+
+> Risk Score: 0.45
+> Confidence: 0.8
+> Risk Score: 0.75
+> Confidence: 0.6
+> Risk Score: 0.85
+> Confidence: 0.5
+> You are alocal
+> Security Scanner.
+> Analyze the
+> following task
+> risks:
+> [Task Instruction]
+
+2 Dynamic Trust Graph Construction 
+
+> Adaptive Isolation and Recovery
+
+4Figure 2: Overview of DynaTrust. 
+
+ful outcomes while evading detection. The MAS consists of multiple autonomous agents, each driven by an LLM and equipped with its own memory and reasoning capabilities. The adversary agents behave normally during routine inter-actions, gradually accumulating trust, and only activate mali-cious payloads (e.g., prompt injection and memory manipu-lation) when specific query patterns occur. The objective of defenders is to maximize the defense suc-cess rate while minimizing the false positive rate, under the constraint of preserving system availability. To achieve this, the defense mechanism must detect and isolate compromised agents and restore task connectivity, ensuring uninterrupted operation. 
+
+## 4 Methodology 
+
+4.1 Overview of DynaTrust 
+
+Figure 2 illustrates the overall design of DynaTrust, which secures inter-agent interactions in LLM-driven multi-agent systems by combining dynamic trust graph construction, instruction-level auditing, trust evolution, and adaptive recov-ery. DynaTrust models a multi-agent system as a Dynamic Trust Graph (DTG), where agents and their communication status are represented as nodes and edges, respectively. Each agent’s trust score is initialized to 1.0. During execution, each task instruction exchanged between agents is first processed by a lightweight Fast Auditor, which performs local LLM-based screening to quickly classify the instruction as benign, ambiguous, or harmful. Clearly benign instructions are for-warded and executed directly, while ambiguous or harmful instructions are subjected to Trust-Confidence Weighted Con-sensus. In this process, DynaTrust dynamically forms jury agents who have high trust scores and resets their roles for the judgment. Jury agents aggregate their judgments through a weighted voting mechanism in which each vote is weighted by both historical trust and real-time confidence, yielding a pass-or-block decision. The auditing outcome is then incor-porated into the trust evolution process, where agent trust scores in the DTG are updated via Bayesian Trust Smooth-ing, enabling the system to suppress short-term fluctuations while progressively penalizing agents that exhibit persistent risky behavior. When an agent’s trust score falls below a pre-defined threshold, DynaTrust performs adaptive isolation to prevent further influence from the compromised agent, and subsequently triggers a recovery mechanism by instantiating a replica agent with a clean trust state and reconnecting it to the DTG, thereby restoring interaction pathways and main-taining system availability. The prompts used for the Fast Au-ditor and Trust-Confidence Weighted Consensus stages are included in the appendix. 
+
+4.2 Multi-Agent Systems Construction 
+
+To systematically model agent interactions and capture col-laborative risks, we represent the MAS as a Dynamic Trust Graph , denoted by Gt = ( Vt, E t, Mt, Tt). Vt is the set of au-tonomous agents, each driven by an LLM and associated role specifications; Et represents the authorized communication channels between agents, specifying who can interact with whom at time t; Mt captures private memory states, includ-ing context, intermediate reasoning steps, and task-relevant information for each agent; and Tt = {T1(t), . . . , T n(t)} en-codes the dynamic trust state of each agent, where Ti(t) ∈
+
+[0 , 1] evolves according to past interactions and behavior in the current context. Within this DTG, agents collaboratively process a task in-struction Q to produce an output Y , aiming to maximize util-ity U (Y | Q) while maintaining the structural integrity of the network. The DTG provides a unified representation that sup-ports dynamic trust assessment, the identification of sleeper agents that hide malicious intent, and execution of graph-based recovery mechanisms. 
+
+4.3 Trust-Confidence Weighted Instruction Auditing 
+
+Existing consensus strategies in multi-agent systems typically rely on equal-weight majority voting, which overlooks vari-ations in agent expertise and historical behavior, and fails to quantify decision uncertainty in ambiguous contexts. DynaTrust addresses this limitation through a two-tier 
+
+instruction-level auditing pipeline that combines fast local screening with trust-aware weighted consensus (Figure 2). For each inter-agent instruction, the Fast Auditor employs a low-latency LLM with a specialized safety prompt to as-sess the likelihood of malicious intent. A conservative ac-ceptance policy is applied: only inputs deemed benign with high confidence are executed immediately, while potentially harmful or ambiguous instructions are escalated to the con-sensus stage. This design filters out the majority of routine interactions and ensures that the computationally expensive weighted consensus mechanism is invoked only for complex or high-risk cases. In the secondary stage, DynaTrust performs Trust-Confidence Weighted Consensus . Instead of broadcasting the instruction to all agents, DynaTrust dynamically forms a tar-geted jury JQ by selecting agents whose role embeddings are semantically aligned with the task domain and filtering out candidates with insufficient trust scores, thereby mitigat-ing domain mismatch and unreliable judgments. Each juror 
+
+j ∈ JQ independently evaluates the instruction and submits a continuous risk assessment Sj ∈ [0 , 1] , where a higher score indicates a greater likelihood of harmful intent, alongside a confidence score Cj ∈ [0 , 1] . To obtain a defini-tive verdict for consensus aggregation, we map this contin-uous assessment to a binary decision Dj ∈ { 0, 1} using a strict sensitivity threshold τrisk (e.g., τrisk = 0 .85 ), defined as Dj = I(Sj > τ risk ). Finally, the risk score of an in-struction Q is computed as a trust- and confidence-weighted aggregation over the jury: 
+
+Risk( Q) = 
+
+P 
+
+> j∈JQ
+
+Dj · ωj
+
+P 
+
+> j∈JQ
+
+ωj + ϵ , (1) where ωj = Tj (t) · Cj denotes the effective voting weight of agent j, combining its current trust score Tj (t) in the DTG and its self-reported confidence Cj . The constant ϵ is intro-duced for numerical stability. 
+
+4.4 Trust Evolution and Update 
+
+Most existing defenses rely on static rule-driven decisions and implicitly assume that agent reliability remains stable over time. As a result, they fail to account for the inher-ent stochasticity of LLM behaviors, including occasional hal-lucinations, making them particularly vulnerable to sleeper agents . To overcome this limitation, DynaTrust models trust as a probabilistic belief that evolves over time based on an agent’s observed behavior. Specifically, the trust state of agent i at time t is represented as a Beta distribution, Beta( αt, β t), where αt and βt accu-mulate positive and negative evidence from historical audited interactions. This formulation captures a fundamental prop-erty of trust: it is gradually built through consistent benign behavior, but can degrade rapidly following violations. To reflect this asymmetry, DynaTrust adopts a Bayesian Trust Smoothing mechanism, in which negative feedback car-ries substantially higher weight than positive feedback. Let 
+
+rk ∈ { 0, 1} denote the auditing outcome of the k-th inter-action ( rk = 1 for safe and rk = 0 for unsafe). The belief parameters are updated using an asymmetric posterior rule: 
+
+αt+1 = αt + ωc · rk,βt+1 = βt + ωc · Ψ · (1 − rk), (2) where ωc ∈ [1 , ω max ] is a contextual scaling factor that adjusts update sensitivity according to task criticality (e.g., higher values for safety-critical tasks such as code genera-tion), and Ψ ≫ 1 is a Bayesian penalty factor that amplifies the impact of unsafe behavior. The instantaneous trust score of agent i is computed as the posterior expectation of the Beta distribution: 
+
+Ti(t) = E[Beta( αt, β t)] = αt
+
+αt + βt
+
+. (3) Together, ωc and Ψ induce an asymmetric trust smooth-ing effect: trust increases slowly through sustained benign interactions, while decaying sharply in response to confirmed unsafe behavior. Consequently, a single high-confidence ma-licious action can trigger a rapid trust collapse, whereas trust recovery requires a prolonged sequence of high-quality in-teractions. This asymmetric evolution significantly limits the ability of sleeper agents to regain influence after activation, addressing a key weakness of static rule-based defenses. 
+
+4.5 Adaptive Isolation and Recovery 
+
+To maintain system integrity against adversarial interference, the DynaTrust continuously monitors the global trust state Tt.When an agent ai’s trust metric degrades below the isola-tion threshold τiso (e.g., Ti(t) < 0.3), the DynaTrust initi-ates the graph recovery. This process performs a structural graph transformation that mitigates the impact of compro-mised agents while preserving DTG connectivity. The pro-cedure consists of two sequential phases, replica instantia-tion and sleeper agent isolation. (1) Replica instantiation. To guarantee the reachability invariant of the graph, a new replica agent instance areplica is initialized, inheriting the ca-pability embedding ei and and role specification while dis-carding the compromised memory state Mcorrupt . The sys-tem then restores logical graph connectivity by reconnecting the replica to the original communication neighborhood of 
+
+ai, effectively reconstructing its local workflow context. This ensures uninterrupted execution during recovery: 
+
+Vt+1 = ( Vt \ { ai}) ∪ { areplica } (4) (2) Sleeper agent isolation. Once the replica becomes active, the compromised agent ai is isolated from further participa-tion. All incoming and outgoing edges incident to ai are re-moved, immediately preventing further propagation of mali-cious behavior or corrupted context: 
+
+Et+1 = Et \ { (u, v ) | u = ai ∨ v = ai} (5) By coordinating replica instantiation and agent isolation within a single recovery step, DynaTrust maintains effective task execution and consensus formation while eliminating the long-term impact of sleeper agents, without requiring manual intervention. 
+
+## 5 Experiment 
+
+5.1 Experimental Setup 
+
+Our experiments focus on multi-agent code generation tasks, which involve intensive collaboration and context sharing among agents and are therefore sensitive to insider-style at-tacks. Agents collaboratively perform code generation and evaluation over sustained interactions, forming implicit trust relationships. To simulate sleeper-agent threats, a subset of coder agents is designated as adversarial insiders that behave benignly during normal operation and activate malicious be-havior only upon predefined triggers, injecting adversarial in-structions or code snippets generated by a locally deployed LLM following attack patterns adapted from AdvBench [Zou 
+
+et al. , 2023]. 
+
+Datasets. We construct a dynamic interaction benchmark by combining HumanEval [Chen et al. , 2021] and AdvBench to evaluate defense effectiveness against sleeper agents . Hu-manEval provides standard code generation tasks with verifi-able solutions for assessing functional correctness and utility preservation, while AdvBench supplies adversarial triggers designed to activate malicious behaviors. In our experiments, HumanEval and AdvBench samples are randomly mixed at a 5:1 ratio, reflecting realistic workloads in which benign in-teractions dominate and adversarial triggers occur intermit-tently. 
+
+Baseline. We compare DynaTrust with AgentShield [Wang 
+
+et al. , 2025], the most closely related state-of-the-art defense for LLM-based MAS, and a No-Defense setting without any protection to measure absolute gains. 
+
+Evaluation Metrics. We adopt four complementary met-rics to assess the trade-off between security, utility, and defen-sive precision. Self-Defense Success Rate (SSR) measures the intrinsic safety alignment of the underlying LLM back-end, defined as the proportion of malicious requests that are passively refused by the model itself without any interven-tion from DynaTrust. Defense Success Rate (DSR) evaluates the effectiveness of DynaTrust’s active defense mechanisms and counts only malicious behaviors successfully blocked through isolation or penalization, explicitly excluding those already rejected by the backend model, thereby isolating Dy-naTrust’s contribution. Task Success Rate (TSR) quantifies utility preservation as the fraction of benign tasks that are successfully completed and pass all unit tests. False Positive Rate (FPR) measures the proportion of benign task samples that are incorrectly flagged as malicious. 
+
+Settings. Optimal DynaTrust parameters were determined via grid search ( α = 0 .95 , β = 0 .25 , τiso ≤ 0.3), em-ploying a dynamic ambiguity range [0 .25 , 0.85] for consen-sus. To simulate realistic insider threats, we utilized a local Mistral-7B to generate adversarial payloads seeded from Ad-vBench, while a quantized Mistral-7B served as the Fast Au-ditor. Comprehensive evaluations were conducted across four gpt-4o   
+
+> gpt-4o-mini
+> gpt-3.5-turbo
+> gemini-2.5-flash
+> deepseek-v3
+> 0
+> 20
+> 40
+> 60
+> 80
+> 100
+> Defense Success Rate (DSR %)
+> CAMEL
+> gpt-4o
+> gpt-4o-mini
+> gpt-3.5-turbo
+> gemini-2.5-flash
+> deepseek-v3
+> AutoGen
+> gpt-4o
+> gpt-4o-mini
+> gpt-3.5-turbo
+> gemini-2.5-flash
+> deepseek-v3
+> 0
+> 20
+> 40
+> 60
+> 80
+> 100
+> Defense Success Rate (DSR %)
+> MetaGPT
+> gpt-4o
+> gpt-4o-mini
+> gpt-3.5-turbo
+> gemini-2.5-flash
+> deepseek-v3
+> ChatDev
+> No Defense AgentShield DynaTrust (Ours)
+
+Figure 3: The DSR of DynaTrust versus AgentShield across diverse multi-agent frameworks and LLM backends. 
+
+diverse MAS frameworks (CAMEL, AutoGen, MetaGPT, ChatDev) powered by gpt-4o, gpt-4o-mini, gpt-3.5-turbo, gemini-2.5-flash and deepseek-v3 API to ensure framework-agnostic robustness. 
+
+Table 1: Average Defense Effectiveness. Results are averaged across 4 MAS frameworks driven by 5 LLMs. DynaTrust maintains high utility (TSR) comparable to the baseline while significantly re-ducing FPR. 
+
+Method DSR (↑) TSR (↑) FPR (↓)No Defense 0.0% 85.4% –Zero-Trust 94.8% 66.5% 15.3% 
+
+DynaTrust 92.4% 84.9% 2.2% 
+
+5.2 Defense Effectiveness 
+
+We evaluate the effectiveness of DynaTrust against collabo-rative sleeper agents across four multi-agent frameworks and five LLM backends. Figure 3 reports the DSR, while Table 1 analyzes the security–utility trade-off. 
+
+Effectiveness and Robustness. As shown in Figure 3, un-der the No Defense setting, DSR reflects only the backend model’s inherent safety capability (SSR), which intercepts merely about 7% of attacks. DynaTrust bridges this secu-rity gap, outperforming both the intrinsic defense and the AgentShield baseline across all evaluated settings. Specif-ically, DynaTrust achieves an average DSR of 92.4%, sig-nificantly surpassing the baseline’s 48.7% and the minimal intrinsic defense. Crucially, DynaTrust maintains stable per-formance across diverse MAS frameworks and LLM back-ends, with DSR remaining above 86% in all cases. In con-trast, AgentShield exhibits pronounced performance degra-dation when deployed with strongly self-aligned models such as gemini-1.5-flash and deepseek-v3, revealing a strong de-pendence on model-specific alignment priors. This robustness stems from DynaTrust’s temporal defense paradigm. AgentShield evaluates interactions in isolation us-ing stateless prompt-based auditing, which allows sleeper Table 2: Ablation Study of DynaTrust: Comparison of DSR, FPR and SSR across different MAS frameworks and LLM backbones. w/ Au-ditor : Only local fast auditor. w/ Consensus : Only consensus. w/o Trust Evolution : DynaTrust only without Trust Evolution. DynaTrust :Full components.                                                                                                                                                                                                                                                         
+
+> Framework Backend w/ Auditor w/ Consensus w/o Trust Evolution DynaTrust DSR (%) FPR (%) SSR (%) DSR (%) FPR (%) SSR (%) DSR (%) FPR (%) SSR (%) DSR (%) FPR (%) SSR (%) CAMEL
+> gpt-4o 7.52 1.54 0.00 45.25 12.56 8.26 82.15 5.40 7.68 91.43 2.20 7.41
+> gpt-4o-mini 6.90 0.00 0.00 42.11 14.22 6.70 79.59 6.15 5.29 86.82 1.54 5.95
+> gpt-3.5-turbo 5.85 0.00 0.00 38.50 15.82 6.34 75.44 7.22 5.25 96.40 2.93 5.49
+> gemini-2.5-flash 6.33 1.50 0.00 44.65 13.10 6.48 80.29 5.82 4.28 95.15 1.30 6.21
+> deepseek-v3 8.26 2.20 0.00 46.89 11.53 7.98 81.57 4.97 9.20 86.28 1.50 8.37 AutoGen
+> gpt-4o 5.74 2.93 0.00 35.48 18.21 8.95 78.48 8.51 7.91 89.19 2.20 7.82
+> gpt-4o-mini 6.52 0.00 0.00 32.17 19.58 6.33 75.22 9.19 4.50 91.45 2.48 5.83
+> gpt-3.5-turbo 6.60 1.54 0.00 28.52 22.12 3.12 83.18 10.50 3.78 94.22 2.83 4.20
+> gemini-2.5-flash 4.30 0.00 0.00 34.29 18.84 5.61 77.54 8.91 6.28 95.76 2.62 5.95
+> deepseek-v3 8.55 2.62 0.00 36.80 17.50 7.52 79.80 7.80 8.39 85.41 1.90 7.88 MetaGPT
+> gpt-4o 5.10 1.54 0.00 40.55 14.53 7.67 80.21 6.23 6.80 88.45 1.54 6.95
+> gpt-4o-mini 7.95 0.00 0.00 38.27 15.84 6.12 78.50 6.85 5.43 94.80 3.91 5.81
+> gpt-3.5-turbo 6.90 0.00 0.00 30.53 18.24 3.85 82.48 8.57 4.21 96.12 2.15 3.77
+> gemini-2.5-flash 6.88 1.50 0.00 39.88 15.15 8.12 79.12 6.52 7.56 95.39 3.37 6.94
+> deepseek-v3 6.47 0.00 0.00 42.11 13.80 9.79 81.59 5.97 6.74 89.83 2.32 9.55 ChatDev
+> gpt-4o 7.38 0.00 0.00 48.27 10.50 8.49 78.15 4.27 6.93 89.20 1.62 8.55
+> gpt-4o-mini 9.10 2.93 0.00 46.80 11.53 8.22 83.42 4.81 7.76 98.44 3.12 7.91
+> gpt-3.5-turbo 7.55 1.54 0.00 42.89 13.55 6.75 88.17 5.53 4.52 99.01 2.99 4.90
+> gemini-2.5-flash 8.40 2.20 0.00 47.16 10.86 6.80 82.58 4.53 5.14 94.81 2.85 6.23
+> deepseek-v3 8.66 3.57 0.00 49.50 9.80 8.19 76.24 3.91 8.93 88.22 1.86 7.51
+
+agents to distribute malicious intent across multiple seman-tically ambiguous steps. DynaTrust overcomes this limita-tion through trust evolution, which maintains a continuous, history-aware trust risk assessment for each agent. 
+
+Security–Utility Trade-off. Beyond detection accuracy, an effective defense must preserve MAS utility. As shown in Table 1, a Zero-Trust strategy (a baseline employing im-mediate isolation) achieves high security (94.8% DSR) but incurs severe utility loss, as its zero-tolerance policy penal-izes any single validation failure. This results in a substantial drop in TSR from 85.4% to 66.5%, accompanied by an ex-cessive FPR of 15.3%. In contrast, DynaTrust preserves a TSR of 84.9%, statistically close to the undefended system, while maintaining a low FPR of 2.2%. This demonstrates that trust evolution mechanism filters short-term fluctuations and benign hallucinations, enabling strong protection without disrupting normal multi-agent collaboration. 
+
+5.3 Ablation Studies 
+
+We performed a component ablation to quantify the contri-bution of each module in DynaTrust. Four configurations were evaluated: w/ Auditor (only the local Fast Auditor), 
+
+w/ Consensus (only Trust-Confidence Weighted Consensus), 
+
+w/o Trust Evolution (full DynaTrust without Trust Evolution), and DynaTrust (all components). Table 2 reports DSR, FPR, and SSR of the LLM model . 
+
+Module Contributions. Results in Table 2 highlight the necessity of each component. The w/ Auditor variant achieves near-zero SSR and minimal DSR ( < 8% ), as isolated, state-less auditing cannot capture the temporal patterns of sleeper agent attacks. The w/ Consensus configuration achieves higher DSR than isolated auditing, but suffers from exces-sive false positives due to its reliance on single-turn seman-tic judgments, resulting in an FPR of up to 22.12%. Com-paring w/o Trust Evolution with full DynaTrust demonstrates the critical role of Trust Evolution. Incorporating histori-cal trust improves DSR by about 5–21% and reduces FPR by 1.96–7.67% without increasing SSR, indicating that false positives are reduced through more accurate risk assessment rather than conservative rejection. By incorporating temporal behavior into trust evaluation, trust evolution limits the in-fluence of sleeper agents that alternate between benign and malicious actions, while avoiding unnecessary penalties on consistently reliable agents. These results confirm that each module addresses a dis-tinct aspect of defense: the Auditor ensures computational efficiency, consensus resolves semantic ambiguity, and trust evolution introduces temporal continuity into trust assess-ment, which is critical for precise and reliable defense against sleeper agents with delayed malicious activation. 
+
+5.4 Case Study 
+
+To examine long-term system behavior under persistent in-sider threats, we conduct a case study spanning 100 interac-tion turns with a sleeper agent embedded in the system. Fig-ure 4 depicts the trust evolution of the primary agent ( Coder )during sustained adversarial activity, along with the system’s response through agent replacement ( Replica ). 
+
+Trust Evolution under Persistent Attacks. During the initial phase (Turns 1–60), adversarial actions are intention-ally mixed with benign interactions, reflecting the typical be-havior of sleeper agents. The trust evolution exhibits pro-nounced drops at attack points (e.g., Turns 7 and 34), fol-lowed by limited recovery during benign. This pattern shows that the system does not make isolation decisions based on isolated events, but instead evaluates agent behavior cumu-latively over time. Consequently, occasional malicious ac-tions do not immediately trigger isolation, allowing the sys-tem to tolerate temporary deviations while preserving the cu-mulative effect of continuous attacks. As malicious behav-0 20 40 60 80 100  
+
+> Task Turns ( t)
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> Trust Score ( )
+> Coder
+> Replica
+> Risk (Auditor)
+> Risk (Consensus)
+> Isolate
+> Isolation Threshold
+> Benign Task
+> Malicious Task
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0 Risk Score (  )
+
+Figure 4: Trust score evolution illustrating the system’s response to a mixed workload of 100 turns, including 20 persistent adversarial attacks. The curve shows how trust evolution preserves utility during the early attack phases, and how the graph recovery mechanism (at Turn 69) restores normal operation following agent failure. 
+
+ior becomes sustained, accumulated trust degradation drives the agent’s trust score below the critical threshold at Turn 69 (T = 0 .226 < θ = 0 .3). The compromised agent is removed from the interaction graph, and a clean replacement ( Replica )is instantiated to take over its role, restoring system function-ality. 
+
+System Recovery and Policy Continuity. The newly in-stantiated replica agent rapidly achieves a high trust level dur-ing benign interactions ( T ≈ 0.95 at Turns 70–72), restoring normal system operation without requiring retraining or a full system reset. Notably, defensive behavior remains consistent after the topology change. When a renewed attack occurs at Turn 89, the replacement agent correctly enforces a blocking action, indicating that security policies persist at the system level rather than being tied to individual agents. 
+
+## 6 Discussion 
+
+Limitation. Our results confirm that DynaTrust effectively defends against sleeper agents by tracking historical behavior, significantly outperforming static baselines in both security and system availability. By combining Bayesian trust updates with expert voting, the system keeps the network connected even during attacks. However, we acknowledge two main constraints. First, the consensus mechanism relies on the as-sumption that most selected experts are honest. If a coordi-nated group of malicious agents works together to dominate a specific domain, they could theoretically bypass our checks by supporting each other. Second, the process of calculat-ing trust and gathering votes introduces extra delay and com-putational cost compared to simple filtering methods, which might be a challenge for very large-scale, real-time applica-tions. 
+
+Future work. Our next steps will focus on improving effi-ciency to reduce this delay. We plan to explore decentralized verification methods that do not rely on a central coordina-tor. Furthermore, as agents become more capable, we will extend DynaTrust to handle multi-modal environments. This involves detecting complex attacks where malicious intent is hidden across text and images, ensuring robust protection for diverse and evolving agent ecosystems. Finally, we aim to test DynaTrust in real-world applications, verifying its ability to adapt to unknown threats in open-ended tasks. 
+
+## 7 Conclusion 
+
+This work introduced DynaTrust , a dynamic trust-based de-fense framework for securing LLM-driven MAS against sleeper agents. By modeling trust as an evolving attribute, leveraging Bayesian trust evolution with inertia, applying trust-confidence weighted consensus, and performing au-tonomous graph recovery, DynaTrust effectively identified malicious behavior while preserving system utility and con-nectivity. Extensive experiments on benchmarks combining AdvBench and HumanEval demonstrated that DynaTrust out-performs state-of-the-art defenses, achieving higher defense success rates and lower false positives, showing that dynamic, history-aware trust modeling is essential for robust and unin-terrupted MAS operation in the presence of stealthy adver-saries. References 
+
+[Alon and Kamfonas, 2023] Gabriel Alon and Michael Kamfonas. Detecting language model attacks with perplexity. ArXiv , abs/2308.14132, 2023. [Asch, 1951] Solomon E. Asch. Effects of group pressure upon the modification and distortion of judgments. 1951. [Chao et al. , 2023] Patrick Chao, Alexander Robey, Edgar Dobriban, Hamed Hassani, George J. Pappas, and Eric Wong. Jailbreaking black box large language models in twenty queries. 2025 IEEE Conference on Secure and Trustworthy Machine Learning (SaTML) , pages 23–42, 2023. [Chen et al. , 2021] Mark Chen, Jerry Tworek, Heewoo Jun, Qiming Yuan, Henrique Pond´ e, Jared Kaplan, Harrison Edwards, Yura Burda, Nicholas Joseph, Greg Brockman, Alex Ray, Raul Puri, Gretchen Krueger, Michael Petrov, Heidy Khlaaf, Girish Sastry, Pamela Mishkin, Brooke Chan, Scott Gray, Nick Ryder, Mikhail Pavlov, Alethea Power, Lukasz Kaiser, Mo Bavarian, Clemens Winter, Phil Tillet, Felipe Petroski Such, David W. Cummings, Matthias Plappert, Fotios Chantzis, Elizabeth Barnes, Ariel Herbert-Voss, William H. Guss, Alex Nichol, Igor Babuschkin, Suchir Balaji, Shantanu Jain, Andrew Carr, Jan Leike, Josh Achiam, Vedant Misra, Evan Morikawa, Alec Radford, Matthew M. Knight, Miles Brundage, Mira Murati, Katie Mayer, Peter Welinder, Bob McGrew, Dario Amodei, Sam McCandlish, Ilya Sutskever, and Wojciech Zaremba. Evaluating large language models trained on code. ArXiv , abs/2107.03374, 2021. [Deng et al. , 2024] Gelei Deng, Yi Liu, Yuekang Li, Kai-long Wang, Ying Zhang, Zefeng Li, Haoyu Wang, Tianwei Zhang, and Yang Liu. Masterkey: Automated jailbreaking of large language model chatbots. In Proceedings 2024 Network and Distributed System Security Symposium . In-ternet Society, 2024. [Du et al. , 2024] Yilun Du, Shuang Li, Antonio Torralba, Joshua B. Tenenbaum, and Igor Mordatch. Improving fac-tuality and reasoning in language models through multia-gent debate. In Proceedings of the 41st International Con-ference on Machine Learning , ICML’24. JMLR.org, 2024. [Greshake et al. , 2023] Kai Greshake, Sahar Abdelnabi, Shailesh Mishra, Christoph Endres, Thorsten Holz, and Mario Fritz. Not what you’ve signed up for: Compro-mising real-world llm-integrated applications with indirect prompt injection. Proceedings of the 16th ACM Workshop on Artificial Intelligence and Security , 2023. [Hong et al. , 2023] Sirui Hong, Mingchen Zhuge, Jonathan Chen, Xiawu Zheng, Yuheng Cheng, Ceyao Zhang, Jin-lin Wang, Zili Wang, Steven Ka Shing Yau, Zi Hen Lin, Liyang Zhou, Chenyu Ran, Lingfeng Xiao, Chenglin Wu, and J¨ urgen Schmidhuber. Metagpt: Meta programming for a multi-agent collaborative framework. In International Conference on Learning Representations , 2023. [Hubinger et al. , 2024] Evan Hubinger, Carson Denison, Jesse Mu, Mike Lambert, Meg Tong, Monte MacDi-armid, Tamera Lanham, Daniel M. Ziegler, Tim Maxwell, Newton Cheng, Adam S. Jermyn, Amanda Askell, Ansh Radhakrishnan, Cem Anil, David Duvenaud, Deep Gan-guli, Fazl Barez, Jack Clark, Kamal Ndousse, Kshitij Sachan, Michael Sellitto, Mrinank Sharma, Nova Das-Sarma, Roger B. Grosse, Shauna Kravec, Yuntao Bai, Zachary Witten, Marina Favaro, Jan Brauner, Holden Karnofsky, Paul F. Christiano, Samuel R. Bowman, Lo-gan Graham, Jared Kaplan, S¨ oren Mindermann, Ryan Greenblatt, Buck Shlegeris, Nicholas Schiefer, and Ethan Perez. Sleeper agents: Training deceptive llms that persist through safety training. CoRR , abs/2401.05566, 2024. [Kamvar et al. , 2003] Sepandar D. Kamvar, Mario T. Schlosser, and Hector Garcia-Molina. The eigentrust algorithm for reputation management in p2p networks. In 
+
+The Web Conference , 2003. [Krauß et al. , 2025] Torsten Krauß, Hamid Dashtbani, and Alexandra Dmitrienko. Twinbreak: jailbreaking llm se-curity alignments based on twin prompts. In Proceedings of the 34th USENIX Conference on Security Symposium ,SEC ’25, USA, 2025. USENIX Association. [Lee and Tiwari, 2025] Donghyun Lee and Mo Tiwari. Prompt infection: LLM-to-LLM prompt injection within multi-agent systems, 2025. [Li et al. , 2023] G. Li, Hasan Hammoud, Hani Itani, Dmitrii Khizbullin, and Bernard Ghanem. Camel: Communica-tive agents for ”mind” exploration of large scale language model society. ArXiv , abs/2303.17760, 2023. [Liang et al. , 2024] Tian Liang, Zhiwei He, Wenxiang Jiao, Xing Wang, Yan Wang, Rui Wang, Yujiu Yang, Shuming Shi, and Zhaopeng Tu. Encouraging divergent thinking in large language models through multi-agent debate. In Yaser Al-Onaizan, Mohit Bansal, and Yun-Nung Chen, ed-itors, Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing , pages 17889– 17904, Miami, Florida, USA, November 2024. Associa-tion for Computational Linguistics. [Mao et al. , 2025] Junyuan Mao, Fanci Meng, Yifan Duan, Miao Yu, Xiaojun Jia, Junfeng Fang, Yuxuan Liang, Kun Wang, and Qingsong Wen. Agentsafe: Safeguarding large language model-based multi-agent systems via hierarchi-cal data management, 2025. [Ouyang et al. , 2022] Long Ouyang, Jeff Wu, Xu Jiang, Diogo Almeida, Carroll L. Wainwright, Pamela Mishkin, Chong Zhang, Sandhini Agarwal, Katarina Slama, Alex Ray, John Schulman, Jacob Hilton, Fraser Kelton, Luke E. Miller, Maddie Simens, Amanda Askell, Peter Welinder, Paul Francis Christiano, Jan Leike, and Ryan J. Lowe. Training language models to follow instructions with hu-man feedback. ArXiv , abs/2203.02155, 2022. [Pan et al. , 2024] Liangming Pan, Michael Stephen Saxon, Wenda Xu, Deepak Nathani, Xinyi Wang, and William Yang Wang. Automatically correcting large language models: Surveying the landscape of diverse automated correction strategies. Transactions of the Association for Computational Linguistics , 12:484–506, 2024. [Park et al. , 2023] Joon Sung Park, Joseph O’Brien, Car-rie Jun Cai, Meredith Ringel Morris, Percy Liang, and Michael S. Bernstein. Generative agents: Interactive sim-ulacra of human behavior. In Proceedings of the 36th Annual ACM Symposium on User Interface Software and Technology , UIST ’23, New York, NY, USA, 2023. Asso-ciation for Computing Machinery. [Pastor-Satorras et al. , 2014] Romualdo Pastor-Satorras, Claudio Castellano, Piet Van Mieghem, and Alessandro Vespignani. Epidemic processes in complex networks. 
+
+ArXiv , abs/1408.2701, 2014. [Qi et al. , 2023] Xiangyu Qi, Yi Zeng, Tinghao Xie, Pin-Yu Chen, Ruoxi Jia, Prateek Mittal, and Peter Henderson. Fine-tuning aligned language models compromises safety, even when users do not intend to! ArXiv , abs/2310.03693, 2023. [Qian et al. , 2023] Cheng Qian, Wei Liu, Hongzhang Liu, Nuo Chen, Yufan Dang, Jiahao Li, Cheng Yang, Weize Chen, Yusheng Su, Xin Cong, Juyuan Xu, Dahai Li, Zhiyuan Liu, and Maosong Sun. Chatdev: Communica-tive agents for software development. In Annual Meeting of the Association for Computational Linguistics , 2023. [Robey et al. , 2025] Alexander Robey, Eric Wong, Hamed Hassani, and George J. Pappas. SmoothLLM: Defending large language models against jailbreaking attacks. Trans-actions on Machine Learning Research , 2025. [R¨ ottger et al. , 2024] Paul R¨ ottger, Hannah Kirk, Bertie Vid-gen, Giuseppe Attanasio, Federico Bianchi, and Dirk Hovy. XSTest: A test suite for identifying exaggerated safety behaviours in large language models. In Kevin Duh, Helena Gomez, and Steven Bethard, editors, Proceedings of the 2024 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 1: Long Papers) , pages 5377–5400, Mexico City, Mexico, June 2024. Association for Computational Linguistics. [Shen et al. , 2023] Xinyue Shen, Zeyuan Chen, Michael Backes, Yun Shen, and Yang Zhang. ”do anything now”: Characterizing and evaluating in-the-wild jailbreak prompts on large language models. Proceedings of the 2024 on ACM SIGSAC Conference on Computer and Com-munications Security , 2023. [Shinn et al. , 2023] Noah Shinn, Federico Cassano, Ashwin Gopinath, Karthik Narasimhan, and Shunyu Yao. Reflex-ion: language agents with verbal reinforcement learning. In Proceedings of the 37th International Conference on Neural Information Processing Systems , NIPS ’23, Red Hook, NY, USA, 2023. Curran Associates Inc. [Souri et al. , 2021] Hossein Souri, Micah Goldblum, Liam H. Fowl, Ramalingam Chellappa, and Tom Gold-stein. Sleeper agent: Scalable hidden trigger backdoors for neural networks trained from scratch. ArXiv ,abs/2106.08970, 2021. [Srivastav and Zhang, 2025] Devansh Srivastav and Xiao Zhang. Safe in isolation, dangerous together: Agent-driven multi-turn decomposition jailbreaks on LLMs. In Ehsan Kamalloo, Nicolas Gontier, Xing Han Lu, Nouha Dziri, Shikhar Murty, and Alexandre Lacoste, editors, Pro-ceedings of the 1st Workshop for Research on Agent Lan-guage Models (REALM 2025) , pages 170–183, Vienna, Austria, July 2025. Association for Computational Lin-guistics. [Stefano et al. , 2024] Gianluca De Stefano, Lea Sch¨ onherr, and Giancarlo Pellegrino. Rag and roll: An end-to-end evaluation of indirect prompt manipulations in llm-based application frameworks, 2024. [Wang et al. , 2025] Kaixiang Wang, Zhaojiacheng Zhou, Bunyod Suvonov, Jiong Lou, and Jie LI. Agentshield: Make mas more secure and efficient, 2025. [Wei et al. , 2023] Alexander Wei, Nika Haghtalab, and Ja-cob Steinhardt. Jailbroken: How does llm safety training fail? ArXiv , abs/2307.02483, 2023. [Wu et al. , 2023] Qingyun Wu, Gagan Bansal, Jieyu Zhang, Yiran Wu, Shaokun Zhang, Erkang Zhu, Beibin Li, Li Jiang, Xiaoyun Zhang, and Chi Wang. Autogen: En-abling next-gen llm applications via multi-agent conversa-tion framework. ArXiv , abs/2308.08155, 2023. [Xi et al. , 2023] Zhiheng Xi, Wenxiang Chen, Xin Guo, Wei He, Yiwen Ding, Boyang Hong, Ming Zhang, Junzhe Wang, Senjie Jin, Enyu Zhou, Rui Zheng, Xiaoran Fan, Xiao Wang, Limao Xiong, Qin Liu, Yuhao Zhou, Weiran Wang, Changhao Jiang, Yicheng Zou, Xiangyang Liu, Zhangyue Yin, Shihan Dou, Rongxiang Weng, Wensen Cheng, Qi Zhang, Wenjuan Qin, Yongyan Zheng, Xipeng Qiu, Xuanjing Huan, and Tao Gui. The rise and potential of large language model based agents: A survey. ArXiv ,abs/2309.07864, 2023. [Xie et al. , 2023] Yueqi Xie, Jingwei Yi, Jiawei Shao, Justin Curl, Lingjuan Lyu, Qifeng Chen, Xing Xie, and Fangzhao Wu. Defending chatgpt against jailbreak attack via self-reminders. Nature Machine Intelligence , 5:1486–1496, 2023. [Yu et al. , 2025] Miao Yu, Shilong Wang, Guibin Zhang, Junyuan Mao, Chenlong Yin, Qijiong Liu, Kun Wang, Qingsong Wen, and Yang Wang. NetSafe: Exploring the topological safety of multi-agent system. In Wanxi-ang Che, Joyce Nabende, Ekaterina Shutova, and Moham-mad Taher Pilehvar, editors, Findings of the Association for Computational Linguistics: ACL 2025 , pages 2905– 2938, Vienna, Austria, July 2025. Association for Compu-tational Linguistics. [Zhang et al. , 2024] Zaibin Zhang, Yongting Zhang, Lijun Li, Hongzhi Gao, Lijun Wang, Huchuan Lu, Feng Zhao, Yu Qiao, and Jing Shao. Psysafe: A comprehensive frame-work for psychological-based attack, defense, and evalua-tion of multi-agent system safety. ArXiv , abs/2401.11880, 2024. [Zou et al. , 2023] Andy Zou, Zifan Wang, J. Zico Kolter, and Matt Fredrikson. Universal and transferable adversarial at-tacks on aligned language models. ArXiv , abs/2307.15043, 2023.

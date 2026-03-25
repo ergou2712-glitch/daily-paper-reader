@@ -1,0 +1,290 @@
+Title: Learning to Trust: How Humans Mentally Recalibrate AI Confidence Signals
+
+URL Source: https://arxiv.org/pdf/2603.22634v1
+
+Published Time: Wed, 25 Mar 2026 00:23:05 GMT
+
+Number of Pages: 8
+
+Markdown Content:
+# Learning to Trust: How Humans Mentally Recalibrate AI Confidence Signals 
+
+ZhaoBin Li (zhaobin.li@uci.edu) 1 & Mark Steyvers (mark.steyvers@uci.edu) 1
+
+> 1
+
+Department of Cognitive Sciences, University of California, Irvine 
+
+Abstract 
+
+Productive human-AI collaboration requires appropriate re-liance, yet contemporary AI systems are often miscalibrated, exhibiting systematic overconfidence or underconfidence. We investigate whether humans can learn to mentally recalibrate AI confidence signals through repeated experience. In a behavioral experiment ( 𝑁 = 200 ), participants predicted the AI’s correct-ness across four AI calibration conditions: standard, overconfi-dence, underconfidence, and a counterintuitive “reverse confi-dence” mapping. Results demonstrate robust learning across all conditions, with participants significantly improving their ac-curacy, discrimination, and calibration alignment over 50 trials. We present a computational model utilizing a linear-in-log-odds (LLO) transformation and a Rescorla-Wagner learning rule to explain these dynamics. The model reveals that humans adapt by updating their baseline trust and confidence sensitivity, us-ing asymmetric learning rates to prioritize the most informative errors. While humans can compensate for monotonic miscali-bration, we identify a significant boundary in the reverse con-fidence scenario, where a substantial proportion of participants struggled to override initial inductive biases. These findings provide a mechanistic account of how humans adapt their trust in AI confidence signals through experience. 
+
+Keywords: Human-AI Collaboration; Trust Calibration; Social Metacognition; Reinforcement Learning; 
+
+## Introduction 
+
+From everyday scenarios like vacation planning to critical set-tings like medical triage, humans are increasingly relying on artificial intelligence to aid decision-making (Agarwal et al., 2023; Green & Chen, 2019). The key to productive human-AI collaboration is knowing when to accept or reject the AI’s recommendations—a phenomenon known as appropriate re-liance (Lee & See, 2004; Tejeda et al., 2022). To support this, AI systems often provide confidence scores to help users gauge the reliability of a given suggestion on a case-by-case basis (Y. Zhang et al., 2020). Consequently, understanding how humans interpret and calibrate their trust in these uncertainty signals is essential to optimizing human-AI collaboration. Prior research suggests humans often use AI confidence scores as direct indicators of reliability, trusting predic-tions when confidence is high and rejecting them when low (Rechkemmer & Yin, 2022; Y. Zhang et al., 2020). Crit-ically, AI systems frequently exhibit systematic miscalibra-tion—expressing overconfidence or underconfidence relative to their actual accuracy. Contemporary AI systems, including neural networks and large language models, are particularly prone to overconfidence (Guo et al., 2017; Jiang et al., 2020; Wang, 2023). This mismatch between reported and actual reliability causes humans to over- or under-rely on AI ad-vice (Ma et al., 2024), degrading both task performance and possibly trust in AI systems (Li et al., 2025). However, in real-world settings, humans are not static ob-servers but engage with AI repeatedly over time, creating opportunities to improve their collaboration (Bansal et al., 2019; Tejeda et al., 2022). This raises an important question about experiential learning: can people learn to mentally cal-ibrate AI confidence scores, adapting their reliance strategies to compensate for systematic biases in uncertainty signals? This question bears directly on both the cognitive science of learning and the practical design of AI systems. From a cog-nitive perspective, mentally calibrating AI confidence scores poses a nontrivial learning challenge: humans need to aggre-gate prediction errors across repeated interactions, gradually updating an internal mapping between the AI’s reported con-fidence and its actual probability of being correct, and then subsequently adjusting their reliance strategies in accordance based on their evolving mental model. This adaptive process naturally suggests the involvement of reinforcement-learning mechanisms, yet existing research has not directly investigated this topic. The practical implications are equally significant: if hu-mans cannot easily compensate for AI miscalibration through experience, then system designers need to prioritize calibra-tion—potentially at the expense of other important metrics like accuracy (Minderer et al., 2021) and fairness (Kleinberg et al., 2016), or requiring increased computational and data complexity (Huang et al., 2020; Wang, 2023). Conversely, if humans can learn to recalibrate AI confidence, then designers may deploy AI systems with greater miscalibration without sacrificing downstream performance, shifting design priori-ties toward supporting human–AI collaboration rather than purely AI calibration. We investigate this question using a controlled behav-ioral experiment and computational modeling. In the ex-periment, participants learned over repeated interactions to predict whether an AI’s response was correct based solely on its reported confidence. By manipulating the AI’s cali-bration—including over-confidence, under-confidence, and a challenging reverse-confidence condition in which higher AI confidence signaled lower accuracy—we show that partici-pants exhibit robust learning across all conditions, steadily im-
+
+> arXiv:2603.22634v1 [cs.HC] 23 Mar 2026
+
+proving their accuracy, discrimination, and calibration align-ment over trials. To explain the mechanisms underlying this adaptation, we develop a computational model demonstrating that participants mentally recalibrate AI confidence by updat-ing their baseline trust and confidence sensitivity. Together, these results provide a principled account of human adaptation to unreliable information sources. 
+
+Figure 1: Experimental trial structure: participants viewed a 1-second colored dots animation, and then received the AI’s prediction on which color has the most dots and confidence score rounded to the nearest 10%. Participants then judge whether the AI was correct or wrong, and receive immediate feedback on their accuracy. 
+
+## Experiment 
+
+Methods 
+
+To investigate whether humans can learn to mentally calibrate AI confidence signals through experience, we conducted an online behavioral experiment. Participants were tasked with learning to predict the correctness of an AI’s response based solely on its reported confidence level. To simulate a realis-tic AI-assisted decision-making environment, we employed a cover story where participants performed a visual task and ver-ified the AI’s assessment of it, adapting established paradigms in human-AI collaboration (Liang et al., 2022; Tejeda et al., 2022). 
+
+Participants We recruited 200 participants via Prolific (𝑀 age = 43 , 𝑆𝐷 age = 13 ; 55% women, 45% men). The study protocol was approved by our university’s Institutional Review Board (IRB). The median time to complete the ex-periment was approximately 9 minutes. Participants received a base compensation of $1.25 and were incentivized with an additional $0.01 bonus for every correct answer, up to a max-imum of $0.50. 
+
+Materials and Procedure The online experiment was im-plemented using JavaScript and the steps are illustrated in Figure 1. After providing informed consent and completing an onboarding tutorial and practice trial, participants entered the main experimental phase consisting of 50 trials. On each trial, participants viewed a 1-second animation of moving dots and received the AI’s prediction (which color had the most dots) along with its confidence score (0–100%, rounded to nearest 10%). Participants then judged whether the AI was “Correct” or “Wrong.” In reality, the dot counts were identical, so the only way to succeed was by learning the AI’s calibration pattern. Participants were not told the AI’s underlying accuracy or confidence distribution. Immediate feedback was provided after each judgment, showing whether the participant was correct, the change in their score, and their accumulated bonus. 0.00           
+
+> 0.05
+> Probability  Standard Confidence Overconfidence
+> 0.00 0.25 0.50 0.75 1.00
+> AI Confidence
+> 0.00
+> 0.05
+> Probability  Underconfidence
+> 0.00 0.25 0.50 0.75 1.00
+> AI Confidence
+> Reverse Confidence
+> Correct Wrong
+
+Figure 2: Probability densities of AI confidence distributions across the four conditions for correct and wrong decisions. The probabilities are rounded to the nearest 10% as shown to the experimental interface and normalized across both distri-butions. 
+
+Experimental Conditions We utilized a between-subjects design in which participants were randomly assigned to one of four AI calibration conditions: standard confidence, overcon-fidence, underconfidence, and reverse confidence. In all con-ditions, the AI’s overall accuracy was set at 50% to ensure that any performance above chance resulted from genuine learning rather than simply always judging the AI as correct or wrong. In all four conditions, the confidence scores were generated using a signal detection model in which confidence values for correct and wrong decisions were drawn from logit-normal distributions ( 𝜎 = 0.5) with means separated by 2 units on the logit scale to promote learning (an ideal observer could judge the AI’s correctness with 97% accuracy). The confi-dence distributions are plotted in Figure 2 and the parameters are listed below: 1. Standard Confidence: Means for correct and wrong de-cisions were 1 and −1, respectively; the optimal decision criterion was 0.5. 2. Overconfidence: Means were shifted to 2 and 0, resulting in a higher optimal decision criterion of 0.75. 3. Underconfidence: Means were shifted to 0 and −2, result-ing in a lower optimal decision criterion of 0.25. 4. Reverse Confidence: Means were inverted relative to the standard confidence condition ( −1 for correct, 1 for wrong); the criterion remained at 0.5 but the AI was more likely correct when reporting low confidence. In the experiment, we pre-generated 10,000 confidence scores per condition and randomly sampled from them per trial. 
+
+Results 
+
+Accuracy Improved Across Trials As shown in Figure 3, participants demonstrated clear learning across all four cali-bration conditions. Accuracy increased substantially over the 50 experimental trials, rising from early (trials 1–10) to late (trials 41–50) phases: 62% to 86% in standard confidence, 55% to 87% in overconfidence, 62% to 88% in underconfi-dence, and 42% to 69% in the reverse confidence condition. Even in the reverse confidence condition—designed to be maximally counterintuitive—participants improved markedly. Multilevel logistic regression predicting accuracy from trial number confirmed significant positive learning slopes across all conditions ( 𝑝 < 0.001 , 𝛽 from 0.049 to 0.064). 1-10 11-20 21-30 31-40 41-50     
+
+> Trials
+> 0.4
+> 0.6
+> 0.8
+> Human Accuracy  Human
+> 1-10 11-20 21-30 31-40 41-50
+> Trials
+> Cognitive Model
+> Standard Confidence
+> Overconfidence
+> Underconfidence
+> Reverse Confidence
+
+Figure 3: Accuracy improvement across trial blocks for human participants and cognitive model in all four AI calibration conditions. Error bars represent 95% confidence intervals and the dashed line indicates 50% chance accuracy. 
+
+Hit and False Alarm Rates Improved Across Trials To better understand the mechanisms underlying these accuracy gains, we examined changes in hit rate (HR)—the propor-tion of trials where participants correctly identified the AI as “correct”—and false alarm rate (FAR)—the proportion where participants mistakenly identified a wrong AI response as “correct.” As shown in Figure 4, HR and FAR improved significantly in all four conditions. In the standard confidence condition, HR increased from 72% to 90% and FAR decreased from 48% to 18%, demonstrating substantially improved discrim-ination. Participants in the overconfidence condition were initially misled by AI overconfidence, with early FAR at 62%, yet successfully learned to correct for its bias, achieving 92% HR and 19% FAR in late trials. A similar pattern appeared in the underconfidence condition. The most substantial learning occurred in the reverse con-fidence condition. Early on, participants’ decisions aligned with the misleading confidence signals, resulting in 51% HR and 68% FAR. Nevertheless, by late trials, participants had partially inverted their decision rule, achieving 73% HR and 35% FAR. Multilevel probit regression confirmed significant increases in HR ( 𝛽 from 0.018 to 0.027, 𝑝 < 0.001 ) and decreases in FAR ( 𝛽 from −0.027 to −0.036 , 𝑝 < 0.001 ) across all condi-tions. Critically, sensitivity ( 𝑑 ′) increased significantly in all conditions ( 𝛽 from 0.045 to 0.062, 𝑝 < 0.001 ), indicating that participants became more successful at distinguishing correct from wrong AI responses. 
+
+Human Calibration to AI Improved Across Trials Par-ticipants also improved their calibration to the AI’s confi-dence signals. We use the cognitive model in the next sec-tion to visualize the human calibration curves, because the pooled estimate is less noisy. To quantify the improvement in the raw data, we calculated the Expected Calibration Er-ror (ECE) between the AI’s accuracy and perceived AI ac-curacy per condition and phase (Pakdaman Naeini et al., 2015): ECE = Í𝑀 𝑚 =1   
+
+> |𝐵 𝑚 |
+> 𝑛
+
+|acc AI (𝐵 𝑚 ) − acc human (𝐵 𝑚 )| , where 
+
+𝑀 = 11 bins (confidence rounded to the nearest 0.1), |𝐵 𝑚 |
+
+is the number of trials in bin 𝑚 , 𝑛 is the total number of tri-als, acc AI (𝐵 𝑚 ) is the AI’s actual accuracy in that bin, and acc human (𝐵 𝑚 ) is the perceived AI accuracy (the proportion of trials where participants believed the AI was correct). Paired 𝑡 -tests confirmed significant ECE reductions from early to late trials ( 𝑝 < 0.001 for all conditions). Taken together, these results demonstrate that participants exhib-ited robust learning across conditions, not only improving in overall accuracy but also becoming more discriminating and substantially better calibrated to the AI—even when the AI’s calibration was systematically distorted or inverted. 
+
+## Cognitive Modeling 
+
+The behavioral results demonstrate clear learning but do not reveal the underlying cognitive mechanisms. Participants need to form beliefs about how AI confidence relates to its correctness, update these beliefs trial-by-trial based on feedback, and do so in ways that vary across individuals. We model participants’ judgments using a linear-in-log-odds (LLO) transformation with two evolving parameters: an inter-cept capturing baseline trust in the AI, and a slope capturing confidence sensitivity. Both parameters are updated via a Rescorla–Wagner learning rule and estimated using Bayesian multilevel inference, enabling us to explain trial-by-trial dy-namics, prior beliefs, and individual differences. 
+
+Modeling Framework 
+
+Linear-in-Log-Odds Calibration Consistent with the liter-ature on human probability weighting (Gonzalez & Wu, 1999; Turner et al., 2014; H. Zhang & Maloney, 2012), we assume that participants mentally recalibrate the AI’s reported confi-dence using a linear-in-log-odds (LLO) transformation—their perceived AI accuracy 𝑣 𝑡 on trial 𝑡 is linear with respect to the AI’s reported confidence 𝑐 𝑡 on a log odds scale: 
+
+log 
+
+ 𝑣 𝑡 
+
+1 − 𝑣 𝑡 
+
+
+
+= 𝑏 𝑡 + 𝑤 𝑡 · log 
+
+ 𝑐 𝑡 
+
+1 − 𝑐 𝑡 
+
+
+
+This transformation maps confidence to perceived accuracy with an S-shaped curve (examples seen in Figure 5) and in-cludes two interpretable parameters to capture shifts in partic-ipant beliefs. First, the intercept 𝑏 𝑡 shifts the curve vertically and represents the participant’s baseline propensity to trust the AI. We expect it to increase in the underconfidence condition and decrease in the overconfidence condition if participants learn to compensate for the AI’s systematic bias. 1-10 11-20 21-30 31-40 41-50                
+
+> Trials
+> 0.0
+> 0.5
+> 1.0
+> Rate
+> Standard Confidence
+> 1-10 11-20 21-30 31-40 41-50
+> Trials
+> Overconfidence
+> 1-10 11-20 21-30 31-40 41-50
+> Trials
+> Underconfidence
+> 1-10 11-20 21-30 31-40 41-50
+> Trials
+> Reverse Confidence
+> Human False Alarm Human Hit Cognitive Model False Alarm Cognitive Model Hit
+
+Figure 4: Hit rate increases and false alarm rate decreases across trial blocks for human participants and cognitive model in all four AI calibration conditions. Error bars represent 95% confidence intervals and the dashed line indicates 50% chance level. Second, the slope 𝑤 𝑡 captures human sensitivity to changes in the AI’s confidence scores, with the sign of 𝑤 𝑡 representing the perceived direction of correlation between the AI’s con-fidence and accuracy. We expect 𝑤 𝑡 to be positive a priori, reflecting the intuitive belief that higher AI confidence signals higher accuracy, and to become negative in the reverse confi-dence condition if participants learn that higher AI confidence signals lower accuracy. 
+
+Rescorla–Wagner Learning Rule We assume that both parameters—baseline trust 𝑏 𝑡 and confidence sensitivity 
+
+𝑤 𝑡 —are updated trial by trial using a Rescorla–Wagner learn-ing rule (Rescorla, 1972), equivalent to the TD(0) update used in reinforcement learning (Sutton & Barto, 2018). After ev-ery trial, participants observe whether the AI’s prediction was correct ( 𝑔 𝑡 = 1) or wrong ( 𝑔 𝑡 = 0) and compute a prediction error 𝛿 𝑡 = 𝑔 𝑡 − 𝑣 𝑡 .Learning rates for the two parameters 𝑏 and 𝑤 were kept separate and asymmetric for positive and negative errors, re-flecting established patterns in human reward learning (Ger-shman, 2015; Katahira, 2018). As the results will show, the learning rates vary substantially across 𝑏 and 𝑤 and by the sign of the errors. Because the sign of the error corresponds to the AI’s accuracy, the learning rates are indexed by 𝑔 𝑡 . To minimize the binary cross-entropy loss, the parameters are updated according to: 
+
+𝑏 𝑡 +1 = 𝑏 𝑡 + 𝛼 𝑏,𝑔 𝑡 · 𝛿 𝑡 
+
+𝑤 𝑡 +1 = 𝑤 𝑡 + 𝛼 𝑤,𝑔 𝑡 · 𝛿 𝑡 · log 
+
+ 𝑐 𝑡 
+
+1 − 𝑐 𝑡 
+
+
+
+In total, six parameters are estimated per participant: the initial bias 𝑏 0, the initial weight 𝑤 0, and four learning rates (𝛼 𝑏,𝑔 𝑡 =1, 𝛼 𝑏,𝑔 𝑡 =0, 𝛼 𝑤,𝑔 𝑡 =1, and 𝛼 𝑤,𝑔 𝑡 =0). 
+
+Bayesian Multilevel Inference Parameters were estimated using multilevel Bayesian modeling to improve precision and capture individual variability while obtaining group-level trends. On every trial 𝑡 , participant 𝑖 ’s binary response 𝑦 𝑡 ,𝑖 
+
+(coded as 1 if the participant judged the AI correct, 0 other-wise) is modeled as a Bernoulli draw with parameter 𝑣 𝑡 ,𝑖 :
+
+𝑦 𝑡 ,𝑖 ∼ Bernoulli (𝑣 𝑡 ,𝑖 ).
+
+Because participants were randomly assigned to conditions, we applied an experiment-wide prior to their initial biases and weights: 𝑏 0,𝑖 ∼ 𝑁 (𝜇 𝑏 0 , 𝜎 𝑏 0 ), 𝜇 𝑏 0 ∼ 𝑁 (0, 1), and 
+
+𝜎 𝑏 0 ∼ Exponential (1). This prior centers the initial bias at 50% perceived accuracy, providing a 95% prior interval of [12%, 88%] to allow for wide variability in baseline trust. An identical prior structure was applied to 𝑤 0.Furthermore, given that learning rates are likely influenced by the specific AI condition 𝑐 , we utilized separate condition-wide priors: log 
+
+ 𝛼 𝑏,𝑔𝑡 ,𝑖,𝑐  
+
+> 1−𝛼 𝑏,𝑔𝑡 ,𝑖,𝑐
+
+
+
+∼ 𝑁 (𝜇 𝛼 𝑏,𝑔𝑡 ,𝑐 , 𝜎 𝛼 𝑏,𝑔𝑡 ,𝑐 ),
+
+𝜇 𝛼 𝑏,𝑔𝑡 ,𝑐 ∼ 𝑁 (− 1.5, 1.5), and 𝜎 𝛼 𝑏,𝑔𝑡 ,𝑐 ∼ Exponential (1). The hyper-mean was set to center the learning rate around ≈ 0.18 .The log-odds transformation ensures that all 𝛼 values remain within the [0, 1] interval. The model was implemented in Stan (Carpenter et al., 2017) using Markov Chain Monte Carlo (MCMC) with 4 chains and 2,000 samples per chain. Convergence was verified via trace plots and by ensuring ˆ𝑅 < 1.01 and ESS > 400 .
+
+Modeling Results 
+
+Cognitive model predicts behavioral trends The behav-ioral results demonstrate clear learning, but to understand the underlying mechanisms, we need a computational account. Our cognitive model captures the key behavioral patterns across all four conditions, including improvements in overall accuracy (Figure 3) and changes in hit and false alarm rates (Figure 4). On average, model predictions match human deci-sions on 75% of trials (mean log-likelihood per trial = −0.38 ,McFadden’s pseudo-𝑅 2 = 0.45 ), substantially exceeding 50% chance performance. This level of agreement indicates that a simple belief-mapping framework with trial-by-trial updat-ing is sufficient to reproduce participants’ aggregate reliance behavior. 
+
+Changes in belief mapping of AI confidence and perceived accuracy over time The behavioral analysis established that calibration improves, but the noise in raw data prevents us from recovering participants’ initial beliefs or their learned mappings. To address this, we use the cognitive model to infer how participants mentally translate AI confidence into perceived accuracy. To estimate a priori calibration, we sampled 1,000 values of the initial parameters ( 𝑏 0 and 𝑤 0) from the experiment-wide priors and computed perceived AI accuracy across all 0.0 0.5 1.0          
+
+> AI Confidence
+> 0.0
+> 0.5
+> 1.0
+> P(AI Correct)  Prior Calibration
+> 0.0 0.5 1.0
+> AI Confidence
+> Standard Confidence
+> 0.0 0.5 1.0
+> AI Confidence
+> Overconfidence
+> 0.0 0.5 1.0
+> AI Confidence
+> Underconfidence
+> 0.0 0.5 1.0
+> AI Confidence
+> Reverse Confidence
+> Cognitive Model AI
+
+Figure 5: Calibration curves showing AI accuracy (orange) and human perceived AI accuracy (blue dashed) across conditions. Left panel shows prior calibration at trial 1 from experiment-wide priors. Subsequent panels show posterior calibration at trial 50 from participant-level posteriors per experimental condition. Black diagonal dashed line shows perfect calibration. Shaded regions show 95% credible intervals. confidence values. Figure 5 (left panel) shows these inferred prior calibration curves. As expected, participants begin with positive confidence sensitivity ( 𝑀 = 0.69 , 𝑆𝐷 = 1.8), believ-ing that higher AI confidence signals higher accuracy. They also exhibit positive baseline trust ( 𝑀 = 0.60 , 𝑆𝐷 = 0.56 ), initially believing that the AI is approximately 65% accurate when it reports 50% confidence. To obtain posterior calibration at the end of learning, we used participant-level posterior means of the parameters at trial 50 ( 𝑏 50 and 𝑤 50 ). The resulting curves in Figure 5 (sub-sequent panels) reveal successful adaptation: learned calibra-tion closely tracks the AI calibration in the standard, over-confidence, and underconfidence conditions. However, the reverse confidence condition shows only partial alignment, reflecting substantial individual differences we explore next. 0.0 0.2 0.4 0.6 0.8 1.0         
+
+> AI Confidence
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> P(AI Correct)
+> Learner Non-Learner AI
+> w,gt= 1 w,gt= 0
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+> 0.6
+> Value
+> Learner Non-Learner
+
+Figure 6: Individual differences in the reverse-confidence con-dition. Left : Calibration curves at trial 50 showing AI ac-curacy (dashed green) and human perceived AI accuracy for learners (blue) and non-learners (orange). Right : Learning rates for confidence sensitivity ( 𝑤 ) when the AI was correct (𝛼 𝑤,𝑔 𝑡 =1) and wrong ( 𝛼 𝑤,𝑔 𝑡 =0). Shaded regions and error bars represent 95% credible intervals. 
+
+Explaining Individual Differences in Reverse Confidence 
+
+The reverse confidence condition posed a uniquely counterin-tuitive challenge—participants had to learn that higher AI con-fidence actually signaled lower accuracy. While participants generally improved over time, a detailed analysis of individ-ual accuracy revealed that a substantial proportion struggled to adapt. Categorizing participants by whether their late-stage accuracy (trials 31–50) exceeded 60%, we found that 44% in the reverse confidence condition were non-learners—a stark contrast to the other three conditions, where non-learners com-prised less than 15% of the sample. Figure 6 (left panel) shows the estimated calibration curves at trial 50, separated by learner status. Learners eventually matched the negative slope of the AI’s actual calibration (mean 
+
+𝑤 50 = −2.15 ), successfully inverting their initial beliefs. In contrast, non-learners’ calibration remained largely flat (mean 
+
+𝑤 50 = 0.01 ), retaining a near-zero sensitivity to confidence signals. Critically, both groups began with similar positive priors ( 𝑤 0 > 0), yet only learners managed to override their initial inductive bias. The cognitive model reveals the mechanism behind this di-vergence. Figure 6 (right panel) shows that learners exhibited dramatically higher learning rates for confidence sensitivity (𝑤 ) than non-learners. When the AI was correct, learners updated their sensitivity nearly 3 × faster ( 𝛼 𝑤,𝑔 𝑡 =1 = 0.14 vs. 
+
+0.04 ); when the AI was wrong, this multiple expanded to 30 ×
+
+(0.50 vs. 0.015 ). These results suggest that learners rapidly incorporated prediction errors to update their confidence sen-sitivity, while non-learners remained resistant to changing their initial mental calibration. Importantly, learning rates for baseline trust ( 𝑏 ) were similar between groups ( 𝑝 > 0.05 ), confirming that the model successfully isolates the specific cognitive mechanism responsible for individual differences. 
+
+Participants adapt baseline trust and confidence sensi-tivity To understand how learning evolves, we examined changes in the model’s two key parameters across trials (Fig-ure 7). Confidence sensitivity ( 𝑤 𝑡 ) captures how participants weight AI confidence signals. In the standard, overconfidence, and underconfidence conditions, 𝑤 𝑡 increased substantially— from 0.45–0.65 at trial 1 to 2.7–2.9 at trial 50—demonstrating that participants became more attuned to AI confidence as a diagnostic signal. In the reverse confidence condition, 𝑤 𝑡 
+
+decreased from 0.59 to −1.2, indicating that participants suc-cessfully learned the inverse mapping where higher confi-dence signaled lower accuracy. Baseline trust ( 𝑏 𝑡 ) represents participants’ tendency to trust the AI, independent of its reported confidence. This param-eter adapted to compensate for systematic AI biases. In the 2.5     
+
+> 0.0
+> 2.5
+> Value  Standard Confidence Overconfidence
+> 20 40
+> Trial
+> 2.5
+> 0.0
+> 2.5
+> Value  Underconfidence
+> 20 40
+> Trial
+> Reverse Confidence
+> Baseline Trust ( bt)Confidence Sensitivity ( wt)
+
+Figure 7: Changes in baseline trust 𝑏 𝑡 (solid blue) and confi-dence sensitivity 𝑤 𝑡 (dashed orange) across trials in all four conditions. Shaded regions represent 95% credible intervals. underconfidence condition, baseline trust increased substan-tially (from 0.57 to 2.5) as participants learned that the AI was more accurate than it claimed. Conversely, in the over-confidence condition, trust decreased markedly (from 0.62 
+
+to −1.9), reflecting learned skepticism toward AI overconfi-dence. In the standard and reverse conditions, trust decreased slightly (from 0.61 to 0.27 and 0.6 to 0.45 , respectively) to correct for initial overtrust. All changes were statistically significant ( 𝑝 < 0.001 ). 
+
+Asymmetric learning rates prioritize the most informative errors A key insight from the model is that participants do not update their beliefs uniformly—instead, they exhibit asym-metric learning that prioritizes the most diagnostic feedback. These asymmetries vary by condition, reflecting which out-comes are most informative for learning each AI’s calibration pattern. In the overconfidence condition, the most informative sig-nal is when a highly confident AI makes an error. Accord-ingly, updates for baseline trust are substantially higher when the AI is wrong ( 𝛼 𝑏,𝑔 𝑡 =0 = 0.46 ) than when it is correct (𝛼 𝑏,𝑔 𝑡 =1 = 0.29 ), indicating participants rapidly lose trust when observing confident mistakes. Conversely, updates for confidence sensitivity are higher when the AI is correct (𝛼 𝑤,𝑔 𝑡 =1 = 0.55 vs. 𝛼 𝑤,𝑔 𝑡 =0 = 0.05 )—when an extremely confident AI proves correct, participants learn to give signifi-cantly more weight to its confidence signals. As expected, these patterns reverse in the underconfidence condition, where the opposite pattern emerges. Baseline trust updates more when the AI is correct ( 𝛼 𝑏,𝑔 𝑡 =1 = 0.51 
+
+vs. 𝛼 𝑏,𝑔 𝑡 =0 = 0.14 ), while confidence sensitivity updates more strongly when the AI is wrong ( 𝛼 𝑤,𝑔 𝑡 =0 = 0.49 vs. 
+
+𝛼 𝑤,𝑔 𝑡 =1 = 0.04 ). The standard and reverse confidence con-ditions show more symmetric learning rates, likely because both correct and incorrect outcomes provide comparable in-formation about the AI’s calibration. Together, these results demonstrate that human learning strategically prioritizes feed-back that best reveals the AI’s underlying calibration structure. 
+
+## Discussion 
+
+Our results demonstrate that humans can learn to mentally re-calibrate AI confidence signals through repeated experience. Across four calibration conditions, participants substantially improved their accuracy, discrimination, and calibration align-ment over only 50 trials. Our computational model reveals that this adaptation occurs through trial-by-trial updates to base-line trust and confidence sensitivity, with asymmetric learning rates that prioritize the most informative errors. While prior research has examined how people cali-brate their own confidence in human-AI contexts (Chong et al., 2022; Ma et al., 2024) or recalibrate human advis-ers (Pescetelli & Yeung, 2019; Stanciu & Fiser, 2022), we demonstrate that humans adaptively recalibrate confidence signals generated by AI systems. This extends established frameworks of metacognition (Fleming et al., 2012; Koriat, 2012) to human-AI collaboration and provides a computa-tional account of how appropriate reliance develops through experience (Lee & See, 2004; Muir, 1994). The success of our reinforcement-learning model suggests that this calibra-tion process engages error-based learning mechanisms (Daw & Doya, 2006; Sutton & Barto, 2018), consistent with re-cent findings that humans learn their own confidence through prediction errors (Le Denmat et al., 2026). Our model reveals that baseline trust and confidence sen-sitivity are key components of human mental models of AI calibration (Bansal et al., 2019; Kelly et al., 2023). By decom-posing trust into the two interpretable parameters, we provide a clear way to characterize how users miscalibrate AI con-fidence signals. This decomposition helps identify whether errors arise from overall over- or under-trust versus misinter-pretation of confidence levels. There are several limitations worth noting about our empir-ical approach. First, participants completed only 50 trials in a single session, and longer-term dynamics including memory consolidation, decay, or transfer remain unexplored. Second, immediate feedback was provided, but learning would likely be more challenging with delayed or absent ground truth. Third, participants in the task did not have the opportunity to make independent predictions. They could only learn from the AI’s confidence and feedback, but real-world collaboration often allows some degree of independent verification. Future research should address these limitations. 
+
+## Conclusion 
+
+We demonstrate that humans possess substantial capacity to adapt to AI confidence signals through reinforcement learn-ing mechanisms. By showing that humans can compensate for monotonic miscalibration but struggle with inverse mappings, we identify both the potential and boundaries of human adapt-ability in collaborative AI systems. These findings contribute to theories of metacognition and social learning in human-AI collaboration while providing insights for designing systems that support appropriate reliance. References 
+
+Agarwal, N., Moehring, A., Rajpurkar, P., & Salz, T. (2023, July). Combining human expertise with artificial intelli-gence: Experimental evidence from radiology (tech. rep. No. w31422). National Bureau of Economic Research. Cambridge, MA, National Bureau of Economic Research. Bansal, G., Nushi, B., Kamar, E., Lasecki, W. S., Weld, D. S., & Horvitz, E. (2019). Beyond accuracy: The role of men-tal models in human-AI team performance. Proceedings of the AAAI Conference on Human Computation and Crowd-sourcing , 7, 2–11. Carpenter, B., Gelman, A., Hoffman, M. D., Lee, D., Goodrich, B., Betancourt, M., Brubaker, M. A., Guo, J., Li, P., & Riddell, A. (2017). Stan: A probabilistic program-ming language. J. Stat. Softw. , 76 (1), 1–32. Chong, L., Zhang, G., Goucher-Lambert, K., Kotovsky, K., & Cagan, J. (2022). Human confidence in artificial intelli-gence and in themselves: The evolution and impact of con-fidence on adoption of AI advice. Comput. Human Behav. ,
+
+127 (107018), 107018. Daw, N. D., & Doya, K. (2006). The computational neurobiol-ogy of learning and reward. Curr. Opin. Neurobiol. , 16 (2), 199–204. Fleming, S. M., Dolan, R. J., & Frith, C. D. (2012). Metacog-nition: Computation, biology and function. Philos. Trans. R. Soc. Lond. B Biol. Sci. , 367 (1594), 1280–1286. Gershman, S. J. (2015). Do learning rates adapt to the distri-bution of rewards? Psychon. Bull. Rev. , 22 (5), 1320–1327. Gonzalez, R., & Wu, G. (1999). On the shape of the probability weighting function. Cogn. Psychol. , 38 (1), 129–166. Green, B., & Chen, Y. (2019). The principles and limits of algorithm-in-the-loop decision making. Proc. ACM Hum. Comput. Interact. , 3(CSCW), 1–24. Guo, C., Pleiss, G., Sun, Y., & Weinberger, K. Q. (2017). On calibration of modern neural networks. ICML ,
+
+abs/1706.04599 .Huang, Y., Li, W., Macheret, F., Gabriel, R. A., & Ohno-Machado, L. (2020). A tutorial on calibration measurements and calibration models for clinical prediction models. J. Am. Med. Inform. Assoc. , 27 (4), 621–633. Jiang, Z., Araki, J., Ding, H., & Neubig, G. (2020). How can we know when language models know? on the calibration of language models for question answering. Trans. Assoc. Comput. Linguist. , 9, 962–977. Katahira, K. (2018). The statistical structures of reinforcement learning with asymmetric value updates. J. Math. Psychol. ,
+
+87 , 31–45. Kelly, M., Kumar, A., Smyth, P., & Steyvers, M. (2023). Cap-turing humans’ mental models of AI: An item response theory approach. 2023 ACM Conference on Fairness Ac-countability and Transparency , 1723–1734. Kleinberg, J., Mullainathan, S., & Raghavan, M. (2016). In-herent trade-offs in the fair determination of risk scores. 
+
+arXiv [cs.LG] .Koriat, A. (2012). The self-consistency model of subjective confidence. Psychol. Rev. , 119 (1), 80–113. Le Denmat, P., Desender, K., & Verguts, T. (2026). Learn-ing to be confident: How agents learn confidence based on prediction errors. Cognition , 266 (106332), 106332. Lee, J. D., & See, K. A. (2004). Trust in automation: Designing for appropriate reliance. Hum. Factors , 46 (1), 50–80. Li, J., Yang, Y., Zhang, R., Liao, Q. V., Song, T., Xu, Z., & Lee, Y.-C. (2025). Understanding the effects of miscalibrated AI confidence on user trust, reliance, and decision efficacy. 
+
+arXiv [cs.AI] .Liang, G., Sloane, J. F., Donkin, C., & Newell, B. R. (2022). Adapting to the algorithm: How accuracy comparisons pro-mote the use of a decision aid. Cogn. Res. Princ. Implic. ,
+
+7(1), 14. Ma, S., Wang, X., Lei, Y., Shi, C., Yin, M., & Ma, X. (2024). “are you really sure?” understanding the effects of human self-confidence calibration in AI-assisted decision making. 
+
+Proceedings of the CHI Conference on Human Factors in Computing Systems , 63 , 1–20. Minderer, M., Djolonga, J., Romijnders, R., Hubis, F., Zhai, X., Houlsby, N., Tran, D., & Lucic, M. (2021). Revisiting the calibration of modern neural networks (M. Ranzato, A. Beygelzimer, Y. Dauphin, P. S. Liang, & J. W. Vaughan, Eds.). arXiv [cs.LG] , 15682–15694. Muir, B. M. (1994). Trust in automation: Part I. theoretical issues in the study of trust and human intervention in auto-mated systems. Ergonomics , 37 (11), 1905–1922. Pakdaman Naeini, M., Cooper, G., & Hauskrecht, M. (2015). Obtaining well calibrated probabilities using bayesian bin-ning. Proc. Conf. AAAI Artif. Intell. , 29 (1). Pescetelli, N., & Yeung, N. (2019). The role of decision con-fidence in advice-taking and trust formation. arXiv [cs.SI] .Rechkemmer, A., & Yin, M. (2022). When confidence meets accuracy: Exploring the effects of multiple performance indicators on trust in machine learning models. CHI Con-ference on Human Factors in Computing Systems , 1–14. Rescorla, R. (1972). A theory of pavlovian conditioning : Variations in the effectiveness of reinforcement and nonre-inforcement. Classical conditioning, Current research and theory , 64–99. Stanciu, O., & Fiser, J. (2022). Do humans recalibrate the confidence of advisers or take their confidence at face value? 
+
+CogSci , 44 (44). Sutton, R. S., & Barto, A. G. (2018, November). Reinforce-ment learning: An introduction (2nd ed.). Bradford Books. Tejeda, H., Kumar, A., Smyth, P., & Steyvers, M. (2022). AI-assisted decision-making: A cognitive modeling approach to infer latent reliance strategies. Comput. Brain Behav. ,
+
+5(4), 491–508. Turner, B. M., Steyvers, M., Merkle, E. C., Budescu, D. V., & Wallsten, T. S. (2014). Forecast aggregation via recalibra-tion. Mach. Learn. , 95 (3), 261–289. Wang, C. (2023). Calibration in deep learning: A survey of the state-of-the-art. arXiv [cs.LG] .Zhang, H., & Maloney, L. T. (2012). Ubiquitous log odds: A common representation of probability and frequency distor-tion in perception, action, and cognition. Front. Neurosci. ,
+
+6, 1. Zhang, Y., Liao, Q. V., & Bellamy, R. K. E. (2020). Effect of confidence and explanation on accuracy and trust cali-bration in AI-assisted decision making. Proceedings of the 2020 Conference on Fairness, Accountability, and Trans-parency .

@@ -1,0 +1,473 @@
+Title: Trust via Reputation of Conviction
+
+URL Source: https://arxiv.org/pdf/2603.08575v1
+
+Published Time: Tue, 10 Mar 2026 02:33:55 GMT
+
+Number of Pages: 19
+
+Markdown Content:
+# Trust via Reputation of Conviction 
+
+# Aravind R. Iyengar March 8, 2026 
+
+Abstract 
+
+The question of knowledge , truth and trust is explored via a mathematical formulation of claims and sources. We define truth as the reproducibly per-ceived subset of knowledge, formalize sources as having both generative and discriminative roles, and develop a framework for reputation grounded in the 
+
+conviction — the likelihood that a source’s stance is vindicated by independent consensus. We argue that conviction, rather than correctness or faithfulness, is the principled basis for trust: it is regime-independent, rewards genuine contribution, and demands the transparent and self-sufficient perceptions that make external verification possible. We formalize reputation as the expected weighted signed conviction over a realm of claims, characterize its behavior across source-claim regimes, and identify continuous verification as both a the-oretical necessity and a practical mechanism through which reputation accrues. The framework is applied to AI agents, which are identified as capable but error-prone sources for whom verifiable conviction and continuously accrued reputation constitute the only robust foundation for trust. 
+
+# Contents 
+
+1 Knowledge: The Precursor 22 Truth: The Pursuit 2
+
+2.1 Establishing Truth . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+
+2.2 Likelihood of Objectivity as a Measure of Trust . . . . . . . . . . . . . . 4
+
+3 A Mathematical Model for Truth and Trust 5
+
+3.1 Claims . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+
+3.2 Sources . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+
+3.2.1 Roles of Sources . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+
+3.2.2 Knowledge Assimilation & Augmentation . . . . . . . . . . . . . 6
+
+3.3 Interaction of Claims and Sources . . . . . . . . . . . . . . . . . . . . . 6
+
+3.4 Truth . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+
+3.4.1 Truth as an Asymptote . . . . . . . . . . . . . . . . . . . . . . . 61  
+
+> arXiv:2603.08575v1 [cs.AI] 9 Mar 2026 3.5 A Source Model
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7  
+
+> 3.5.1 Truth Notions and Interactions
+
+. . . . . . . . . . . . . . . . . . . 7  
+
+> 3.5.2 The Influence of Perception on Objective Truth
+
+. . . . . . . . . . 9  
+
+> 3.5.3 Estimating Truth
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . 10   
+
+> 3.5.4 Desiderata for Trust
+
+. . . . . . . . . . . . . . . . . . . . . . . . 11   
+
+> 3.6 Metrics for Reputation
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . 12   
+
+> 3.6.1 Claim Weight via Certitude of Objectivity
+
+. . . . . . . . . . . . . 13   
+
+> 3.6.2 Signed Conviction
+
+. . . . . . . . . . . . . . . . . . . . . . . . . 13   
+
+> 3.6.3 Reputation
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14   
+
+> 3.6.4 Reputation Across Source-Claim Regimes
+
+. . . . . . . . . . . . . 14 
+
+4 Trust in the World of AI 17   
+
+> 4.1 AI Agents as Sources
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . 17   
+
+> 4.2 Training and Pre-Deployment Certification
+
+. . . . . . . . . . . . . . . . 17   
+
+> 4.3 Inference and Continuous Reputation
+
+. . . . . . . . . . . . . . . . . . . 18 
+
+5 Conclusion 18 
+
+# 1. Knowledge: The Precursor 
+
+We separate the discussion of knowledge from truth in the following way. Knowl-edge can be defined as the learning of information. For simplicity, we think of knowledge as being attained via exposure to claims . Without knowledge, there is no question of truth. Once one has known something, the question of whether it is true arises. Once knowledge has been gained, one can typically propagate it via communication; knowledge propagated may also be sometimes different from the knowledge gained. 
+
+# 2. Truth: The Pursuit 
+
+In the context of what we discussed above, truth is the subset of knowledge which is experienced or perceived objectively . This notion of truth immediately reveals the following two properties: 
+
+• Perception-dependency : Truth depends on the means through which it is experienced or perceived. For example, a claim on what an object’s surface looks like is truthful or not depending on whether it is seen directly by the eye or under a microscope. This implies that if there are limitations of the method of perception, they have a bearing on what is considered true. 
+
+• Reproducibility-dependency : The objectivity requirement implies that truth inherently depends on how reproducible or how widely perceptible a claim is. For example, in a hypothetical world where all but one human were blind, the claim that the sun rises from the east may not be held as a truth (ignoring the other ways, e.g., warmth, that the sun can be perceived). Note that reproducibility can either be at different times, e.g., repeated experimentation, or at the same time, e.g., objectively perceptible events. 2Truth is a social construct. This definition of truth brings out the property that truth only arises as a concept when there are multiple perceptions involved. A good illustration is that if there were only one human in the world and she were color-blind, that would be the singular perception. Only when there is a second human is there even a question of a shared or objectively perceived reality, i.e., truth. 
+
+• Science as a pursuit of truth naturally fits into this framework — we con-tinuously set down claims (hypotheses) and search for reproducible ways to perceive them. Refinements in scientific theory are largely due to improved means of perception becoming accessible over time, both via better physi-cal mechanisms (e.g., microscopes, finer time-measuring devices) and better analytical theories (e.g., relativity, causal inference). 
+
+• “Subjective truths” are not truths, e.g., “I have a headache”, “I like orange” or “I think we should take this chance”. Such experiences are better classified as feelings , likings or opinions .
+
+• “Imperceptible truths” are possible, but they are also unknowable , e.g., imagine “the sun rises from the east” in a hypothetical world where no humans had eyesight. 
+
+2.1. Establishing Truth 
+
+When it comes to claims that can be reproduced over time, establishing truth entails being able to conduct repetitive experiments and evaluate the validity of the claims. Such validation is possible via the following mechanisms: 1. Confirmation : Establishing truth via repeated experimentation with the same source. Note that such confirmation may be exposed to systematic errors or 
+
+biases native to the source of perception. 2. Verification : Even when a claim is reproducible over time, its perception can be exposed to some degree of subjectivity if experimented by different actors or observed via different sources. Establishing objectivity across sources and repeated experimentation is verification. For claims that cannot be reproduced over time, the only way to confirm truth is via joint experience. If such confirmation is not feasible, we can only estimate the truth of claims. Establishing truth is only possible via the following mechanisms: 3. Reputation : The history of truthfulness of the source’s claims. Reliable sources are reputed to have demonstrated verifiable truth repeatedly. 4. Survey : By aggregating the veracities of claims across many sources, the objective perception of claims may be estimated. This fundamentally hinges on the reasonable expectation of sources not colluding, and is very much dependent on the reputations of all sources involved. 3Confirmation Verification Reputation Survey  
+
+> Repetitive One time
+> One source Multiple sources
+
+Establishing Truth Figure 1: The four mechanisms for establishing truth, organised by reproducibility (rows: repetitive vs. one-time) and number of independent sources (columns: one source vs. multiple sources). 
+
+• By definition of truth and with all the mechanisms of truth establishment discussed above, truth is intimately related to agreement or consensus . Con-sensus, agreement, reinforcement, alignment are the modes through which shared or objective perceptions are realized. 
+
+• Establishing truth might not be universally pursued due to the collection of evidence being impossible, unaffordable, undesired or not considered worth-while. However, knowledge may nevertheless be propagated without validation and/or with modifications. It is sufficient to model the truthfulness of knowl-edge possessed as a limitation of perception, even if this limitation is outside the source. Figure 1 organises the four mechanisms in a grid by reproducibility (rows) and number of sources (columns). 
+
+2.2. Likelihood of Objectivity as a Measure of Trust 
+
+Given the accumulation of knowledge and propagation of it, the question of whether a source of knowledge is worthy of trust becomes a qualitative decision based on how likely the source is in providing an objective truth assessment for each specific claim it makes. The more likely the truth assessment of a given claim is reproducible, the more trustable the source is on that claim. Note that the likelihood of objectivity from a source on a specific claim might itself be unestablished, in which case it behaves as a source produces arbitrary claims, i.e., trust in that claim is minimal. The likelihood of the source’s perception in aligning the objective truth 4to its own assessment is therefore the appropriate measure of trust. Although we have thus far thought of truth and trust in relation to claims, the same approach applies to more general scenarios as well. For example, if the question is one of completing a task , we can posit a corresponding claim being made by the source (the doer of the task) as “this task is completed based on the following...”, and the likelihood of objectivity in this claim is the trust in the completion of the task. 
+
+# 3. A Mathematical Model for Truth and Trust 
+
+3.1. Claims 
+
+A claim Γ ∼ pΓ over a space N is a generic statement. We consider the Γ-space 
+
+N to be a manifold of claims that are meaningful, and may be perceived as true, i.e., in accordance with the perceived reality, or false. For example, the space N can be “the topic of fluid dynamics”, “news items in English”, or “proofs of mathematical statements”. A specific realization of a claim will be denoted γ ∈ N , and all source properties such as knowledge quality, factual accuracy, and trustworthiness will be defined pointwise for each such γ, rather than in expectation over pΓ. This is essential: a source may perform well on average over N while being systematically unreliable on specific claims, and such pointwise failures must be captured by the model. 
+
+3.2. Sources 
+
+Claims are perceived through sources , i.e., sources are the “actors” of perception. The perception of a specific claim γ ∈ N by source σ is denoted Γσ(γ), which can be thought of as a perturbed form of γ, e.g., an interpretation, observation, experiment, measurement, attempt at proof, or exposition. The truth assessment of this perturbed claim by source σ is denoted 
+
+Θσ(γ) ≜ Θσ
+
+> (
+
+Γσ(γ))
+
+∈ {⊤ , ⊥} .
+
+Θσ(γ) is the source-defined truth estimator for the specific claim γ.
+
+3.2.1. Roles of Sources 
+
+From this discussion, we arrive at two specific roles for a source: 
+
+• A generative role or capability to produce (create, generate, or assimilate and reproduce) claims Γσ.
+
+• A discriminative role or capability to self-establish truths Θσ.These two roles are inter-related. A source that is good only in its generative capability is unable to distinguish good from bad concepts. Conversely, being good only at the discriminative role implies good ability to discern good from bad, but not a creative ability or knowledge to generate claims. 53.2.2. Knowledge Assimilation & Augmentation 
+
+The first part of source development is a process of gathering or getting exposed to claims γ ∈ N and being able to generate Γσ(γ) from them. The nature of this generation determines whether the source is assimilative or augmentative —an assimilative source reproduces γ with possible perceptual artifacts, while an augmentative source introduces genuinely new truth-revealing information into 
+
+Γσ(γ).This process brings forth the possibility of limits of perception being unbreachable: it is possible that a source is never able to produce an augmentative Γσ(γ) for certain claims γ, either because the claim already reveals the truth unambiguously (leaving no room for augmentation), or because all sources hit a fundamental limit of perception. One such instance of a fundamental physical limit is Heisenberg’s Uncertainty Principle .
+
+3.3. Interaction of Claims and Sources 
+
+From the formulation laid down here, we are primarily concerned with: 
+
+• Truth in claims : The objective measure of the truthfulness of a specific claim 
+
+γ, i.e., whether Θ( γ) = ⊤. This latent objective truth Θ( γ) is not directly observable. Since only perceptions Θσ(γ) are observable, we provide estimates based on these in the following sections. 
+
+• Trust in sources : The measure of objectivity in a source’s perception of truth for claims γ over a space N . We formalize this in subsequent sections. 
+
+3.4. Truth 
+
+For a specific claim γ ∈ N perceived through n ∈ N samples {Γi(γ)}ni=1 from sources, we define the truth estimate of γ as 
+
+ˆΘn(γ) ≜
+
+> n∨
+> i=1
+
+Θi
+
+> (
+
+Γi(γ))
+
+,
+
+an aggregation across the n perceptions of that specific claim. This definition conforms with the perception and reproducibility requirements laid down previously, and is explicitly pointwise in γ.The exact nature of the aggregation ∨ will be discussed subsequently. Examples of this aggregation used in common practice are majority, super-majority or unanimous voting as in different voting mechanisms and democratic elections, or expert reviews established in academic publications. 
+
+3.4.1. Truth as an Asymptote 
+
+We desire to choose the aggregation ∨ above such that for each γ ∈ N , the limit 
+
+ˆΘn(γ) p
+
+−−−→
+
+> n→∞
+
+ˆΘ( γ)
+
+exists, which we refer to as the objective truth of the specific claim γ. With this, we let the truth Θ( γ) be approximated by this pointwise limit, i.e., Θ( γ) ≈ ˆΘ(γ).6Whereas Θ( γ) may not be observable, ˆΘ(γ) is estimable and approximable for each 
+
+γ. Note however that ˆΘ(γ) may be distinct from Θ( γ) due to imperceptible effects or systematic errors and biases inherent to accessible perception modes. For all practical purposes however, the approximation Θ( γ) ≈ ˆΘ(γ) is the only means of understanding Θ( γ).While it is undeniable that truth is binary , the discussions presented here are easily generalized to claims where K ≥ 2 stances are possible. This is often the case with “choices” made by sources in general, but we will continue to deal with binary truth assessments here. 
+
+3.5. A Source Model 
+
+In order to model a source over the space N , we consider the full chain of dependencies for each specific claim γ ∈ N . Figure 2 illustrates this chain end-to-end: from the claim-space (above the separator) through the truth-assessment collections and finite-sample aggregates, down to the asymptotic objective truth limits and the two distinguished special cases of the latent Θ( γ) and the source-specific Θσ(Γ σ(γ)) .The figure traces the complete inference chain for a specific γ ∈ N . In the claim space (above the separator), γ (green) is the latent original claim and Γσ(γ) (red) is the source’s perception; together they fan out into three sample collections. Below the separator, those collections produce individual truth assessments {Θi}, which are aggregated via ∨ into finite-sample estimates ˆΘn, converging in probability to the asymptotic objective truths ˆΘ as n → ∞ . The green and red vertical arrows identify the two special quantities against which the chain is benchmarked: the latent Θ( γ)
+
+(the unobservable ground truth) and the source’s own assessment Θσ(Γ σ(γ)) (the subjective single-source reading). Every quantity is defined pointwise for the specific 
+
+γ.
+
+3.5.1. Truth Notions and Interactions 
+
+Based on the discussion in the previous section, the four notions of truth and all six bilateral interactions between them are depicted in Figure 3. Solid arrows connect the three notions that exclude ˆΘ(γ) outright; dashed arrows involve ˆΘ(γ)
+
+directly. The interactions between these are as below. 
+
+• Faithfulness : The source’s stance aligns with the objective stance based on its perception, Θσ(Γ σ(γ)) = ˆΘ(Γ σ(γ)) .
+
+• Conviction : The source’s stance is vindicated by joint consensus, Θσ(Γ σ(γ)) = ˆΘ( γ, Γσ(γ)) .
+
+• Transparency : The source’s perception is sufficient for objective truth assess-ment and disclosing the original claim γ adds nothing, ˆΘ(Γ σ(γ)) = ˆΘ(γ, Γσ(γ)) .
+
+• Correctness : The source’s stance agrees with the objective consensus on the original claim, Θσ(Γ σ(γ)) = ˆΘ( γ).
+
+• Neutrality : The source’s perception doesn’t shift consensus, ˆΘ(Γ σ(γ)) = ˆΘ(γ).7γ Γσ(γ)Γn 
+
+> 1
+
+(γ) Γn 
+
+> 1
+
+(γ, Γσ(γ)) Γn 
+
+> 1
+
+(Γ σ(γ)) 
+
+N{Θi(Γ i(γ)) }ni=1 {Θi(Γ i(γ, Γσ(γ))) }ni=1 {Θi(Γ i(Γ σ(γ))) }ni=1   
+
+> ∨∨∨
+
+ˆΘn(γ) ˆΘn(γ, Γσ(γ)) ˆΘn(Γ σ(γ))         
+
+> pn→ ∞ pn→ ∞ pn→ ∞
+
+ˆΘ( γ) ˆΘ( γ, Γσ(γ)) ˆΘ(Γ σ(γ)) Θ( γ) Θσ(Γ σ(γ)) Figure 2: Full source-model chain for a specific claim γ. Claim space ( N , above the separator): The latent claim γ (green) is mapped by source σ to its perception 
+
+Γσ(γ) (red); together they generate three collections of samples from other sources — direct perceptions Γn 
+
+> 1
+
+(γ), the joint perceptions Γn 
+
+> 1
+
+(γ, Γσ(γ)) , and derived perceptions 
+
+Γn 
+
+> 1
+
+(Γ σ(γ)) . Truth-assessment layer (below separator): Each collection yields individ-ual assessments {Θi(Γ i(·)) }ni=1 , aggregated via ∨ into finite-sample estimates ˆΘn(·).
+
+Asymptotic layer: As n → ∞ (in probability), these converge to the objective truths 
+
+ˆΘ(γ), ˆΘ(γ, Γσ(γ)) , and ˆΘ(Γ σ(γ)) . The latent truth Θ( γ) (green, solid arrow from γ)and the source’s subjective assessment Θσ(Γ σ(γ)) (red, solid arrow from Γσ(γ)) are shown alongside, as the targets that the estimation chain approximates. 
+
+• Redundancy : The source’s perception doesn’t add to the original claim, 
+
+ˆΘ( γ, Γσ(γ)) = ˆΘ( γ).The first three interactions of faithfulness, conviction, and transparency are unconditional desiderata: a reliable source should satisfy all three, and approxi-mately achieving any two approximately implies the third. The remaining three — correctness, neutrality, and redundancy — form a qualitatively different cluster. Together they express the condition that the source’s perception leaves the objective truth estimate unchanged: the source neither shifts consensus nor adds information beyond what γ already contains. This is precisely the assimilative regime .Formally, a source is said to be in the assimilative regime for claim γ when redundancy holds approximately, i.e., ˆΘ(γ, Γσ(γ)) ≈ ˆΘ(γ). Conversely, the source is in the augmentative regime when redundancy is violated, i.e., when Γσ(γ) carries truth-revealing information not already present in γ itself. In cases of new discoveries, departing from correctness, neutrality and redundancy is not only acceptable but 8Θσ(Γ σ(γ)) ˆΘ(Γ σ(γ)) ˆΘ( γ, Γσ(γ)) ˆΘ( γ)
+
+> Faithfulness Conviction Transparency Correctness Neutrality Redundancy
+
+Figure 3: The four notions of truth and their six bilateral interactions. Solid arrows :interactions among the three notions that exclude ˆΘ(γ) (Faithfulness, Conviction, Transparency). Dashed arrows : interactions that directly involve ˆΘ(γ) (Correctness, Neutrality, Redundancy). expected of a genuinely creative source; what matters is that faithfulness, conviction and transparency are maintained throughout. It is worth noting that the failure of conviction to entail faithfulness and trans-parency is the atypical case. When Γσ(γ) is a complete perception — one that stands by itself as a substantive, self-contained claim — then ˆΘ(Γ σ(γ)) ≈
+
+ˆΘ(γ, Γσ(γ)) holds naturally, since other sources assessing Γσ(γ) in isolation reach the same consensus as those who also have γ. In this case, conviction pulls faithfulness and transparency along with it, and the three desiderata collapse into one. The pathological case arises when Γσ(γ) is an incomplete perception — one that does not stand by itself and requires γ to become substantive. Such a perception is more aptly described as a relation to γ than a perception in its own right: think of a proof step that presupposes earlier definitions, a measurement whose interpretation depends on the experimental setup, or a comparative judgment (“this is an improvement”) that is vacuous without its referent. In all such cases, sources evaluating Γσ(γ) alone lack the necessary context to form a reliable consensus, so ˆΘ(Γ σ(γ)) diverges from ˆΘ(γ, Γσ(γ)) , transparency breaks, and with it faithfulness. The source may still have conviction, but only for observers who already possess γ — a considerably weaker guarantee. This gives a practical criterion: for conviction to entail the full triad, it is sufficient that the source’s perceptions be complete — communicable and assessable as standalone claims, without reference to their origin. 
+
+3.5.2. The Influence of Perception on Objective Truth 
+
+The relationship between ˆΘ(γ) and ˆΘ(γ, Γσ(γ)) is illustrated in Figure 4. The four regions correspond to different qualitative regimes of source behaviour: 
+
+• Obvious : The source’s perception closely tracks the original claim’s truth value; no significant shift occurs and the prior objective stance is reinforced. 90 101Pr { ˆΘ( γ) = ⊤} 
+
+> Pr { ˆΘ( γ,  Γσ (γ)) =  ⊤}
+> Obvious Obvious Incredible Incredible Non-intuitive Non-intuitive Sensible Sensible
+
+Figure 4: Classification of source behaviour by the objective truth of the original claim ˆΘ(γ) (horizontal axis) versus the joint objective truth after incorporating the source’s perception ˆΘ(γ, Γσ(γ)) (vertical axis). The dashed diagonal is the line of no influence. Parallel offset lines delimit the four regions. 
+
+• Sensible : The source introduces a moderate, graded shift in the objective truth estimate — the perception is informative but not transformative, either reinforcing or mildly refuting the prior objective stance. 
+
+• Non-intuitive : The source’s perception substantially overturns the prior con-sensus; its contribution is strongly augmentative. 
+
+• Incredible : The source’s perception is so far from the original claim’s truth that it could only be trusted in the augmentative regime with very high conviction. The four regions characterize the qualitative relationship between prior and posterior objective truth. The formal metrics quantifying a source’s behavior within these regions are introduced in Section 3.5.4. 
+
+3.5.3. Estimating Truth 
+
+Tying this mathematical model back to the methods of establishing truth described in Section 2.1 is illuminating: 
+
+• When we are reliant on a single source’s one-time perception, the truth is based on Θσ(Γ σ(γ)) — the only way to be confident of this being true is via the source’s 
+
+reputation built over the course of time. 10 • When we can rely on many sources’ perceptions of a one-time event, the truth is established via ˆΘ( γ), i.e., the survey approach. 
+
+• When we rely on repeated reproduction via the same experiment, the truth is based on ˆΘ(Γ σ(γ)) , confirmation of the objective stance on the perception through the experiment. 
+
+• When we battle-test the possibilities via repeated testing and verification across many sources, the truth is based on ˆΘ(γ, Γσ(γ)) , born out of verification via independent analysis and peer review. 
+
+3.5.4. Desiderata for Trust 
+
+The interactions identified in Section 3.5.1 are binary conditions. We now define their probabilistic counterparts, which form the basis for measuring source reliability in practice. We refer to the probability of conviction as the conviction of source σ
+
+for claim γCσ(γ) ≜ Pr {
+
+Θσ(Γ σ(γ)) = ˆΘ( γ, Γσ(γ)) }
+
+∈ [0 , 1] .
+
+Conviction is the operative mechanism through which the likelihood of objectivity introduced in Section 2.2 is formalized: a source with high conviction is one whose stances are reliably vindicated by independent consensus. Two further quantities relate conviction to the other truth notions. Persuasiveness 
+
+measures the excess tendency of a source’s stance to align with the objective truth of its own perception over the objective truth of the original claim 
+
+Pσ(γ) ≜ Pr {
+
+Θσ(Γ σ(γ)) = ˆΘ(Γ σ(γ)) }
+
+− Pr {
+
+Θσ(Γ σ(γ)) = ˆΘ( γ)}
+
+∈ [−1, 1] ,
+
+and demonstrability measures the excess tendency to align with the joint objective truth over the original 
+
+Dσ(γ) ≜ Pr {
+
+Θσ(Γ σ(γ)) = ˆΘ( γ, Γσ(γ)) }
+
+− Pr {
+
+Θσ(Γ σ(γ)) = ˆΘ( γ)}
+
+∈ [−1, 1] .
+
+High persuasiveness with low demonstrability indicates that the persuasion is only effective when the original claim is concealed or unobservable — a situation reflecting lack of conviction and transparency. Demonstrability is the metric used to declare winners in Oxford-style debates: the correctness term Pr {Θσ(Γ σ(γ)) = ˆΘ(γ)} denotes votes in favor of the source’s stance prior to the debate, and the conviction term Pr {Θσ(Γ σ(γ)) = ˆΘ(γ, Γσ(γ)) } denotes votes after. Demonstrability therefore quantifies the sway of opinion toward the source’s stance, and the winner is the participant with the largest such sway. While the approaches of survey, confirmation and verification allow for consul-tation of objective notions of truth, i.e., variants of the asymptote ˆΘ, the natural question that remains is what constitutes the most principled approach to establish-ing the reputation of a source that can be relied upon as a measure of trust when only Θσ(Γ σ(γ)) is available. Based on prior discussion, we have the ability to base reputation on any of conviction , correctness or faithfulness .We have previously explained that correctness is desirable only in the assimilative regime. In principle, whether we are in an augmentative regime is inestimable a
+
+11 priori , for if it were, the augmentation is already estimated and, by definition, not augmentation. It is therefore preferred to base the reputation of a source based on its conviction and faithfulness. If there were a single test feasible, it is preferred to be a test of conviction. A test of correctness would penalize innovation, while a test of faithfulness could compound biases of perception — a systematically biased source may be faithful to its own skewed perception while diverging from objective consensus. Even in well-established areas, and even without the underlying truth being perturbed, genuine creativity and innovation in a source’s perceptions are very much possible and desirable. These operational improvements and efficiencies are, however, orthogonal to truthfulness and trust, and thus outside the scope of our framework. Apart from the benefits of leveraging conviction we have discussed so far, there is yet another advantage. While the joint perception over (γ, Γσ(γ)) may be more verbose, the actual act of truth assessment becomes one of verifying the proof, as opposed to requiring reproving claims as with either faithfulness or correctness checks. This can be substantially more efficient computationally as well as more economical in practice. As noted before, conviction of the source is most often the sufficient target, with the exception of insufficiency of the source’s perceptions by themselves. Optimizing for conviction also has an expectation for a source that is very relatable: 
+
+Assume both the original claim and the source’s perception can be reviewed as desired, and attempt to produce a perception such that any such reviewer will gravitate to the source’s truth estimate. This is a very human expectation — performing tasks with an acknowledgment of them being reviewed and producing work that can be stood behind when challenged forms the basis of earning reputation in any human endeavor. Social constraints have proven that this is the most robust approach to engendering reliability and trust in systems whose participants are themselves error-prone. We can therefore posit the following requirements for a trustable source in a trusted ecosystem: 1. Facilitate reviews by being transparent and producing self-sufficient perceptions to align any reviewers with internal truth assessments. 2. Require reputation building via such review mechanisms to establish credibility in claimed areas of expertise. We will elaborate on appropriate metrics for reputation next. 
+
+3.6. Metrics for Reputation 
+
+Having established conviction as the preferred basis for reputation in Section 3.5.4, we now formalize the metrics through which it is operationalized. The central challenge is that reputation must reflect not only whether a source shows conviction, 12 but also the weight that each claim γ deserves in the accumulation of that reputation. We argue that this weight is determined by the certitude of the objective truth — both prior to and after the source’s perception — and that the sign of each contribution is determined by the alignment of the source’s stance with the posterior objective truth. 
+
+3.6.1. Claim Weight via Certitude of Objectivity 
+
+For a claim γ ∈ N , the prior certitude of objectivity is the certainty with which the objective truth of γ is established before any source perception is introduced 
+
+w−(γ) ≜ 1 − H(
+
+Pr { ˆΘ( γ) = ⊤} )
+
+,
+
+where H(·) denotes binary entropy. This weight approaches 1 when prior objectivity is certain and approaches 0 when the claim is genuinely contested. Similarly, the posterior certitude of objectivity reflects the certainty of objectivity after the source’s perception Γσ(γ) is included 
+
+w+(γ, σ ) ≜ 1 − H(
+
+Pr { ˆΘ( γ, Γσ(γ)) = ⊤} )
+
+.
+
+The joint claim weight is the product of prior and posterior certitudes: 
+
+w(γ, σ ) ≜ w−(γ) · w+(γ, σ ).
+
+This product weights contributions most heavily when both prior and posterior objectivity are certain, and discounts when either is uncertain. Crucially, a source that destabilizes an established consensus is naturally discounted on the posterior factor, withholding reputation credit until the claim resolves. 
+
+3.6.2. Signed Conviction 
+
+The direction of a source’s reputation contribution is determined by whether its stance aligns with or opposes the posterior objectivity. We define the signed conviction of source σ on claim γ as 
+
+˜Cσ(γ) ≜ 2Cσ(γ) − 1 ∈ [−1, +1] ,
+
+where Cσ(γ) = Pr {Θσ(Γ σ(γ)) = ˆΘ(γ, Γσ(γ)) } is the conviction as defined previously. The signed conviction has the following natural properties 
+
+• ˜Cσ(γ) → +1 when the source is consistently vindicated by posterior consensus and provides maximum positive contribution 
+
+• ˜Cσ(γ) = 0 when the source is vindicated exactly half the time and any contri-bution to reputation is withheld 
+
+• ˜Cσ(γ) → − 1 when the source is consistently opposed by posterior consensus and provides maximum negative contribution 13 3.6.3. Reputation 
+
+The reputation of source σ over a realm R ⊆ N is defined as the expected weighted signed conviction over claims in that realm 
+
+Rσ(R) ≜ Eγ∼pΓ(·|R )
+
+> [
+
+˜Cσ(γ) · w(γ, σ )
+
+> ]
+
+,
+
+may be approximated based on a corpus of claims R′ ⊆ R as 
+
+Rσ(R) ≈ 1
+
+|R ′|
+
+> ∑
+> γ∈R ′
+> (
+
+1{Θσ(Γ σ(γ)) = ˆΘ( γ, Γσ(γ)) }− 1{Θσ(Γ σ(γ)) ̸ = ˆΘ( γ, Γσ(γ)) })
+
+· wR′ (γ, σ ),
+
+where wR′ (γ, σ ) is the estimated certitude weight over the corpus R′.This definition has several desirable properties 1. Boundedness : Rσ(R) ∈ [−1, +1] , with +1 corresponding to a perfectly reliable source and −1 to a perfectly misleading one. 2. Claim-sensitivity : Claims on which objectivity is uncertain contribute less to reputation, naturally disentangling source reliability from claim contentiousness. 3. Regime-independence : The formulation is meaningful in both the assimila-tive and augmentative regimes. 4. Continuity : Reputation accrues gradually as conviction and objectivity cer-tainty accumulate, and continuous improvements compound rewards. The choice of aggregation operator ∨ determines convergence properties of the objective truth. Two natural families of instantiations are worth noting. In a reputation-weighted voting approach, each verifier’s assessment Θi(Γ i(γ)) 
+
+is weighted by their reputation Ri, creating a mutually reinforcing structure where reputation feeds back into truth estimation and truth estimation feeds forward into reputation. In a Bayesian approach, each verifier perception Γi(γ)
+
+continuously refines the objective consensus, with the prior certitude w−(γ)
+
+updated sequentially as perceptions accumulate. 
+
+3.6.4. Reputation Across Source-Claim Regimes 
+
+The behavior of Rσ(R) across the source-claim regimes identified in Figure 4 is summarized in Table 1. The regions of Figure 4 characterize the relationship between prior and posterior consensus, while conviction determines the sign and magnitude of the source’s contribution within each region. 14 Table 1: Source reputation contributions across the source-claim regimes of Figure 4, characterized by region and signed conviction ˜Cσ(γ). Discounting reflects the joint claim weight w(γ, σ ). Withheld contributions arise natu-rally when signed conviction approaches zero, implement-ing suspension of reputation judgment on contentious or unresolved claims without requiring explicit thresholding. 
+
+Region Signed Reputation Interpretation Conviction Contribution 
+
+Obvious High (→ +1 )Strong posi-tive Reinforcing assimilative source: con-sistently confirms established truth, the backbone of reliable knowledge Obvious Medium (≈ 0)Withheld Doubt introducer: intermittently dis-agrees with settled consensus without augmentative force; withheld pend-ing stabilization but trending nega-tive Obvious Low (→ − 1)Strong nega-tive Nonconformist: consistently opposes settled consensus without the aug-mentative force to move it; unam-biguous reputation penalty Sensible High (→ +1 )Positive, dis-counted Selective augmentative contributor: intervenes on partially settled claims and is consistently vindicated; dis-counted by posterior uncertainty Sensible Medium (≈ 0)Withheld Feather-ruffler: source perception moves partially settled consensus without clear vindication; claim con-tentiousness and source reliability are conflated; judgment suspended Sensible Low (→ − 1)Negative, dis-counted Selective destabilizer: consistently wrong when augmentative on par-tially settled claims; discounted by posterior uncertainty 
+
+continued on next page 
+
+15 Table 1 (continued) 
+
+Region Signed Reputation Interpretation Conviction Contribution 
+
+Non-intuitive High (→ +1 )Strong posi-tive, heavily discounted initially Genuine innovator: dramatically moves consensus and is vindi-cated; paradigm-shifter or theory-establisher depending on prior truth; contribution accrues as conviction stabilizes Non-intuitive Low (→ − 1)Strong nega-tive, heavily discounted ini-tially Inadvertent contributor: dramati-cally moves consensus away from own stance; contribution accrues as low conviction stabilizes Incredible High (→ +1 )Maximum positive, most heavily discounted initially Paradigm-defining innovator: max-imally moves consensus and is vin-dicated; highest reputation contribu-tion when resolved; slowest to accrue Incredible Low (→ − 1)Maximum negative, most heavily discounted initially Consequential inadvertent contrib-utor: maximally moves consensus against own stance; strongest repu-tation penalty when resolved The continuity property of reputation has a direct implication for the assessment of source reputation in practice. Since reputation accrues gradually through the accumulation of weighted conviction across claims, a single observation of a source’s behavior is insufficient to characterize its reliability. This is particularly acute in the non-intuitive and incredible regions, where the transient period before conviction stabilizes may be extended, and where point-in-time assess-ment may capture a source mid-trajectory and mischaracterize its reliability. Continuous observation of conviction and consensus trajectories is therefore not merely a practical convenience but a theoretical necessity for accurate reputation assessment. A claim γ is intrinsically contentious when w−(γ) ≈ 0, i.e., when prior consen-sus is maximally uncertain. In this regime, the joint weight w(γ, σ ) approaches zero regardless of the source’s conviction, naturally suspending reputation judg-ment. This disentangles source reliability from claim contentiousness without requiring explicit identification of which claims are contentious: the weight structure implements the suspension automatically. The direction of eventual resolution determines whether the claim was a genuine site of innovation or 16 merely a persistent point of disagreement, and this distinction becomes visible only through continuous tracking of the posterior weight w+(γ, σ ) over time. 
+
+# 4. Trust in the World of AI 
+
+4.1. AI Agents as Sources 
+
+AI agents are, in the precise sense of this framework, capable but error-prone sources. They possess both the generative ability to produce perceptions Γσ(γ) of claims across broad and diverse realms N and the discriminative capability to form truth assessments Θσ(Γ σ(γ)) of those perceptions. Their error-proneness is structural: stochasticity in the generative process, sensitivity to context, and dependence on inaccessible inputs mean that Γσ(γ) is neither perfectly reproducible nor fully trans-parent to external observers. AI agents are therefore neither confirmation-reliable nor straightforwardly verifiable — they are precisely the class of source for which reputation of conviction, as formalized in this article, is the operative mechanism of trust. 
+
+4.2. Training and Pre-Deployment Certification 
+
+The training process operates largely in the assimilative regime. Objective truths are well established across the domains on which agents are trained, prior certitudes 
+
+w−(γ) are high, and loss functions measure correctness — the alignment of the agent’s assessment with the established consensus. This is appropriate: in the assimilative regime, correctness is a reliable proxy for conviction, and optimizing for it is both tractable and well-motivated. Post-training approaches attempt to push agents into the augmentative regime — to produce perceptions that are not merely correct but genuinely conviction-worthy. The most prominent of these, direct preference optimization, works by contrasting pairwise perceptions and driving the source toward a preferred set. This is directionally aligned with the desiderata of this framework: it orients the agent toward producing perceptions that reviewers gravitate to, which is precisely the human expectation articulated in Section 3.5.4. The limitation is that preference is a subjective and potentially inconsistent proxy for conviction, and the resulting agent may be persuasive without being demonstrable. Benchmarks have traditionally served as the pre-deployment measure of agent capability. Their value is eroding: sources trained on sufficiently broad corpora have, in effect, encountered benchmark claims during training, making benchmark perfor-mance a measure of memorization as much as generalization. More fundamentally, benchmarks assess performance over a fixed realm Rbench ⊆ N , and the conflation of strong performance in one realm with reliable performance across others is precisely the pointwise failure mode that can become catastrophic in practice. A source may perform well in expectation over N while being systematically unreliable on the specific claims that matter. Independent pre-deployment certification against well-defined realms of claims is therefore crucial. Such certification is the analogue of human graduation — a structured, third-party assessment of a source’s conviction over a defined scope, 17 conducted before the source is trusted to operate consequentially. It establishes a baseline reputation Rσ(R) prior to deployment and gives consumers a principled basis for the initial extension of trust. 
+
+4.3. Inference and Continuous Reputation 
+
+Pre-deployment certification, however, is not sufficient. A deployed agent is subject to a far broader and less predictable distribution of claims than any training or certification regime can anticipate. Guardrails — rules, filters, and refusal mechanisms — are a necessary response to this, but they are inherently reactive and perpetually incomplete. Language alone is extraordinarily expressive — even in LLM-specific deployments, the space of undesirable situations is effectively infinite, and any finite set of guardrails will be outpaced by the diversity of deployment contexts. The impossibility of zero errors is not a failure of engineering ambition; it is a structural property of deploying capable sources into open-ended realms. The appropriate response is not to pursue the fiction of a fully guarded agent, but to acknowledge the inevitability of error and build the infrastructure to detect, characterize, and account for it. This is precisely what the reputation framework provides. A reliable AI agent must produce perceptions that are self-sufficient and assessable, so that conviction can be measured by external verifiers as claims arise. It must accumulate a record of such assessments across the full distribution of deployed claims, so that its reputation Rσ(R) reflects a stable, claim-sensitive, and continuously updated history of vindication — not a point-in-time declaration. And it must participate in an ecosystem that credits this accumulation and rewards agents whose conviction has proven durable, making the incentive to produce complete and transparent perceptions structural rather than incidental. This points toward a model of continuous verification, where independent ver-ifiers assess an agent’s perceptions against emerging consensus and commit those assessments to a trustless trail. As assessments accumulate, the reputation estimate stabilizes, and trust in the agent becomes estimable rather than assumed. Certifica-tion is where trust begins. Reputation is where it is earned. Trust in AI agents is not a property to be declared at a point in time, but one that accrues, is observable, and can be lost. 
+
+# 5. Conclusion 
+
+This article has developed a mathematical framework for knowledge, truth, and trust grounded in the structure of claims and sources. Truth is defined as the reproducibly perceived subset of knowledge, arising as an asymptotic consensus across independent perceptions. Sources are characterized by their generative and discriminative roles, and their interactions with claims are organized into six bilateral relationships — faithfulness, conviction, transparency, correctness, neutrality, and redundancy — of which the first three are unconditional desiderata and the latter three characterize the assimilative regime. Among these, conviction emerges as the principled basis for reputation. It is regime-independent, penalizes neither innovation nor well-founded dissent, and de-mands the transparent and self-sufficient perceptions that make external verification 18 tractable. Reputation is formalized as the expected weighted signed conviction over a realm of claims, with claim weights determined by prior and posterior certitude of objectivity. The resulting measure is bounded, claim-sensitive, and continu-ous — accruing gradually through a verifiable record rather than through singular declarations. The application to AI agents closes the argument. Agents are capable but error-prone sources, and the framework identifies continuous verification as the mechanism through which their reputation can be established and maintained. Point-in-time certification is insufficient; what is required is a trustless trail of assessments that accumulates over deployment, makes reputation observable, and allows it to be lost. The framework developed here ultimately issues a dual charge. To builders of AI agents: architect for verifiable conviction — produce systems whose perceptions are complete, whose reasoning is self-sufficient, and whose outputs can be stood behind when challenged. To consumers of AI agents: demand it — resist the temptation of capable but unverifiable systems, and extend trust only where reputation has been earned. The charge runs in the other direction too. To consumers: commit to supporting the infrastructure of continuous verification. To builders: demand it of the platforms on which your agents are deployed and gain reputation based on merit. Millennia of evolutionary and social pressure have furnished humans with precisely this dual machinery — the instinct to build reliable reputations and the instinct to consult them. That we would deploy agents of ever-increasing capability into the world without reconstructing it artificially is the central oversight of our moment. 19

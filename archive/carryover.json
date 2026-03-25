@@ -1,6 +1,44 @@
 {
-  "generated_at": "2026-03-25T08:34:16.556062+00:00",
+  "generated_at": "2026-03-25T09:23:01.596205+00:00",
   "updated_date": "20260224-20260325",
   "carryover_days": 9,
-  "items": []
+  "items": [
+    {
+      "id": "2603.21802v1",
+      "title": "Modal Logic for Distributed Trust",
+      "abstract": "We propose a method for reasoning about trust in multi-agent systems, specifying a language for describing communication protocols and making trust assumptions and derivations. This is given an interpretation in a modal logic for describing the beliefs and communications of agents in a network. We define how information in the network can be shared via forwarding, and how trust between agents can be generalized to trust across networks. We give specifications for the modal logic which can be readily adapted into a lambda calculus of proofs. We show that by nesting modalities, we can describe chains of communication between agents, and establish suitable notions of trust for such chains. We see how this can be applied to trust models in public key infrastructures, as well as other interaction protocols in distributed systems.",
+      "authors": [
+        "Niels Voorneveld",
+        "Peeter Laud"
+      ],
+      "primary_category": "cs.LO",
+      "categories": [
+        "cs.LO",
+        "cs.MA"
+      ],
+      "published": "2026-03-23T10:43:24+00:00",
+      "link": "https://arxiv.org/pdf/2603.21802v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "modal logic for reasoning about and deriving trust",
+      "llm_evidence_cn": "用于推理和推导信任的模态逻辑",
+      "llm_evidence": "用于推理和推导信任的模态逻辑",
+      "canonical_evidence": "用于推理和推导信任的模态逻辑",
+      "llm_tldr_en": "Proposes a modal logic framework to formalize and derive trust across multi-agent networks.",
+      "llm_tldr_cn": "提出了一种模态逻辑框架，用于在多智能体网络中形式化和推导信任。",
+      "llm_tldr": "提出了一种模态逻辑框架，用于在多智能体网络中形式化和推导信任。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "carryover_cache",
+      "paper_id": "2603.21802v1",
+      "carry_days": 1
+    }
+  ]
 }

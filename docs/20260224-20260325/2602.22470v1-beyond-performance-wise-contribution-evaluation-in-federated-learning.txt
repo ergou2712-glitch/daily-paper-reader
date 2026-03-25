@@ -1,0 +1,349 @@
+Title: Beyond performance-wise Contribution Evaluation in Federated Learning
+
+URL Source: https://arxiv.org/pdf/2602.22470v1
+
+Published Time: Fri, 27 Feb 2026 01:19:52 GMT
+
+Number of Pages: 18
+
+Markdown Content:
+# Beyond performance-wise Contribution Evaluation in Federated Learning 
+
+Balazs Pejo 11CrySyS Lab, Hungary 
+
+# Abstract 
+
+Federated learning offers a privacy-friendly collab-orative learning framework, yet its success, like any joint venture, hinges on the contributions of its participants. Existing client evaluation meth-ods predominantly focus on model performance, such as accuracy or loss, which represents only one dimension of a machine learning model’s overall utility. In contrast, this work investigates the crit-ical, yet overlooked, issue of client contributions towards a model’s trustworthiness — specifically, its reliability (tolerance to noisy data), resilience (resistance to adversarial examples), and fairness (measured via demographic parity). To quantify these multifaceted contributions, we employ the state-of-the-art approximation of the Shapley value, a principled method for value attribution. Our re-sults reveal that no single client excels across all dimensions, which are largely independent from each other, highlighting a critical flaw in current evaluation scheme: no single metric is adequate for comprehensive evaluation and equitable rewarding allocation. 
+
+# 1 INTRODUCTION 
+
+The proliferation of digital technology has enabled the col-lection of vast amounts of user data, fueling the rapid ad-vancement of Machine Learning (ML). However, this data is often fragmented into isolated silos, limiting the full po-tential of ML to entities with access to large, centralized datasets and potentially leading to biased or suboptimal models. Naive data pooling to overcome this fragmentation is often infeasible, as it can lead to severe privacy viola-tions (i.e., GDPR) and erode competitive advantages for businesses where data is a key asset. To address these challenges and democratize AI, Federated Learning (FL) McMahan et al. [2017] has emerged as a powerful paradigm. It enables multiple parties to collabora-tively train a shared model without exposing their raw data, thus preserving privacy while improving model generaliza-tion. However, managing this collaborative process requires mechanisms to ensure its stability and success Kairouz et al. [2021]. An appropriate mechanism for this is data and client evaluation, which is foundational to building a trustworthy system. Indeed, data (client) evaluation intersects with several dimensions of trustworthiness; for instance, quantifying clients is essential for ensuring accountability and trans-parency in the federation Siomos and Passerat-Palmbach [2023], while related valuation techniques that assess feature importance are a cornerstone of model explainability and interpretability Gunning et al. [2019]. Furthermore, client data directly impacts model’s privacy Liu et al. [2021], fair-ness Mehrabi et al. [2021], reliability Goldblum et al. [2022], and resilience Ibitoye et al. [2019]. These dimensions are often intertwined, creating a complex web of trade-offs Liu et al. [2020], Shaham et al. [2023], Li and Li [2024]. In this paper, we focus on last three of these critical objectives: • Fairness : Ensuring the model avoids discrimination against groups based on sensitive attributes. • Reliability : Ensuring the model performs consistently, particularly when faced with noisy or corrupted data. • Resilience : Ensuring the model maintains its perfor-mance when subjected to adversarial attacks. From a regulatory and governance perspective, our focus is aligned with the European Trustworthy AI framework Kaur et al. [2022] and the European Union’s Artificial Intelligence Regulation (AI Act), which emphasize that AI systems must be simultaneously ethically acceptable and technically ro-bust. Despite the importance of these multifaceted goals, the criti-cal flaw of all existing evaluation methods is that they almost exclusively rely on a single performance metric, typically ac-
+
+> arXiv:2602.22470v1 [cs.LG] 25 Feb 2026
+
+curacy or model loss Naidu et al. [2023]. This creates a nar-row, and potentially misleading, view of a client’s true value. For instance, most works apply data valuation with the singu-lar goal of improving training efficiency (e.g., faster conver-gence or more accurate model) by weighting higher/lower or selecting more/less frequently high/low quality data/client, respectively. This paper challenges this performance-centric paradigm, arguing that a client’s contribution to model trust-worthiness is an equally, if not more, important considera-tion. 
+
+Contributions. We conduct a multifaceted analysis of client contributions in FL, extending the evaluation to key trustworthiness metrics. Our primary contributions are as follows: • We evaluate the contribution of FL clients based on four distinct aspects of the global model: performance (measured by accuracy), fairness (measured by demo-graphic parity), reliability (measured by the tolerance to noise), and resilience (measured by the resistance against adversarial examples). • We shed light on the independence of these trustworthy AI pillars: the various scores allocated to the same clients are statistically uncorrelated. • We apply two distinct and well-established contribution evaluation schemes, the lightweight Leave-One-Out and the state-of-the-art Guided-Truncated-Gradient Shapley approximation, to demonstrate that our find-ings are present across different valuation methodol-ogy. • We conduct a systematic empirical study across three different ML domains (tabular data, computer vision, and natural language processing) to validate the gener-alizability of our conclusions. Our core finding is that client rankings differ dramatically across evaluation metrics. We provide compelling evidence that clients who are highly valuable for model performance can be neutral or even detrimental to its fairness, reliabil-ity, or resilience, and vice versa. This demonstrates that a performance-wise evaluation paints a skewed and incom-plete picture, with profound implications for building trust-worthy FL systems. 
+
+Organization. The remainder of this paper is organized as follows. Section 2 reviews related work, while in n Sec-tion 3, we detail our multifaceted evaluation metrics. In Section 4, we describe our experimental setup and present our empirical results along with our findings. Finally, we discuss the broader implications of our work and conclude the paper in Section 5. 
+
+# 2 RELATED WORKS 
+
+2.1 TRUSTWORTHY AI 
+
+As machine learning systems transition from research to integral components of high-stakes societal functions, the development paradigm has shifted from optimizing solely for predictive performance to ensuring overall trustworthi-ness Chkirbene et al. [2024]. This is particularly critical in domains where model failures can have severe economic and social consequences. Trustworthiness typically encom-passes several pillars, within this work we focus on three: 1) Fairness, which seeks to prevent unjust or prejudicial treatment, 2) Reliability, which ensure consistent operation under uncertain conditions, and 3) Resilience, which miti-gates the impact of adverse manipulations. 
+
+Fairness. Machine learning models, despite their mathe-matical objectivity, are trained on data generated by a society with historical and systemic biases Mehrabi et al. [2021]. Consequently, these models can inadvertently learn, repro-duce, and even amplify these biases, leading to discrimina-tory outcomes in high-stakes applications Hall et al. [2022]. It is not only an ethical imperative but also an emerging legal requirement, making it a critical component of trust-worthy AI Wachter et al. [2020]. The concept of fairness is operationalized through various quantitative metrics, each capturing a different notion of equity. In this work, we fo-cus on one of the most fundamental and widely understood metrics: Demographic Parity Calders et al. [2009], which re-quires that the model’s prediction is statistically independent of the sensitive attribute. 
+
+Robustness. While often discussed together, reliability and resilience are distinct parts of robustness within Trust-worthy AI that address different types of data perturba-tions Fawzi et al. [2016]. Reliability concerns a model’s abil-ity to perform consistently when faced with naturally occur-ring, random noise or data corruption Shannon [1948]. This simulates real-world challenges like blurry images from camera shake, background noise in audio recordings, or sim-ple data entry errors and the occurring white noise during communication. Resilience, in contrast, measures a model’s tolerance against deliberately crafted, worst-case perturba-tions, commonly known as adversarial examples Goodfel-low et al. [2015]. These attacks introduce small, often im-perceptible changes to an input with the specific goal of deceiving the model and causing a misclassifications. In this work, we use the well-known method called Projected Gra-dient Descent Madry et al. [2017] to generate such samples. Despite this clear conceptual difference, the two terms are frequently conflated in the literature, often grouped under the umbrella term robustness. This confusion is reflected in the metrics used for their evaluation. For instance, Mean Corruption Error Hendrycks and Dietterich [2019] and Ef-fective Robustness Taori et al. [2020] focus on reliability, while Adversarial Accuracy Guo et al. [2023] is tailored to measure resilience. Besides this confusion, a more significant limitation is that most of these metrics are heavily confounded by the model’s (baseline) accuracy. A model with higher general perfor-mance will almost always score better on corrupted or ad-versarial data, making it difficult to discern whether the model is truly more reliable or simply more accurate to begin with. This effect makes it challenging to evaluate a client’s specific contribution to the model’s reliability or resilience, separate from their contribution to its overall per-formance. To address this gap, our work explicitly treats reliability and resilience as separate objectives. We seek to evaluate them using methods that isolate these properties from the model’s general predictive accuracy. This approach allows for a more direct and nuanced assessment of a client’s contribution to protecting the model against either naturally occurring random noise or specific adversarial threats. 
+
+2.2 CONTRIBUTION EVALUATION 
+
+Evaluating the contribution of individual clients to a collab-orative model is a critical task. While a handful of strate-gies exist to tackle this Huang et al. [2020], Jiang et al. [2023], the cornerstone technique for most quality assess-ment problems within FL Jain et al. [2020] is the Shap-ley Value (SV) Winter [2002], Rozemberczki et al. [2022]. Originating from cooperative game theory Shapley and Cor-poration [1951], The Shapley Value of a client is defined as their average marginal contribution to the model’s util-ity across all possible subsets (coalitions) of clients. While it possesses desirable axiomatic properties that guarantee a fair and unique distribution, its primary drawback is its computational complexity, which makes exact computation infeasible for typical FL scenarios. Consequently, a vari-ety of approximation methods have been developed, such as Monte-Carlo based approaches and gradient-based tech-niques Ghorbani and Zou [2019], Liu et al. [2022], which aim to estimate the value in a computationally tractable manner. 
+
+Fairness. The term "fairness" carries a dual meaning in this context, referring to both the properties of the reward allocation scheme (game-theoretic fairness Rabin [1993]) and the statistical properties of the machine learning model (algorithmic fairness Kleinberg et al. [2018]). This creates a twofold intersection with contribution evaluation. First, one can assess the fairness of the allocation scheme itself. The Shapley Value is axiomatically the only "fair" reward allocation method; thus, any other scheme, including its approximations, inevitably compromises on some aspect of this game-theoretic fairness. Second, one can evaluate the algorithmic fairness of the trained model and allocate value to clients based on their contribution to that specific objective. Since the quality of data and clients has long been un-derstood to extend beyond simple accuracy Wang and Strong [1996], this second interpretation is our focus. Our work is inspired by recent efforts to view algorithmic fair-ness through a data-quality lens. The authors in Arnaiz-Rodriguez and Oliver [2023] assign importance scores for individual training samples based on their contribution to a model’s fairness, rather than its performance. We bridge this concept with FL, extending the unit of analysis from a single data point to an entire client. 
+
+Robustness. The relationship between contribution eval-uation and model robustness is also bidirectional. On one hand, research has explored how the evaluation process it-self can be vulnerable. For example,the authors in Xu et al. [2024], Pejo et al. [2026] have demonstrated that contri-bution scores can be manipulated through data poisoning attacks, highlighting a lack of resilience in the evaluation schemes themselves. On the other hand, a perpendicular line of work uses contribution evaluation as a tool to enhance the final model’s resilience, for instance, by identifying and up-weighting clients who contribute positively to this objec-tive Guan et al. [2022], Otmani et al. [2024]. Beyond adversarial manipulations, the inherent reliability of contribution scores is also a significant concern. The scores, including the Shapley Value estimates, are often subject to uncertainty stemming from the stochastic nature of both the approximation algorithms and the model training process. This instability has been studied from several angles: the authors in Pejo et al. [2026] examined the effect of different aggregation techniques while others Goldwasser and Hooker [2024] analyzed the randomness of the approximation mech-anism. Yet, another work Wang and Jia [2023] investigated the consistency of different value functions against natural randomness. Lastly, Shapley-based rewards can motivate participants to strategically split their data to increase their payout, ulti-mately degrading the global model’s performance in a clas-sic "tragedy of the commons" scenario Qi and Zhu [2024]. While the existing literature has focused on the reliabil-ity and resilience of the evaluation schemes, our work ad-dresses a different question. We shift the focus to using these schemes to evaluate clients based on their contribution to the model’s reliability and resilience, treating these as explicit objectives alongside performance and fairness. 
+
+# 3 TRUSTWORTHINESS SCORES 
+
+Notation. The objective of ML is to iteratively (i.e., 
+
+1 ≤ t ≤ T ) train a model M (θ)t with parameters 
+
+θ = {θ1, . . . , θ m} and with empirical loss function L(x, θ )(where x is a sample) such that the prediction is enhanced with respect to a specific task. During training the empiri-cal loss is minimized: min θ
+
+P 
+
+> x∈D
+
+L(x, θ ). A summary of the utilized symbols are presented in Table 1, which also contains the variables specific to the proposed evaluation schemes. 
+
+Contribution Evaluation. Before defining our trustwor-thiness scores, we first outline the classical approach to client evaluation, which is based on model performance. The gold standard for this task is the Shapley Value: for a set of K clients, the SV for client k is defined in Eq. (1) ,where Π( K) is the set of all permutations of the K clients, and π<k denotes the set of clients preceding k in a given per-mutation π. Note, we present the formula to be suitable with evaluation functions v(·) where higher values mean better model. Indeed, for performance-wise evaluation, v(·) is usu-ally defined as the accuracy. As calculating the exact value requires exponentially many model trainings (one for each possible client combination), we utilize Data Shapley Ghor-bani and Zou [2019] instead, which only requires a single model to be trained: in each round all possible combination of gradients are used to update the model and the marginal differences are computed by comparing these intermediate submodels. The final score is the accumulated score from all rounds. 
+
+SV v (k) = 1
+
+K!
+
+X
+
+> π∈Π( K)
+
+(v(π<k ∪ { k}) − v(π<k )) (1) Guided-Truncated-Gradient Shapley ( GTG ) Liu et al. [2022], the SotA approximation technique enhances this by 1) skip-ping entire rounds of FL if the global model’s improvement is negligible ( < ϵ 1), 2) it samples a portion ( ϵ2) of all subset from all possible client permutations (such that each client is equal times in the early places), and 3) for each sampled permutation, it only evaluates the marginal contributions of a client if they exceed a minimum threshold ( > ϵ 3). Another, even more lightweight and widely used alternative approach what we also utilize in this paper is the Leave-Symbol Description 
+
+k ∈ [K] FL clients 
+
+M tk & M t The local and global models after round tDk & D′ Training & Testing datasets 
+
+x & y Data sample & label 
+
+n & a Gaussian & malicious noise 
+
+v(·) Evaluation function for scoring 
+
+v ∈ { perf , fair , rel , res }
+
+CS tv Contribution score in round t based on v
+
+CS tv ∈ { GTG tv & LOO tv }Table 1: Notations use in the paper. One-Out ( LOO ) heuristic Evgeniou et al. [2004]. While less principled than GTG, it is computationally much cheaper. A client’s contribution is simply the change in utility observed when they are removed from the grand coalition, as shown in Eq. (2). 
+
+LOO v (k) = v([ K]) − v([ K] \ { k}) (2) 
+
+Performance Scoring. As far as we know, without a sin-gle exception, v(·) in the literature is always defined by some standard ML metric measuring the performance of the model, i.e., the accuracy/loss. We will use the former as the baseline (Eq. (3) ) and adapt this evaluation schemes to capture the model’s fairness, reliability, and resilience, independently of its underlying performance. A visual illus-tration what each captures is presented in Fig. 1, while the high level pseudo code encapsulating our scoring methodol-ogy is presented in Alg. 1. 
+
+perf (M ) = Pr 
+
+> x∈D′
+
+[M (x) = y] (3) 
+
+Fairness Scoring. Our fairness score is based on Demo-graphic Parity (Def. 1), which relies on the test dataset. It 
+
+Figure 1: Example to illustrate what the dif-ferent trustworthiness scores capture based on 
+
+D′ = {(1 , G ), (2 , R ), (3 , G ), (4 , R ), (5 , R ), (6 , G )}.While the model is 0.67 accurate, its trustworthiness scores are widely different, e.g., fair (M ) = 0 .33 when Demo-graphic Parity is used where the square numbers (1,2,4) are protected and ’Red’ is the target class. Regarding reliability, the model might misclassify three (1,3,4) samples with various probabilities, resulting in rel (M ) = 0 .09 overall chance. Regarding resilience, the attacker is successful once (1) out of the four (1,2,5,6) correctly classified samples, i.e., 
+
+res (M ) = 0 .25 . Note, in the paper we transform these trustworthy metrics (i.e., m → (1 − m)) to be similar to accuracy: higher values mean better model. Algorithm 1 Assigning scores to clients in round t.
+
+Input : M t−1, [Dk]K 
+
+> 1
+
+, D′
+
+Output : [[ CS tv (Dk)] Kk=1 ]v∈{ perf ,fair ,rel ,res } 
+
+> 1:
+
+for each client k ∈ [K] do  
+
+> 2:
+
+M tk ← T rain (M t−1) 
+
+> 3:
+
+Share M tk with the server  
+
+> 4:
+
+end for  
+
+> 5:
+
+for CS ∈ { GTG , LOO } do  
+
+> 6:
+
+# GTG via Eq. (1), LOO via Eq. (2)  
+
+> 7:
+
+for v ∈ { perf , fair , rel , res } do  
+
+> 8:
+
+# perf /fair /rel /res via Eq. (3)/ (4)/ (5)/ (6)  
+
+> 9:
+
+[CS tv (Dk)] K 
+
+> 1
+
+← [M tk]K 
+
+> 1
+> 10:
+
+end for  
+
+> 11:
+
+end for 
+
+ensures that the proportion of samples assigned to a par-ticular class by the model must be independent from its membership of the sensitive group. 
+
+Definition 1 (Demographic Parity Calders et al. [2009]) .
+
+For sensitive group S ∈ D′ and for a specific outputs ˆy
+
+Demographic Parity requires the formula below to hold: 
+
+Pr 
+
+> x∈D′
+
+[M (x) = ˆ y|x ∈ S] = Pr 
+
+> x∈D′
+
+[M (x) = ˆ y|x ∈ D′/S ]
+
+We assign the fairness score to model M such that we take the difference between these, as formalized in Eq. (4) . Here, by subtracting the absolute difference from 1, higher values indicate a fairer model.           
+
+> fair (M) = 1 −
+> Pr
+> x∈D′[M(x) = ˆ y|x∈S]−Pr
+> x∈D′[M(x) = ˆ y|x∈D′/S ](4)
+
+Reliability Scoring. To measure reliability, we assess the stability of a model’s predictions when subjected to natu-rally occurring, random noise. To simulate this, we perturb each test sample x ∈ D′ with noise drawn from a Gaussian distribution, n ∼ N (0 , σ ), and compare the prediction be-tween the original and the perturbed input, as formalized in Eq. (5) . A key feature of this reliability metric is its inde-pendence from model accuracy. Such consistency focused metric captures the reliability of the trained models. In line with the other scores, it is also in the range [0 , 1] : 1 indi-cates perfect reliability, meaning the model’s predictions are unaffected by the noise. 
+
+rel (M ) = 1 − Pr 
+
+> x∈D′
+
+[M (x)̸ = M (x + n)|n ∼ N (0 , σ )] (5) 
+
+Resilience Scoring. In contrast to reliability, which mea-sures stability against random noise, our resilience met-ric quantifies a model’s resilience against a deliberate, worst-case adversarial attack. To evaluate this, we adopt a standard methodology from the adversarial machine learn-ing literature. We subject a trained model to a powerful and widely recognized attack, Projected Gradient Descent (PGD) Madry et al. [2017], which is designed to find the minimal perturbation necessary to induce a misclassifica-tions. The resilience score is then defined based on the success rate of this attack on correctly classified samples as defined in Eq. (6) , i.e., 0 implies maximal attack success rate and minimal model resilience, 
+
+res (M ) = 1 − Pr 
+
+> (x,y )∈D′
+
+[M (x)̸ = M (x + a)|M (x) = y] (6) 
+
+# 4 EXPERIMENTS 
+
+Setup. To ensure our findings are generalizable, we con-duct experiments across three settings: using Cifar10 with a CNN model for Computer Vision, using IMBD with a USE encoder for Natural Language Processing, and us-ing ADULT with an MLP model for Tabular data. Further details are presented in App. A. The training commences for ten rounds but in our score computation we only take into account the last nine: the first corresponds to train-ing an untrained model, thus, the corresponding change would dominate the rest and would skew the scoring re-sults. We simulate a cross-silo setting with K = 4 and 
+
+K = 20 clients. These small numbers are chosen so the individual client contributions remain meaningful, as scores tend to diminish with a large number of participants. To model realistic data heterogeneity, we evaluate clients under both IID and non-IID data distributions (using a Dirichlet distribution with α = 0 .5). For aggregation we applied FedAVG and all experiments are repeated 5 fold. The im-plementation is based in Python using the Flower frame-work and TensorFlow, our code is available as open-source under the MIT License: https://anonymous.4open. science/r/RobShap-F707/ .For reliability, we inject Gaussian noise with a standard deviation of σ = 0 .1. For robustness, l∞-PGD was used with step size α = 0 .007 , ε = 0 .3 with 40 rounds and 
+
+ε = 0 .0015 with 5 rounds for CIFAR/ADULT and IMDB, respectively. Regarding fairness, we utilize the sex attribute as the sensitive feature for the ADULT dataset. For CIFAR, where sensitive attributes are not naturally present, follow-ing Wang et al. [2020] we construct sensitive groups by converting 5% of the samples per class into gray-scale. Fi-nally, as IMDB also lack such sensitivity annotation, we disregarded it for this purpose. 
+
+Trustworthy Model Scores. First we study how the model’s various scores change during the training. It is clear that perf improves, at it is directly optimized. On the other hand, the metrics capturing trustworthiness are not explicitly considered, hence, they evolution is not necessarily improv-ing. This is visualized in Fig. 2 for non-IID case (as the IID is similar, it is presented only in the Appendix in Fig. 6). Here, one can see widely different trends across datasets. In case of ADULT, all scores are rather stable, which can be explained by the limited change in the model in each round (2-10): this simple task was already learned well in the first round, leaving no room for further significant changes. In contrast, considering CIFAR, the score trajectories are mostly different. Clearly, the perf score is increasing, as the model is explicitly optimized for that. On the other hand, the fair score is rather stationary and extremely high (due to the artificial uniform nature of creating the sensitivity class), implying the model is fair. Regarding the 
+
+rel and res scores, they are both robustness metrics, so, not surprisingly, they are following a similar trend. The training process disregards these aspects, but instead of remaining static, these scores are deteriorating significantly: the model after the first round is quite robust ( ≈ 0.9), but later these properties vanish ( ≈ 0.05 − 0.3).    
+
+> (a) ADULT / 4 clients. (b) ADULT / 20 clients.
+> (c) CIFAR / 4 clients. (d) CIFAR / 20 clients.
+> (e) IMDB / 4 clients. (f) IMDB / 20 clients.
+
+Figure 2: Score evolution of the model as the training pro-gresses for the non-IID scenario. For the IMDB dataset, where the fair score is missing, changes in reliability ( 0.6 < rel < 0.8) are considerably more moderate compared to resistance ( 0.05 < res < 0.4), and neither of them show a clear monotone trend as before. These results shows that trustworthiness metric can behave differently in different settings, and even similar metric can paint a different picture about the same setting. While we advocate for a more and deeper research into the model’s trustworthiness scores, our paper focuses on the client’s scores, so we leave this as future work. 
+
+Trustworthy Client Scores. Next, based on these model scores, we allocate trustworthiness scores to the clients. While the model behaves in one way, that is the aggregated result of the client’s contributions, which could drastically differ from each other. For space constrains, we only show in Fig. 3 the obtained scores for the 4 client non-IID sce-nario, as with IID the scores are closer (as expected). The results corresponding to the other settings are placed in the Appendix: Fig. 7 and Fig. 8. Some consistent pattern emerges across all three datasets and contribution evaluation scheme, namely that most scores have high variance and they are mostly positive. Several dominant clients appear that substantially improve    
+
+> (a) ADULT / LOO. (b) ADULT / GTG.
+> (c) CIFAR / LOO. (d) CIFAR / GTG.
+> (e) IMDB / LOO. (f) IMDB / GTG.
+
+Figure 3: Computed scores for the 4 non-IID clients. the global model according to some metrics while not ex-celling (or even being harmful) in another. This is where the trade-offs between performance, fairness, reliability, and resilience are the most visible. For instance, some clients improve fairness or protection against attacks at the expense of accuracy, demonstrating that trustworthy behavior cannot be achieved by optimizing for global accuracy alone. Contribution analysis also reveals that trustworthiness in fed-erated systems is inherently client-dependent: some clients consistently have positive, others consistently negative ef-fects on a particular aspect, thus provides not only diagnos-tic insight, but also a basis for governance mechanisms that steer federated AI systems toward operation. For further de-tails on the various score evolutions across training rounds, we refer the reader to Appendix B. 
+
+Trustworthy Score Distributions. Instead of focusing on individuals, in Fig. 4 we show the trustworthiness score distributions in the 20 non-IID client setting, as for IID the trustworthy score distribution are ’bell’ curves with different variances centered around 0 (as expected). This and the 4 client results can be find in the Appendix Fig. 9 and Fig. 10, respectively.    
+
+> (a) ADULT / LOO. (b) ADULT / GTG.
+> (c) CIFAR / LOO. (d) CIFAR / GTG.
+> (e) IMDB / LOO. (f) IMDB / GTG.
+
+Figure 4: Score distributions of the 20 non-IID clients. 
+
+Setting fair rel res 
+
+Φ L2 Φ L2 Φ L2
+
+> ADULT
+
+4 I -0.145 0.029 0.056 0.026 -0.021 0.025 N -0.162 0.053 -0.152 0.036 -0.127 0.050 20 I -0.000 0.004 0.080 0.003 -0.021 0.004 N -0.040 0.014 -0.042 0.006 -0.036 0.011 CIFAR  4 I -0.007 0.037 -0.166 0.048 -0.250 0.058 N -0.096 0.040 -0.320 0.075 -0.386 0.095 20 I 0.004 0.004 -0.043 0.011 -0.074 0.018 N 0.009 0.007 -0.043 0.016 -0.031 0.020 IMDB  4 I — — 0.110 0.014 0.087 0.026 N — — 0.306 0.023 0.237 0.066 20 I — — 0.064 0.001 -0.016 0.003 N — — -0.016 0.004 -0.010 0.013 Table 2: Comparing the GTG -based performance score to the trustworthy scores where I and N stands for IID and non-IID, respectively. The presented non-IID results reveal a deviations from the symmetric, zero-centered distributions observed in the IID case. This is most profound with LOO regarding ADULT and IMDB: distinct negative and positive shifts are present regarding perf , rel , and res . In contrast, GTG based scores are more conservative: they fall within a smaller numerical scale and free of such severe shifts. Furthermore, we find that the underlying scoring mech-anism does matter, as GTG and LOO do not always align, showing inconsistencies even when utilizing the same evalu-ation function. Finally, the concentration of scores is highly dataset-dependent: rel , res , and perf are concentrated for ADULT, CIFAR, and IMDB, respectively. This suggests that different data modalities are inherently more sensitive to specific trustworthiness dimensions, which in turn dictates how individual client contributions are perceived across the federation. 
+
+Trustworthy Score Differences. We also study the differ-ence of the trustworthiness scores from the baseline per-formance score. For this we use an absolute and a rel-ative metric. We apply the Spearman correlation coeffi-cient ( Φ) Wissler [1905] to capture the discrepancies in the client’s orderings that the scores imply. This value is in the range of [−1, 1] , where positive/negative values imply a positive/negative correlation which is stronger if the value is further from 0. While such correlations are important for contribution evaluation, they are unable to capture the full picture: [1 , 2, 3] is the same order-wise as [1 , 2, 100] . Thus, we employ the L2 difference (RMSE) as well to capture how far the client’s various scores are. This is especially important when any monetary gain or reward is allocated between the clients. Both values are reported in Tab. 2 when 
+
+GTG is used, in the Appendix in Tab. 5 we show the result corresponding to LOO .(a) ADULT / LOO. (b) ADULT / GTG.   
+
+> (c) CIFAR / LOO. (d) CIFAR / GTG.
+> (e) IMDB / LOO. (f) IMDB / GTG.
+
+Figure 5: Heatmap of the pair-wise score correlations for the 4 non-IID client setting. . The key finding of this paper is presented in this table: with a few exceptions, the absolute value of the Φ correlation co-efficients are below 0.1, which imply these trustworthiness scores are largely independent from the performance-based score. Thus, for collaborative systems with trustworthy em-phasis, it is inadequate to evaluate the participants solely using a single metric, and it is imperative to consider all the dimensions the consortium cares about. 
+
+Trustworthy Score Correlations. Lastly, instead of com-paring the trustworthy scores to the performance score, we are comparing them against each other. This is visualized as a heatmap using the Spearman correlations in Fig. 5 for 4 non-IID clients. Similar results are reported in the Appendix for the other studied cases (Fig. 11 and Fig. 12). The pairwise correlation analysis confirms that performance-based evaluations are poor proxies for the client’s trustwor-thiness. Across all datasets, correlations between perf and the three trustworthiness metrics are consistently low, even trending in negative directions (CIFAR). In contrast, trust-worthiness dimensions exhibit significantly stronger inter-correlations; notably, rel and res consistently correlate above 0.5, reflecting their shared focus on model robustness. Another finding regarding the ADULT dataset is the high correlation of fair with both robustness metrics, suggesting a link between equitable data representation and resistance to perturbations. 
+
+# 5 CONCLUSION 
+
+Our investigation demonstrates that evaluating clients in Federated Learning solely through performance metrics provides an incomplete, and often misleading, picture of their true contribution. By extending client evaluation to encompass the pillars of trustworthiness (i.e., fairness and robustness), we reveal that a client’s value is highly context-dependent. Our empirical results show that performance-wise ’good’ clients are not necessarily trustworthy; in fact, the rankings of participants shift dramatically depending on the chosen metric. These findings have profound impli-cations for incentive design: a reward system based only on accuracy may inadvertently penalize clients who are essential for ensuring the model’s trustworthiness. Future work should explore how these multi-dimensional scores can be integrated into a unified, holistic reward allocation scheme that prioritizes the deployment of truly dependable and trustworthy AI systems. 
+
+Limitations & Future Works. It is important to note that our choice of any single metric is one of many possibilities. We hypothesize that replacing these underlying definitions — using another fairness definition, a different noise distri-bution, another adversarial attack — would likely result in subtle but meaningful differences in the resulting specific client scores. A comprehensive investigation into the sensi-tivity of client rankings to different metric choices within a single aspect (e.g., accuracy vs loss for performance) is a promising avenue for future work. Further trustworthy AI dimensions could also be considered, e.g., measuring the privacy of the models (and consequently assigning a privacy score to the clients) via the success rate of a membership inference attack. Another avenue to explore is the measure-ments of such aspects when they are explicitly considered during training (just as the model performance), i.e., ap-plying robust training, using a fairness regularization, or enforcing differential privacy, as these techniques would directly impact the corresponding contribution scores. 
+
+Acknowledgements 
+
+Project no. 145832, implemented with the support provided by the Ministry of Innovation and Technology from the NRDI Fund, financed under the PD_23 funding scheme and by the European Union project RRF-2.3.1-21-2022-00004 within the framework of the Artificial Intelligence National Laboratory. References 
+
+Adrian Arnaiz-Rodriguez and Nuria Oliver. Towards al-gorithmic fairness by means of instance-level data re-weighting based on shapley values. arXiv preprint arXiv:2303.01928 , 2023. Toon Calders, Faisal Kamiran, and Mykola Pechenizkiy. Building classifiers with independency constraints. In 
+
+2009 IEEE international conference on data mining work-shops , 2009. Daniel Cera, Yinfei Yanga, Sheng-yi Konga, Nan Huaa, Nicole Limtiacob, Rhomni St Johna, Noah Constanta, Mario Guajardo-Céspedesa, Steve Yuanc, Chris Tara, et al. Universal sentence encoder. 2018. Zina Chkirbene, Ridha Hamila, Ala Gouissem, and Unal Devrim. Large language models (llm) in industry: A survey of applications, challenges, and trends. In 2024 IEEE 21st International Conference on Smart Commu-nities: Improving Quality of Life using AI, Robotics and IoT (HONET) , 2024. Theodoros Evgeniou, Massimiliano Pontil, and André Elis-seeff. Leave one out error, stability, and generalization of voting combinations of classifiers. Machine learning ,2004. Alhussein Fawzi, Seyed-Mohsen Moosavi-Dezfooli, and Pascal Frossard. Robustness of classifiers: from adver-sarial to random noise. Advances in neural information processing systems , 2016. Amirata Ghorbani and James Zou. Data shapley: Equitable valuation of data for machine learning. In International conference on machine learning , 2019. Micah Goldblum, Dimitris Tsipras, Chulin Xie, Xinyun Chen, Avi Schwarzschild, Dawn Song, Aleksander Madry, Bo Li, and Tom Goldstein. Dataset security for machine learning: Data poisoning, backdoor attacks, and defenses. IEEE Transactions on Pattern Analysis and Machine Intelligence , 2022. Jeremy Goldwasser and Giles Hooker. Stabilizing estimates of shapley values with control variates. In World Confer-ence on Explainable Artificial Intelligence , 2024. Ian J Goodfellow, Jonathon Shlens, and Christian Szegedy. Explaining and harnessing adversarial examples. stats ,2015. Jiyang Guan, Zhuozhuo Tu, Ran He, and Dacheng Tao. Few-shot backdoor defense using shapley estimation. In 
+
+Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , 2022. David Gunning, Mark Stefik, Jaesik Choi, Timothy Miller, Simone Stumpf, and Guang-Zhong Yang. Xai—explainable artificial intelligence. Science robotics ,2019. Jun Guo, Wei Bao, Jiakai Wang, Yuqing Ma, Xinghai Gao, Gang Xiao, Aishan Liu, Jian Dong, Xianglong Liu, and Wenjun Wu. A comprehensive evaluation framework for deep model robustness. Pattern Recognition , 2023. Melissa Hall, Laurens van der Maaten, Laura Gustafson, Maxwell Jones, and Aaron Adcock. A systematic study of bias amplification. arXiv preprint arXiv:2201.11706 ,2022. Dan Hendrycks and Thomas Dietterich. Benchmarking neural network robustness to common corruptions and perturbations. In International Conference on Learning Representations , 2019. Jiyue Huang, Rania Talbi, Zilong Zhao, Sara Boucchenak, Lydia Y Chen, and Stefanie Roos. An exploratory analy-sis on users’ contributions in federated learning. In IEEE international conference on trust, privacy and security in intelligent systems and applications (TPS-ISA) , 2020. Olakunle Ibitoye, Rana Abou-Khamis, Mohamed el She-haby, Ashraf Matrawy, and M Omair Shafiq. The threat of adversarial attacks on machine learning in network security–a survey. arXiv preprint arXiv:1911.02621 ,2019. Abhinav Jain, Hima Patel, Lokesh Nagalapatti, Nitin Gupta, Sameep Mehta, Shanmukha Guttula, Shashank Mujum-dar, Shazia Afzal, Ruhi Sharma Mittal, and Vitobha Mu-nigala. Overview and importance of data quality for machine learning tasks. In Proceedings of the 26th ACM SIGKDD international conference on knowledge discov-ery & data mining , 2020. Kevin Jiang, Weixin Liang, James Y Zou, and Yongchan Kwon. Opendataval: a unified benchmark for data valua-tion. Advances in Neural Information Processing Systems ,2023. Peter Kairouz, H Brendan McMahan, Brendan Avent, Au-rélien Bellet, Mehdi Bennis, Arjun Nitin Bhagoji, Kallista Bonawitz, Zachary Charles, Graham Cormode, Rachel Cummings, et al. Advances and open problems in fed-erated learning. Foundations and trends® in machine learning , 2021. Davinder Kaur, Suleyman Uslu, Kaley J Rittichier, and Ar-jan Durresi. Trustworthy artificial intelligence: a review. 
+
+ACM computing surveys (CSUR) , 2022. Jon Kleinberg, Jens Ludwig, Sendhil Mullainathan, and Ashesh Rambachan. Algorithmic fairness. In Aea papers and proceedings , 2018. Jingyang Li and Guoqiang Li. The triangular trade-off between robustness, accuracy and fairness in deep neural networks: A survey. ACM Computing Surveys , 2024. Bo Liu, Ming Ding, Sina Shaham, Wenny Rahayu, Farhad Farokhi, and Zihuai Lin. When machine learning meets privacy: A survey and outlook. ACM Computing Surveys (CSUR) , 2021. Ximeng Liu, Lehui Xie, Yaopeng Wang, Jian Zou, Jinbo Xiong, Zuobin Ying, and Athanasios V Vasilakos. Privacy and security issues in deep learning: A survey. IEEE Access , 2020. Zelei Liu, Yuanyuan Chen, Han Yu, Yang Liu, and Lizhen Cui. Gtg-shapley: Efficient and accurate participant con-tribution evaluation in federated learning. ACM Trans-actions on intelligent Systems and Technology (TIST) ,2022. Aleksander Madry, Aleksandar Makelov, Ludwig Schmidt, Dimitris Tsipras, and Adrian Vladu. Towards deep learn-ing models resistant to adversarial attacks. arXiv preprint arXiv:1706.06083 , 2017. Brendan McMahan, Eider Moore, Daniel Ramage, Seth Hampson, and Blaise Aguera y Arcas. Communication-efficient learning of deep networks from decentralized data. In Artificial intelligence and statistics , 2017. Ninareh Mehrabi, Fred Morstatter, Nripsuta Saxena, Kristina Lerman, and Aram Galstyan. A survey on bias and fairness in machine learning. ACM computing sur-veys (CSUR) , 2021. Gireen Naidu, Tranos Zuva, and Elias Mmbongeni Sibanda. A review of evaluation metrics in machine learning algo-rithms. In Computer science on-line conference , 2023. Khaoula Otmani, Rachid El-Azouzi, and Vincent Labatut. Fedsv: Byzantine-robust federated learning via shapley value. In ICC 2024-IEEE International Conference on Communications , 2024. Balazs Pejo, Marcell Frank, Krisztian Varga, and Peter Veliczky. On the fragility of contribution score computa-tion in federated learning. IEEE International Conference on Secure and Trusthworthy Machine Learning , 2026. Meng Qi and Mingxi Zhu. Mechanism for decision-aware collaborative federated learning: A pitfall of shapley val-ues. arXiv preprint arXiv:2403.04753 , 2024. Matthew Rabin. Incorporating fairness into game theory and economics. The American economic review , 1993. Benedek Rozemberczki, Lauren Watson, Péter Bayer, Hao-Tsung Yang, Olivér Kiss, Sebastian Nilsson, and Rik Sarkar. The shapley value in machine learning. In Inter-national Joint/European Conference on Artificial Intelli-gence , 2022. Sina Shaham, Arash Hajisafi, Minh K Quan, Dinh C Nguyen, Bhaskar Krishnamachari, Charith Peris, Gabriel Ghinita, Cyrus Shahabi, and Pubudu N Pathirana. Holis-tic survey of privacy and fairness in machine learning. 
+
+arXiv preprint arXiv:2307.15838 , 2023. Claude E. Shannon. A mathematical theory of communica-tion. Bell System Technical Journal , 1948. L.S. Shapley and Rand Corporation. Notes on the n-person game. Notes on the N-person Game , 1951. Vasilis Siomos and Jonathan Passerat-Palmbach. Contribu-tion evaluation in federated learning: Examining current approaches. arXiv preprint arXiv:2311.09856 , 2023. Rohan Taori, Achal Dave, Vaishaal Shankar, Nicholas Car-lini, Benjamin Recht, and Ludwig Schmidt. Measuring robustness to natural distribution shifts in image clas-sification. Advances in Neural Information Processing Systems , 2020. Sandra Wachter, Brent Mittelstadt, and Chris Russell. Bias preservation in machine learning: the legality of fairness metrics under eu non-discrimination law. W. Va. L. Rev. ,2020. Jiachen T Wang and Ruoxi Jia. Data banzhaf: A robust data valuation framework for machine learning. In Interna-tional Conference on Artificial Intelligence and Statistics ,2023. Richard Y Wang and Diane M Strong. Beyond accuracy: What data quality means to data consumers. Journal of management information systems , 1996. Zeyu Wang, Klint Qinami, Ioannis Christos Karakozis, Kyle Genova, Prem Nair, Kenji Hata, and Olga Russakovsky. Towards fairness in visual recognition: Effective strate-gies for bias mitigation. In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition ,2020. Eyal Winter. The shapley value. Handbook of game theory with economic applications , 2002. Clark Wissler. The spearman correlation formula. Science ,1905. Zhangchen Xu, Fengqing Jiang, Luyao Niu, Jinyuan Jia, Bo Li, and Radha Poovendran. {ACE }: A model poison-ing attack on contribution evaluation methods in federated learning. In 33rd USENIX Security Symposium (USENIX Security 24) , 2024. Beyond performance-wise Contribution Evaluation in Federated Learning (Supplementary Material) 
+
+Balazs Pejo 11CrySyS Lab, Hungary 
+
+# A EXPERIMENT DETAILS 
+
+• For Computer Vision we used CIFAR-10 along with a CNN consisting of six convolutional layers arranged in three blocks (2×64, 2×128, 2×256 filters) with batch normalization and dropout, followed by a global average pooling layer, a dense ReLU layer with 256 units and a 10-way softmax output, trained with the Adam optimizer (learning rate 
+
+1 × 10 −3), sparse categorical crossentropy loss, and L2 regularization ( 5 × 10 −4). • For Natural Language Processing we utilize the IMDB dataset and employ the Universal Sentence Encoder Cera et al. [2018] to generate 512-dimensional embeddings for each review, which are then fed into a two-layer MLP with 256 and 128 hidden units, ReLU activations, batch normalization and dropout, and a final 2-way softmax output layer that is trained with Adam, sparse categorical crossentropy loss. • For Tabular Data we selected ADULT and applied a multilayer perceptron with three ReLU-activated dense layers with 256, 128 and 64 units, Layer Normalization, dropout, and a final sigmoid activation, trained with Adam. While we aim for performance-free metrics to measure the contributions, the underlying model should be accurate, as that is the point of the collaboration after all. Hence, we performed a hyperparameter optimization; the parameters are shown in Tab. 3. 
+
+Property ADULT CIFAR-10 IMDB Train / Test 40K / 10K 30K / 8K 20K / 5K Input shape 108 features (32, 32, 3) 512 (USE) Model MLP CNN NN Act. func. ReLU + sigmoid ReLU + softmax ReLU + softmax Optimizer Adam Adam Adam LR / DO 1 × 10 −3/0.1/0.05 1 × 10 −3/0.25/0.35/0.5 3 × 10 −5/0.5/0.5 
+
+L2 Reg 10 −4 5 × 10 −4 10 −4
+
+Norm Layer Batch Batch Loss Binary CCE Sparse CCE Sparse CCE Noise σ 0.1 0.1 0.1 GTG metrics ϵ1 = 0 .001 , ϵ2 = 0 .05 , ϵ3 = 0 .002 
+
+Table 3: Datasets and model configurations used in the experiments. 
+
+# B TRUSTWORTHY SCORE EVOLUTION 
+
+As the reported client scores are the accumulated values across the training rounds, we measure the round-wise deviations in each round separately in Tab. 4. Here the low variance suggests the scores are rather consistent across round; foretelling that it could be enough to measure the scores in a single round. The variance values show a clear pattern across datasets and settings. On ADULT, client contributions are almost time-invariant in every configuration: variances are effectively zero after thresholding, indicating that a single round is already representative of each client’s long-term effect on the model. In contrast, CIFAR exhibits noticeably higher variance, especially in the non-IID cases and for small client counts, which suggests that heterogeneous and high-dimensional image data leads to unstable client contributions over rounds. IMDB lies between these extremes: IID partitions again yield very small fluctuations, while Non-IID settings produce visible variance in robustness- and adversarial-related scores, reflecting the sensitivity of text models to distributional shifts in local corpora. Overall, the results indicate that temporal stability of client contributions is primarily driven by data modality and heterogeneity: IID and higher client counts lead to stable, interpretable contributions, whereas non-IID, low-client regimes introduce substantial instability that must be considered when analyzing robustness and fairness at client level. 
+
+Setting perf fair rel res 
+
+> ADULT
+
+4 IID 9.9 e-7±0.0 2.4 e-5±0.0 3.0 e-7±0.0 2.3 e-5±0.0 non-IID 1.1 e-4±0.0 1.5 e-4±0.0 2.7 e-6±0.0 1.0 e-4±0.0 20 IID 2.8 e-7±0.0 1.6 e-6±0.0 0.0±0.0 2.2 e-6±0.0 non-IID 2.0 e-5±0.0 2.0 e-4±0.0 1.4 e-6±0.0 2.1 e-4±0.0 CIFAR  4 IID 2.9 e-4±0.0 5.4 e-5±0.0 8.4 e-4±0.0 8.8 e-4±0.0 non-IID 1.4 e-3±0.0 8.9 e-5±0.0 3.6 e-3±5.0 e-5 6.5 e-3±1.1 e-4 20 IID 6.1 e-6±0.0 1.6 e-6±0.0 6.6 e-5±0.0 2.6 e-4±0.0 non-IID 2.4 e-4±0.0 7.2 e-6±0.0 2.2 e-3±0.0 3.7 e-2±1.7 e-3 IMDB  4 IID 1.1 e-6±0.0 – 1.5 e-6±0.0 8.4 e-6±0.0 non-IID 9.5 e-5±0.0 – 5.8 e-4±0.0 4.0 e-3±3.6 e-5 20 IID 0.0±0.0 – 1.0 e-6±0.0 1.4 e-6±0.0 non-IID 8.4 e-5±0.0 – 1.8 e-3±0.0 2.1 e-2±4.2 e-4 Table 4: Scores fluctuations across training rounds. 
+
+# C SUPPLEMENTARY RESULTS 
+
+Setting fair rel res 
+
+Φ L2 Φ L2 Φ L2
+
+> ADULT
+
+4 I 0.0006 0.0099 0.0912 0.0017 -0.0982 0.0079 N -0.0451 0.1099 -0.2477 0.0481 -0.0309 0.0602 20 I -0.0655 0.0024 -0.0845 0.0006 -0.2608 0.0023 N -0.2091 0.0959 -0.3382 0.0238 0.0364 0.0745 CIFAR  4 I 0.0595 0.0269 -0.0190 0.0465 -0.1259 0.0401 N 0.0546 0.0500 -0.3671 0.0599 -0.4226 0.0762 20 I -0.1337 0.0032 -0.2508 0.0094 -0.3152 0.0177 N -0.0362 0.0187 -0.3736 0.0577 -0.5544 0.2035 IMDB  4 I — — -0.0669 0.0015 -0.0517 0.0028 N — — 0.2548 0.0257 0.1957 0.0630 20 I — — 0.0097 0.0011 0.0261 0.0018 N — — 0.1116 0.0420 -0.0556 0.1404 Table 5: Comparing the L1O -based performance score to the trustworthy scores where I and N stands for IID and non-IID, respectively. (a) ADULT / 4 clients. (b) CIFAR / 4 clients. (c) IMDB / 4 clients. 
+
+(d) ADULT / 20 clients. (e) CIFAR / 20 clients. (f) IMDB / 20 clients. 
+
+Figure 6: Score evolution of the model as the training progresses with IID distribution. 
+
+(a) ADULT / LOO. (b) CIFAR / LOO. (c) IMDB / LOO. 
+
+(d) ADULT / GTG. (e) CIFAR / GTG. (f) IMDB / GTG. 
+
+Figure 7: Scores of the 4 IID clients. (a) ADULT / IID / LOO. (b) ADULT / IID / GTG. (c) ADULT / NIID / LOO. (d) ADULT / NIID / LOO. 
+
+(e) CIFAR / IID / LOO. (f) CIFAR / IID / GTG. (g) CIFAR / NIID / LOO. (h) CIFAR / NIID / LOO. 
+
+(i) IMDB / IID / LOO. (j) IMDB / IID / GTG. (k) IMDB / NIID / LOO. (l) IMDB / NIID / LOO. 
+
+Figure 8: Scores of the 20 clients. (a) ADULT / LOO. (b) CIFAR / LOO. (c) IMDB / LOO. 
+
+(d) ADULT / GTG. (e) CIFAR / GTG. (f) IMDB / GTG. 
+
+Figure 9: Score distributions of the 20 IID clients. (a) ADULT / NIID / LOO. (b) ADULT / NIID / GTG. (c) ADULT / IID / LOO. (d) ADULT / IID / GTG. 
+
+(e) CIFAR / NIID / LOO. (f) CIFAR / NIID / GTG. (g) CIFAR / IID / LOO. (h) CIFAR / IID / GTG. 
+
+(i) IMDB / NIID / LOO. (j) IMDB / NIID / GTG. (k) IMDB / IID / LOO. (l) IMDB / IID / GTG. 
+
+Figure 10: Score distributions of the 4 clients. (a) ADULT / LOO. (b) CIFAR / LOO. (c) IMDB / LOO. 
+
+(d) ADULT / GTG. (e) CIFAR / GTG. (f) IMDB / GTG. 
+
+Figure 11: Heatmap of the pair-wise score correlations for the 4 IID client setting. . (a) ADULT / NIID / LOO. (b) ADULT / NIID / GTG. (c) ADULT / IID / LOO. (d) ADULT / IID / GTG. 
+
+(e) CIFAR / NIID / LOO. (f) CIFAR / NIID / GTG. (g) CIFAR / IID / LOO. (h) CIFAR / IID / GTG. 
+
+(i) IMDB / NIID / LOO. (j) IMDB / NIID / GTG. (k) IMDB / IID / LOO. (l) IMDB / IID / GTG. 
+
+Figure 12: Heatmap of the pair-wise csore correlations for the 20 client setting.

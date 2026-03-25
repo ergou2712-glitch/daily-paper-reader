@@ -1,0 +1,4717 @@
+Title: Auditing the Auditors: Does Community-based Moderation Get It Right?
+
+URL Source: https://arxiv.org/pdf/2603.18053v1
+
+Published Time: Fri, 20 Mar 2026 00:03:23 GMT
+
+Number of Pages: 53
+
+Markdown Content:
+# AUDITING THE AUDITORS : D OES COMMUNITY -BASED 
+
+# MODERATION GET IT RIGHT ?
+
+Yeganeh Alimohammadi 1†
+
+University of Southern California 
+
+Karissa Huang 1‡
+
+UC Berkeley 
+
+Christian Borgs §
+
+UC Berkeley 
+
+Jennifer Chayes ¶
+
+UC Berkeley March 20, 2026 
+
+# ABSTRACT 
+
+Online social platforms increasingly rely on crowd-sourced systems to label misleading content at scale, but these systems must both aggregate users’ evaluations and decide whose evaluations to trust. To address the latter, many platforms audit users by rewarding agreement with the final aggregate outcome, a design we term consensus-based auditing. We analyze the consequences of this design in X’s Community Notes, which in September 2022 adopted consensus-based auditing that ties users’ eligibility for participation to agreement with the eventual platform outcome. We find evidence of strategic conformity: minority contributors’ evaluations drift toward the majority and their participation share falls on controversial topics, where independent signals matter most. We formalize this mechanism in a behavioral model in which contributors trade off private beliefs against anticipated penalties for disagreement. Motivated by these findings, we propose a two-stage auditing and aggregation algorithm that weights contributors by the stability of their past residuals rather than by agreement with the majority. The method first accounts for differences across content and contributors, and then measures how predictable each contributor’s evaluations are relative to the latent-factor model. Contributors whose evaluations are consistently informative receive greater influence in aggregation, even when they disagree with the prevailing consensus. In the Community Notes data, this approach improves out-of-sample predictive performance while avoiding penalization of disagreement. 
+
+Keywords Content moderation | Misinformation | Community Notes | Matrix factorization | Crowdsourcing In the face of rapidly increasing online misinformation and harmful content [ 60 ], online platforms face a fundamental design question: how can unreliable information be identified and flagged at scale? Many platforms have turned this question back to their users, creating crowdsourced systems of content moderation that seek to leverage a diverse user base. Notably, X (formerly Twitter)–and, at a more experimental stage, Meta, TikTok, and Bluesky–invite users to evaluate content and add context to potentially unreliable posts [66, 34, 42, 54]. A central challenge in these systems is that users vary widely in the reliability of their evaluations [ 7, 10 ]. As a result, platforms confront a second problem: how to audit the auditors themselves? In practice, platforms aggregate user content evaluations into an inferred platform outcome, which we refer to as the consensus , that determines whether content is downranked or given additional context [ 65 ]. The same consensus is then used to evaluate users’ reliability as well: users whose historical input to the system aligns with the consensus gain influence, whereas those who diverge are downweighted or lose eligibility to participate in future evaluations [ 14 , 15 ]. We refer to this design choice as 
+
+consensus-based auditing .
+
+> †
+
+Marshall School of Business, University of Southern California. yalimoha@usc.edu 
+
+> ‡
+
+Department of Statistics, UC Berkeley. krhuang@berkeley.edu 
+
+> §
+
+Bakar Institute of Digital Materials for the Planet and Department of Electrical Engineering and Computer Sciences, UC Berkeley. borgs@berkeley.edu 
+
+> ¶
+
+Department of Statistics, Department of Mathematics, School of Information, Department of Electrical Engineering and Computer Sciences, and Bakar Institute of Digital Materials for the Planet, UC Berkeley. jchayes@berkeley.edu 
+
+> 1
+
+Equal contribution. 
+
+> arXiv:2603.18053v1 [cs.SI] 17 Mar 2026
+
+A PREPRINT - M ARCH 20, 2026 Although consensus-based auditing appears operationally efficient, it implicitly assumes that consensus is a reliable proxy for truth and that disagreement signals low credibility. This coupling of aggregation and auditing can potentially create a self -reinforcing dynamic [ 26 , 39 ]. When agreement with the consensus is rewarded, users have incentives to anticipate the outcome rather than provide independent input [37, 33]. As a result, disagreement becomes less visible, and minority perspectives may be withdrawn before they are ever aggregated [ 69 , 38 ]. In this paper, we quantify these effects and show, both theoretically and empirically, that consensus-based auditing systematically distorts contributor behavior and reduces the representation of informative minority viewpoints. X’s Community Notes provides a concrete setting for studying these design choices. Launched in January 2021 (initially as Birdwatch ), Community Notes is a crowdsourced content evaluation system where participating platform users (contributors ) add short “notes” that provide context to help readers assess a post’s claims [ 66 ]. Other participating users rate the helpfulness of these notes, and an aggregation algorithm selects which notes are displayed publicly as annotations on the original post, based on their predicted helpfulness across diverse viewpoints. In September 2022, Community Notes introduced Rating Impact and Writing Impact , which enforce a consensus-based auditing rule: a user’s ability to continue rating and writing content depends on their historical alignment with the platform’s aggregated outcome (the consensus) [ 14 , 15 , 40 ]. This policy change offers a natural setting for examining how consensus-based auditing shapes activity in a crowd-sourced moderation system. We identify several systematic shifts indicative of reduced minority visibility. First, over time minority contributors increasingly align their ratings with the majority, suggesting strategic anticipation of the platform outcome. Further, we examine topic - level participation and find that posts on controversial topics (e.g., politics, international conflict, etc.) receive fewer notes than noncontroversial posts following the adoption of consensus - based auditing, even though these are exactly the topics where misinformation risk is highest and where an effective policy should encourage more evaluator engagement [63, 61, 57]. To understand these empirical observations, we develop a simple behavioral model in which users choose their ratings to balance their private belief about content quality against a penalty for deviating from the anticipated consensus. By analyzing the model’s equilibrium, we formally prove that consensus-based penalties amplify conformity, and disproportionately suppress minority contributors. Finally, we propose an alternative auditing algorithm to address some of the key shortcomings of the current system. The algorithm proceeds in two stages. In the first stage, we estimate content-level and user-level effects, and systematic user–content alignment from the observed ratings, and then compute residuals as the difference between observed and predicted ratings. The resulting residuals isolate the idiosyncratic component of each evaluation. In the second stage, we estimate contributor reliability from the variance of these first-stage residuals and aggregate current evaluations using inverse-variance weights. Crucially, “consistency” here refers to stability of residuals conditional on content and user’s baseline , not agreement with the majority. As a result, a contributor may consistently disagree with the prevailing consensus and still retain influence, provided their evaluations are stable and informative relative to the modeled structure. This two-stage method is motivated by classical results on weighted least squares under heteroskedasticity. After removing intrinsic content-level effects and user-specific average effects, residual evaluations can be modeled as conditionally unbiased signals with user-specific variance; in this setting, inverse-variance weighting yields the minimum-variance unbiased aggregation of signals [ 4, 12 , 27 , 46 ]. Empirically, we show that our algorithm improves out-of-sample predictive performance relative to the deployed algorithm. Better predictive performance yields harm reduction at scale. Previous work shows that the effectiveness of community annotations is highly time-sensitive. Notes attached earlier yield substantially larger reductions in engagement and diffusion than notes attached later; posts receive about 50% fewer reposts when notes are attached within 12 hours, compared to less than 10% reductions when attached after about 48 hours [ 48 ]. A more predictive auditing rule increases the signal-to-noise of early aggregates, reducing the number of ratings required to reach a confidence helpfulness decision and shortening time-to-attachment. In sum, our work makes three key contributions: (1) We provide empirical evidence that consensus-based auditing systematically alters minority behavior and reduces engagement with controversial topics. (2) We introduce a behavioral model that explains these shifts. (3) We design and evaluate an alternative auditing and aggregation algorithm that improves predictive performance while preserving participation of minorities. 
+
+Related Work 
+
+The promise of crowd-sourced evaluation is often motivated by the “wisdom of crowds”: when individual judgments are diverse and independent, their aggregation can outperform individual experts [ 23 , 52 ]. However, when individuals 2A PREPRINT - M ARCH 20, 2026 are exposed to others’ opinions, social influence can undermine independence and induce herding [ 9 , 3, 20 , 33 ]. Studies show that once early public feedback is observed, later contributors may follow the emerging trend, causing correlated errors and conformity [ 2 , 16 ]. Consensus-based auditing creates an additional channel for such effects: when contributors are rewarded for matching the eventual consensus rather than for providing informative signals, they are encouraged to conform [ 26 , 35 , 31 , 62 , 43 ]. This is particularly problematic in crowd-sourced moderation systems like Community Notes, where viewpoint diversity can mitigate biases in content labeling [ 53 ]. Yet empirical evidence on how consensus-based auditing rules shape contributor behavior in deployed crowd-sourced moderation systems remains limited. To date, empirical work on Community Notes has primarily focused on downstream effects of note attachment on user behavior and information diffusion. Studies show that posts with attached notes have lower engagement – measured in terms of likes, replies, views, and reposts – with especially strong effects when notes are attached earlier in a post’s lifecycle [ 48 , 24 , 18 , 11 , 6]. Other studies find that notes receiving broad contributor endorsement are perceived as more trustworthy by users than platform-issued misinformation labels [ 19 ]. Partisan asymmetries in content moderation participation have also been documented: contributors are more likely to challenge counter-partisan content and to rate co-partisans’ notes as more helpful [ 5 , 45 , 28 ]. Together, this literature establishes that Community Notes can affect engagement, trust, and partisan dynamics, while leaving open how platform incentive and eligibility rules shape contributor participation and coverage across topics. One difficulty that crowd-sourced moderation systems face is lack of a ground truth for estimated quantities like note helpfulness and user latent factors. There is a large literature that addresses the problem of how to infer contributor reliability in such settings. For example, in the crowd-sourcing and labeling literature, worker–task models estimate worker accuracy and task difficulty from patterns of agreement and disagreement [ 17 , 44 , 29 , 30 ]. Relatedly, there is a body of literature on designing mechanisms to elicit truthful information without verified labels, including proper scoring rules and peer-prediction methods [ 25 , 35 , 43 , 64 , 47 ]. A common lesson from these works is that participants should be evaluated against targets not determined by themselves, reducing incentives to coordinate on a focal consensus [ 35 , 43 , 25 , 32 , 21 ]. These approaches formalize the idea that reliability should be learned from error structure, not simply from matching a majority vote. Methodologically, the Community Notes algorithm is closely related to latent-factor models and collaborative filtering in recommender systems, where one seeks to infer user and item attributes from sparse, noisy ratings [ 58 , 7, 29 ]. A parallel line of work studies the design of aggregation rules that limit influence from noisy or adversarial users [ 46 ]. In statistics, classical results on weighted least squares show that inverse-variance weighting yields efficiency gains under heteroskedastic noise [4, 12]. Our two-stage algorithm combines these principles and ideas from the literature by drawing on the logic of scoring contributors against targets not defined purely by raw agreement with consensus, and using these scores to construct weights in a second-stage aggregation model. This combination links practical auditing in crowd-sourced moderation to established ideas in statistical efficiency and incentive-compatible information elicitation. 
+
+# X Community Notes 
+
+In the Community Notes program, users can write short annotations (called notes) that provide context for potentially misleading or disputed content on the platform, and rate notes written by other users as Helpful , Somewhat Helpful ,or Not Helpful . These ratings are aggregated using a matrix factorization algorithm that determines which notes are displayed publicly under the corresponding posts, while all remaining notes are kept hidden [ 65 ]. As a result, aggregation outcomes directly shape which information is surfaced and which contributors shape public discourse. 
+
+Aggregation via Matrix Factorization 
+
+For each user–note pair (u, n ), let run ∈ { 0, 0.5, 1} denote the observed rating, where Helpful , Somewhat Helpful , and 
+
+Not Helpful responses are mapped to 1, 0.5 and 0, respectively [ 65 ]. The platform assumes that ratings are modeled as 
+
+run = μ + hu + in + fu · gn, (1) where μ is a global intercept, hu is a rater intercept capturing user u’s baseline agreeability (the tendency to mark notes as helpful rather than unhelpful, regardless of content), in is a note intercept capturing the perceived overall helpfulness of note n, and fu, g n ∈ R are latent rater and note factors whose product represents the ideological alignment between user and note. 3A PREPRINT - M ARCH 20, 2026 The platform estimates these parameters by solving the regularized least-squares problem 
+
+ˆhu,ˆin, ˆgn, ˆfu, ˆμ = arg min 
+
+> μ,h u,i n,f u,g n
+
+X 
+
+> (u,n )observed
+
+(run − ˆrun )2
+
++ λu
+
+X
+
+> u
+
+ ∥hu∥2 + ∥fu∥2
+
++ λn
+
+X
+
+> n
+
+ ∥in∥2 + ∥gn∥2 . (2) where λu, λ n are regularization parameters. In this formulation, the note intercept in is the primary quantity of interest, as it captures how broadly helpful a note is across the user base and directly determines its eligibility for public display. Notes with estimated intercept ˆin ≥ 0.4
+
+are classified as Helpful and shown publicly beneath the corresponding posts, while notes with ˆin < 0.4 are withheld from public display. Among these, notes with ˆin < −0.05 are classified as Not Helpful and may generate negative feedback for both the note’s author and raters who marked the note as helpful [67]. 6
+
+Rating Impact 
+
+In September 2022, Community Notes introduced the Rating Impact feature, which links rating aggregation to contributors’ continued participation. Rating Impact is a user-level score computed based on whether a contributor’s ratings align with a note’s eventual Helpful /Not Helpful classification; agreement increases the score, while disagreement decreases it [ 41 , 40 ]. A user’s Rating Impact score determines their ability to write Community Notes; new contributors must reach a minimum Rating Impact threshold before they can write notes. Writers have a separate Writing Impact score, which governs their ability to write notes on the platform; writers lose the ability to submit new notes if at least 3
+
+of their 5 most recently written notes have been labeled Not Helpful after aggregation [14]. While the stated goal of this system is to surface notes from contributors with a track record of accuracy, it may create conformity incentives. To gain or retain writing privileges, contributors may feel pressure to align both their ratings and their note content with anticipated majority views, as repeated disagreement risks reduced influence and loss of access. Therefore, the September 2022 policy introduction, together with our use of October 1, 2022 as a conservative operational cutoff, provides a natural policy discontinuity for our study. 
+
+# Data 
+
+Our analysis uses the publicly released Community Notes dataset, which contains the complete history of notes and ratings since Community Notes’ launch in 2021 [ 68 ]. 7 Our primary analysis window spans June 1, 2022 through May 31, 2023, covering several months on both sides of the rollout of Rating Impact. For each rating event, the dataset records the note identifier n, rater identifier u, timestamp, selected rating, a summary of the note content, and metadata about the associated post. The dataset does not include estimates of the latent parameters (hu, i n, f u, g n), as these quantities are re-estimated by the platform as new data arrive. To study how the Rating Impact policy affects contributor behavior, we reconstruct the latent factors by running the platform’s matrix factorization algorithm on the open-source ratings data. Specifically, we recover weekly estimates of 
+
+(hu, i n, f u, g n) by applying the Community Notes aggregation algorithm to cumulative ratings data up to each week. We implement the publicly released December 31, 2022 version of X’s open-source matrix factorization code [ 65 , 55 ]. 8
+
+As a robustness check, we additionally incorporate an improved platform’s algorithm from the May 2025 release (see Supplementary Information, Section 2 for details). While both implementations share the same underlying matrix factorization framework described earlier, they differ modestly in operational details such as regularization choices, handling of ties, and per-topic factorizations. We use both versions as a sensitivity check to verify that our results are robust to reasonable variation in the estimation procedure. 
+
+> 6The production scoring system has evolved over time; the formulation here reflects the core structure and thresholds relevant for our analysis. Our empirical replication uses the corresponding open-source implementation released by platform X, though operational details such as confidence adjustments or per-topic factorizations may differ.
+> 7The initial name for Community Notes was Birdwatch.
+> 8The code is publicly available on the platform’s GitHub repository.
+
+4A PREPRINT - M ARCH 20, 2026 
+
+# Empirical Results 
+
+We document three empirical patterns in platform activity around the September 2022 introduction of the Rating Impact system, using October 1, 2022 as the analysis cutoff date 9; we refer to dates before October 1 as pre-rollout and dates after as post-rollout. First, we observe that minority-aligned raters shift their evaluations toward the majority. Second, controversial content receives relatively lower engagement post-rollout, potentially contributing to fewer visible annotations. Finally, the platform’s latent-factor model exhibits reduced out-of-sample predictive performance post-rollout. These observations align with the hypothesis that raters behaved strategically in response to the Rating Impact policy. The following subsections present each pattern in turn. 
+
+Minority Behavior Shift 
+
+First, we examine whether the introduction of the Rating Impact system altered how minority raters evaluate notes. Recall that each user and note are assigned a latent factor, fu and gn, respectively, that represent their ideology 10 . Then, for a pair of users and notes (u, n ), fu · gn represents their the rater-note alignment, and its magnitude measures the strength of that alignment. As proxies for behavioral change, (i) we study shifts in the distributions of rater and note factors, and (ii) changes in the predictive role of user–note alignment for Helpful ratings. 
+
+(i) Latent Factor Distribution Shift 
+
+Figure 1a plots the distribution of rater factors in the pre-rollout and post-rollout periods. Relative to the pre-rollout period, the share of raters in the majority-aligned mode increases from 58.4% to 63.1%, while the share in the minority-aligned mode decreases from 41.6% to 36.2%. Within the minority group, the distribution also shifts toward zero: the mean absolute factor |fu| for minority-aligned raters declines from 0.522 (CI: ± 0.177) pre-rollout to 0.413 (CI: ± 0.215) post-rollout. This change reflects both a subset of minority-aligned raters moving closer to the center and a subset crossing over to the opposite alignment. A parallel pattern is visible in the note factor distribution. For note factors the mean absolute note factor |gn| changes from 0.451 (CI: ± 0.25) pre-rollout to 0.408 (CI: ± 0.233) post-rollout. This suggests that the notes produced by minority-aligned writers are, on average, positioned closer to the center of the latent-factor spectrum in the later period 11 .Note that user and note factors are computed relative to all user-note interactions on the platform. To distinguish behavioral adaptation from compositional change due to entry of new raters, we compare factor shifts for two groups. We call one group “Early Users"; this is the set of users who have been active raters on the platform since before Oct. 1, 2022. The second group of users are “New Users"; this is the set of users who joined as new raters on X Community Notes between Oct. 1, 2022 and Jan. 1, 2023. We compute the factor shift for Early Users and New Users, taking the difference between their first latent factor after Jan. 1, 2023 and first latent factor after Oct. 1, 2022, for users where both factors exist. We then run a permutation test on the mean factor shift (10,000 permutations). We find that early users’ shifts were more negative than new users ( ∆ = −0.053 , p < 0.001 ). This is another indicator that the Rating Impact policy influences user behavior, causing users who experienced the policy change to become more strategic in rating. 
+
+(ii) User-Note Alignment 
+
+To assess whether the predictive role of user–note alignment changed at the Rating Impact rollout, we use Spearman’s correlation coefficient as a proxy. We use ratings data from Aug. 1, 2022 to Jan. 1, 2023, focusing on a fixed cohort of 1, 202 users who were active on the platform both before and after the October 1, 2022 cutoff. For each period, we compute the Spearman correlation between the rater-note factor dot product and helpfulness ratings, taking the difference (post minus pre) as our test statistic. The correlation declined from 0.792 before the rollout to 0.525 , yielding an observed difference of −0.267 .To assess whether this decline is statistically significant, we conduct a permutation test with 1, 000 iterations, randomly reassigning ratings to the pre/post groups while preserving the original group sizes, which gave a p-value of 0.004 .
+
+> 9October 1 provides a conservative operational cutoff following the period when the relevant eligibility rules began to take effect in our dataset.
+> 10 These factors can theoretically be vectors but in the context of X’s algorithm factors are scalar.
+> 11 Note factors partly reflect writer behavior but also depend on endogenous note entry and which notes receive sufficient evaluation to be estimated.
+
+5A PREPRINT - M ARCH 20, 2026 
+
+> (a) Rater factor change
+> (b) Note factor change
+
+Figure 1: Visualization of rater and note factor distribution shift over time. In the Appendix, we conduct sensitivity test these behavioral shifts with various additional metrics. Taken together, these patterns are consistent with the hypothesis that after the Rating Impact rollout, minority–aligned raters adjusted their evaluations toward the anticipated consensus, reducing observable disagreement. 
+
+Annotations on Controversial Topics 
+
+Another indication of changing rater behavior is the extent to which they engage with controversial vs. non-controversial notes; agreement with the majority is far more likely on non-controversial notes, thereby increasing the potential to boost a rater’s Rating Impact score. To study this, we compare annotation patterns for controversial and non-controversial notes before and after rollout of the Rating Impact system. We define controversy at the note level using two complementary approaches: a topic-based classification and a factor-based classification. 
+
+Topic-based classification. For topic-based classification, we assign each note to a content topic based on its summary text, using retrained version of X’s public topic-assignment pipeline (details in Appendix C). We then flag as controversial those topics that, in platform discourse and prior literature, are known to be highly polarized (e.g., national politics, public health, geopolitical conflicts). This classification captures domain-level controversy, independent of individual note characteristics. We additionally use Large Language Model (LLM)-based topic assignments as alternative classification procedures (details in Appendix C). 
+
+Factor-based classification. For factor-based classification, we use the absolute value of the estimated note factor, |gn|,as a continuous measure of ideological alignment. In the Community Notes latent-factor model, notes with factors far from zero are those that receive systematically different evaluations from different groups of raters. We therefore classify a note as controversial if |gn| lies in the top quantile of the distribution. This approach captures instance-level controversy even within otherwise non-polarized topics. 6A PREPRINT - M ARCH 20, 2026 
+
+Figure 2: Rolling Spearman correlation between rater-note factor dot product alignment and helpfulness ratings for the cohort of 1, 202 early users, computed over a sliding window of 50 ratings sorted by date. The red dashed line marks the algorithmic change on October 1, 2022. The bold line shows a LOWESS smooth of the rolling correlation. Prior to the intervention, the correlation is relatively stable, whereas after the intervention, the correlation declines steadily. This is an observational indicator that the rollout of Rating Impact weakened the relationship between rater-note alignment and helpfulness ratings among the group of users who were active before the change. We use both definitions in parallel to ensure robustness. The topic-based approach provides interpretability, while the factor-based approach is model-derived and sensitive to within-topic variation. Our empirical results are qualitatively consistent across both definitions. In this section, we report results using the topic-based classification leaving factor-based results to Appendix C. Figure 3 presents the weekly share of tweets receiving a first note that ultimately attains Helpful status before and after the rollout date, separately for controversial and non-controversial topics. For controversial topics, the helpful-share increases 12 from 0.061 with Wilson CI [0.044, 0.084] pre-rollout to 0.126 with Wilson CI [0.109, 0.146] post-rollout, a change of 6.5 percentage points. In contrast, non-controversial topics see an increase from 0.062 with Wilson CI [0.027, 0.138] to 0.199 with Wilson CI [0.151, 0.258], a change of 13.7 percentage points. We use a difference-in-differences (DiD) design to estimate the effect of the rollout of the Rating Impact system on note helpfulness for controversial vs. non-controversial notes. Using a symmetric 12 week band around Oct. 1, 2022, we see that the probability a non-controversial note is rated helpful increased by around 9 percentage points (95% CI [0.015, 0.161]) more than the probability a controversial note is rated Helpful. These shifts are also reflected in the counts during this 12 week band before and after the cutoff date: the proportion of tweets receiving at least one new note in controversial topics decreases ( −3.4pp ), while the proportion of tweets receiving at least one new note in non-controversial topics rises (+3 .4pp ). This trend of reduced engagement on controversial topics is especially present in the minority group. In Appendix C, we run an additional DiD study on the proportion of ratings assigned to controversial notes for individuals in the minority group vs. non-minority group. We find that, in a 12 week band around the rollout date, the proportion of controversial notes rated by minority users decreases 7.53 percentage points relative to the change observed for non-minority users (p = 0 .0284 ). We emphasize that these comparisons are descriptive; they show a post-rollout divergence in annotation outcomes between controversial and non-controversial topics, but they do not by themselves identify the mechanism. However, the consistent pattern across both classification schemes is in line with the hypothesis that, under the Rating Impact system, content on controversial topics receives fewer helpful ratings and correspondingly fewer surfaced annotations, while non-controversial topics receive more. 
+
+> 12 The definition of "helpfulness" was relaxed around the time of the Rating Impact rollout, so the helpfulness for both controversial and non-controversial notes increases [65].
+
+7A PREPRINT - M ARCH 20, 2026 
+
+Figure 3: Pre–post change in the share of notes with final status Helpful by controversy category around the Rating Impact rollout (cutoff: 2022-10-01). Bars show the mean proportion in the approximately 20 weeks before (Pre, blue) and after (Post, orange) the cutoff; error bars are 95% CIs. Text above bars reports the Post–Pre difference in percentage points. The increase is larger for non-controversial notes (+13.7 pp) than for controversial notes (+6.5 pp). Weeks (Pre, Post) Estimate 95% CI p-value (12, 0-12) 0.0882 [0.0152, 0.1612] 0.0179 (12, 13-26) 0.1185 [0.0311, 0.2059] 0.0079 Table 1: DiD Estimates. Windowed difference-in-differences estimates of the change in the weekly helpfulness rate difference between non-controversial and controversial content after the October 1, 2022 rollout. The outcome is the difference in weekly proportion of tweets receiving a note that is ultimately rated Helpful between tweets with controversial vs. non-controversial notes. The gap increases by 8.8 pp in the first 12 weeks post-rollout and by 11.9 pp in weeks 13–26. Both effects are positive and statistically significant. 
+
+Predictive Accuracy 
+
+We study how the predictive performance of the platform’s latent-factor model changes around the rollout of Rating Impact. For each calendar week t, we fit the X Community Notes matrix factorization algorithm on cumulative data up to week t, and then evaluate two types of prediction error. The in-sample error measures the error for the model predictions on ratings in week t. The one-week-ahead error measures the error for model predictions on ratings in week t + 1 , restricting to rating pairs (u, n ) where both the rater and note are observed in week t (see Appendix D for implementation details). Figure 4 plots the one-week-ahead mean squared error (MSE) over time, with the rollout week marked and Table 2 aggregates by period. The post-rollout period shows a higher and more volatile error than the pre-rollout period, with in-sample MSE increasing over 116% and one-week-ahead MSE increasing over 76% between pre- and post- rollout. Pre-Rollout Post-Rollout % Change In-sample 0.0488 
+
+> (0.0327, 0.0648)
+
+0.1057  
+
+> (0.1005, 0.1109)
+
++116.60% One-week-ahead 0.0927 
+
+> (0.0600, 0.1254)
+
+0.1634  
+
+> (0.1429, 0.1839)
+
++76.27% Table 2: Prediction Accuracy of Matrix Factorization. This table shows the average increase in in-sample MSE and one-week-ahead MSE of the matrix factorization estimates, computed as averages over three months pre- and post-rollout. Numbers in parentheses indicate 95% confidence intervals. 
+
+# Auditing by Predictive Stability: Two-Stage Weighted Matrix Factorization 
+
+The empirical patterns suggest that the platform’s current auditing may create incentives for conformity that reduce diversity in ratings and coverage of controversial topics. 8A PREPRINT - M ARCH 20, 2026 
+
+Figure 4: This figure shows the weekly mean squared error (MSE) for in-sample vs. out-of-sample predictions from the matrix factorization model. The MSE is computed as the squared difference between the observed rating outcomes and the model’s predicted rating outcomes (pre-discretization). In-sample errors reflect fit to the same week’s ratings, while out-of-sample errors use factors estimated from week t to predict ratings in week t + 1 . The vertical dashed line marks the Rating Impact analysis date we use. We therefore propose an alternative rule that separates auditing from agreement. Following well-established precedent in the literature, we propose an alternative weighting method, which we refer to as weighted matrix factorization, that targets rater reliability directly rather than agreement with the final note-status. The method consists of the following steps: 
+
+First stage: Compute matrix factorization estimates ˆμ, ˆhu,ˆin, ˆfu, ˆgn as in (2) 
+
+Second stage: 
+
+1. Compute residuals: For each observed user-note pair (u, n ), compute the first stage residual: 
+
+e(1)  
+
+> un
+
+= run − ˆμ − ˆhu − ˆin − ˆfu · ˆgn.
+
+2. Estimate variance: For each user u, estimate the empirical variance of their ratings as 
+
+ˆσ2 
+
+> u
+
+= 1
+
+|N (u)|
+
+X 
+
+> n∈N(u)
+
+ e(1) 
+
+> un
+
+2
+
+where N (u) is the set of notes that user u has rated. 3. Refit intercepts & factors: Run a final weighted regression: 
+
+arg min  
+
+> ˜μ, ˜hu,˜in,˜fu,˜gn
+
+X
+
+> (u,n )
+> observed
+
+1ˆσ2
+
+> u
+
+
+
+run − ˜μ − ˜hu − ˜in − ˜fu · ˜gn
+
+2
+
+.
+
+This step adjusts the intercepts after incorporating the user variance terms. In principle, one could also recalculate the ˆσ2 
+
+> u
+
+and iterate. The inverse-variance weight 1/ˆσ2 
+
+> u
+
+measures how predictable a rater’s behavior is, given their latent position. Because weights are based on internal consistency rather than agreement with other raters, consistent minority raters keep their influence even when they diverge from the majority. We expect this approach to: • Mitigate conformity incentives: Weights depend on consistency, not consensus alignment. • Preserve minority contributions: Consistent raters from minority viewpoints are not penalized for disagree-ment. • Improve predictive performance: As in WLS, accounting for heteroskedasticity should reduce mean squared error in prediction. 9A PREPRINT - M ARCH 20, 2026 
+
+Empirical Predictive Performance 
+
+To test the performance of our weighted matrix factorization algorithm, we run it on the Community Notes dataset modifying the Community Notes matrix factorization algorithm. We use ratings data from Jan. 1, 2023 to June 1, 2024. In particular, the ratings data from Jan. 1, 2023-July 1, 2023 serves as a warm start for the matrix factorization algorithm, and we evaluate our method on the ratings data from July 1, 2023-June 1, 2024. Detailed implementation description is given in the Appendix. In Figure 5a and 5b we compare the mean absolute residual and the median absolute residual on the one-week-ahead predictions from the matrix factorization approach vs. the two-stage approach. Using our proposed two-stage approach, the mean absolute residual is 5.73% lower on average, and the median absolute residual is 27.99% lower on average. 
+
+> (a) Mean absolute residuals.
+> (b) Median absolute residuals.
+
+Figure 5: Weekly out-of-sample (one-week-ahead) predictions for residuals estimated using matrix factorization vs. two-stage approach. Figure 5a shows the mean absolute residuals, with error bars, for each weeks’ predictions. Figure 5b shows the median absolute residuals for each weeks’ predictions. 
+
+# A Behavioral Model of Strategic Conformity 
+
+What counts as “truth” in content moderation is not straightforward. Whether a note is helpful can depend on context, values, and viewpoint, and in many settings there is no exogenous ground truth that the platform can audit against. Yet deployed systems necessarily act as if there is a stable truth to infer. In particular, both X’s Community Notes model and related designs (including Meta’s) are built around an implicit premise: contributors receive noisy private signals 10 A PREPRINT - M ARCH 20, 2026 about a latent underlying evaluation (as in Equation 1), and aggregation can recover that latent helpfulness of a note when signals are diverse and independent. In this section, we take that premise at face value , and assume that contributors truly do observe latent signals that fit the platform’s modeling assumptions. We then ask even if this latent-signal model were correct, would a consensus-based auditing system recover the underlying evaluation once contributors anticipate the platform’s eventual consensus? 
+
+Our analysis shows that it does not. When contributors are rewarded or penalized based on agreement with anticipated consensus, they have incentives to report strategically rather than reporting their private evaluations (signals) about the content. This systematically biases the platform’s inferred quantities, particularly on controversial content where conformity pressure is strongest. Finally, we show how shifting auditing from agreement with the majority to out-of-sample stability of residual behavior can remove the direct incentive to match the anticipated platform outcome and gives an unbiased estimator for helpfulness of a note. 
+
+Model 
+
+We consider a system with U users and N notes where users u rate notes n that appear on their feeds. Following the latent-signal interpretation implicit in matrix factorization [ 55 ], suppose each user, suppose that each user u observes a latent signal sun on a note n with additive noise ϵun 
+
+r⋆un = sun + ϵun , sun = μ + hu + in + fugn
+
+where E[ϵun ] = 0 , E[ϵ2
+
+> un
+
+] := σ2 
+
+> u
+
+∈ (0 , ∞). The errors ϵun are independent across users u and i.i.d. for the same u.As in (1) , the main quantity of interest is in, which captures the perceived overall helpfulness of note n. Here, μ is a global intercept, and hu is a rater intercept capturing user u’s baseline tendency to rate notes as helpful rather than unhelpful, independent of the note’s content. The latent variables fu, g n ∈ R are user and note factors, respectively, and their product fugn captures the extent to which a note is viewed as more or less helpful by users with different latent positions. The platform does not observe the latent quantity r⋆un directly. Instead, it observes reported ratings, which we denote by 
+
+aun , and fits the matrix factorization model in (2) to these reports using ridge-regularized least squares. Specifically, the platform computes 
+
+arg min 
+
+> μ,h,i,f,g
+
+X
+
+> (u,n )∈Ω
+
+ aun − μ − hu − in − fugn
+
+2
+
++ λh∥h∥22 + λi∥i∥22 + λf ∥f ∥22 + λg ∥g∥22,
+
+(3) where Ω denotes the set of observed ratings. Let ˆμ, ˆhu,ˆin, ˆfu, ˆgn denote the resulting estimates. 
+
+Modeling user’s behavior 
+
+Consensus-based auditing ties a contributor’s future standing (eligibility or influence) to whether their ratings agree with the platform’s eventual aggregate outcome. At the time of rating, however, that outcome has not yet been realized. Contributors therefore form expectations about it using information that is broadly observable on the platform, including past notes and ratings, visible patterns in prior outcomes, and the aggregation rule itself. These expectations may differ across contributors, reflecting differences in attention or inference. Still, because they are formed from largely shared information, it is natural to model them as noisy forecasts of a common note-level consensus target. 
+
+Definition 1. Let cn ∈ [0 , 1] be a scalar metric that denotes the controversy of the note n. For a note n, let mn denote the anticipated platform consensus, that is, the outcome contributors expect the platform eventually to assign to that note. 
+
+We leave mn unrestricted. It may reflect a simple heuristic, such as averaging visible prior ratings, or a more sophisticated forecast of the score implied by the platform’s aggregation rule. Contributor-specific differences in attention or inference are captured as additional noise around this target. Specifically, contributor u observes 
+
+˜mun = mn(cn) + ϵmun 
+
+where ϵmun captures heterogeneity in perceptions across users with E[ϵmun | fu, g n, c n, ρ n] = 0 and Var( ϵmun |
+
+fu, g n, c n, ρ n) = σ2
+
+> m,u
+
+(cn). Allowing σ2
+
+> m,u
+
+(·) to depend on cn captures the idea that forecasts of the platform outcome may be noisier on more controversial notes. 11 A PREPRINT - M ARCH 20, 2026 We next model how contributors choose ratings. A contributor u chooses a latent report aun ∈ R on note n by balancing two objectives: (i) reporting their private signal r⋆un against (ii) aligning with what they expect the platform to treat as the consensus, which we denote by ˜mun . The first term captures truthful reporting. The second captures the incentive created by consensus-based auditing: contributors anticipate that future standing on the platform (such as eligibility or influence) depends on whether their ratings agree with the platform’s eventual aggregate outcome. Deviating from the anticipated outcome therefore carries an expected penalty. We allow this tradeoff to depend on the controversy level cn. On more controversial notes, the incentive to anticipate the platform’s outcome is plausibly stronger, so the weight placed on the contributor’s own signal is weaker. We capture this expected downstream consequence of disagreement using a smooth quadratic loss. Similar tensions between private information and social conformity arise in models of social learning and information cascades [9, 49, 1, 2]. 
+
+Definition 2 (User’s Utility) . User u’s utility for a report a ∈ R on note n is defined to be 
+
+Uun (a | r⋆un , c n) = − ρ(cn)2 (a − r⋆un )2 − 1 − ρ(cn)2 (a − ˜mun (cn)) 2 + ζun . (4) 
+
+Here, ρ(·) ∈ [0 , 1] is conformity weight that is weakly decreasing in cn; it reflects the intuition that as the controversy of a note decreases, users are more inclined to report their true signal, and as the controversy of a note increases, users are more inclined to conform to the majority. ζun is an idiosyncratic payoff shock (mean zero and finite variance, i.i.d. across users u and notes n) that generates residual noise in choices independent of action a13 .
+
+We model the expected downstream consequence of disagreement using a smooth quadratic loss, which serves as a reduced-form approximation to the platform’s discrete eligibility and impact rules. Similar tensions between private information and social conformity arise in models of social learning and information cascades Maximizing a user’s utility (4) immediately implies that the optimal latent report is the convex combination 
+
+a⋆un = ρ(cn)r⋆un + (1 − ρ(cn)) ˜ mun (cn). (5) Thus, reports place weight ρ(cn) on the contributor’s private signal and weight 1 − ρ(cn) on the anticipated platform consensus. When ρ(cn) = 1 , the contributor reports their private signal exactly; we refer to this case as truthful reporting . Because ρ(·) is weakly decreasing in controversy, more controversial notes lead contributors to place relatively less weight on their own signals and more weight on the anticipated platform outcome. 
+
+Results 
+
+In this section, we present our main theoretical results. Proofs and technical regularity conditions are given in Appendix E. Throughout, we work in the setting where the number of users and notes are growing at the same asymptotic rate. In reality, the platform observes only a subset of user–note interactions, which we model as missing-completely-at-random sampling: each rating aun is observed independently with probability p ∈ (0 , 1] . We also assume that the true {(hu, f u)}u and {(in, g n)}u are bounded and i.i.d., with finite variance and that all intercept and factor terms are mutually independent. In addition, we assume that hu, i n, g n are mean zero, but that E[fu] = μf , for some known positive constant μf ; this allows us to identify a majority and minority group of users. The boundedness assumption is typically observed in real-life data, since user and item attributes are generally finite or are normalized by construction. Finally, we assume mean-zero sub-Gaussian noise terms ϵun and ϵmun independent of the latent variables. Formal regularity conditions are given in Appendix E Assumption 1. 
+
+Private-Signal Reporting ( ρ = 1 )
+
+We begin with the benchmark case ρ(·) ≡ 1, so that contributors report their private signals and a⋆un = r⋆un . In this setting the platform observes noisy realizations of the latent-signal model itself, and the matrix factorization recovers note helpfulness. This result extends the analogous result in the interactive fixed-effects framework in [ 8 ] to our setting with missing data using techniques from the matrix completion and interactive fixed-effects literature [13, 36, 51]. 
+
+Theorem 0.1. Assume U, N → ∞ and that E[fu] = μf where μf is known. Then, the estimate for note helpfulness is consistent. In particular 
+
+ˆinp
+
+−→ i0
+
+> n
+
+.
+
+That is, in the truthful regime, rank-1 MF recovers the true note helpfulness.             
+
+> 13 In X’s model, reports are discretized to {0,0.5,1}, so we interpret user actions aas a latent index; the observed rating maps negative values of ato 0, positive values to 1, and 0to 0.5. Our MF is fit to the observed ratings, while the analysis proceeds on the latent index.
+
+12 A PREPRINT - M ARCH 20, 2026 
+
+Strategic Conformity ( ρ < 1)
+
+Next, we turn to analyzing the case when ρ(·)̸ ≡ 1, in which contributors place positive weight on the anticipated platform consensus. In this regime, the following theorem tells us that the estimate of note helpfulness ˆin will be biased, and in particular will not converge to the model-implied helpfulness in. For the next theorem, we assume that the anticipated platform consensus mn varies across notes and has finite variance; formal regularity conditions are given in Appendix E Assumption 2. 
+
+Theorem 0.2. Suppose ρ(·)̸ ≡ 1. As U, N → ∞ , there exists a random variable i∞ 
+
+> n
+
+such that 
+
+ˆinp
+
+−→ i∞ 
+
+> n
+
+,
+
+and for at least one n, i∞
+
+> n
+
+̸ = i0
+
+> n
+
+.
+
+The source of this bias comes from the conformity incentives. When ρ(cn) < 1, the platform no longer observes contributors’ latent signals directly. Instead, it observes reports that combine the private signal r⋆un with the anticipated consensus target mn. Thus, matrix factorization is applied to conformity-distorted signals rather than to the latent signal matrix itself. To see where the distortion enters, write 
+
+δn := mn − (μ + in).
+
+The quantity δn measures how far the anticipated platform consensus deviates from the note-side latent component of the signal. Under users’ strategic reporting, the observed report matrix differs from the latent signal matrix by a note-side perturbation proportional to (1 − ρ(cn)) δn. The platform nevertheless fits the same matrix factorization model. Consequently, the recovered parameters correspond to the best rank-1 approximation of this distorted matrix. In particular, the bias is governed by the projection of the conformity term (1 − ρ(cn)) δn onto the note-factor direction gn.Whenever this projection is nonzero on a nontrivial set of notes, the resulting factorization converges to a parameter i∗
+
+> n
+
+which is different from the true note helpfulness i0
+
+> n
+
+.Furthermore, we can characterize the extent to which user factors will shift in this regime due to strategic behavior. Note that the latent factors fu and gn are unique up to a global constant scaling factor. Multiplying all note factors by c
+
+and user factors by c−1 still leads to a valid solution for solving the matrix factorization optimization problem given by (2). Thus, we use the following normalization for identification. Define the (estimated) residualized ratings to be 
+
+yun := a⋆un − ˆμ − ˆhu − ˆin
+
+where ˆμ, ˆhu,ˆin are given by solving the least squares problem (2). The latent factor normal equations are given by 
+
+ˆfu =
+
+P 
+
+> n
+
+ωun yun gn
+
+P 
+
+> n
+
+ωun g2
+
+> n
+
+, ˆgn =
+
+P 
+
+> u
+
+ωun yun fu
+
+P 
+
+> u
+
+ωun f 2
+
+> u
+
+. (6) The identifiability conditions on the matrix factorization estimates allow us to determine the sign and scale of the factor estimates. Our next result states how the estimate of the user factor behaves as a function of ρ(cn), m (cn), and gn in expectation. 
+
+Theorem 0.3. Let ρ̸ ≡ 1. Consider the setting of Theorem E.8, and suppose that the true note factors {gn}n are known. Let ˆμ, ˆhu,ˆin, ˆfu denote the solution to (2) . Then 
+
+E[ ˆfu | fu, g n, c n] = w1fu + c(1 − w1) + op(1) ,
+
+where 
+
+w1 =
+
+P 
+
+> n
+
+ρng2
+
+> n
+
+P 
+
+> n
+
+g2
+
+> n
+
+.
+
+Theorem 0.3 tells us that E[ ˆfu | fu] is an affine transformation of the user’s truth fu. As the probability of encountering controversial notes increases (more notes with cn = 1 ), w1 decreases . Thus, the estimated user factor places less weight on the individual’s true position and more weight on the aggregate conformity distortion. In particular, the bias is driven by the dependence of ratings on anticipated consensus, rather than by estimation error in the note factors. In practice, the gnn are themselves estimated, so additional distortion may arise from estimation error, potentially amplifying the effect described above. Theorem 0.3 also implies the following proposition, telling us which members of the minority are more susceptible to measurement errors in their latent factor estimations. Let the true minority be {u : fu < 0} with share π− 
+
+> true
+
+:= Pr( fu <
+
+13 A PREPRINT - M ARCH 20, 2026 
+
+0) ∈ (0 , 12 ), since we assume that fu has positive expected value. Because the latent-factor sign is globally arbitrary, the theoretical section uses a normalization opposite to the empirical sections. Empirically, we flip signs so that the majority is negative and the minority positive; all sign-based claims are invariant under the global transformation 
+
+(f, g ) → (−f, −g).
+
+Proposition 0.4. Consider the setting of Theorem 0.3. Then, 
+
+E[ ˆf ∗ 
+
+> u
+
+| fu, g n, c n] > 0 if and only if fu > − c(1 − w1)
+
+w1
+
+.
+
+In particular, the minority slice (− c(1 −w1) 
+
+> w1
+
+, 0) is mapped to positive estimates. 
+
+Proposition 0.5. Consider the setting of Theorem 0.3. Let F be the CDF of fu. Assume that F is continuous with no atom at 0. Then, the estimated minority share 
+
+π− 
+
+> est
+
+:= Pr( ˆfu < 0 | fu, g n, c n)
+
+satisfies 
+
+π− 
+
+> est
+
+= F
+
+
+
+− c(1 − w1)
+
+w1
+
+
+
+< F (0) + o(1) = π− 
+
+> true
+
++ o(1) ,
+
+and π− 
+
+> est
+
+is (weakly) decreasing in w2 and (weakly) increasing in w1.
+
+Remark 0.6. One can carry a similar computation for the note factors E[ˆ gn | fu, g n, c n] to get 
+
+E[ˆ gn | fu, g n, c n] ≈ gnρn
+
+
+
+1 − c
+
+P 
+
+> u
+
+fu
+
+P 
+
+> u
+
+f 2
+
+> u
+
+
+
+.
+
+If user opinions are balanced ( E(fu) = 0 ), then the expected estimate E[ˆ gn | fu, g n, c n] is proportional to gn with a coefficient that depends on ρn(cn). In particular, higher value of cn (controversial notes) reduce this coefficient, shrinking the note factor toward zero. 
+
+Statistical guarantee for the two-stage estimator 
+
+We now turn to the alternative auditing rule studied in the empirical section. Recall two-stage algorithm: the platform first fits the standard unweighted regularized matrix factorization model, and then uses the resulting residuals to estimate contributor-specific noise levels. It then refits the same model using inverse residual variance weights. This is the matrix-factorization analogue of feasible generalized least squares and is closely related to weighted low-rank approximation [4, 50, 56]. In the first stage, the platform fits the unweighted regularized model in (3) and obtains estimates (ˆ μ, ˆh, ˆi, ˆf , ˆg). For each contributor u, let Su := {n : ( u, n ) ∈ Ω} and Nu := |Su|, and define the first-stage residual variance estimate 
+
+ˆσ2 
+
+> u
+
+:= 1
+
+Nu
+
+X
+
+> n∈Su
+
+ aun − ˆμ − ˆhu − ˆin − ˆfu ˆgn
+
+2. (7) In the second stage, the platform sets 
+
+ˆwu := 1ˆσ2
+
+> u
+
+and refits the same regularized rank-1 model using contributor-specific weights. More generally, for any bounded positive weights w = {wu}, define the weighted regularized matrix factorization problem 
+
+arg min  
+
+> ˜μ, ˜hu,˜in,˜fu,˜gn
+
+X
+
+> (u,n )
+> observed
+
+wu
+
+
+
+run − ˜μ − ˜hu − ˜in − ˜fu · ˜gn
+
+2
+
+. (8) We write ˜its  
+
+> n
+
+for the note-helpfulness estimate produced by (8) with weights ˆwu = 1 /ˆσ2
+
+> u
+
+.Our next theorem shows that, among estimators obtained in this way, the estimator with weights wu = 1 /ˆσ2 
+
+> u
+
+is consistent and has the lowest asymptotic variance. 
+
+Theorem 0.7. Assume that ρ ≡ 1 and that μf is known. Then the solution to (8) with weights 1/ˆσ2
+
+> u
+
+, ˜its  
+
+> n
+
+, recovers consistent estimates of in, i.e., as U, N → ∞ 
+
+˜its 
+
+> np
+
+−→ i0
+
+> n
+
+.
+
+14 A PREPRINT - M ARCH 20, 2026 
+
+Moreover, among all other solutions of (8) ˜in with positive, finite weights wu ∈ (0 , ∞),
+
+aVar(˜ its  
+
+> n
+
+) ≤ aVar(˜ in).
+
+Here, for a scalar estimator Xm,
+
+aVar( Xm) = lim  
+
+> m→∞
+
+m · Var( Xm).
+
+This theorem gives a statistical interpretation of contributor impact under the redesigned rule. In the two-stage estimator, contributors are weighted by the inverse of their residual variance, so contributors whose evaluations are more stable relative to the fitted latent structure receive greater influence in the second stage. In this sense, the redesign audits contributors by residual stability rather than by agreement with the platform’s eventual consensus. This is the key contrast with consensus-based auditing. Under the current rule implemented in Community Notes, contributor influence is tied to whether ratings align with the platform’s final aggregate outcome. Under the two-stage rule, influence is instead tied to the statistical precision of a contributor’s evaluations within the latent-factor model. The theorem shows that, under private-signal reporting, this weighting rule yields a consistent estimator and attains the lowest asymptotic variance among weighted matrix factorization estimators in this class. Whether the same rule also changes contributors’ strategic incentives is a separate behavioral question. The result here suggests an alternative notion of contributor rating impact based on residual stability rather than agreement with the platform’s eventual consensus. 
+
+# Conclusion 
+
+Crowdsourced moderation systems are often motivated by the idea that diverse, independent evaluations can be aggregated into reliable judgments. Our findings show that this promise depends not only on how ratings are aggregated, but also on how contributors are audited. In X’s Community Notes, auditing contributors by whether they agree with the platform’s eventual consensus creates incentives to anticipate that consensus rather than to provide independent evaluations. Empirically, this is associated with strategic conformity by minority contributors, reduced engagement on controversial content, and lower predictive performance of the platform’s latent-factor model. Our theoretical analysis clarifies why this occurs. Even if one grants the platform’s latent-signal model, consensus-based auditing alters the object being measured: once contributors partially conform to the anticipated platform outcome, matrix factorization no longer aggregates independent evaluations alone. Instead, it recovers a conformity-distorted projection of those evaluations. These observations also suggest a different design principle. Rather than rewarding contributors for matching the eventual majority outcome, platforms can evaluate them using targets that do not mechanically favor conformity. Motivated by this idea, we study a two-stage procedure that weights contributors by the stability of their residual behavior rather than by agreement with the final consensus. In the Community Notes data, this approach improves out-of-sample predictive performance while allowing informative disagreement to retain influence. More broadly, our results suggest that crowdsourced moderation should be designed to preserve independence, especially on controversial content where finding misinformation is most valuable. Systems that reward agreement with the final aggregate may appear to improve reliability, but can instead suppress the disagreement needed for accurate aggregation. In environments without externally verifiable ground truth, the design of the auditing rule is therefore not a peripheral implementation detail; it is part of the core of the system. 
+
+# Acknowledgments 
+
+KH was partially supported by the National Science Foundation under grant DGE 2146752. 15 A PREPRINT - M ARCH 20, 2026 
+
+# References 
+
+[1] Daron Acemoglu, Munther A. Dahleh, Ilan Lobel, and Asuman Ozdaglar. Bayesian learning in social networks. 
+
+The Review of Economic Studies , 78(4):1201–1236, 2011. [2] Daron Acemoglu, Ali Makhdoumi, Azarakhsh Malekian, and Asu Ozdaglar. Fast and slow learning from reviews. 
+
+Econometrica , 90(2):775–810, 2022. [3] Daron Acemoglu, Asuman Ozdaglar, and James Siderius. A model of online misinformation. Review of Economic Studies , 91(6):3117–3150, 2024. [4] A. C. Aitken. Iv.—on least squares and linear combination of observations. Proceedings of the Royal Society of Edinburgh , 55:42–48, 1936. [5] Jennifer Allen, Cameron Martel, and David G Rand. Birds of a feather don’t fact-check each other: Partisanship and the evaluation of news in twitter’s birdwatch crowdsourced fact-checking program. In Proceedings of the 2022 CHI Conference on Human Factors in Computing Systems , CHI ’22, New York, NY, USA, 2022. Association for Computing Machinery. [6] Jennifer Allen, Duncan J Watts, and David G Rand. Quantifying the impact of misinformation and vaccine-skeptical content on facebook. Science , 384(6699):eadk3451, 2024. [7] Xavier Amatriain, Josep Pujol, and Nuria Oliver. I like it... i like it not: Evaluating user ratings noise in recommender systems, 06 2009. [8] Jushan Bai. Panel data models with interactive fixed effects. Econometrica , 77(4):1229–1279, 2009. [9] Abhijit V. Banerjee. A Simple Model of Herd Behavior*. The Quarterly Journal of Economics , 107(3):797–817, August 1992. _eprint: https://academic.oup.com/qje/article-pdf/107/3/797/5298496/107-3-797.pdf. [10] Md Momen Bhuiyan, Amy X. Zhang, Connie Moon Sehat, and Tanushree Mitra. Investigating differences in crowdsourced news credibility assessment: Raters, tasks, and expert criteria. Proc. ACM Hum.-Comput. Interact. ,4(CSCW2), October 2020. [11] Nadia M Brashier, Gordon Pennycook, Adam J Berinsky, and David G Rand. Timing matters when correcting fake news. Proceedings of the National Academy of Sciences , 118(5):e2020043118, 2021. [12] Raymond J. Carroll and David Ruppert. Robust estimation in heteroscedastic linear models. The Annals of Statistics , 10(2):429–441, 1982. [13] Yuxin Chen, Yuejie Chi, Jianqing Fan, Cong Ma, and Yuling Yan. Noisy matrix completion: Understanding statistical guarantees for convex relaxation via nonconvex optimization. SIAM journal on optimization , 30(4):3098– 3121, 2020. [14] Community Notes Guide – X. Locking and unlocking the ability to write notes. https://communitynotes.x. com/guide/en/contributing/writing-ability , n.d. Accessed: 2025-08-30. [15] Community Notes Guide – X. Rating and writing impact. https://communitynotes.x.com/guide/en/ contributing/writing-and-rating-impact , n.d. Accessed: 2025-08-30. [16] Weijia Dai, Ginger Jin, Jungmin Lee, and Michael Luca. Aggregation of consumer ratings: an application to yelp. com. Quantitative Marketing and Economics , 16(3):289–339, 2018. [17] Alexander Philip Dawid and Allan M Skene. Maximum likelihood estimation of observer error-rates using the em algorithm. Journal of the Royal Statistical Society: Series C (Applied Statistics) , 28(1):20–28, 1979. [18] Chiara Patricia Drolsbach and Nicolas Pröllochs. Diffusion of community fact-checked misinformation on twitter. 
+
+Proceedings of the ACM on Human-Computer Interaction , 7(CSCW2):1–22, 2023. [19] Chiara Patricia Drolsbach, Kirill Solovev, and Nicolas Pröllochs. Community notes increase trust in fact-checking on social media. PNAS nexus , 3(7):pgae217, 2024. [20] Erik Eyster and Matthew Rabin. Naive herding in rich-information settings. American economic journal: microeconomics , 2(4):221–243, 2010. [21] Boi Faltings and Goran Radanovic. Game theory for data science: Eliciting truthful information . Springer Nature, 2022. [22] Vivek Farias, Andrew A Li, and Tianyi Peng. Uncertainty quantification for low-rank matrix completion with heterogeneous and sub-exponential noise. In International Conference on Artificial Intelligence and Statistics ,pages 1179–1189. PMLR, 2022. [23] Francis Galton. Vox populi, 1907. 16 A PREPRINT - M ARCH 20, 2026 [24] Yang Gao, Maggie Mengqing Zhang, and Huaxia Rui. Can crowdchecking curb misinformation? evidence from community notes. Information Systems Research , 2025. [25] Tilmann Gneiting and Adrian E Raftery. Strictly proper scoring rules, prediction, and estimation. Journal of the American Statistical Association , 102(477):359–378, 2007. [26] Eric Horvitz. Incentives and truthful reporting in consensus-centric crowdsourcing. Technical report, Microsoft Research, 2012. [27] Matthew Jackson and Stephen Nei. Finding the wise and the wisdom in a crowd: Estimating underlying qualities of reviewers and items. American Economic Review , 111(3):1001–1024, 2021. [28] Uku Kangur, Roshni Chakraborty, and Rajesh Sharma. Who checks the checkers? exploring source credibility in twitter’s community notes. arXiv preprint arXiv:2406.12444 , 2024. [29] David Karger, Sewoong Oh, and Devavrat Shah. Iterative learning for reliable crowdsourcing systems. Advances in neural information processing systems , 24, 2011. [30] Hisashi Kashima, Satoshi Oyama, Hiromi Arai, and Junichiro Mori. Trustworthy human computation: a survey. 
+
+Artificial Intelligence Review , 57(12):322, 2024. [31] Yuqing Kong, Katrina Ligett, and Grant Schoenebeck. Putting peer prediction under the micro (economic) scope and making truth-telling focal. In International Conference on Web and Internet Economics , pages 251–264. Springer, 2016. [32] Yang Liu and Yiling Chen. Machine-learning aided peer prediction. In Proceedings of the 2017 ACM Conference on Economics and Computation , EC ’17, page 63–80, New York, NY, USA, 2017. Association for Computing Machinery. [33] Jan Lorenz, Heiko Rauhut, Frank Schweitzer, and Dirk Helbing. How social influence can undermine the wisdom of crowd effect. Proceedings of the national academy of sciences , 108(22):9020–9025, 2011. [34] Meta Platforms, Inc. Introducing community notes — adding context to posts. https://www.meta.com/technologies/community-notes/?srsltid= AfmBOoqGYuB01StOhwvVzji0toKNwMWsuS3OurkU7X3c5L2AvsifdBYC , 2025. Accessed: 2025-11-17. [35] Nolan Miller, Paul Resnick, and Richard Zeckhauser. Eliciting informative feedback: The peer-prediction method. 
+
+Management Science , 51(9):1359–1373, 2005. [36] Hyungsik Roger Moon and Martin Weidner. Linear regression for panel with unknown number of factors as interactive fixed effects. Econometrica , 83(4):1543–1579, 2015. [37] Lev Muchnik, Sinan Aral, and Sean J Taylor. Social influence bias: A randomized experiment. Science ,341(6146):647–651, 2013. [38] Elisabeth Noelle-Neumann. The Spiral of Silence: A Theory of Public Opinion . University of Chicago Press, 1974. [39] Juan Perdomo, Tijana Zrnic, Celestine Mendler-Dünner, and Moritz Hardt. Performative prediction. In Interna-tional Conference on Machine Learning , pages 7599–7609. PMLR, 2020. [40] Sarah Perez. Twitter expands its crowdsourced fact-checking program Birdwatch ahead of US midterms, September 2022. Accessed: 2025-09-16. [41] Sarah Perez. Twitter is making its crowdsourced fact-checks visible to all U.S. users with Birdwatch expansion, October 2022. Accessed: 2025-09-16. [42] Sarah Perez. Bluesky adds ‘anti-toxicity’ tools and aims to integrate ‘a community notes-like’ feature in the future. 
+
+TechCrunch , 2024. Accessed: 2025-11-17. [43] Drazen Prelec. A bayesian truth serum for subjective data. Science , 306(5695):462–466, 2004. [44] Vikas C Raykar, Shipeng Yu, Linda H Zhao, Gerardo Hermosillo Valadez, Charles Florin, Luca Bogoni, and Linda Moy. Learning from crowds. Journal of machine learning research , 11(4), 2010. [45] Thomas Renault, Mohsen Mosleh, and David G Rand. Republicans are flagged more often than democrats for sharing misinformation on x’s community notes. Proceedings of the National Academy of Sciences ,122(25):e2502053122, 2025. [46] Paul Resnick and Rahul Sami. The influence limiter: provably manipulation-resistant recommender systems. In 
+
+Proceedings of the 2007 ACM Conference on Recommender Systems , RecSys ’07, page 25–32, New York, NY, USA, 2007. Association for Computing Machinery. 17 A PREPRINT - M ARCH 20, 2026 [47] Victor Shnayder, Arpit Agarwal, Rafael Frongillo, and David C Parkes. Informed truthfulness in multi-task peer prediction. In Proceedings of the 2016 ACM Conference on Economics and Computation , pages 179–196, 2016. [48] Isaac Slaughter, Axel Peytavin, Johan Ugander, and Martin Saveski. Community notes reduce engagement with and diffusion of false information online. Proceedings of the National Academy of Sciences , 122(38):e2503413122, 2025. [49] Lones Smith and Peter Sørensen. Pathological outcomes of observational learning. Econometrica , 68(2):371–398, 2000. [50] Nathan Srebro and Tommi Jaakkola. Weighted low-rank approximations. In Proceedings of the 20th international conference on machine learning (ICML-03) , pages 720–727, 2003. [51] Liangjun Su, Fa Wang, and Yiren Wang. Estimation and inference for unbalanced panel data models with interactive fixed effects. Journal of Econometrics , 255:106222, 2026. [52] James Surowiecki. The wisdom of crowds . Vintage, 2005. [53] Jacob Thebault-Spieker, Sukrit Venkatagiri, Naomi Mine, and Kurt Luther. Diverse perspectives can mitigate political bias in crowdsourced content moderation. In Proceedings of the 2023 ACM Conference on Fairness, Accountability, and Transparency , pages 1280–1291, 2023. [54] TikTok Pte. Ltd. Rolling out tiktok footnotes in the u.s. https://newsroom.tiktok.com/ rolling-out-tiktok-footnotes-in-the-us?lang=en , 2025. Accessed: 2025-11-17. [55] Twitter, Inc. Community notes: Documentation and source code powering community notes. https://github. com/twitter/communitynotes , 2022. [56] Madeleine Udell, Corinne Horn, Reza Zadeh, and Stephen Boyd. Generalized low rank models. Foundations and Trends in Machine Learning , 9(1):1–118, 2016. [57] Sander Van Der Linden. Misinformation: susceptibility, spread, and interventions to immunize the public. Nature medicine , 28(3):460–467, 2022. [58] Benjamin Van Roy and Xiang Yan. Manipulation robustness of collaborative filtering. Management Science ,56(11):1911–1929, 2010. [59] Roman Vershynin. Introduction to the non-asymptotic analysis of random matrices., 2012. [60] Michela Del Vicario, Alessandro Bessi, Fabiana Zollo, Fabio Petroni, Antonio Scala, Guido Caldarelli, H. Eugene Stanley, and Walter Quattrociocchi. The spreading of misinformation online. Proceedings of the National Academy of Sciences , 113(3):554–559, 2016. [61] Soroush Vosoughi, Deb Roy, and Sinan Aral. The spread of true and false news online. Science , 359(6380):1146– 1151, 2018. [62] Bo Waggoner and Yiling Chen. Output agreement mechanisms and common knowledge. In Proceedings of the AAAI Conference on Human Computation and Crowdsourcing , volume 2, pages 220–226, 2014. [63] Jevin D. West and Carl T. Bergstrom. Misinformation in and about science. Proceedings of the National Academy of Sciences , 118(15):e1912444117, 2021. [64] Jens Witkowski and David C Parkes. Peer prediction without a common prior. In Proceedings of the 13th ACM Conference on Electronic Commerce , pages 964–981, 2012. [65] X Community Notes Guide. Ranking notes. https://communitynotes.x.com/guide/en/ under-the-hood/ranking-notes , n.d. Accessed: 2025-08-30. [66] X Corp. About community notes on x. https://help.x.com/en/using-x/community-notes , 2025. Ac-cessed: 2025-11-17. [67] X Corp. / Community Notes Guide. Note ranking algorithm. https://communitynotes.x.com/guide/en/ under-the-hood/ranking-notes , n.d. Accessed: 2025-08-05. [68] X (formerly Twitter) Community Notes Guide. Downloading data. https://communitynotes.x.com/guide/ en/under-the-hood/download-data , n.d. Accessed: 2025-08-30. [69] Dora Zhao, Diyi Yang, and Michael S. Bernstein. Mapping the spiral of silence: Surveying unspoken opinions in online communities. arXiv preprint arXiv:2502.00952 , 2025. 18 A PREPRINT - M ARCH 20, 2026 
+
+# A Guide to the Appendix 
+
+This Appendix has two goals. First, it provides the empirical implementation details and robustness analyses underlying the main-text results. Second, it contains the full technical Appendix for the theoretical results. The organization of the Appendix is designed to mirror the logic of the paper: we first document the empirical reconstruction and additional analyses, and then turn to the stylized model and proofs. The Appendix is organized as follows. Appendix B describes the data sources, preprocessing steps, and reconstruction of weekly latent factors from the public Community Notes data and open-source code. Appendix C presents additional empirical analyses in the order of the main text, including the shift in minority-aligned contributors after the introduction of Rating Impact, the change in participation on controversial content, and additional predictive-performance analyses. Appendix D describes the implementation of the two-stage weighted matrix factorization procedure and additional empirical details for that estimator. Appendix E contains the full theory Appendix: it states the stylized estimation model, lists the regularity conditions used in the proofs, and provides proofs of all theorems and propositions in the main text. 
+
+# B Data, reconstruction, and empirical methodology 
+
+B.1 Data sources 
+
+In this paper, we use the open source code and data from X Community Notes [ 68 ]. To study the effect of the Rating Impact rollout, we focus on the time frame between June 1, 2022 and May 31, 2023. To evaluate the predictive performance of our two-stage matrix factorization (MF) method, we use ratings data from Jan. 1, 2023 to June 1, 2024. Information about the primary dataframes we use in our analysis and relevant columns are stored in Table 3. More detailed information about all available data can be found in the Community Notes documentation [68].         
+
+> Dataframe Relevant Columns Description
+> ratings_df noteId, raterParticipantId, createdAtMillis, helpfulnessLevel
+> Record of each (user, note) rating pair and the times-tamp
+> history_df noteId, createdAtMillis, currentStatus Record of each note and what its most recent note status was (i.e. whether it has reached Helpful or Not Helpful status)
+> note_df noteId, raterParticipantId, createdAtMillis, tweetId, summary
+> Contains metadata about each note
+> note_factor_df noteId, week_dt, noteIntercept, noteFactor1
+> Contains weekly computations for note intercept and note factor (one for 2022 version, one for 2025 ver-sion of the code)
+> rater_factor_df raterParticipantId, week_dt, raterIntercept, raterFactor1
+> Contains weekly computations for rater intercept and rater factor (one for 2022 version, one for 2025 ver-sion of the code)
+
+Table 3: Dataframes used in our analysis. 
+
+B.2 Reconstructing Weekly Latent Factors 
+
+The public release does not include the latent parameters used internally by the platform’s aggregation system. As a result, all note and rater intercepts and factors used in our analysis are reconstructed from the ratings history rather than observed directly. In order to recover weekly estimates for rater and note intercepts and factors, we run X’s matrix factorization algorithm. For each week w from June 1, 2022 to May 31, 2023, we run the matrix factorization algorithm on all ratings up to and including ratings from week w. Since matrix factorization can only recover the rater and note factors up to a global scaling and sign, the algorithm checks the sign distribution of factors and ensures that the majority always has a negative sign. Thus, the sign meaning stays consistent throughout the weeks. We run both the version from Dec. 2022 and the version from May 2025 [ 55 ]. Both implementations largely solve the biased matrix factorization problem presented in the main text using stochastic gradient descent with L2 regularization, and factor normalization to ensure consistent interpretation of factors across weeks. The 2022 version is a straightforward implementation of the least-squares MF optimization problem with single-round optimization and basic convergence criteria. The 2025 version of the code includes many enhancements (multi-round reputation filtering, harassment detection, uncertainty quantification, and abuse mitigation), however, our implementation utilizes only the stable initialization improvement from the modern codebase. Specifically, we run the 19 A PREPRINT - M ARCH 20, 2026 
+
+run_single_round_mf function, which implements stable initialization using a designated modeling group to prevent factor sign drift across time. 
+
+B.3 Policy Timing, and User Cohorts 
+
+We use Oct. 1, 2022 as the analysis cutoff date. This is a conservative operational cutoff following the period when the Rating Impact eligibility rules (announced in September 2022) begin to take effect in the observed data. Dates before Oct. 1 are referred to as pre-rollout , and dates on or after Oct. 1 as post-rollout .Several analyses distinguish behavioral adaptation from compositional change due to entry of new raters. We define 
+
+early users to be raters who were active on Community Notes before Oct. 1, 2022, and new users to be raters who first became active between Oct. 1, 2022 and Jan. 1, 2023. Finally, note and rater factors should be interpreted as relative positions within a weekly latent scale estimated from all observed user-note interactions on the platform. In particular, note factors are equilibrium objects: they reflect not only how notes are evaluated, but also which notes are written and which notes receive enough ratings to be assigned a factor. For this reason, our empirical comparisons focus on within-pipeline temporal changes, cohort differences, and discontinuities at the rollout boundary, rather than on absolute comparisons across different estimation procedures. 
+
+# C Additional Empirical Results 
+
+C.1 Robustness Checks for Minority Behavior Shift 
+
+In this section, we provide several sensitivity tests for the evidence on changes in minority behavior. Recall that the platform normalizes users with negative latent factor to be the majority. The main empirical finding was that, following the introduction of Rating Impact, minority-aligned contributors moved closer to the majority in the platform’s latent-factor space, and the predictive role of user-note alignment for Helpful ratings weakened. Here we show that this pattern is robust across alternative visualizations of the factor distributions, a permutation-based comparison of factor shifts for early and new users, a regression discontinuity design for distributional shape, and additional predictive specifications based on the user-note dot product. 
+
+C.1.1 Latent Factor Distribution Shift 
+
+Recall from the main text that we define early users to be the cohort of users were who active on Community Notes before the rollout date of Oct. 1, 2022, and new users to be the cohort of users who became active between Oct. 1, 2022 and Jan. 1, 2023. In Figures 6, 8, and 9, we give additional visualizations for the distribution shift for early users compared with new users between Oct. 2022 and Jan. 2023. All figures give observational evidence that users who were affected by the Rating Impact policy change their behavior, with their factors aligning more with the majority over time. 
+
+C.1.2 RDD Tests for Bimodality 
+
+As an additional robustness test the latent factor distribution shift among note and rater factors, we compute the bimodality coefficient of the distributions over time and run a regression discontinuity design. For each week t, we compute the bimodality coefficient (BC) of the empirical distribution of latent factors, defined as 
+
+BC t = skewness 2 
+
+> t
+
++ 1 kurtosis t
+
+, (9) where skewness and kurtosis are computed from the stimated factors in week t. The bimodality coefficient is scale-invariant and increases with the prominence of multiple modes; for reference, unimodal symmetric distributions (e.g., Gaussian) have BC ≈ 1/3, while bimodal distributions yield larger values. We compute BC t separately for (i) rater factors {fu} and (ii) note factors {fn} using weekly snapshots of the matrix factorization estimates reconstructed from the public data. The estimation pipeline, normalization, and regularization are held fixed across time, so temporal changes in BC t reflect changes in the empirical distribution rather than rescaling artifacts. 
+
+Regression discontinuity design. We estimated a sharp RDD to test whether the October 1, 2022 intervention produced a discontinuous shift in weekly bimodality coefficients. The running variable Rt is defined as the signed 20 A PREPRINT - M ARCH 20, 2026 number of days between the Monday of week t and the cutoff date, so Rt = 0 corresponds to the first post-intervention week. We use the full available time series as the estimation bandwidth ( 9 weeks pre-, 9 weeks post-intervention). We estimated a local linear model on each side of the cutoff: 
+
+BC t = β0 + β1Rt + β2 · 1[Rt ≥ 0] + β3 · (Rt × 1[Rt ≥ 0]) + εt (10) where β2 identifies the discontinuous jump at the threshold and β3 allows the post-intervention slope to differ from the pre-intervention slope. The model was estimated separately for the rater-level and note-level bimodality series via OLS with HC3 heteroskedasticity-robust standard errors. 
+
+Results and interpretation. For rater factors, we observe a statistically significant negative discontinuity in the bimodality coefficient at the cutoff (Figure 10), indicating an abrupt shift toward a more unimodal distribution following the introduction of Rating Impact. This pattern is consistent with minority-aligned raters moving closer to the center of the latent spectrum or crossing alignment toward the majority group. For note factors, we also observe a significant decline in the bimodality coefficient at the cutoff (Figure 11), though the subsequent time trend differs from that of raters. The regression discontinuity design is used to identify the local 
+
+effect of the Rating Impact rollout on the distributional shape of latent factors, not to characterize longer-run dynamics. While the post-cutoff time path of note factors differs from that of rater factors, this divergence is expected and does not affect the interpretation of the discontinuity. Rater factors represent latent traits of a largely fixed population of users and therefore evolve primarily through behavioral adaptation. In contrast, note factors are equilibrium objects shaped by endogenous entry: which notes are written, and which notes receive sufficient evaluations to get assigend a factor all depend on post-rollout incentives. These selection forces can alter higher-order moments of the note-factor distribution over time, even when the immediate response to the policy change is a reduction in bimodality. Importantly, our inference relies on the direction and significance of the discontinuity at the rollout boundary, which is common to both rater and note factors, and is consistent with strategic conformity reducing the salience of minority-aligned positions. 
+
+C.1.3 Additional Alignment Tests 
+
+The main text used Spearman’s correlation between the rater–note dot product fugn and Helpful ratings as a nonpara-metric measure of the predictive role of user–note alignment. Here we report two additional robustness checks on the same question. 
+
+Logistic Regression For each rating between Aug. 1, 2022 and Jan. 1, 2023, we compute the dot product between the user factor and note factor at the time of rating. For each period before and after the Oct. 1, 2022 rollout, we regress helpfulness ratings on the rater-note dot product using logistic regression, and take the difference in coefficients (post minus pre) as our test statistic measuring change in predictiveness. The logistic regression coefficient declined from 
+
+15 .696 to 4.427 , a change of −11 .269 . We conduct a permutation test with 1, 000 iterations, randomly reassigning the ratings to pre/post groups, while preserving the original group sizes. The p-value of 0.001 indicates that the observed decline is statistically significant at the 0.05 level, consistent with the Spearman correlation results reported in the main text. The test statistic distribution is shown in Figure 13. Note that the logistic regression coefficient is sensitive to the scale of the dot product and is therefore less robust than the Spearman correlation as a test statistic; we include it here for completeness. 
+
+DiD for Note Helpfulness Second, we estimate a difference-in-differences (DiD) framework on the same dataset to test whether the rollout of Rating Impact affects the predictiveness of rater-note factor for note helpfulness ratings. We regress note helpfulness using the following: 
+
+run = α + β(fugn) + γPost + δ(Post × fugn) + ϵun ,
+
+where fu, g n are the rater and note factors, and Post is an indicator that is 1 after Oct. 1, 2022. The coefficient β captures the baseline predictiveness of the rater-note factor prior to the intervention, γ captures any level shift in helpfulness ratings post-rollout, and δ is the DiD estimator of interest. Standard errors are heteroskedasticity-robust (HC3). Results are shown below. Taken together with the Spearman and rolling-correlation analyses in the main text, these additional specifications reinforce the same conclusion: after the introduction of Rating Impact, user–note alignment becomes less predictive of helpfulness ratings among contributors who were active through the policy change. 21 A PREPRINT - M ARCH 20, 2026 Parameter Std. Err. z p-value Lower CI Upper CI Intercept 0.4937 0.039 12.649 <0.001 0.417 0.570 
+
+fugn 1.3821 0.068 20.323 <0.001 1.249 1.515 Post −0.0767 0.047 −1.636 0.102 −0.169 0.015 Post ×fugn −0.5344 0.100 −5.345 <0.001 −0.730 −0.338 Table 4: DiD estimates for the predictiveness of the rater-note factor on note helpfulness ratings, corresponding to the specification in (11) . The dependent variable is run , is the helpfulness rating. fugn is the rater-note dot product and Post is an indicator equal to 1 after the Rating Impact rollout (October 2022). The baseline coefficient on fugn ( ˆβ = 1 .382 ,
+
+p < 0.001 ) indicates a strong pre-intervention relationship between the rater-note factor and helpfulness. The DiD estimator Post ×fugn (ˆδ = −0.534 , p < 0.001 ) indicates that this predictive relationship weakened significantly following the rollout. Standard errors are heteroskedasticity-robust (HC3). 
+
+C.2 Controversial Content and Participation 
+
+This section provides additional detail and sensitivity analyses for the controversial-content result in the main text. The main pattern is that, following the rollout of Rating Impact, notes on controversial content are less likely to attain Helpful status than notes on non-controversial content. We document this pattern using two complementary definitions of controversy. The first is topic-based and uses note summaries to classify notes into broad content areas before labeling those areas as controversial or non-controversial. The second is factor-based and uses the magnitude of the estimated note factor as a model-based measure of polarization. We also examine whether the decline in controversial-note visibility is accompanied by changes in contributor-level engagement with controversial content. 
+
+C.2.1 Topic Assignment and Controversy Definitions 
+
+Next we describe how we assign topic labels to notes and how those labels are used to classify content as controversial or non-controversial. We first define the primary topic assignment procedure used throughout the main text, which closely follows X’s public implementation with expanded coverage. We then present alternative large-language-model (LLM)-based topic assignments used as alternative classification procedures to assess sensitivity to the topic-classification mechanism. 
+
+Primary Topic Assignment (Bag-of-Words Classifier) Our primary topic assignment builds on the topic-modeling code used by the platform implementation, which combines seed-term matching with a supervised bag-of-words classifier. In the version of X’s code used for this paper, each topic is defined initially by a small set of seed terms. Preliminary topic assignment is based on exact and fuzzy matches to these seed terms, after which a multi-class logistic regression classifier is trained to expand the set of in-topic notes. In the version of X’s code used for this paper, the native topic inventory is limited to Ukraine Conflict , Gaza Conflict ,
+
+Messi–Ronaldo , and Scams . To support analyses requiring broader topical coverage, we expand this inventory by introducing additional candidate topics and associated seed terms. These additional topics and seed terms are used 
+
+only to augment the training data for the bag-of-words classifier. The classifier architecture, feature representation, and regularization follow X’s implementation, with one modification: we lower the minimum balanced-accuracy threshold for topic inclusion to 0.01 in order to retain topics with sparse coverage. Table 10 lists the resulting topic set and seed terms. All topic labels used in the main-text analyses are produced by this retrained bag-of-words classifier. Independently of the topic-assignment procedure, we label topics a priori as controversial or non-controversial based on domain knowledge and prior literature. Table 11 reports the full list of topics and their controversy classification. 
+
+LLM-Based Topic Assignment (Alternative Classification Procedures) To assess whether our results depend on the specific topic-assignment mechanism, we conduct robustness checks using two alternative LLM-based classification procedures. These procedures are not used in the main analyses and serve only to evaluate sensitivity to the choice of topic classifier. Both LLM-based procedures use an identical, fixed inventory of topic labels: Ukraine Conflict, Gaza Conflict, Messi Ronaldo, Sports NFL, Sports NBA, Movies TV, Education, Food Nutrition, Space Astronomy, Health, COVID-19, Climate Environment, Weather Disasters, Artificial Intelligence, Tech Companies, US Politics, Crime Legal, Economy Finance, Scams, Other . In both cases, the input text is the note-level summary field, and each note is assigned exactly one topic label. Notes with missing summaries are excluded. 22 A PREPRINT - M ARCH 20, 2026 
+
+Figure 6: The top figure shows rater factor distribution shift for the early user cohort and the bottom figure shows rater factor distribution shift for the new user cohort using the 2022 version of the matrix factorization code. The minority mode decreases significantly for early users, while remaining more stable for new users. For early users, the proportion of positive factors during the Transition period compared with the Stabilized period decreases from 31 .4% to 24 .8% ,a decrease of 6.6 percentage points. For new users, the proportion of positive factors comparing the same two time periods decreases from 50 .3% to 49 .5% , a decrease of only 0.8 percentage points. 
+
+Approach 1 (Prompted LLM Classification): Our first procedure uses a prompted instruction-tuned LLM accessed through Snowflake Cortex’s text completion interface. For each note summary, we supplied an explicit natural-language prompt that enumerates the full label set and enforces a single-label classification objective with a structured output format. Decoding was deterministic (temperature set to zero) to ensure reproducibility across runs. The exact prompt used was:    
+
+> You are a classifier. Choose exactly ONE topic label from: [Ukraine Conflict, Gaza Conflict, Messi Ronaldo, Sports NFL, Sports NBA, Movies TV, Education, Food Nutrition, Space Astronomy, Health, COVID-19, Climate Environment, Weather Disasters, Artificial Intelligence, Tech Companies, US Politics, Crime Legal, Economy Finance, Scams, Other]. Return ONLY valid JSON like {"topic":"<label>"}. Summary: <raw>{ summary }</raw>
+
+The model’s response was parsed to extract the value of the topic field. Outputs that failed to parse as valid JSON or that returned a label outside the admissible set were treated as missing for this procedure (these cases were rare in practice). 23 A PREPRINT - M ARCH 20, 2026 
+
+Figure 7: The top figure shows rater factor distribution shift for the early user cohort and the bottom figure shows rater factor distribution shift for the new user cohort using the 2025 version of the matrix factorization code. Here again, the minority mode decreases, while remaining relatively stable for new users. For early users, the proportion of positive factors decreases from 30 .8% during the Transition period to 27 .8% during the Stabilized period, a decrease of 3.0
+
+percentage points. For new users the proportion of positive factors actually increases from 48 .8% during the Transition period to 49 .6% during the Stabilized period, an increase of 0.8 percentage points. 
+
+Approach 2 (Managed LLM Classification): Our second procedure uses Snowflake Cortex’s managed multi-class classification function. Given a note summary and the same fixed list of candidate topics, this service returns a ranked list of predicted labels. We assigned the highest-ranked label as the note’s topic, using the following task description to enforce a single-label objective:  
+
+> Classify the topic of a short summary. Choose exactly one topic.
+
+As with the prompted approach, notes with missing summaries or malformed outputs were excluded for this classification. X’s bag-of-words classifier excludes 64.22% of notes, LLM Approach 1 excludes 28.79% of notes, and LLM Approach 2 excludes 31.11% of notes from having a topic. Excluding all notes that are excluded in any one of the models above, the three approaches agree on 10.89% of the notes. Table 5 shows pairwise comparisons for the agreement of the different approaches. The three topic-assignment procedures differ in coverage and agreement. The bag-of-words classifier excludes 64.22% of notes outright, reflecting some limitations of X’s native topic-modeling implementation, which degrades in precision when extended to our broader topic inventory. This contributes to the lower agreement between the bag-of-words and LLM-based classifiers, relative to the agreement between the LLM-based approaches. These agreement rates indicate that the bag-of-words and LLM-based procedures are not interchangeable at the topic level. We therefore interpret the LLM-based analyses as sensitivity checks to alternative classification procedures. 24 A PREPRINT - M ARCH 20, 2026 
+
+Figure 8: This figure shows a histogram of the difference in rater factor between Oct. 2022 and Jan. 2023 for raters in the early cohort vs. in the new cohort. The mean of the early cohort factor shift is −0.049 (95% bootstrap CI: [-0.067, -0.033]), and the mean of the new cohort factor shift is 0.003 (95% bootstrap CI: [-0.010, 0.017]). This shows that early user factors shift more toward the majority than new user factors. 
+
+Figure 9: This plot visualizes the difference in rater factor distribution for early users compared to new users before and after Jan. 2023 when the rollout of Rating Impact was complete. Again we see that the distribution of new user factors remains relatively stable before and after, whereas the distribution of early user factors shifts towards the majority. 25 A PREPRINT - M ARCH 20, 2026 
+
+Figure 10: This figure shows the RDD analysis on the bimodality coefficient measured at weekly intervals for rater factors with the cutoff date of Oct. 1, 2022. There is a 0.022 decline in the bimodality coefficient at the cutoff (p = 0 .003 ), implying that post-cutoff the distribution becomes more unimodal. 
+
+Figure 11: This figure shows the RDD analysis on the bimodality coefficient measured at weekly intervals for note factors with the cutoff date of Oct. 1, 2022. There is a 0.010 decline in the bimodality coefficient at the cutoff (p = 0 .017 ), implying that at the cutoff the distribution jumps to a more unimodal distribution. 26 A PREPRINT - M ARCH 20, 2026 
+
+Figure 12: Permutation test test statistic distribution for the difference in Spearman correlation (post minus pre intervention) between rater-note factor dot product and helpfulness ratings among early users. The red dashed line marks the observed difference of −0.267 . Very few of the 1, 000 permuted differences fall near the observed value, yielding p = 0 .004 , indicating that the decline in predictiveness after October 1, 2022 is highly unlikely to have occurred by chance. 
+
+Figure 13: Permutation test test statistic distribution for the difference in logistic regression coefficients (post minus pre intervention). The red dashed line marks the observed difference of −11 .269 . Very few of the 10 , 000 permuted differences fall near the observed value, yielding p = 0 .001 , indicating that the decline in predictiveness after October 1, 2022 is highly unlikely to have occurred by chance. 27 A PREPRINT - M ARCH 20, 2026 
+
+Bag-of-Words Prompted LLM Managed LLM Bag-of-Words – 11.20% 10.92% 
+
+Prompted LLM 11.20% – 74.57% 
+
+Managed LLM 10.92% 74.57% –Table 5: Pairwise topic agreement rates between different topic modeling approaches. Percentages are calculated over denominator computed as notes that are included for both approaches being compared. 
+
+C.2.2 Topic-Based Controversy Results to Alternative Classifiers 
+
+The main-text analyses use topic labels only to stratify notes into controversial versus non-controversial bins, rather than to make topic-specific claims. To assess sensitivity to the topic-classification procedure, we repeat the analysis using each classifier’s assigned labels independently (see Figures 14-15). These procedures should be interpreted as alternative operationalizations of controversy rather than interchangeable measurements of the same latent topic labels. Reassuringly, the qualitative pattern is broadly similar across procedures: after the policy change, controversial content is relatively less likely to attain Helpful status than non-controversial content. We therefore interpret the LLM-based results as sensitivity analyses to alternative classification procedures. 
+
+C.2.3 Topic-Based Difference-in-Differences 
+
+Here we give the details for the DiD in Table 1. of the main text. We construct a weekly panel dataframe for each week w and topic group g ∈ { Controversial, Non-Controversial }. Define ng,w to be the number of unique tweets that receive their first note in week w and kg,w to be the number of unique tweets whose first observed note attains Helpful status in week w. We estimate a weekly helpfulness proportion using Jeffreys shrinkage: 
+
+pg,w = kg,w + 0 .5
+
+ng,w + 1 .
+
+We restrict our analysis to weeks where ng,w > 5 for all g (the cutoff 5 is chosen by X). To summarize the contrast between topic groups, we define the weekly helpfulness gap 
+
+dw = pControversial ,w − pNon-Controversial ,w 
+
+weighted by ηw = min g ng,w . We estimate short-term and medium-term effects by comparing the mean of dw for pre-defined time periods before the rollout date (Oct. 1, 2022). The pre weeks are the 12 weeks before Oct. 1, 2022, the post short term weeks are the 12 weeks after Oct. 1, 2022, and the post medium term weeks are weeks 13-26 after Oct. 1, 2022. For each set of post weeks, we estimate 
+
+dw = α + β · Post w + ϵw.
+
+We compute HAC standard errors, and report ˆβ, HAC standard error, 95% confidence intervals, and p-values for both the short term and medium term post windows. This specification yields the topic-based difference-in-differences estimates reported in the main text. A positive coefficient β indicates that, after the rollout, non-controversial notes become more likely to attain Helpful status relative to controversial notes. The resulting estimates and confidence intervals are reported in Table 1 of the main text. 
+
+C.2.4 User-Level Engagement Analysis 
+
+The note-level DiD above is descriptive: it shows that controversial notes become relatively less likely to attain Helpful status after the rollout, but it does not by itself distinguish between changes in exposure, changes in rating behavior, and changes in which users choose to rate which content. To address this, we study contributor-level engagement with controversial content. For each user u and calendar week w, let Ruw denote the total number of ratings submitted by user u in week w, and let RCuw denote the number of those ratings assigned to controversial notes. We define 
+
+Suw = RCuw 
+
+Ruw 
+
+,
+
+the share of user u’s rating activity in week w devoted to controversial content, and restrict attention to weeks with 
+
+Ruw > 0. We estimate the following difference-in-differences specification: 
+
+Suw = αu + γw + β (Minority u × Post w) + εuw , (11) 28 A PREPRINT - M ARCH 20, 2026 where αu are user fixed effects, γw are week fixed effects, Minority u is an indicator for users classified as minority-aligned based on pre-rollout behavior, and Post w indicates weeks on or after the Rating Impact rollout. To assess whether minority-aligned users reduce rating activity more broadly, we estimate a parallel difference-in-differences specification using total weekly engagement as the outcome: 
+
+log(1 + Ruw ) = αu + γw + δ (Minority u × Post w) + ηuw , (12) where variables are defined as above. The log transformation accommodates the skewness of rating counts and allows coefficients to be interpreted as approximate percentage changes. Comparing estimates from (11) and (12) allows us to distinguish selective disengagement from overall reductions in activity: a decline in Suw conditional on Ruw > 0 indicates avoidance of controversial content even among users who remain active. For each note, we add a binary indicator for whether the note is controversial or non-controversial based on its topic, as defined by Table 11. We generate topics using LLMs, with the method described above. We consider the cohort of users who were active before the initial roll out of Rating Impact. In this cohort, there are 1052 users. Our cut-off date for treatment is Oct. 1, 2022 when the Rating Impact policy was announced. We take the users’ pre-treatment factor to be their most recently computed factor before Oct. 1, 2022. There are 354 users with positive factor and 698 users with negative factor. Those with positive factor ( > 0.1 to avoid borderline cases at the boundary of 0) are labeled to be in the minority group using a binary indicator variable. We then run the two DiD studies documented by (11) and (12) . We consider a 12-week window before and after Oct. 1, 2022. Results are shown in the tables below. Parameter Std. Err. T-stat P-value Lower CI Upper CI Intercept 0.6125 0.0063 96.730 0.0000 0.6001 0.6249 treat -0.0753 0.0343 -2.1926 0.0284 -0.1427 -0.0080 Table 6: This table shows the DiD given by (11) for the proportion of controversial notes a user rates in a week. The DiD estimate of -0.0753 indicates that, post Oct. 1, 2022, the proportion of controversial notes rated by minority users decreased by about 7.5 percentage points relative to the change observed for non-minority users. This effect is statistically significant at the 0.05 level (p = 0.0284). Parameter Std. Err. T-stat P-value Lower CI Upper CI Intercept 1.4903 0.0129 115.37 0.0000 1.4650 1.5157 treat 0.1346 0.0701 1.9216 0.0547 -0.0027 0.2720 Table 7: This table shows the DiD given by (12) for the log of the total number of notes that a user rates in a week. The DiD estimate of 0.1346 indicates that, post Oct. 1, 2022, the log of the number of notes rated by minority users increases, however this was not statistically significant at the 0.05 level. 
+
+C.2.5 Factor-Based Controversy Robustness 
+
+As discussed in the main text, we complement the topic-based classification with a factor-based measure of controversy that does not rely on text or topic labels. In the latent-factor model used by Community Notes, the note factor gn
+
+captures systematic differences in how a note is evaluated by different groups of raters. Notes with larger absolute factor values therefore correspond to content that elicits more polarized evaluations across the user base. As a robustness check, we replicate the analyses from the Annotations on Controversial Topics section of the main text using this factor-based definition of controversy. Specifically, we classify a note as controversial if the magnitude of its estimated factor |gn| lies in the top 20 th percentile of the distribution of note factors, and as non-controversial 
+
+otherwise. 14 Because note factors are re-estimated over time, we first average the estimated factor values for each note across the pre-weeks (before the intervention) and then form the distribution over these averaged note factors. This averaging reduces noise from week-to-week re-estimation and ensures a stable ranking of notes by ideological extremity. Using this classification, we re-compute Wilson confidence intervals and estimate a difference-in-differences (DiD) design to compare changes in note helpfulness around the rollout of Rating Impact for controversial versus non-controversial notes. For controversial notes, the share of tweets receiving at least one note rated helpful decreases   
+
+> 14 We choose the 20 th percentile for concreteness; results are qualitatively unchanged when using alternative thresholds, e.g. 10 th percentile.
+
+29 A PREPRINT - M ARCH 20, 2026 from 0.143 (Wilson CI [0 .071 , 0.3267] ) pre-rollout to 0.080 (Wilson CI [0 .059 , 0.107] ) post-rollout, a decline of 
+
+6.3 percentage points. In contrast, for non-controversial notes, the helpful share increases from 0.131 (Wilson CI 
+
+[0 .068 , 0.238] ) to 0.265 (Wilson CI [0 .232 , 0.302] ), an increase of 13 .4 percentage points. The DiD estimate using a symmetric 14 -week window around October 1, 2022 implies that the probability a non-controversial note is rated helpful increased by about 13 .8 percentage points more than the probability a controversial note is rated helpful ( p = 0 .031 ). Results are shown in Table 8 and Figure 16. Weeks (Pre, Post) Estimate 95% CI p-value (14, 0-14) 0.138 [0.012, 0.263] 0.031 (14, 15-28) 0.239 [0.153, 0.324] <1e-5 Table 8: DiD Estimates. Windowed difference-in-differences estimates of the change in the weekly helpfulness rate difference between non-controversial and controversial content after the October 1, 2022 rollout. The outcome is the difference in weekly proportion of tweets receiving a note that is ultimately rated Helpful between tweets with controversial vs. non-controversial notes. The gap increases by 13.8 pp in the first 14 weeks post-rollout and by 23.9 pp in weeks 15–28. Both effects are positive and statistically significant. To account for the possibility that controversial notes receive more polarized ratings and therefore fail to attain helpful status, we additionally examine engagement at the rating level. Specifically, we compare the proportion of all ratings (regardless of final helpfulness status) assigned to controversial versus non-controversial notes before and after the rollout. We run a Fisher’s exact test on a 2 × 2 contingency table of controversial and non-controversial ratings in the pre- and post-period, excluding ratings on unclassified topics. The odds ratio quantifies the relative shift in the balance between controversial and non-controversial ratings across the two periods; an odds ratio greater than 1 indicates that controversial ratings were relatively more prevalent than non-controversial ratings in the pre-period compared to the post-period. Results are shown in Table 9 for the three topic modelers. Taken together, the topic-based and factor-based analyses point in the same direction. The topic-based approach is easier to interpret substantively, while the factor-based approach captures within-topic heterogeneity and avoids dependence on text classification. The agreement between the two strengthens the conclusion that, after the rollout of Rating Impact, controversial content becomes relatively less likely to receive publicly surfaced annotations. Topic Modeler Pre Controversial Rate Post Controversial Rate Odds Ratio p-value Bag of Words 0.897 0.853 1.505 <0.0001 LLM1 0.756 0.535 2.696 <0.0001 LLM2 0.783 0.495 3.672 <0.0001 Table 9: Fisher’s Exact Test Results by Topic Modeler. Odds ratios from a Fisher’s exact test on a 2 × 2 contingency table of controversial and non-controversial ratings in the pre- and post-period over classified topics. An odds ratio greater than 1 indicates that controversial ratings were relatively more prevalent in the pre-period than in the post-period. All three topic modelers show a significant shift toward non-controversial ratings after the rollout. 30 A PREPRINT - M ARCH 20, 2026 
+
+Figure 14: Pre-post change in the share of notes with final status Helpful by controversy category using topic-based controversy with topics classified using the prompted LLM approach around the Rating Impact rollout (cutoff: 2022-10-01). Bars show the mean proportion in the roughly 20 weeks before (Pre, blue) and after (Post, orange) the cutoff; error bars are 95% CIs. The difference between controversial notes and non-controversial notes is stark; controversial notes face a dramatic decline in helpful ratings post-rollout, whereas non-controversial notes have increased helpful ratings. 
+
+Figure 15: Pre-post change in the share of notes with final status Helpful by controversy category using topic-based controversy with topics classied using the managed LLM approach around the Rating Impact rollout (cutoff: 2022-10-01). Bars show the mean proportion in the roughly 20 weeks before (Pre, blue) and after (Post, orange) the cutoff; error bars are 95% CIs. The difference between controversial notes and non-controversial notes is stark; controversial notes face a dramatic decline in helpful ratings post-rollout, whereas non-controversial notes have increased helpful ratings. 
+
+# D Two-Stage Weighted Matrix Factorization: Empirical Implementation 
+
+In this section we give the implementation details for the two-stage matrix factorization approach documented in the empirical section (Fig. 5) of the main text. As proof of concept that our algorithm improves upon the predictive performance of the current algorithm, we test our algorithm on ratings data from Jan. 1, 2023 to June 1, 2024, dates during which there is a larger volume of ratings. 
+
+D.1 Algorithm and Implementation Details 
+
+The empirical comparison is designed to be conservative. Both the baseline algorithm and the two-stage algorithm are run on the same weekly filtered datasets, with the same underlying regularized matrix factorization objective and the same sign convention for the latent factor. The only modification is that the second-stage procedure reweights contributors using the inverse of their first-stage residual variance. 31 A PREPRINT - M ARCH 20, 2026 
+
+Category Topic Seed terms Conflict & Geopolitics Ukraine Conflict ukrain , russia , kiev , kyiv , moscow , zelensky ,
+
+putin 
+
+Gaza Conflict israel , palestin , gaza , jerusalem 
+
+Sports & Entertainment Messi–Ronaldo messi\s , ronaldo 
+
+Sports (NFL) \bnfl\b , super\sbowl , touchdown ,
+
+quarterback , patrick\smahomes , eagles ,
+
+cowboys , patriots 
+
+Sports (NBA) \bnba\b , basketball , lebron , curry , lakers ,
+
+warriors , playoffs? , finals? , dunk 
+
+Movies & TV movie , film , hollywood , box\soffice ,
+
+netflix , disney\+? , marvel , season\s\d+ ,
+
+episode , series 
+
+Education, Food & Space Education student\sloan , tuition , college ,
+
+university , k[-]?12 , school\sboard 
+
+Food & Nutrition \bdiet\b , calorie , vegan , vegetarian , keto ,
+
+gluten[-\s]?free , nutrition , protein ,
+
+sugar 
+
+Space & Astronomy nasa , spacex , rocket , launch , mars , lunar ,
+
+satellite , iss , telescope 
+
+Science, Health & Environment Health, COVID-19 covid , coronavirus , pandemic , vaccine ,
+
+booster , omicron , mask , cdc , \bwho\b , pfizer ,
+
+moderna 
+
+Climate & Environment climate\schange , global\swarm ,
+
+greenhouse , carbon , emission ,
+
+renewable\senergy , solar ,
+
+wind\s(?:energy|power) , climate\scrisis 
+
+Weather & Disasters hurricane , tornado , earthquake , wildfire ,
+
+heatwave , flood , blizzard , typhoon , storm 
+
+Technology & AI Artificial Intelligence \bai\b , artificial\sintelligence ,
+
+machine\slearning , chatgpt , openai ,
+
+gpt[-_]?4 , deepmind , neural\snetwork 
+
+Tech Companies apple , iphone , google , android , microsoft ,
+
+windows , amazon , aws , meta , facebook ,
+
+instagram , threads 
+
+Society & Governance U.S. Politics biden , trump , democrat ,
+
+republican , gop , congress , senate ,
+
+house\sof\srepresentatives ,
+
+white\shouse , supreme\scourt ,
+
+2024\selection 
+
+Crime & Legal indict , lawsuit , legal , court , judge , jury ,
+
+police , arrest , felony , trial 
+
+Economics & Finance Economy & Finance inflation , recession , interest\srate ,
+
+stock\smarket , dow\sjones , nasdaq , gdp ,
+
+unemployment , cpi 
+
+Scams & Platform Integrity Scams scam , undisclosed\sad ,
+
+terms\sof\sservice , help\.x\.com ,
+
+x\.com/tos , engagement\sfarm , spam ,
+
+gambling , apostas , apuestas , dropship ,
+
+drop\sship , promotion 
+
+Table 10: Our expanded set of topics and seed terms. The regex syntax follows Python re conventions. 32 A PREPRINT - M ARCH 20, 2026 
+
+Category Topics 
+
+Controversial USPolitics , UkraineConflict , GazaConflict , CrimeLegal , HealthCovid ,
+
+EconomyFinance , MessiRonaldo , politics , economy , health 
+
+Non-controversial SpaceAstronomy , ClimateEnvironment , EntertainmentMoviesTV ,
+
+WeatherDisasters , TechCompanies , SportsNFL , SportsNBA , FoodNutrition ,
+
+Education , Scams , ArtificialIntelligence , science , other 
+
+Table 11: Manual categorization of topics as controversial or non-controversial. 
+
+Figure 16: Pre-post change in the share of notes with final status Helpful by controversy category using factor-based 
+
+controversy around the Rating Impact rollout (cutoff: 2022-10-01). Bars show the mean proportion in the roughly 20 weeks before (Pre, blue) and after (Post, orange) the cutoff; error bars are 95% CIs. The difference between controversial notes and non-controversial notes is stark; controversial notes face a dramatic decline in helpful ratings post-rollout, whereas non-controversial notes have increased helpful ratings. Consistent with the Community Notes implementation, we restrict attention each week to notes that have received at least five ratings and raters who have rated at least ten notes. We index weeks by t, let Dall  
+
+> t
+
+denote all ratings observed up to and including week t, and let Dt denote the filtered version of this cumulative dataset. We write Θt for the weekly latent-factor estimates from the platform’s baseline matrix factorization algorithm and Θts  
+
+> t
+
+for the corresponding estimates from the two-stage procedure. The algorithm proceeds as follows. 
+
+Warm start. Before the weekly evaluation loop begins, we fit the existing matrix factorization algorithm to all ratings observed prior to June 1, 2023 and use the resulting latent quantities as a warm start. This reduces transient instability in the factor estimates early in the evaluation period. 
+
+Stage 1: baseline matrix factorization. For each week t from June 1, 2023 to June 1, 2024, we fit the platform’s regularized matrix factorization algorithm to the filtered cumulative dataset Dt, initialized at the previous week’s fit. Denote the resulting first-stage estimates by 
+
+Θ(1)  
+
+> t
+
+= (ˆ μt, ˆht,ˆit, ˆft, ˆgt).
+
+For each observed user–note pair (u, n ) ∈ Dt, we compute the first-stage residual 
+
+e(1)  
+
+> un
+
+:= run − ˆrun 
+
+
+
+Θ(1) 
+
+> t
+
+
+
+,
+
+where ˆrun (Θ (1)  
+
+> t
+
+) is the fitted rating estimate under the first-stage model. For each contributor u, let Nt(u) denote the set of notes rated by u in the filtered cumulative dataset at week t. We then estimate the contributor-specific residual variance by 
+
+ˆσ2 
+
+> u,t
+
+:= Var  {e(1)  
+
+> un
+
+: n ∈ Nt(u)}.
+
+33 A PREPRINT - M ARCH 20, 2026 The corresponding second-stage weight is 
+
+ˆwu,t :=  max {ˆσ2
+
+> u,t
+
+, 10 −4}−1.
+
+The floor at 10 −4 prevents extremely large weights when a contributor’s empirical residual variance is near zero. 
+
+Stage 2: weighted matrix factorization. We then refit the same regularized matrix factorization model on the same filtered cumulative dataset Dt, but now using contributor-specific weights: 
+
+Θ(2)  
+
+> t
+
+= arg min 
+
+> Θ
+
+X
+
+> (u,n )∈Dt
+
+ˆwu,t 
+
+ run − ˆrun (Θ) 2 + λ∥Θ∥22.
+
+We initialize this second-stage optimization at the first-stage solution Θ(1)  
+
+> t
+
+. The resulting fitted quantities are stored as 
+
+Θts  
+
+> t
+
+:= Θ (2)  
+
+> t
+
+.
+
+Algorithm 1 outputs two dataframes, one with latent factors from X’s existing matrix factorization algorithm, and one with latent factors from the two-stage algorithm. 
+
+Sign convention. Because matrix factorization identifies the latent factor only up to a global sign, we orient the factors after each weekly fit so that the majority of users have negative latent factor. This keeps the interpretation of majority- and minority-aligned contributors consistent across weeks. The sign-fixed second-stage estimates are also used as the warm start for the next week’s fit. 
+
+Algorithm 1: Two-Stage Matrix Factorization 
+
+Input: ratings_df : a dataframe containing rater, note pairs with the date of the rating, the rating ( Helpful, Somewhat Helpful, Not Helpful ) and the estimated helpfulness level based on previous latent factors 
+
+Output: Θt and Θts  
+
+> t
+
+: dataframes containing weekly note and rater latent factor estimates from X’s matrix factorization algorithm and from the two-stage algorithm, respectively 
+
+/* Warm start initialization */  
+
+> 1
+
+Let D0 ← { (u, n, r un ) | t < T start } 
+
+> 2
+
+Θprev ← TrainExistingMF (D0)
+
+/* Weekly latent factor estimation loop */  
+
+> 3
+
+for week t ← Tstart to Tend do  
+
+> 4
+
+Let Dall  
+
+> t
+
+← { (u, n, r un ) | timestamp ≤ t} 
+
+> 5
+
+Dt ← Filter (Dall  
+
+> t
+
+) s.t. within Dt each note has at least 5 ratings and each user has rated as least 10 notes 
+
+// Stage 1: X’s Matrix Factorization Algorithm  
+
+> 6
+
+Initialize Θ(1) with Θprev  
+
+> 7
+
+Θ(1) ← argmin Θ
+
+P 
+
+> (u,n )∈D t
+
+(run − ˆrun (Θ)) 2 + λ∥Θ∥2 
+
+> 8
+
+Θt ← append (Θ t, Θ(1) ) 
+
+> 9
+
+for each user u ∈ D t do  
+
+> 10
+
+Calculate residuals: eun ← run − ˆrun (Θ (1) ) 
+
+> 11
+
+Estimate variance: σ2 
+
+> u
+
+← Var ({eun | n ∈ set of notes rated by user u}) 
+
+> 12
+
+Compute weight: wu ← (max( σ2
+
+> u
+
+, 10 −4)) −1 
+
+> 13
+
+end  
+
+> 14
+
+Initialize Θ(2) with Θ(1)  
+
+> 15
+
+Θ(2) ← argmin Θ
+
+P 
+
+> (u,n )∈D t
+
+wu(run − ˆrun (Θ)) 2 + λ∥Θ∥2 
+
+> 16
+
+Θts  
+
+> t
+
+← append (Θ ts  
+
+> t
+
+, Θ(2) ) 
+
+> 17
+
+Θprev ← FixFactorSigns (Θ (2) ) // Flip signs if needed  
+
+> 18
+
+end D.2 Prediction Targets and Evaluation Protocol 
+
+We compare the baseline and two-stage procedures using out-of-sample one-week-ahead predictions. For each week t,the baseline fit Θt and the two-stage fit Θts  
+
+> t
+
+are computed using ratings observed up to and including week t. These week-t estimates are then used to predict ratings observed in the following week. 34 A PREPRINT - M ARCH 20, 2026 Formally, for every rating run observed in week t + 1 , we compute two fitted values: 
+
+ˆrMF ,t un := ˆ run (Θ t), ˆrTS ,t un := ˆ run (Θ ts  
+
+> t
+
+).
+
+The corresponding one-week-ahead residuals are 
+
+eMF ,t +1  
+
+> un
+
+:= run − ˆrMF ,t un , eTS ,t +1  
+
+> un
+
+:= run − ˆrTS ,t un .
+
+For each evaluation week, we summarize predictive performance using several standard statistics derived from these out-of-sample residuals. In particular, the main text reports the weekly mean absolute residual 
+
+MAR t := 1
+
+|R t+1 |
+
+X
+
+> (u,n )∈R t+1
+
+|et+1  
+
+> un
+
+|,
+
+and the weekly median absolute residual 
+
+MedAR t := median |et+1  
+
+> un
+
+| : ( u, n ) ∈ R t+1 ,
+
+computed separately for the baseline and two-stage procedures, where Rt+1 denotes the set of ratings observed in week 
+
+t + 1 . These are the quantities shown in the main-text figure comparing one-week-ahead predictive performance of the two methods. We also report the corresponding one-week-ahead MSE, 
+
+MSE t := 1
+
+|R t+1 |
+
+X
+
+> (u,n )∈R t+1
+
+ et+1 
+
+> un
+
+2,
+
+but our main empirical comparison emphasizes the absolute-residual metrics because they are easier to interpret on the scale of the platform’s fitted rating scores. 35 A PREPRINT - M ARCH 20, 2026 
+
+# E Theory Appendix 
+
+This appendix collects the technical results underlying the theoretical section of the main text. Throughout, we study a stylized regularized rank-1 matrix factorization model that isolates the effect of conformity incentives on estimation. This stylized estimator is intentionally simpler than the full Community Notes production system used in the empirical sections. The distinction is important: the empirical reconstruction follows the open-source Community Notes pipeline, whereas the theory abstracts to a regularized rank-1 factorization in order to characterize what object is recovered when contributors strategically anticipate the platform’s eventual consensus. The appendix is organized to mirror the logic of the main text. We first state the estimation problem and regularity conditions. We then prove consistency of note helpfulness under private-signal reporting, show that conformity makes estimators biased, characterize the resulting distortion in user factors and minority compression, and finally establish a statistical guarantee for the two-stage weighted estimator. 
+
+E.1 Estimation Model and Assumptions 
+
+We begin by restating the estimator analyzed in the proofs. Let Ω ⊆ [U ] × [N ] denote the set of observed user–note ratings. The platform fits the regularized rank-1 model 
+
+arg min 
+
+> μ,h,i,f,g
+
+X
+
+> (u,n )∈Ω
+
+ run − (μ + hu + in + fugn)2 + λh∥h∥22 + λi∥i∥22 + λf ∥f ∥22 + λg ∥g∥22. (13) Here and below, for a matrix A ∈ RU ×N , we write ∥A∥∗ for the nuclear norm of a matrix, ∥A∥F for the Frobenius norm, and ∥A∥∞ for the entrywise maximum norm. We use two sets of regularity conditions. Assumption 1 governs the latent components, noise, and sampling scheme under private-signal reporting. Assumption 2 adds conditions on the anticipated consensus mn and conformity weights 
+
+ρn = ρ(cn) for the conformity regime. 
+
+Assumption 1 (Random latent components, boundedness, and MCAR sampling) . Assume: 1. μ ∈ R is fixed. 2. {(hu, f u)}Uu=1 are i.i.d., with 
+
+E[hu] = 0 , E[fu] = c, 
+
+Var( hu) = σ2 
+
+> h
+
+> 0, Var( fu) = σ2 
+
+> f
+
+> 0,
+
+and hu is independent of fu. Moreover, |hu| ≤ Bh and |fu| ≤ Bf almost surely. 3. {(in, g n)}Nn=1 are i.i.d., with 
+
+E[in] = 0 , E[gn] = 0 ,
+
+Var( in) = σ2 
+
+> i
+
+> 0, Var( gn) = σ2 
+
+> g
+
+> 0,
+
+and in is independent of gn. Moreover, |in| ≤ Bi and |gn| ≤ Bg almost surely. 4. The user-side variables {(hu, f u)}Uu=1 are independent of the note-side variables {(in, g n)}Nn=1 .5. The noise variables ϵun are independent, mean-zero, σϵ-sub-Gaussian, and independent of all other latent variables (see e.g., [59] Definition 5.7). 6. Each entry (u, n ) is observed independently with probability p ∈ (0 , 1) , and U ≍ N .
+
+Assumption 2 (Conformity parameters) . In addition to Assumption 1, assume: 1. mn are i.i.d. draws from a bounded distribution on a compact interval with positive finite variance. 2. ρn := ρ(cn) is a weakly decreasing function in cn.3. Let ¯ρN = N −1 P 
+
+> n
+
+ρn. Assume that ¯ρN → ¯ρ ∈ [0 , 1] a deterministic constant. 4. For each note n, the random variables mn and gn are independent. 
+
+36 A PREPRINT - M ARCH 20, 2026 
+
+E.2 Private-Signal Reporting: Consistency of Note Helpfulness (Proof of Theorem 1) 
+
+We first study the benchmark case in which contributors report their private signals, so the platform observes a noisy version of the latent signal matrix 
+
+S = μ1U 1⊤ 
+
+> N
+
++ h1⊤ 
+
+> N
+
++ 1U i⊤ + f g ⊤.
+
+The proof proceeds in three steps. First, we show that the note intercept can be uniquely decoded from the fitted matrix by means of a canonical centered decomposition. Second, we show that the optimal solution to (13) is consistent for the true intercept and factor terms under the canonical decomposition. Finally, we connect the estimator of (13) to a corresponding nuclear-norm matrix completion problem. 
+
+Centered decomposition Here, we identify the intercept terms from a complete signal matrix. For any tuple 
+
+θ = ( μ, h, i, f, g ), define 
+
+M (θ) := μ1U 1⊤ 
+
+> N
+
++ h1⊤ 
+
+> N
+
++ 1U i⊤ + f g ⊤.
+
+We use the canonical centered decomposition of M (θ) to recover centered intercept and factor components directly from the matrix itself. 
+
+Lemma E.1. Every matrix M (θ) with entries of the form mun = μ + hu + in + fugn admits a canonical representation with 
+
+mun = ˜ μ + ˜hu + ˜ in + ˜fu ˜gn
+
+such that 
+
+1⊤ 
+
+> U
+
+˜h = 0 , 1⊤
+
+> N
+
+˜i = 0 , 1⊤ 
+
+> U
+
+˜f = 0 , 1⊤ 
+
+> N
+
+˜g = 0 .
+
+Since the factors f, g are only identifiable up to sign and scale, we may also choose a canonical sign and scaling representation: 1
+
+U ∥ ˜f ∥22 = 1 , ⟨ ˜f , f ⟩ ≥ 0.
+
+Proof. Let 
+
+¯h = 1
+
+U 1⊤ 
+
+> U
+
+h, ¯i = 1
+
+N 1⊤ 
+
+> N
+
+i, ¯f = 1
+
+U 1⊤ 
+
+> U
+
+f, ¯g = 1
+
+N 1⊤ 
+
+> N
+
+g, 
+
+and define 
+
+˜μ = μ + ¯h + ¯ i + ¯f ¯g, 
+
+˜h = h − ¯h1U + ¯ g f − ¯f 1U
+
+,
+
+˜i = i − ¯i1N + ¯f  g − ¯g1N
+
+,
+
+˜f = f − ¯f 1U , ˜g = g − ¯g1N .
+
+Writing f = ˜f + ¯f 1U , g = ˜ g + ¯ g1N , we have 
+
+f g ⊤ = ˜f ˜g⊤ + ¯f 1U ˜g⊤ + ¯ g ˜f 1⊤ 
+
+> N
+
++ ¯f ¯g1U 1⊤ 
+
+> N
+
+.
+
+Substituting and collecting terms gives 
+
+M (θ) = ˜ μ1U 1⊤ 
+
+> N
+
++ ˜h1⊤ 
+
+> N
+
++ 1U˜i⊤ + ˜f ˜g⊤.
+
+The centering conditions 
+
+1⊤ 
+
+> U
+
+˜h = 0 , 1⊤
+
+> N
+
+˜i = 0 , 1⊤ 
+
+> U
+
+˜f = 0 , 1⊤ 
+
+> N
+
+˜g = 0 
+
+are immediate from the definitions. Multiplying the centered decomposition on the left and right by vectors of ones then yields 
+
+˜μ = 1
+
+U N 1⊤ 
+
+> U
+
+S1N ,
+
+˜i = 1
+
+U S⊤1U − ˜μ1N , ˜h = 1
+
+N S1N − ˜μ1U .
+
+Finally, the rank-one term is unchanged under reciprocal rescaling: 
+
+˜f ˜g⊤ =
+
+ ˜fc
+
+ 
+
+c ˜g
+
+⊤
+
+, c > 0.
+
+For ˜f̸ = 0 , take c =
+
+q 1 
+
+> U
+
+∥ ˜f ∥22 and redefine ˜f ← ˜f /c , ˜g ← c ˜g. Then 1 
+
+> U
+
+∥ ˜f ∥22 = 1 . Since simultaneously replacing 
+
+( ˜f , ˜g) by (− ˜f , −˜g) leaves the product unchanged, we may also choose the sign so that ⟨ ˜f , f ⟩ ≥ 0. These operations preserve both the representation and the centering conditions. If ˜f = 0 , then the rank-one term vanishes. 37 A PREPRINT - M ARCH 20, 2026 In all following sections, unless explicitly otherwise stated, we work in the setting where all parameters, true and estimated, are in their canonical centered decomposition. Thus, for notation we use μ, h u, i n, f u, g n to denote the canonical decomposition of the true parameters. At the end of each section, we remark on how our results transfer back to the original factors and intercepts. 
+
+Remark E.2. Under the canonical centered decomposition of the matrix M (θ), the centered intercepts and factors 
+
+μ, h u, i n, f u, g n are still bounded random variables with strictly positive, finite variance. In the following, we thus overload the notation σh, σ i, σ f , σ g to denote the variances of the canonical centered factors in the following sections. Note that according to the decomposition σf = 1 .
+
+Consistency of solution under missing data Recall that when ρ ≡ 1, users report their true latent signals run =
+
+sun + ϵun . (13) is equivalent to the following optimization problem where ωun ∼ Bern( p) with constant probability p:
+
+arg min 
+
+> μ,h,i,f,g
+
+X
+
+> u,n
+
+ωun (run − (μ + hu + in + fugn)) 2 + λh∥h∥22 + λi∥i∥22 + λf ∥f ∥22 + λg ∥g∥22. (14) Let μ, h, i, f, g be the canonical representation of the true parameters. Let ˆμ, ˆh, ˆi, ˆf , ˆg denote the canonically identified observed optimizers for (13). Then, we can prove the following theorem. 
+
+Theorem E.3. Let θ = ( μ, h, i, f, g ) and ˆθ = (ˆ μ, ˆh, ˆi, ˆf , ˆg). Under Assumption 1, as U, N → ∞ 
+
+ˆθip
+
+→ θi.
+
+The proof of Theorem E.3 requires the following lemmas. 
+
+Lemma E.4. Suppose that Assumption 1 holds. Let ˆS be the matrix with entries ˆsun fitted from (13) and S be the true signal matrix with entries sun = μ+hu +in +fugn. Further, assume that λh, λ f = o(N −1/2), and λi, λ g = o(U −1/2).Then, 
+
+∥ ˆS − S∥F = Op
+
+√U ∧ N
+
+
+
+.
+
+Furthermore, the canonically identified solutions for S∗ and ˆS satisfy, 
+
+|ˆμ − μ| = Op
+
+
+
+(U ∧ N )−1/2
+
+1
+
+√U ∥ˆh − h∥2 = Op
+
+
+
+(U ∧ N )−1/2
+
+, 1
+
+√U ∥ ˆf − f ∥2 = Op
+
+
+
+(U ∧ N )−1/2
+
+1
+
+√N ∥ˆi − i∥2 = Op
+
+
+
+(U ∧ N )−1/2
+
+, 1
+
+√N ∥ˆg − g∥2 = Op
+
+
+
+(U ∧ N )−1/2
+
+.
+
+Proof. Let ˆθ be the canonical representation (as given by Lemma E.1) of a solution to (13). Then, letting 
+
+δμ = ˆ μ − μ, δh = ˆh − h, δi = ˆ i − i, δf = ˆf − f, δg = ˆ g − g, 
+
+we can write 
+
+ˆsun = μ + δμ + hu + δh u + in + δi n + ( fu + δf u)( gn + δg n).
+
+Let δ ˆθ = ( δμ, δh, δi, δf, δg ). Let ˆS be the matrix with entries ˆsun . Since ˆS solves (13), we furthermore have that 
+
+X
+
+> u,n
+
+ωun (run − sun )2 − X
+
+> u,n
+
+ωun (run − ˆsun )2 + Gλ(θ) − Gλ(ˆθ) > 0.
+
+Some rearranging of the above implies that 
+
+X
+
+> u,n
+
+ωun (ˆ sun − sun )2 ≤ 2 X
+
+> u,n
+
+ωun ϵun (ˆ sun − sun ) + Gλ(θ) − Gλ(ˆθ) (15) 
+
+≤ 2 X
+
+> u,n
+
+ωun ϵun (ˆ sun − sun ) + Gλ(θ). (16) Let δun = ˆ sun − sun . Then, we have that 
+
+δun = xun + yun 
+
+38 A PREPRINT - M ARCH 20, 2026 where 
+
+xun = δμ + δh u + δi n + fuδg n + δf ugn, yun = δf uδg n.
+
+Rewriting the error bound from above and using the assumptions on the regularization terms, we then have 
+
+X
+
+> u,n
+
+ωun (xun + yun )2 ≤ 2 X
+
+> u,n
+
+ωun ϵun (xun + yun ) + Op(√U ∧ N ).
+
+This implies that 
+
+12
+
+X
+
+> u,n
+
+ωun x2 
+
+> un
+
+≤ X
+
+> u,n
+
+ωun y2 
+
+> un
+
++ 2 X
+
+> u,n
+
+ωun ϵun (xun + yun ) + Op(√U ∧ N ).
+
+First, we can lower bound the left-hand side. Under the canonical choice of centering constraints: 
+
+δh ⊤1U = δi ⊤1N = δf ⊤1U = δg ⊤1U = 0 ,
+
+we have X
+
+> u,n
+
+x2 
+
+> un
+
+= U N (δμ )2 + N ∥δh ∥22 + U ∥δi ∥22 + ∥f δg ⊤ + δf g ⊤∥2
+
+> F
+
+= U N (δμ )2 + N ∥δh ∥22 + U ∥δi ∥22 + ∥f ∥22∥δg ∥22 + ∥g∥22∥δf ∥22 + 2 ⟨f, δf ⟩⟨ g, δg ⟩.
+
+By the choice of canonical representation for the factors f and g from Lemma E.1, we have that 
+
+⟨f, δf ⟩ = − 12 ∥δf ∥22.
+
+Continuing from above we have that there exists constants c1, c 2 with high probability such that 
+
+∥f ∥22∥δg ∥22 + ∥g∥22∥δf ∥22 + 2 ⟨f, δf ⟩⟨ g, δg ⟩ = U ∥δg ∥22 + ∥g∥22∥δf ∥22 − ∥ δf ∥22⟨g, δg ⟩≥ c1
+
+ U ∥δg ∥22 + N ∥δf ∥22
+
+ − c2∥δf ∥22∥δg ∥22,
+
+where in the last line we bounded ⟨g, δg ⟩ by Cauchy-Schwarz and then used Young’s inequality. Note that by Assumption 1, since f, g have component-wise variances bounded and away from zero, continuing from above we have for some constant c that X
+
+> u,n
+
+x2 
+
+> un
+
+≥ c  U N (δμ )2 + N ∥δh ∥22 + U ∥δi ∥22 + N ∥δf ∥22 + U ∥δg ∥22
+
+ − c2∥δf ∥22∥δg ∥22.
+
+Now, it suffices to show that the observed errors do not deviate too much from the population errors. Define the following orthonormal basis matrices. Let Qh be an orthonormal basis for the space of vectors {v ∈ RU : 1⊤ 
+
+> U
+
+v = 0 },
+
+Qi, Q g be an orthonormal basis for the space of vectors {v ∈ RN : 1⊤ 
+
+> N
+
+v = 0 }. Finally, let Qf to be an orthonormal basis for the tangent space of vectors {v ∈ RU : 1⊤ 
+
+> U
+
+v = 0 , (f )⊤v = 0 }. Define 
+
+zun =
+
+
+
+1
+
+Qh(u, :) 
+
+Qi(n, :) 
+
+gnQf (u, :) 
+
+fuQg (n, :) 
+
+ .
+
+Let ˆG = X
+
+> u,n
+
+ωun zun z⊤
+
+> un
+
+, G = X
+
+> u,n
+
+zun z⊤
+
+> un
+
+,
+
+and D be the block diagonal matrix 
+
+D = diag  U N N I U −1 U I N −1 ∥g∥22IU −2 ∥f ∥22IN −1
+
+ .
+
+where IN denotes the N × N identity matrix. Write δf = Q⊤ 
+
+> f
+
+c + rf, where 
+
+r = ⟨f, δf ⟩∥f ∥22
+
+.
+
+Since ∥ ˆf ∥22 = ∥f ∥22 = U , we have 2⟨f, δf ⟩ + ∥δf ∥22 = 0 , and therefore 
+
+r = − ∥δf ∥22
+
+2U .
+
+39 A PREPRINT - M ARCH 20, 2026 Define 
+
+xlin  
+
+> un
+
+= δμ + δh u + δi n + fuδg n + gn(Q⊤ 
+
+> f
+
+c)u, xrem  
+
+> un
+
+= rf ugn,
+
+so xun = xlin  
+
+> un
+
++ xrem  
+
+> un
+
+. Then we can write 
+
+X
+
+> u,n
+
+ωun (xlin 
+
+> un
+
+)2 = δϑ ⊤ ˆGδϑ, X
+
+> u,n
+
+(xlin 
+
+> un
+
+)2 = δϑ ⊤Gδϑ, 
+
+where 
+
+δϑ = ( δμ, a, b, c, d ), a = Qhδh, b = Qiδi, d = Qg δg. 
+
+In addition, notice that ˜G = D−1/2GD −1/2 = I. Write ˜G = D−1/2 ˆGD −1/2. Then, 
+
+v⊤( ˜G − pI )v = X
+
+> u,n
+
+(ωun − p)( v⊤ ˜zun )2, ˜zun = D−1/2zun .
+
+We have that 
+
+∥˜zun ∥22 ≤ 1
+
+U N + ∥Qh(u, :) ∥22
+
+N + ∥Qi(n, :) ∥22
+
+U + |gn|2 ∥Qf (u, :) ∥22
+
+∥g∥22
+
++ |fu|2 ∥Qg (n, :) ∥22
+
+∥f ∥22
+
+.
+
+Using the fact that 
+
+∥Qh(u, :) ∥2, ∥Qi(n, :) ∥2, ∥Qf (u, :) ∥2, ∥Qg (n, :) ∥2 ≤ 1,
+
+and Assumption 1, this gives 
+
+∥˜zun ∥22 ≤ CU ∧ N .
+
+Therefore each summand Xun := ( ωun − p)˜ zun ˜z⊤ 
+
+> un
+
+satisfies 
+
+∥Xun ∥op ≤ CU ∧ N .
+
+The matrix-Bernstein variance term is O(( U ∧ N )−1). Hence matrix Bernstein gives 
+
+∥ ˜G − pI ∥op = Op
+
+r log( U + N )
+
+U ∧ N
+
+!
+
+= op(1) .
+
+For any vector v we then have 
+
+v⊤( ˆG − pG )v = D1/2v⊤( ˜G − pI )D1/2v
+
+≤ ∥ ˜G − pI ∥op v⊤Dv 
+
+= op(1) v⊤Gv. 
+
+This implies that X
+
+> u,n
+
+ωun (xlin 
+
+> un
+
+)2 = ( p + op(1)) X
+
+> u,n
+
+(xlin 
+
+> un
+
+)2.
+
+Moreover, X
+
+> u,n
+
+(xrem  
+
+> un
+
+)2 = r2∥f ∥22∥g∥22 ≤ C NU ∥δf ∥42,
+
+and hence, by Cauchy-Schwarz, 
+
+X
+
+> u,n
+
+xlin 
+
+> un
+
+xrem  
+
+> un
+
+≤ ∥ Xlin ∥F ∥Xrem ∥F .
+
+Therefore X
+
+> u,n
+
+x2 
+
+> un
+
+≥ 12
+
+X
+
+> u,n
+
+(xlin 
+
+> un
+
+)2 − X
+
+> u,n
+
+(xrem  
+
+> un
+
+)2,
+
+and similarly X
+
+> u,n
+
+ωun x2 
+
+> un
+
+≥ 12
+
+X
+
+> u,n
+
+ωun (xlin 
+
+> un
+
+)2 − X
+
+> u,n
+
+ωun (xrem  
+
+> un
+
+)2.
+
+40 A PREPRINT - M ARCH 20, 2026 Since U ≍ N with probability tending to 1, the remainder terms are bounded by C∥δf ∥42. Combining this with the lower bound on P 
+
+> u,n
+
+x2 
+
+> un
+
+established above, we obtain with high probability 
+
+X
+
+> u,n
+
+ωun x2 
+
+> un
+
+≥ c′  U N (δμ )2 + N ∥δh ∥22 + U ∥δi ∥22 + N ∥δf ∥22 + U ∥δg ∥22
+
+ − C∥δf ∥22∥δg ∥22 − C∥δf ∥42
+
+for some constants c′, C > 0.Now, we turn to proving upper bounds. Recall that it remains to upper bound the terms 
+
+X
+
+> u,n
+
+ωun y2
+
+> un
+
+, X
+
+> u,n
+
+ωun ϵun xun , X
+
+> u,n
+
+ωun ϵun yun .
+
+Define M (δ) = U N (δμ )2 + N ∥δh ∥22 + U ∥δi ∥22 + N ∥δf ∥22 + U ∥δg ∥22. Then, 
+
+X
+
+> u,n
+
+ωun y2 
+
+> un
+
+≤ X
+
+> u,n
+
+y2 
+
+> un
+
+= X
+
+> u,n
+
+(δf uδg n)2 ≤ ∥ δf ∥22∥δg ∥22 ≤ M (δ)2
+
+U N .
+
+Since X is at most rank 5, we have 
+
+X
+
+> u,n
+
+ωun ϵun xun ≤ ∥ Ω ◦ E∥op · ∥ X∥∗ ≤ √5∥Ω ◦ E∥op · ∥ X∥F .
+
+Here, we slightly abuse notation and let Ω denote the matrix with entries ωun . Using the fact that ∥X∥2 
+
+> F
+
+≲ M (δ),Young’s inequality, and sub-Gaussian errors from Assumption 1, we have that for some constants η and Cη ,
+
+√5∥Ω ◦ E∥op · ∥ X∥F ≤ ηM (δ) + Cη ∥Ω ◦ E∥2op = ηM (δ) + Op(U ∨ N ).
+
+Finally, 
+
+X
+
+> u,n
+
+ωun ϵun yun ≤ ∥ Ω ◦ E∥op · ∥ δf ∥22 · ∥ δg ∥22 ≤ ∥Ω ◦ E∥op 
+
+2√U N 
+
+ N ∥δf ∥22 + U ∥δg ∥22
+
+ ≤ ∥Ω ◦ E∥op 
+
+2√U N M (δ).
+
+Combining this all gives, for some constants c′, C ′
+
+
+
+c′ − η − ∥Ω ◦ E∥op 
+
+2√U N 
+
+
+
+M (δ) ≤ C′ M (δ)2
+
+U N + Op(U ∨ N ).
+
+By sub-Gaussian concentration, we have that ∥Ω ◦ E∥op = Op(√U ∨ N ). Thus, the bound simplifies to 
+
+(c′ − η − op(1)) M (δ) ≤ C′ M (δ)2
+
+U N + Op(U ∨ N ). (17) By a simple argument, we can argue that M (δ) = op(U N ). Fix ϵ > 0. Take η < c ′/4 so that c′ − η > c ′/2. Since 
+
+U ≍ N with probability tending to 1, on the event A = {M (δ) ≥ ϵN 2} (17) gives 
+
+c′
+
+2 ϵN 2 ≤ C′ϵ2N 2 + Op(N ),
+
+which implies that 
+
+c′
+
+2 ϵ ≤ C′ϵ2 + Op(N −1).
+
+If ϵ < c ′/(4 C′), then ϵ2 < c ′/2ϵ, implying that M (δ) = op(U N ).Putting this all together, we have that 
+
+U N (δμ )2 + N ∥δh ∥22 + U ∥δi ∥22 + N ∥δf ∥22 + U ∥δg ∥22 = Op(U ∨ N )=⇒ (δμ )2 + 1
+
+U ∥δh ∥22 + 1
+
+N ∥δi ∥22 + 1
+
+U ∥δf ∥22 + 1
+
+N ∥δg ∥22 = Op
+
+ 1
+
+U ∧ N
+
+
+
+immediately implying the Frobenius bounds on the recovered matrix ˆS, as well as the bounds for each of the intercept terms. 41 A PREPRINT - M ARCH 20, 2026 
+
+Proof of Theorem E.3. First, we show consistency of the estimated user-side factors ˆαu = ( ˆhu, ˆfu)⊤. By the same argument, we can conclude consistency of the note-side factors ˆβn = (ˆ gn,ˆin)⊤. Note that Lemma E.4 already implies consistency of the global intercept term ˆμ to μ.Fix u and let ηu denote the vector of all parameters other than αu. Denote the loss function in the objective by 
+
+L(θ) = X
+
+> (u,n )
+
+ωun (run − (μ + hu + in + fugn)) 2 + λh∥h∥22 + λi∥i∥22 + λf ∥f ∥22 + λg ∥g∥22.
+
+Let S(θ) = ∇L(θ) be called the score function (gradient) of the loss function. Let Su(θ) = ( ∂hu L(θ), ∂ fu L(θ)) ⊤. If 
+
+ˆθ minimizes (13) , then for all u, Su(ˆθ) = 0 is the first order condition on αu. Let θ denote the true parameter vector, then by Lemma E.4 we may write the Taylor expansion of Su about θ as 
+
+0 = Su(ˆθ) = Su(θ) + 
+
+Z 10
+
+Hu(θ + t(ˆθ − θ)) dt 
+
+
+
+(ˆθ − θ), (18) Define 
+
+¯Hu =
+
+Z 10
+
+Hu(θ + t(ˆθ − θ)) dt, 
+
+and 
+
+¯Hu,α =
+
+Z 10
+
+∇αu Su(θ + t(ˆθ − θ)) dt, ¯Hu,η =
+
+Z 10
+
+∇ηu Su(θ + t(ˆθ − θ)) dt. 
+
+Then, we can rewrite (18) as 
+
+0 = Su(θ) + ¯Hu,α (ˆ αu − αu) + ¯Hu,η (ˆ ηu − ηu).
+
+Therefore, 
+
+ˆαu − αu = ¯H−1
+
+> u,α
+
+(−Su(θ) − ¯Hu,η (ˆ η − η)) = 
+
+ 1
+
+pN ¯Hu,α 
+
+−1 1
+
+pN (−Su(θ) − ¯Hu,η (ˆ ηu − ηu)) . (19) First, observe that 
+
+¯Hu,α =
+
+ P 
+
+> n
+
+ωun + λh
+
+P 
+
+> n
+
+ωun 
+
+ gn + 12 (ˆ gn − gn)P 
+
+> n
+
+ωun 
+
+ gn + 12 (ˆ gn − gn) P 
+
+> n
+
+ωun 
+
+ g2 
+
+> n
+
++ 12 gn(ˆ gn − gn) + 13 (ˆ gn − gn)2 + λf .
+
+
+
+Thus, by 1, Lemma E.4, and weak law of large numbers, 
+
+1
+
+pN ¯Hu,α p
+
+→
+
+1 + λh 
+
+> N
+
+00 σ2 
+
+> g
+
++ λf
+
+> N
+
+
+
+.
+
+The limiting matrix is diagonal, hence invertible with smallest eigenvalue bounded away from 0 (since σ2 
+
+> g
+
+> 0 by Assumption 1). Next, notice that 
+
+1
+
+pN Su(θ) = −2
+
+pN 
+
+X
+
+> n
+
+ωun 
+
+ 1
+
+gn
+
+
+
+ϵun + 1
+
+pN 
+
+λhhu
+
+λf fu
+
+
+
+= op(1) ,
+
+by weak law of large numbers, and assumption 1. Finally, it remains to bound ¯Hu,η (ˆ η − η). We have that 
+
+¯Hu,η (ˆ η − η) = 2(ˆ μ − μ)
+
+Z 10
+
+X
+
+> n
+
+ωun 
+
+ 1
+
+gn + t(ˆ gn − gn)
+
+
+
+dt + X
+
+> n
+
+Z 10
+
+ωun (ˆ in − in)
+
+ 1
+
+gn + t(ˆ gn − gn)
+
+
+
+dt 
+
++ X
+
+> n
+
+Z 10
+
+ωun (ˆ gn − gn)
+
+ fu + ( ˆfu − fu)
+
+fu(t)gn(t) − eun (θ(t)) 
+
+
+
+dt, 
+
+= 2 X
+
+> n
+
+ωun 
+
+ 1
+
+gn + 12 (ˆ gn − gn)
+
+
+
+(ˆ μ − μ) + 2 X
+
+> n
+
+ωun 
+
+ 1
+
+gn + 12 (ˆ gn − gn)
+
+
+
+(ˆ in − in)+ X
+
+> n
+
+Z 10
+
+ωun (ˆ gn − gn)
+
+ fu + t( ˆfu − fu)
+
+fugn + 12 fu(ˆ gn − gn) + 12 gn( ˆfu − fu) + 13 ( ˆfu − fu)(ˆ gn − gn) − R 10 eun (θ(t)) dt 
+
+
+
+dt 
+
+where for any scalar quantity ℓ, ℓ(t) = ℓ + t(ˆℓ − ℓ), and eun = run − μ − hu − in − fugn. Again, by weak law of large numbers, Lemma E.4, and Assumption 1, we can conclude that 
+
+1
+
+pN ¯Hu,η (ˆ η − η) = op(1) .
+
+Finally, plugging everything back in to (19) we can conclude that ˆαu is pointwise consistent for αu. Repeating the same argument for ˆβn guarantees pointwise consistency for the note-side factors, thus proving the theorem. 42 A PREPRINT - M ARCH 20, 2026 To prove Theorem 1 from the main text, it now suffices to show that the solution to (13) with no missing data is consistent for the true parameters under the canonical decomposition. We will then be able to recover the original factors by de-centering the estimates using Lemma E.1. The proof is similar to the framework in [ 8], but we specialize to our case and write a proof here for completion. 
+
+Proof of Theorem 1. Theorem E.3 implies that the canonical representation of the solution to (13) is consistent for the canonical representation of the true parameter values. Let θ0 = ( μ0, h 0, i 0, f 0, g 0) denote the original true parameters (i.e. before canonical centering) and θ = ( μ, h, i, f, g ) denote their canonical representations. By Lemma E.1, the centered representation in relates to i0 
+
+> n
+
+as follows, 
+
+in = i0 
+
+> n
+
+− ¯i01N + ¯f 0(g0 
+
+> n
+
+− ¯g01N ),
+
+with 
+
+¯i0 = 1
+
+N 1⊤ 
+
+> N
+
+i0, ¯f 0 = 1
+
+U 1⊤ 
+
+> U
+
+f 0.
+
+Let ˆθ = (ˆ μ, ˆh, ˆi, ˆf , ˆg) denote the canonical solution to (13) . By Theorem E.3, ˆθ p
+
+→ θ coordinate-wise. Furthermore, by Lemma E.1 and weak law of large numbers, gn = g0 
+
+> n
+
++ ¯ g01Np
+
+→ g0 
+
+> n
+
+since E[gn] = 0 . Therefore, ˆgnp
+
+→ g0
+
+> n
+
+. This in turn implies, by weak law of large numbers, that 
+
+ˆinp
+
+→ i0 
+
+> n
+
++ cg 0
+
+> n
+
+,
+
+where c = E[fu]. If c is known, then we can recover a consistent estimate of i0 
+
+> n
+
+by ˆi0 
+
+> n
+
+= ˆ in + cˆgn.
+
+Matrix-completion formulation and incoherence In this section, we describe a related approach for finding estimators for latent factors and intercept terms. We can first estimate the missing entries of the observed matrix using matrix completion techniques, and then use the canonical decomposition of the resulting matrix as an estimator for the latent factors. Define the nuclear-norm completion problem 
+
+ˆSmc ∈ arg min  
+
+> X∈RU×N
+
+12
+
+X
+
+> (u,n )∈Ω
+
+(Xun − Run )2 + λ∥X∥∗. (20) The following definition and lemmas verify the conditions needed to apply the matrix-completion result. As before, in the truthful regime users report 
+
+run = sun + ϵun , sun = μ + hu + in + fugn,
+
+where ϵun is an additive noise term. Let S be the true signal matrix with entries sun . We apply the framework of [ 13 ](see also [ 22 ]) to get bounds on the entry-wise norm of the error of an estimator of S, ∥ bSmc − S∥∞, and then show how this translates to pointwise consistency of the intercept terms. This framework requires bounds on the condition number, 
+
+κ(S), and that S is ν-incoherent, which we define next. 
+
+Definition 3 (Incoherence) . A rank-r matrix A ∈ RU ×N with Singular Value Decomposition A = U ΣV ⊤ is said to be 
+
+ν-incoherent if 
+
+∥U ∥2,∞ ≤
+
+r νU ∥U ∥F =
+
+r νr U , and ∥V ∥2,∞ ≤
+
+r νN ∥V ∥F =
+
+r νr N .
+
+Here ∥X∥2,∞ denotes the max row ℓ2-norm of all rows in the matrix X.
+
+Lemma E.5. Under Assumption 1, the signal matrix 
+
+S = μ1U 1⊤ 
+
+> N
+
++ h1⊤ 
+
+> N
+
++ 1U i⊤ + f g ⊤
+
+has rank at most 3, and there exists a deterministic constant ν < ∞ such that, with probability tending to one, S is 
+
+ν-incoherent and has condition number κ(S) = Op(1) .Proof. Let θ = ( μ, h, i, f, g ) be the canonical representation of S given by Lemma E.1. Then 
+
+S(θ) = μ1U 1⊤ 
+
+> N
+
++ h1⊤ 
+
+> N
+
++ 1U i⊤ + f g ⊤.
+
+Write 
+
+L := [ 1U h f ] ∈ RU ×3, R := [ μ1N + i 1N g] ∈ RN ×3.
+
+43 A PREPRINT - M ARCH 20, 2026 Then S = LR ⊤, so rank( S) ≤ 3. Let ℓ⊤ 
+
+> u
+
+denote the u-th row of L. By the weak law of large numbers, 
+
+1
+
+U L⊤L = 1
+
+U
+
+X
+
+> u
+
+ℓuℓ⊤
+
+> up
+
+−→ ΣL := E[ℓ1ℓ⊤ 
+
+> 1
+
+] = 
+
+
+
+1 0 00 σ2 
+
+> h
+
+00 0 σ2
+
+> f
+
+ ,
+
+which is positive definite. Therefore, there exist constants 0 < c L < C L < ∞ such that, with probability tending to one, 
+
+cLU I 3 ⪯ L⊤L ⪯ CLU I 3.
+
+Let L = QLTL be the thin QR decomposition. Since T ⊤ 
+
+> L
+
+TL = L⊤L, σmin (TL) ≥ √cLU with probability tending to one. Since the latent variables are uniformly bounded under Assumption 1, so too are their centered decompositions, so there exists a deterministic constant BL < ∞ such that with probability tending to one max 1≤u≤U ∥ℓu∥2 ≤ BL.
+
+Hence 
+
+∥(QL)u·∥2 ≤ ∥ ℓu∥2∥T −1 
+
+> L
+
+∥op ≤ BL σmin (TL)−1 = Op(U −1/2),
+
+uniformly in u. Therefore ∥QL∥2,∞ = Op(U −1/2).Now let r⊤ 
+
+> n
+
+denote the n-th row of R. Again by the weak law of large numbers, 
+
+1
+
+N R⊤R = 1
+
+N
+
+> N
+
+X
+
+> n=1
+
+rnr⊤
+
+> np
+
+−→ ΣR := E[r1r⊤ 
+
+> 1
+
+] = 
+
+μ2 + σ2 
+
+> i
+
+μ 0
+
+μ 1 00 0 σ2
+
+> g
+
+ .
+
+The matrix ΣR is positive definite because its upper-left 2 × 2 principal minor equals σ2 
+
+> i
+
+> 0, and σ2 
+
+> g
+
+> 0. Thus, for some constants 0 < c R < C R < ∞,
+
+cRN I 3 ⪯ R⊤R ⪯ CRN I 3
+
+with probability tending to one. If R = QRTR is the thin QR decomposition, the same argument gives ∥QR∥2,∞ = Op(N −1/2). Finally, define 
+
+K := TLT ⊤ 
+
+> R
+
+. Then S = LR ⊤ = QLKQ ⊤ 
+
+> R
+
+. Let K = eU Σ eV ⊤ be the singular value decomposition of K. Then 
+
+S = ( QL eU )Σ( QR eV )⊤ is a singular value decomposition of S. Since right multiplication by an orthogonal matrix preserves row-wise Euclidean norms, 
+
+∥US ∥2,∞ ≤ ∥ QL∥2,∞ = Op(U −1/2) ∥VS ∥2,∞ ≤ ∥ QR∥2,∞ = Op(N −1/2),
+
+where US and VS denote the left and right singular vector matrices of S. Since rank( S) ≤ 3, this is exactly the desired incoherence bound. Finally, the nonzero singular values of S are exactly the singular values of K so κ(S) = κ(K). By submultiplicativity of the spectral condition number, 
+
+κ(K) = κ(TLT ⊤ 
+
+> R
+
+) ≤ κ(TL)κ(TR).
+
+On the high-probability event above, 
+
+κ(TL) ≤
+
+r CL
+
+cL
+
+, κ(TR) ≤
+
+r CR
+
+cR
+
+,
+
+so 
+
+κ(S) ≤
+
+r CLCR
+
+cLcR
+
+= O(1) 
+
+with probability tending to one. Moreover, the nonzero singular values of S are exactly the singular values of 
+
+K = TLT ⊤ 
+
+> R
+
+. On the same high-probability event, σmin (TL) ≥ √cLU , σ min (TR) ≥ √cRN . Since TL, T R ∈ R3×3,we may apply the bound σmin (AB ) ≥ σmin (A)σmin (B) to obtain 
+
+σmin (K) ≥ σmin (TL)σmin (TR) ≥ √cLcR
+
+√U N . 
+
+Therefore the smallest nonzero singular value of S satisfies 
+
+σ+min (S) = σmin (K) = Ω( √U N )
+
+with probability tending to one. Combined with the bound κ(S) = O(1) , this also implies 
+
+σ+min (S) = Θ( √U N ), σmax (S) = Θ( √U N )
+
+with probability tending to one. This completes the proof. 44 A PREPRINT - M ARCH 20, 2026 We now apply Theorem 1 from [13], which we bring next for completion: 
+
+Theorem E.6 (Theorem 1 from [ 13 ]) . Assume that S is ν-incoherent with condition number κ, such that κ = O(1) .Assume that U ≍ N . Let λ = Cλσp(U ∨ N )p be the regularizer in (20) for some large constant Cλ. Then, with probability at least 1 − O(( U ∨ N )−3), any minimizer ˆS of (20) satisfies 
+
+∥ ˆS − S∥∞ ≲ √κ3νr σσmin 
+
+s
+
+ν log( U ∨ N )
+
+p ∥S∥∞.
+
+Since rank( S) ≤ 3, S is ν-incoherent with ν = O(1) and κ(S) = Op(1) by Lemma E.5, and 
+
+∥S∥∞ ≤ | μ| + Bh + Bi + Bf Bg < ∞,
+
+Theorem E.6 yields 
+
+∥ bSmc − S∥∞ = Op
+
+r log( U ∨ N )
+
+U ∨ N
+
+!
+
+. (21) 
+
+Proof of Theorem 1 (Matrix Completion) Now, we can prove an analogous version of Theorem 1 from the main text under Assumption 1, using the nuclear norm estimator. 
+
+Proof of Theorem 1 (Matrix Completion). Define the matrix-decoded note estimator from bSmc by 
+
+ˆμmc = 1
+
+U N 1⊤ 
+
+> U
+
+bSmc 1N , ˆimc := 1
+
+U bS⊤
+
+> mc
+
+1U − bμmc 1N .
+
+Let (μ, h, i, f, g ) be the canonical centering of the true parameters. Then corresponding centered note effect is 
+
+i = 1
+
+U S⊤1U − μ1.N
+
+Comparing ˆimc to i we have, 
+
+∥ˆimc − i∥∞ = 1
+
+U ( bSmc − S)⊤1U −
+
+ 1
+
+U N 1⊤ 
+
+> U
+
+( bSmc − S)1N
+
+
+
+1N
+
+> ∞
+
+≤ 1
+
+U ( bSmc − S)⊤1U
+
+> ∞
+
++ 1
+
+U N 1⊤ 
+
+> U
+
+( bSmc − S)1N
+
+≤ 2∥ bSmc − S∥∞.
+
+Using (21), this gives 
+
+∥ˆimc − i∥∞ = Op(αU,N ), αU,N =
+
+r log( U ∨ N )
+
+U ∨ N .
+
+Therefore, for each fixed n,
+
+|ˆimc ,n − in| = Op(αU,N ) → 0.
+
+Remark E.7. In the same way as in the proof of Theorem 1, by de-centering the estimated ˆimc ,n , we can recover an estimate for the original note helpfulness, i0
+
+> n
+
+. Let ˆθ = (ˆ μmc , ˆhmc ,ˆimc , ˆfmc , ˆgmc ) denote the matrix-decoded estimators, 
+
+θ = ( μ, h, i, f, g ) denote the canonical centered representation of the true estimators, and θ0 = ( μ0, h 0, i 0, f 0, g 0)
+
+denote the true estimators. By the same argument as in the Proof of Theorem 1 (Matrix Completion), we can conclude that ˆhmc ,u p
+
+→ hu. This also implies that the rank-1 residual ˆfmc ,u ˆgmc ,n p
+
+→ fugn, and thus the canonical representations of the factors, as per Lemma E.1 also converge pointwise. Thus ˆi0 
+
+> n
+
+= ˆ imc ,n + cˆgmc ,n is again a consistent estimate of 
+
+i0
+
+> n
+
+.
+
+45 A PREPRINT - M ARCH 20, 2026 
+
+E.3 Proof of the Conformity Regime (Theorem 2) 
+
+We now turn to the case ρ(·) < 1, where contributors partially align their reports with the anticipated platform consensus. In this regime, the platform no longer observes the latent signal matrix S, but rather a conformity-distorted matrix. The proof parallels the private-signal case, but with a different target matrix and a different limiting parameter. Here, we restate the Theorem 2 from the main text to be proven. 
+
+Theorem E.8 (Conformity Regime) . Assume that ρ̸ ≡ 1, i.e. there exists at least one n such that ρn < 1. Let 
+
+ˆθ = (ˆ μ, ˆh, ˆi, ˆf , ˆg) denote the canonically chosen estimator from either (13) and let θ = ( μ, h, i, f, g ) denote the canonically centered true parameters. Under Assumptions 1-2, 
+
+ˆinp
+
+→ i∞
+
+> n
+
+with i∞
+
+> n
+
+̸ = in for at least one n.
+
+In the case that ρ̸ ≡ 1, a users’ best action is given by 
+
+aun + ϵun = ρ(cn)sun + (1 − ρ(cn)) mn + ϵun ,
+
+where ϵun satisfies the condition in Assumption 2. For notational simplicity, in this section we denote ρn = ρ(cn). We can use the techniques from Section E.2 to show that in this case, the platform’s estimate for the note helpfulness does not allow for the recovery of the true note helpfulness. 
+
+Proof of Theorem E.8. The natural target under conformity is not the original note effect in, but the note intercept induced by the approximation to the distorted matrix A with entries aun .Under misspecification, the arguments in Section E.2 continue to apply with the true parameter replaced by the canonical centered pseudo-true parameters, i.e., the projections of A recovered from Lemma E.1. The only change is that the residual is ζun = ϵun + ( aun − s∗
+
+> un
+
+) rather than ϵun ; the additional approximation term is absorbed by the projection property of the pseudo-true optimizer, so all rates in Lemma 2 and the subsequent score expansion argument goes through with minor modification. Thus, it suffices to understand the limiting behavior of ˆμ, ˆhu,ˆin, ˆfu, ˆgn when they solve (13) with full data. We show that ˆi is a biased estimate of i. Define δn = mn − (μ + in). We have that 
+
+ˆμ = 1
+
+U N 
+
+X
+
+> u,n
+
+ρn(μ + hu + in + fugn) + (1 − ρn)mn
+
+= 1
+
+U N 
+
+X
+
+> u,n
+
+μ + in + ρn(hu + fugn) + (1 − ρn)δn
+
+= μ + 1
+
+N
+
+X
+
+> n
+
+in + 1
+
+U
+
+X
+
+> u
+
+hu
+
+!
+
+1
+
+N
+
+X
+
+> n
+
+ρn
+
+!
+
++ 1
+
+U
+
+X
+
+> u
+
+fu
+
+!
+
+1
+
+N
+
+X
+
+> n
+
+ρngn
+
+!
+
++ 1
+
+N
+
+X
+
+> n
+
+(1 − ρn)δn.
+
+Using Assumption 1-2 and weak law of large numbers, we have that 
+
+ˆμ p
+
+→ μ + E[δ1](1 − ¯ρ).
+
+Then, for fixed n, we have 
+
+ˆin = 1
+
+U
+
+X
+
+> u
+
+(μ + in + ρn(hu + fugn) + (1 − ρn)δn) − ˆμ
+
+= μ + in + ρn
+
+ 1
+
+U
+
+X
+
+> u
+
+hu
+
+
+
++ ρngn
+
+ 1
+
+U
+
+X
+
+> u
+
+fu
+
+
+
++ (1 − ρn)δn − ˆμ. 
+
+By the weak law of large numbers and Assumption 1, 
+
+1
+
+U
+
+X
+
+> u
+
+hup
+
+−→ E[hu] = 0 , 1
+
+U
+
+X
+
+> u
+
+fup
+
+−→ E[fu] = c. 
+
+Since ρn and gn do not depend on u, it follows by Slutsky’s theorem that 
+
+ρn
+
+ 1
+
+U
+
+X
+
+> u
+
+hu
+
+ p
+
+−→ 0, ρngn
+
+ 1
+
+U
+
+X
+
+> u
+
+fu
+
+ p
+
+−→ cρ ngn.
+
+Therefore, 
+
+ˆinp
+
+→ in + cρ ngn + (1 − ρn)δn − (1 − ¯ρ)E[δ1].
+
+In this setting, the platform cannot recover an estimate of the true in without additionally knowing δn and ρn, hence generally i∞
+
+> n
+
+̸ = in.46 A PREPRINT - M ARCH 20, 2026 
+
+E.4 User-Factor Distortion and Minority Compression 
+
+Now, we turn to understanding when the factor estimates become biased in the case where users do not report truthfully. In this section, we again assume that all estimated factors are chosen under the canonical decomposition, and at the end of the section we discuss what the implications are for the true factors. By Theorem E.3 we may proceed as if we observe full data. The first order conditions on fu and gn in the full data case give 
+
+ˆfu =
+
+P 
+
+> n
+
+yun gn
+
+P 
+
+> n
+
+g2
+
+> n
+
+, ˆgn =
+
+P 
+
+> u
+
+yun fu
+
+P 
+
+> u
+
+f 2
+
+> u
+
+, (22) where yun = aun − (ˆ μ + ˆhu + ˆ in) is the estimated rank-1 residual. 
+
+Theorem E.9. Let ρ̸ ≡ 1. Consider the setting from Theorem E.8, and suppose that the true note factors {gn}n are known. Let ˆμ, ˆhu,ˆin, ˆfu denote the canonically centered solution to (13) . Then 
+
+E[ ˆfu | fu, g n, c n] = w1fu − w1c + op(1) , w1 =
+
+P 
+
+> n
+
+ρng2
+
+> n
+
+P 
+
+> n
+
+g2
+
+> n
+
+.
+
+Proof. From (13), the first order conditions for fu gives 
+
+ˆfu =
+
+P 
+
+> n
+
+yun gn
+
+P 
+
+> n
+
+g2 
+
+> n
+
++ λf
+
+, (23) where yun = aun − (ˆ μ + ˆhu + ˆ in) is the estimated residual. First, we compute E[yun | fu, g n, c n]. Recall that the first order conditions on ˆhu and ˆin imply that 
+
+ˆhu = 1
+
+N
+
+X
+
+> n
+
+aun − ˆμ, ˆin = 1
+
+U
+
+X
+
+> u
+
+aun − ˆμ, 
+
+with ˆμ defined as in the proof of Theorem E.8. Then, 
+
+E[yun | fu, g n, c n] = E[aun − (ˆ μ + ˆhu + ˆ in) | fu, g n, c n]= E
+
+"
+
+aun − 1
+
+N
+
+X
+
+> n
+
+aun + 1
+
+U
+
+X
+
+> u
+
+aun − ˆμ
+
+!
+
+| fu, g n, c n
+
+#
+
+.
+
+We can compute each term separately. 
+
+E[aun | fu, g n, c n] = E[ρn(μ + hu + in + fugn) + (1 − ρn)mn | fu, g n, c n]= μρ n + E[mn](1 − ρn) + ρnfugn.
+
+Then, 
+
+1
+
+N
+
+X
+
+> n
+
+E[aun | fu, g n, c n] = 1
+
+N
+
+X
+
+> n
+
+μρ n + E[mn](1 − ρn) + ρnfugn
+
+= μ¯ρ + E[m1](1 − ¯ρ) + fu
+
+1
+
+N
+
+X
+
+> n
+
+gnρn,
+
+1
+
+U
+
+X
+
+> u
+
+E[aun | fu, g n, c n] = 1
+
+U
+
+X
+
+> u
+
+μρ n + E[mn](1 − ρn) + ρnfugn
+
+= μρ n + E[m1](1 − ρn) + gnρn
+
+1
+
+U
+
+X
+
+> u
+
+fu,
+
+1
+
+U N 
+
+X
+
+> u
+
+E[aun | fu, g n, c n] = 1
+
+U N 
+
+X
+
+> u,n
+
+μρ n + E[mn](1 − ρn) + ρnfugn
+
+= μ¯ρ + E[m1](1 − ¯ρ) + 1
+
+U
+
+X
+
+> u
+
+fu
+
+1
+
+N
+
+X
+
+> n
+
+gnρn.
+
+47 A PREPRINT - M ARCH 20, 2026 Therefore, 
+
+E[yun | fu, g n, c n] = μρ n + E[mn](1 − ρn) + ρnfugn
+
+− μ¯ρ + E[m1](1 − ¯ρ) + fu
+
+1
+
+N
+
+X
+
+> n
+
+gnρn
+
+!
+
+− μρ n + E[m1](1 − ρn) + gnρn
+
+1
+
+U
+
+X
+
+> u
+
+fu
+
+!
+
++ μ¯ρ + E[m1](1 − ¯ρ) + 1
+
+U
+
+X
+
+> u
+
+fu
+
+1
+
+N
+
+X
+
+> n
+
+gnρn
+
+!
+
+= ρnfugn − fu
+
+1
+
+N
+
+X
+
+> n
+
+gnρn − gnρn
+
+1
+
+U
+
+X
+
+> u
+
+fu + 1
+
+U
+
+X
+
+> u
+
+fu
+
+1
+
+N
+
+X
+
+> n
+
+gnρn.
+
+By weak law of large numbers and Assumptions 1-2, 
+
+E[yun | fu, g n, c n] = ρnfugn − cg nρn + op(1) .
+
+Since λf = o(N −1/2), we have that 
+
+E
+
+h ˆfu | fu, g n, c n
+
+i
+
+= E
+
+ P  
+
+> n
+
+yun gn
+
+P 
+
+> n
+
+g2 
+
+> n
+
++ λf
+
+| fu, g n, c n
+
+
+
+=
+
+P 
+
+> n
+
+fuρng2 
+
+> n
+
+− cg 2
+
+> n
+
+ρn
+
+P 
+
+> n
+
+g2
+
+> n
+
++ op(1) = fu
+
+P 
+
+> n
+
+ρng2
+
+> n
+
+P 
+
+> n
+
+g2
+
+> n
+
+− c
+
+P 
+
+> n
+
+ρng2
+
+> n
+
+P 
+
+> n
+
+g2
+
+> n
+
++ op(1) 
+
+Notice that Theorem E.9 is a statement about ˆfu, which represent the centered user factor estimates. To recover estimates for the original factors, the platform can de-center the distribution of ˆfu according to Lemma E.1. In particular, given knowledge of the true mean E[fu] = c, the estimate for the original factor can be recovered as ˆf 0 
+
+> u
+
+= ˆfu + c.Theorem E.9 implies the following two propositions about ˆf 0 
+
+> u
+
+.
+
+Proposition E.10. Consider the setting of Theorem E.9. Then, 
+
+E[ ˆf 0 
+
+> u
+
+| fu, g n, c n] > 0 if and only if fu > − c(1 − w1)
+
+w1
+
+.
+
+In particular, the minority slice (− c(1 −w1) 
+
+> w1
+
+, 0) is mapped to positive estimates. Proof. Since ˆf 0 
+
+> u
+
+= ˆfu + c, Theorem E.9 implies 
+
+E[ ˆf 0 
+
+> u
+
+| fu, {gn, ρ n}] = w1fu − w2 + c + op(1) = w1fu + c(1 − w1) + op(1) .
+
+This immediately implies the proposition. 
+
+Proposition E.11. Let F be the CDF of fu. Assume that F is continuous with no atom at 0. Then, the estimated minority share 
+
+π− 
+
+> est
+
+:= Pr( ˆf 0 
+
+> u
+
+< 0 | fu, {gn, ρ n})
+
+satisfies 
+
+π− 
+
+> est
+
+= F
+
+ w2 − cw1
+
+
+
++ o(1) = F
+
+
+
+− c(1 − w1)
+
+w1
+
+
+
++ o(1) ≤ F (0) + o(1) = π− 
+
+> true
+
++ o(1) .
+
+If 0 < w 1 < 1, then the inequality is strict. Moreover, π− 
+
+> est
+
+is weakly increasing in w1.
+
+48 A PREPRINT - M ARCH 20, 2026 
+
+Proof. From Theorem E.9, 
+
+E[ ˆf 0 
+
+> u
+
+| fu, {gn, ρ n}] = w1fu − w2 + c + o(1) .
+
+Hence 
+
+π− 
+
+> est
+
+= Pr( ˆf 0 
+
+> u
+
+< 0 | { gn, ρ n}) = Pr( w1fu − w2 + c < 0)+ o(1) = Pr 
+
+
+
+fu < w2 − cw1
+
+
+
++o(1) = F
+
+ w2 − cw1
+
+
+
++o(1) .
+
+Since w2 = cw 1 and c > 0,
+
+w2 − cw1
+
+= − c(1 − w1)
+
+w1
+
+≤ 0,
+
+with strict inequality when 0 < w 1 < 1. Therefore 
+
+π− 
+
+> est
+
+≤ F (0) + o(1) = π− 
+
+> true
+
++ o(1) ,
+
+and strict inequality holds when 0 < w 1 < 1 because F has no atom at 0. Finally, 
+
+ddw 1
+
+ w2 − cw1
+
+
+
+= ddw 1
+
+
+
+− c(1 − w1)
+
+w1
+
+
+
+= cw21
+
+> 0,
+
+so π− 
+
+> est
+
+is weakly increasing in w1.
+
+# F Statistical Guarantee for the Two-Stage Estimator 
+
+We finally analyze the two-stage weighted estimator introduced in the main text. The argument proceeds in the same order as feasible generalized least squares: first analyze the inverse-variance rule, then show that estimated residual variances are consistent, and finally conclude that the feasible two-stage estimator attains the same asymptotic variance. For bounded positive weights w = {wu}, recall the weighted regularized rank-1 problem 
+
+arg min 
+
+> μ,h,i,f,g
+
+X
+
+> (u,n )∈Ω
+
+wu (run − (μ + hu + in + fugn)) 2 + λh∥h∥22 + λi∥i∥22 + λg ∥g∥22 + λf ∥f ∥22. (24) In this section, we use the nuclear norm problem to complete the matrix in both the first and second stages of the analysis before proceeding with ridge regression. Although we have shown that the nuclear norm and the direct solution to the ridge regularized problem are both consistent for the true canonical parameters, the sharper bounds on the nuclear norm problem allow for a more refined analysis. We first show that our estimates ˆσ2 
+
+> u
+
+are consistent for the true variance of user residuals σ2
+
+> u
+
+.
+
+Lemma F.1. Let ˆμ, ˆhu,ˆin, ˆfu, ˆgn be the first stage estimates for the latent factors. Define 
+
+ˆσ2 
+
+> u
+
+= 1
+
+Nu
+
+X
+
+> n∈Su
+
+
+
+run − ˆμ − ˆhu − ˆin − ˆfu ˆgn
+
+2
+
+, (25) 
+
+where Su = |{ n : ( u, n ) ∈ Ω}| . Then, 
+
+max  
+
+> u
+
+|ˆσ2 
+
+> u
+
+− σ2
+
+> u
+
+| = Op
+
+r log( U ∨ N )
+
+U ∨ N
+
+!
+
+.
+
+Proof. As before, sun = μ + hu + in + fugn be the true signal for user u on note n. Let the matrix ˆS with entries ˆsun 
+
+denote the matrix estimator for S given by solving (20). Then, 
+
+ˆσ2 
+
+> u
+
+= 1
+
+Nu
+
+X
+
+> n∈Ωu
+
+(run − ˆsun )2
+
+= 1
+
+Nu
+
+X
+
+> n∈Ωu
+
+(ϵun − (ˆ sun − sun )) 2
+
+= 1
+
+Nu
+
+X
+
+> n∈Ωu
+
+ϵ2 
+
+> un
+
+− 2ϵun (ˆ sun − sun ) + (ˆ sun − sun )2.
+
+49 A PREPRINT - M ARCH 20, 2026 Note that the first term above converges to σ2 
+
+> u
+
+at rate Op(N −1/2) by law of large numbers, the MCAR sampling scheme, sub-Gaussian concentration and Slutsky’s theorem. For the second term, by Cauchy-Schwarz we have 
+
+X
+
+> n∈Ωu
+
+ϵun (ˆ sun − sun ) ≤ X
+
+> n∈Ωu
+
+ϵ2
+
+> un
+
+!1/2 X
+
+> n∈Ωu
+
+(ˆ sun − sun )2
+
+!1/2
+
+.
+
+We have X
+
+> n∈Ωu
+
+(ˆ sun − sun )2 ≤ Nu max  
+
+> n
+
+(ˆ sun − sun )2 = NuOp
+
+ log( U ∨ N )
+
+U ∨ N
+
+
+
+. (26) By sub-Gaussian concentration, 
+
+max 
+
+> 1≤u≤U
+
+1
+
+Nu
+
+X
+
+> n∈Su
+
+ϵ2 
+
+> un
+
+− σ2 
+
+> u
+
+= Op
+
+r log UN
+
+!
+
+.
+
+By (26), the last term is Op
+
+ log( U ∨N ) 
+
+> U∨N
+
+
+
+. Since all bounds are uniform bounds over u,
+
+max  
+
+> u
+
+|ˆσ2 
+
+> u
+
+− σ2
+
+> u
+
+| = Op
+
+r log( U ∨ N )
+
+U ∨ N
+
+!
+
+. (27) 
+
+Theorem F.2. Assume that ρ ≡ 1 andt hat E[fu] = c is known. Let ˆμts , ˆhts ,ˆits , ˆf ts , ˆgts be the solutions to (24) with weights wu = 1 /σ 2
+
+> u
+
+, where σ2 
+
+> u
+
+= E[ϵ2
+
+> un
+
+]. Then ˆits is consistent for the canonical centered representation i. Moreover, among all solutions of (24) obtained using weights positive, finite weights wu ∈ (0 , ∞), the estimator ˆits has the lowest asymptotic variance; that is, for any other solution ˆi of (24) ,
+
+avar(ˆ its ) ⪯ avar(ˆ i). (28) 
+
+Furthermore, let ˜i be the solution to (24) with feasible weights ˆwu = 1 /ˆσ2
+
+> u
+
+. Then, 
+
+aVar(˜ i) = aVar(ˆ its ). (29) 
+
+Proof. Let T = W 1/2S, where S is the true signal matrix and W = diag( w1, . . . , w U ). Let bT = W 1/2 bS be the fitted matrix obtained by solving (24) . Since the weights are known, they can be factored out, so it suffices to study the transformed signal T .We first show that T satisfies the conditions needed to apply (21). By standard singular value inequalities, 
+
+σmin (W 1/2)σj (S) ≤ σj (W 1/2S) ≤ σmax (W 1/2)σj (S).
+
+Since the weights are bounded away from 0 and ∞, Lemma E.5 implies that 
+
+κ(T ) = κ(W 1/2S) ≤ κ(W 1/2)κ(S) = Op(1) ,
+
+and that σ+min (T ) = σ+min (W 1/2S) ≍p
+
+√U N . Let T = UT ΣT V ⊤ 
+
+> T
+
+and S = U ΣV ⊤ be singular value decompositions. Since T = W 1/2S = W 1/2U ΣV ⊤ and W 1/2 is invertible, T and S have the same right singular subspace. Hence there exists an orthogonal matrix Q such that VT = V Q , and therefore 
+
+∥e⊤ 
+
+> n
+
+VT ∥2 = ∥e⊤ 
+
+> n
+
+V Q ∥2 = ∥e⊤ 
+
+> n
+
+V ∥2 = Op(N −1/2)
+
+by Lemma E.5. For the left singular subspace, note that span( UT ) = span( W 1/2U ). An orthonormal basis is given by 
+
+UT = W 1/2U (U ⊤W U )−1/2.
+
+Since the weights are bounded away from 0 and ∞, U ⊤W U ⪰ wmin I so (U ⊤W U )−1 ⪯ w−1min I. Therefore 
+
+∥e⊤ 
+
+> u
+
+UT ∥2 = ∥e⊤
+
+> u
+
+√wu U (U ⊤W U )−1/2∥2 ≤√wu
+
+√wmin 
+
+∥e⊤ 
+
+> u
+
+U ∥2 = Op(U −1/2),
+
+50 A PREPRINT - M ARCH 20, 2026 where the last step again uses Lemma E.5. Thus T is ν-incoherent with high probability. Combining incoherence, bounded condition number, and the growth of σ+min (T ), we obtain 
+
+∥ bT − T ∥∞ = Op
+
+r log( U ∨ N )
+
+U ∨ N
+
+!
+
+. (30) Since W 1/2 is invertible, bS = W −1/2 bT . Define the weighted decoded estimators 
+
+ˆμ = 1
+
+N P 
+
+> u
+
+wu
+
+1⊤ 
+
+> U
+
+W bS1N , ˆi = 1
+
+P 
+
+> u
+
+wu
+
+bS⊤W 1U − ˆμ 1N .
+
+By the same argument as in the proof of Theorem E.6, using (30) and the fact the weights are bounded and bounded away from 0, the decoded estimators are consistent, and asymptotically coincide with the minimizers of (24) . In particular, when ρ ≡ 1, ˆi is consistent for i. Just as in the proof of Theorem 1 from the main text in Section E.2, we can de-center the estimates ˆin to get consistent estimates of the original note parameter i0
+
+> n
+
+.Next, we compare asymptotic variances across admissible weights. Let R = S + Ξ , where Ξ = ( ϵun ), and let 
+
+Nw := X
+
+> u
+
+wu, MN := IN − 1
+
+N 1N 1⊤ 
+
+> N
+
+.
+
+Then 
+
+ˆi = 1
+
+Nw
+
+bS⊤W 1U − ˆμ 1N
+
+= 1
+
+Nw
+
+bT ⊤W 1/21U − ˆμ 1N
+
+= 1
+
+Nw
+
+MN bT ⊤W 1/21U .
+
+Using (30), we may replace bT by T = W 1/2R in a first-order expansion, yielding 
+
+ˆi = 1
+
+Nw
+
+MN T ⊤W 1/21U + op(1) .
+
+Substituting T = W 1/2R = W 1/2S + W 1/2Ξ, we obtain 
+
+ˆi = 1
+
+Nw
+
+MN (W 1/2S)⊤W 1/21U + 1
+
+Nw
+
+MN (W 1/2Ξ) ⊤W 1/21U + op(1) = 1
+
+Nw
+
+MN S⊤W 1U + 1
+
+Nw
+
+MN Ξ⊤W 1U + op(1) .
+
+The first term is deterministic conditional on the latent variables, so the asymptotic variance is determined by the second term. Since the noise variables are independent across u and n, with Var( ϵun ) = σ2
+
+> u
+
+, we have 
+
+Var(Ξ ⊤W 1U ) = X
+
+> u
+
+w2
+
+> u
+
+σ2 
+
+> u
+
+IN .
+
+Therefore 
+
+Var(ˆ i) = 1
+
+N 2
+
+> w
+
+MN
+
+X
+
+> u
+
+w2
+
+> u
+
+σ2 
+
+> u
+
+IN
+
+!
+
+MN
+
+=
+
+P 
+
+> u
+
+w2
+
+> u
+
+σ2
+
+> u
+
+(P 
+
+> u
+
+wu)2 MN .
+
+Thus each coordinate has variance P 
+
+> u
+
+w2
+
+> u
+
+σ2
+
+> u
+
+(P 
+
+> u
+
+wu)2 ,
+
+and any two distinct coordinates have covariance 
+
+− 1
+
+N
+
+P 
+
+> u
+
+w2
+
+> u
+
+σ2
+
+> u
+
+(P 
+
+> u
+
+wu)2 .
+
+51 A PREPRINT - M ARCH 20, 2026 To minimize the asymptotic variance, it suffices to minimize 
+
+P 
+
+> u
+
+w2
+
+> u
+
+σ2
+
+> u
+
+(P 
+
+> u
+
+wu)2 .
+
+Since the objective is scale-invariant, we may impose the normalization P 
+
+> u
+
+wu = 1 , reducing the problem to 
+
+min 
+
+> {wu}u
+
+X
+
+> u
+
+w2
+
+> u
+
+σ2 
+
+> u
+
+subject to X
+
+> u
+
+wu = 1 .
+
+The first-order conditions give 2wuσ2 
+
+> u
+
+= λ, so wu ∝ 1/σ 2
+
+> u
+
+. Hence the variance is minimized by inverse-variance weights, proving aVar(ˆ its ) ⪯ aVar(ˆ i).Finally, define the feasible weights ˆwu = 1 /ˆσ2
+
+> u
+
+, and let ˜i denote the solution to (24) with weights ˆwu. By Lemma F.1, there exist constants c1, c 2 > 0 such that with probability tending to one, ˆσ2 
+
+> u
+
+∈ [c1, c 2] for all u. Since x 7 → 1/x is Lipschitz on [c1, c 2],
+
+| ˆwu − wu| = |ˆσ2 
+
+> u
+
+− σ2
+
+> u
+
+|
+
+ˆσ2
+
+> u
+
+σ2
+
+> u
+
+≤ 1
+
+c21
+
+|ˆσ2 
+
+> u
+
+− σ2
+
+> u
+
+|.
+
+Hence, by (27) and the fact that σ2 
+
+> u
+
+are bounded away from 0 and ∞,
+
+max  
+
+> u
+
+| ˆwu − wu| = op(1) .
+
+Moreover, by construction, X
+
+> u
+
+ˆwu ≍ U, X
+
+> u
+
+ˆw2
+
+> u
+
+σ2 
+
+> u
+
+= Op(U ).
+
+It therefore suffices to analyze P 
+
+> u
+
+ˆw2
+
+> u
+
+σ2
+
+> u
+
+(P 
+
+> u
+
+ˆwu)2 −
+
+P 
+
+> u
+
+w2
+
+> u
+
+σ2
+
+> u
+
+(P 
+
+> u
+
+wu)2 .
+
+Adding and subtracting an intermediate term yields 
+
+P 
+
+> u
+
+ˆw2
+
+> u
+
+σ2
+
+> u
+
+(P 
+
+> u
+
+ˆwu)2 −
+
+P 
+
+> u
+
+w2
+
+> u
+
+σ2
+
+> u
+
+(P 
+
+> u
+
+wu)2 ≤
+
+P 
+
+> u
+
+ˆw2
+
+> u
+
+σ2
+
+> u
+
+(P 
+
+> u
+
+ˆwu)2 −
+
+P 
+
+> u
+
+ˆw2
+
+> u
+
+σ2
+
+> u
+
+(P 
+
+> u
+
+wu)2
+
++
+
+P 
+
+> u
+
+ˆw2
+
+> u
+
+σ2
+
+> u
+
+(P 
+
+> u
+
+wu)2 −
+
+P 
+
+> u
+
+w2
+
+> u
+
+σ2
+
+> u
+
+(P 
+
+> u
+
+wu)2 .
+
+For the second term, 
+
+P 
+
+> u
+
+ˆw2
+
+> u
+
+σ2
+
+> u
+
+(P 
+
+> u
+
+wu)2 −
+
+P 
+
+> u
+
+w2
+
+> u
+
+σ2
+
+> u
+
+(P 
+
+> u
+
+wu)2 = 1(P 
+
+> u
+
+wu)2
+
+X
+
+> u
+
+( ˆ w2 
+
+> u
+
+− w2
+
+> u
+
+)σ2
+
+> u
+
+≤ 1(P 
+
+> u
+
+wu)2
+
+X
+
+> u
+
+| ˆwu − wu| | ˆwu + wu| σ2
+
+> u
+
+≤ C max u | ˆwu − wu|
+
+U = op(1) ,
+
+for some deterministic constant C < ∞, since ˆwu, wu, and σ2 
+
+> u
+
+are uniformly bounded. For the first term, 
+
+P 
+
+> u
+
+ˆw2
+
+> u
+
+σ2
+
+> u
+
+(P 
+
+> u
+
+ˆwu)2 −
+
+P 
+
+> u
+
+ˆw2
+
+> u
+
+σ2
+
+> u
+
+(P 
+
+> u
+
+wu)2 = X
+
+> u
+
+ˆw2
+
+> u
+
+σ2
+
+> u
+
+!
+
+1(P 
+
+> u
+
+ˆwu)2 − 1(P 
+
+> u
+
+wu)2
+
+= X
+
+> u
+
+ˆw2
+
+> u
+
+σ2
+
+> u
+
+!
+
+|P
+
+> u
+
+(wu − ˆwu)| | P
+
+> u
+
+(wu + ˆ wu)|
+
+(P 
+
+> u
+
+ˆwu)2 (P 
+
+> u
+
+wu)2
+
+= op(1) .
+
+Combining the two bounds yields P 
+
+> u
+
+ˆw2
+
+> u
+
+σ2
+
+> u
+
+(P 
+
+> u
+
+ˆwu)2 =
+
+P 
+
+> u
+
+w2
+
+> u
+
+σ2
+
+> u
+
+(P 
+
+> u
+
+wu)2 + op(1) .
+
+52 A PREPRINT - M ARCH 20, 2026 Since wu = 1 /σ 2 
+
+> u
+
+minimizes the asymptotic variance among all admissible weights, it follows that ˜i has the same asymptotic variance as the oracle inverse-variance weighted estimator. Therefore 
+
+aVar(˜ i) = aVar(ˆ its ) ⪯ aVar(ˆ i).
+
+F.1 Discussion of the Two-Stage Result 
+
+The two-stage theorem is a statistical result, not a full incentive-compatibility result. It shows that under private-signal reporting, inverse residual variance weighting yields a consistent estimator of note helpfulness and improves efficiency relative to alternative bounded weight choices. What the theorem does not show is that residual-variance weighting uniquely induces truthful reporting in equilibrium. The argument that such a rule may weaken conformity incentives is heuristic: unlike consensus-based auditing, it does not directly reward agreement with the eventual majority outcome. This makes it a plausible alternative auditing principle, but a full strategic analysis of that induced game lies beyond the scope of the present theorem. For this reason, we treat the two-stage rule in the main text as an alternative estimator and auditing principle motivated by predictive stability. The empirical results show that it improves out-of-sample prediction, and the theorem shows that it is statistically well behaved under informative reports. The stronger incentive question is left open. 53
