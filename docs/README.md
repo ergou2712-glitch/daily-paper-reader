@@ -6,31 +6,31 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-03-25
-- 运行时间：2026-03-25 20:25:45 UTC
+- 最新运行日期：2026-03-26
+- 运行时间：2026-03-26 21:06:12 UTC
 - 运行状态：成功
 - 本次总论文数：3
-- 精读区：2
-- 速读区：1
+- 精读区：1
+- 速读区：2
 
 ### 今日简报（AI）
-今日聚焦分布式信任逻辑与 LLM 信任报告框架，深度剖析推理过程对模型输出的隐形塑造。
-重点关注分布式环境下的信任模态化建模，以及 TREC 2025 中将复杂问题转化为结构化信任报告的 IR 新范式。
-建议关注如何利用自动化框架提升 AI 系统可信度，并警惕模型推理路径与最终表述之间的脱节。
-- 详情：[/202603/25/README](/202603/25/README)
+深度探索大模型在 Web 应用可信度评估中的潜力，并警惕推荐系统易受偏好偏见攻击的风险。
+重点关注利用 LLM 自动化评估 Web 应用可信度的新范式，同时揭示了推荐智能体极易被用户偏好偏见“黑入”的安全性漏洞。
+建议在构建 AI 驱动的推荐或评估系统时，优先考虑防御偏见攻击并引入可解释性分析工具。
+- 详情：[/202603/26/README](/202603/26/README)
 
 ### 精读区论文标签
-1. [Modal Logic for Distributed Trust](/202603/25/2603.21802v1-modal-logic-for-distributed-trust)  
-   标签：评分：8.0/10、query:q5
-   evidence：提出了用于描述和推导多智能体系统中信任关系的模态逻辑和形式化方法。
-2. [From Questions to Trust Reports: A LLM-IR Framework for the TREC 2025 DRAGUN Track](/202603/25/2603.23125v1-from-questions-to-trust-reports-a-llm-ir-framework-for-the-trec-2025-dragun-track)  
-   标签：评分：8.0/10、query:q3
-   evidence：用于检索增强可信度报告和评估在线新闻的框架
+1. [Leveraging Large Language Models for Trustworthiness Assessment of Web Applications](/202603/26/2603.23781v1-leveraging-large-language-models-for-trustworthiness-assessment-of-web-applications)  
+   标签：评分：8.0/10、query:profile-1
+   evidence：评估Web应用程序是否可信的系统方法
 
 ### 速读区论文标签
-1. [Reasoning Traces Shape Outputs but Models Won't Say So](/202603/25/2603.20620v1-reasoning-traces-shape-outputs-but-models-wont-say-so)  
+1. [Is Your LLM-as-a-Recommender Agent Trustable? LLMs' Recommendation is Easily Hacked by Biases (Preferences)](/202603/26/2603.17417v2-is-your-llm-as-a-recommender-agent-trustable-llms-recommendation-is-easily-hacked-by-biases-preferences)  
+   标签：评分：7.0/10、query:profile-1
+   evidence：评估大语言模型智能体可靠性与可信度的基准测试
+2. [Explainable Threat Attribution for IoT Networks Using Conditional SHAP and Flow Behavior Modelling](/202603/26/2603.22771v1-explainable-threat-attribution-for-iot-networks-using-conditional-shap-and-flow-behavior-modelling)  
    标签：评分：6.0/10、query:profile-1
-   evidence：调查大模型的推理链是否可信以及是否忠实反映输出
+   evidence：针对不透明模型导致的信任受限提供可解释的威胁归因
 
 
 <div class="dpr-home-promo-card">
