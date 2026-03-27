@@ -1,0 +1,65 @@
+{
+  "label": "2026-03-27",
+  "date": "2026-03-27",
+  "generated_at": "2026-03-27T20:20:49",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202603/27/2603.25624v1-visual-or-textual-effects-of-explanation-format-and-personal-characteristics-on-the-perception-of-explanations-in-an-educational-recommender-system",
+      "section": "deep",
+      "title_en": "Visual or Textual: Effects of Explanation Format and Personal Characteristics on the Perception of Explanations in an Educational Recommender System",
+      "authors": "Qurat Ul Ain, Mohamed Amine Chatti, Nasim Yazdian Varjani, Farah Kamal, Astrid Rosenthal-von der Pütten",
+      "date": "2026-03-26",
+      "pdf": "https://arxiv.org/pdf/2603.25624v1",
+      "score": "9.0",
+      "evidence": "使用混合效应模型和用户研究测量感知信任",
+      "tldr": "本研究探讨了教育推荐系统中解释形式（视觉与文本）及用户个人特征对系统感知的影响。通过对54名用户进行受试者内实验，分析了包括大五人格、认知需求和技术专业知识在内的多种特征。研究发现，简洁且具交互性的视觉解释能显著提升用户的感知控制、透明度、信任和满意度，且这种效果在不同特征的用户中具有普遍性。最后，研究为教育推荐系统的解释设计提供了一系列实用指南。",
+      "tags": "query:q3",
+      "abstract_en": "Explanations are central to improving transparency, trust, and user satisfaction in recommender systems (RS), yet it remains unclear how different explanation formats (visual vs. textual) are suited to users with different personal characteristics (PCs). To this end, we report a within-subject user study (n=54) comparing visual and textual explanations and examine how explanation format and PCs jointly influence perceived control, transparency, trust, and satisfaction in an educational recommender system (ERS). Using robust mixed-effects models, we analyze the moderating effects of a wide range of PCs, including Big Five traits, need for cognition, decision making style, visualization familiarity, and technical expertise. Our results show that a well-designed visual, simple, interactive, selective, easy to understand visualization that clearly and intuitively communicates how user preferences are linked to recommendations, fosters perceived control, transparency, appropriate trust, and satisfaction in the ERS for most users, independent of their PCs. Moreover, we derive a set of guidelines to support the effective design of explanations in ERSs.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202603/27/2603.25334v1-agentic-trust-coordination-for-federated-learning-through-adaptive-thresholding-and-autonomous-decision-making-in-sustainable-and-resilient-industrial-networks",
+      "section": "deep",
+      "title_en": "Agentic Trust Coordination for Federated Learning through Adaptive Thresholding and Autonomous Decision Making in Sustainable and Resilient Industrial Networks",
+      "authors": "Paul Shepherd, Tasos Dagiuklas, Bugra Alkan, Jonathan Rodriguez",
+      "date": "2026-03-26",
+      "pdf": "https://arxiv.org/pdf/2603.25334v1",
+      "score": "8.0",
+      "evidence": "代理信任协调机制",
+      "tldr": "针对工业网络中联邦学习面临的客户端行为不一致及恶意攻击等挑战，本文提出一种轻量级的代理信任协调方法。该方法通过在服务器端引入代理信任控制层，利用自适应阈值和自主决策机制，在不增加通信开销或修改客户端训练的前提下，实现对系统稳定性的实时监控与动态调整，显著提升了联邦学习在复杂工业环境中的可靠性与鲁棒性。",
+      "tags": "query:q5",
+      "abstract_en": "Distributed intelligence in industrial networks increasingly integrates sensing, communication, and computation across heterogeneous and resource constrained devices. Federated learning (FL) enables collaborative model training in such environments, but its reliability is affected by inconsistent client behaviour, noisy sensing conditions, and the presence of faulty or adversarial updates. Trust based mechanisms are commonly used to mitigate these effects, yet most remain statistical and heuristic, relying on fixed parameters or simple adaptive rules that struggle to accommodate changing operating conditions.   This paper presents a lightweight agentic trust coordination approach for FL in sustainable and resilient industrial networks. The proposed Agentic Trust Control Layer operates as a server side control loop that observes trust related and system level signals, interprets their evolution over time, and applies targeted trust adjustments when instability is detected. The approach extends prior adaptive trust mechanisms by enabling context aware intervention decisions, rather than relying on fixed or purely reactive parameter updates. By explicitly separating observation, reasoning, and action, the proposed framework supports stable FL operation without modifying client side training or increasing communication overhead.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202603/27/2603.25697v1-the-kitchen-loop-user-spec-driven-development-for-a-self-evolving-codebase",
+      "section": "deep",
+      "title_en": "The Kitchen Loop: User-Spec-Driven Development for a Self-Evolving Codebase",
+      "authors": "Yannick Roy",
+      "date": "2026-03-26",
+      "pdf": "https://arxiv.org/pdf/2603.25697v1",
+      "score": "8.0",
+      "evidence": "统一信任模型与质量测量",
+      "tldr": "本研究提出 Kitchen Loop 框架，旨在解决软件开发中“构建什么”及“验证有效性”的瓶颈。该框架通过统一信任模型实现代码库的自主演进，包含规格说明、LLM 模拟的高频用户测试、不可伪造的基准测试及漂移控制。在两个生产系统上的 285 次迭代验证中，生成了 1094 个无回归错误的合并请求，展示了系统在自我修复和质量持续提升方面的卓越能力。",
+      "tags": "query:q5",
+      "abstract_en": "Code production is now a commodity; the bottleneck is knowing what to build and proving it works. We present the Kitchen Loop, a framework for autonomous, self-evolving software built on a unified trust model: (1) a specification surface enumerating what the product claims to support; (2) 'As a User x 1000', where an LLM agent exercises that surface as a synthetic power user at 1,000x human cadence; (3) Unbeatable Tests, ground-truth verification the code author cannot fake; and (4) Drift Control, continuous quality measurement with automated pause gates. We validate across two production systems over 285+ iterations, producing 1,094+ merged pull requests with zero regressions detected by the regression oracle (methodology in Section 6.1). We observe emergent properties at scale: multi-iteration self-correction chains, autonomous infrastructure healing, and monotonically improving quality gates. The primitives are not new; our contribution is their composition into a production-tested system with the operational discipline that makes long-running autonomous evolution safe.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202603/27/2603.24742v1-trust-as-monitoring-evolutionary-dynamics-of-user-trust-and-ai-developer-behaviour",
+      "section": "quick",
+      "title_en": "Trust as Monitoring: Evolutionary Dynamics of User Trust and AI Developer Behaviour",
+      "authors": "Adeela Bashir, Zhao Song, Ndidi Bianca Ogbo, Nataliya Balabanova, Martin Smit, Chin-wing Leung, Paolo Bova, Manuel Chica Serrano, Dhanushka Dissanayake, Manh Hong Duong, Elias Fernandez Domingos, Nikita Huber-Kralj, Marcus Krellner, Andrew Powell, Stefan Sarkadi, Fernando P. Santos, Zia Ush Shamszaman, Chaimaa Tarzi, Paolo Turrini, Grace Ibukunoluwa Ufeoshi, Victor A. Vargas-Perez, Alessandro Di Stefano, Simon T. Powers, The Anh Han",
+      "date": "2026-03-25",
+      "pdf": "https://arxiv.org/pdf/2603.24742v1",
+      "score": "7.0",
+      "evidence": "在演化动力学中将信任建模为减少的监控",
+      "tldr": "本研究探讨了AI安全治理中的信任演化动态，将信任定义为用户在与开发者互动中减少监督的行为。通过演化博弈论、随机有限群体动力学和强化学习模拟，分析了监督成本和制度对安全开发的影响。研究发现，只有当违规处罚高于安全成本且监督成本可控时，才能实现安全且广泛采用的理想状态，强调了透明度和制裁机制在防止不安全演化中的关键作用。",
+      "tags": "query:q3",
+      "abstract_en": "AI safety is an increasingly urgent concern as the capabilities and adoption of AI systems grow. Existing evolutionary models of AI governance have primarily examined incentives for safe development and effective regulation, typically representing users' trust as a one-shot adoption choice rather than as a dynamic, evolving process shaped by repeated interactions. We instead model trust as reduced monitoring in a repeated, asymmetric interaction between users and AI developers, where checking AI behaviour is costly. Using evolutionary game theory, we study how user trust strategies and developer choices between safe (compliant) and unsafe (non-compliant) AI co-evolve under different levels of monitoring cost and institutional regimes. We complement the infinite-population replicator analysis with stochastic finite-population dynamics and reinforcement learning (Q-learning) simulations. Across these approaches, we find three robust long-run regimes: no adoption with unsafe development, unsafe but widely adopted systems, and safe systems that are widely adopted. Only the last is desirable, and it arises when penalties for unsafe behaviour exceed the extra cost of safety and users can still afford to monitor at least occasionally. Our results formally support governance proposals that emphasise transparency, low-cost monitoring, and meaningful sanctions, and they show that neither regulation alone nor blind user trust is sufficient to prevent evolutionary drift towards unsafe or low-adoption outcomes.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
