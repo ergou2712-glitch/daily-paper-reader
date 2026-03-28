@@ -1,0 +1,125 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-03-28T20:12:58.200400+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2603.21656v1",
+      "title": "TrustFed: Enabling Trustworthy Medical AI under Data Privacy Constraints",
+      "abstract": "Protecting patient privacy remains a fundamental barrier to scaling machine learning across healthcare institutions, where centralizing sensitive data is often infeasible due to ethical, legal, and regulatory constraints. Federated learning offers a promising alternative by enabling privacy-preserving, multi-institutional training without sharing raw patient data; however, real-world deployments face severe challenges from data heterogeneity, site-specific biases, and class imbalance, which degrade predictive reliability and render existing uncertainty quantification methods ineffective. Here, we present TrustFed, a federated uncertainty quantification framework that provides distribution-free, finite-sample coverage guarantees under heterogeneous and imbalanced healthcare data, without requiring centralized access. TrustFed introduces a representation-aware client assignment mechanism that leverages internal model representations to enable effective calibration across institutions, along with a soft-nearest threshold aggregation strategy that mitigates assignment uncertainty while producing compact and reliable prediction sets. Using over 430,000 medical images across six clinically distinct imaging modalities, we conduct one of the most comprehensive evaluations of uncertainty-aware federated learning in medical imaging, demonstrating robust coverage guarantees across datasets with diverse class cardinalities and imbalance regimes. By validating TrustFed at this scale and breadth, our study advances uncertainty-aware federated learning from proof-of-concept toward clinically meaningful, modality-agnostic deployment, positioning statistically guaranteed uncertainty as a core requirement for next-generation healthcare AI systems.",
+      "authors": [
+        "Vagish Kumar",
+        "Syed Bahauddin Alam",
+        "Souvik Chakraborty"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.CY"
+      ],
+      "published": "2026-03-23T07:34:45+00:00",
+      "link": "https://arxiv.org/pdf/2603.21656v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "uncertainty quantification as a metric for trustworthy AI",
+      "llm_evidence_cn": "不确定性量化作为可信AI的衡量指标",
+      "llm_evidence": "不确定性量化作为可信AI的衡量指标",
+      "canonical_evidence": "不确定性量化作为可信AI的衡量指标",
+      "llm_tldr_en": "Introduces a federated uncertainty quantification framework to ensure predictive reliability and trust in medical AI.",
+      "llm_tldr_cn": "引入联邦不确定性量化框架，以确保医疗AI的预测可靠性和信任度。",
+      "llm_tldr": "引入联邦不确定性量化框架，以确保医疗AI的预测可靠性和信任度。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "methods and metrics for measuring trust",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.22928v1",
+      "title": "SoK: The Attack Surface of Agentic AI -- Tools, and Autonomy",
+      "abstract": "Recent AI systems combine large language models with tools, external knowledge via retrieval-augmented generation (RAG), and even autonomous multi-agent decision loops. This agentic AI paradigm greatly expands capabilities - but also vastly enlarges the attack surface. In this systematization, we map out the trust boundaries and security risks of agentic LLM-based systems. We develop a comprehensive taxonomy of attacks spanning prompt-level injections, knowledge-base poisoning, tool/plug-in exploits, and multi-agent emergent threats. Through a detailed literature review, we synthesize evidence from 2023-2025, including more than 20 peer-reviewed and archival studies, industry reports, and standards. We find that agentic systems introduce new vectors for indirect prompt injection, code execution exploits, RAG index poisoning, and cross-agent manipulation that go beyond traditional AI threats. We define attacker models and threat scenarios, and propose metrics (e.g., Unsafe Action Rate, Privilege Escalation Distance) to evaluate security posture. Our survey examines defenses such as input sanitization, retrieval filters, sandboxes, access control, and \"AI guardrails,\" assessing their effectiveness and pointing out the areas where protection is still lacking. To assist practitioners, we outline defensive controls and provide a phased security checklist for deploying agentic AI (covering design-time hardening, runtime monitoring, and incident response). Finally, we outline open research challenges in secure autonomous AI (robust tool APIs, verifiable agent behavior, supply-chain safeguards) and discuss ethical and responsible disclosure practices. We systematize recent findings to help researchers and engineers understand and mitigate security risks in agentic AI.",
+      "authors": [
+        "Ali Dehghantanha",
+        "Sajad Homayoun"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-03-24T08:21:51+00:00",
+      "link": "https://arxiv.org/pdf/2603.22928v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Maps trust boundaries and security risks in agentic AI systems",
+      "llm_evidence_cn": "映射代理 AI 系统中的信任边界和安全风险",
+      "llm_evidence": "映射代理 AI 系统中的信任边界和安全风险",
+      "canonical_evidence": "映射代理 AI 系统中的信任边界和安全风险",
+      "llm_tldr_en": "Systematizes the attack surface and trust boundaries of agentic AI through a comprehensive taxonomy.",
+      "llm_tldr_cn": "通过全面的分类法系统化地分析了代理 AI 的攻击面和信任边界。",
+      "llm_tldr": "通过全面的分类法系统化地分析了代理 AI 的攻击面和信任边界。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.24735v1",
+      "title": "Examining the Effect of Explanations of AI Privacy Redaction in AI-mediated Interactions",
+      "abstract": "AI-mediated communication is increasingly being utilized to help facilitate interactions; however, in privacy sensitive domains, an AI mediator has the additional challenge of considering how to preserve privacy. In these contexts, a mediator may redact or withhold information, raising questions about how users perceive these interventions and whether explanations of system behavior can improve trust. In this work, we investigate how explanations of redaction operations can affect user trust in AI-mediated communication. We devise a scenario where a validated system removes sensitive content from messages and generates explanations of varying detail to communicate its decisions to recipients. We then conduct a user study with $180$ participants that studies how user trust and preferences vary for cases with different amounts of redacted content and different levels of explanation detail. Our results show that participants believed our system was more effective at preserving privacy when explanations were provided ($p<0.05$, Cohen's $d \\approx 0.3$). We also found that contextual factors had an impact; participants relied more on explanations and found them more helpful when the system performed extensive redactions ($p<0.05$, Cohen's $f \\approx 0.2$). We also found that explanation preferences depended on individual differences as well, and factors such as age and baseline familiarity with AI affected user trust in our system. These findings highlight the importance and challenge of balancing transparency and privacy in AI-mediated communications and suggest that adaptive, context-aware explanations are essential for designing privacy-aware, trustworthy AI systems.",
+      "authors": [
+        "Roshni Kaushik",
+        "Maarten Sap",
+        "Koichi Onoue"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC"
+      ],
+      "published": "2026-03-25T18:59:08+00:00",
+      "link": "https://arxiv.org/pdf/2603.24735v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "investigates how explanations affect user trust through a user study",
+      "llm_evidence_cn": "通过用户研究调查解释如何影响用户信任",
+      "llm_evidence": "通过用户研究调查解释如何影响用户信任",
+      "canonical_evidence": "通过用户研究调查解释如何影响用户信任",
+      "llm_tldr_en": "Studies the impact of AI redaction explanations on user trust in privacy-sensitive communication.",
+      "llm_tldr_cn": "研究了隐私敏感通信中AI脱敏解释对用户信任的影响。",
+      "llm_tldr": "研究了隐私敏感通信中AI脱敏解释对用户信任的影响。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

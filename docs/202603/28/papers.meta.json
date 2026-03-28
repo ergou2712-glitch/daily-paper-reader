@@ -1,0 +1,51 @@
+{
+  "label": "2026-03-28",
+  "date": "2026-03-28",
+  "generated_at": "2026-03-28T20:13:34",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202603/28/2603.21656v1-trustfed-enabling-trustworthy-medical-ai-under-data-privacy-constraints",
+      "section": "quick",
+      "title_en": "TrustFed: Enabling Trustworthy Medical AI under Data Privacy Constraints",
+      "authors": "Vagish Kumar, Syed Bahauddin Alam, Souvik Chakraborty",
+      "date": "2026-03-23",
+      "pdf": "https://arxiv.org/pdf/2603.21656v1",
+      "score": "7.0",
+      "evidence": "不确定性量化作为可信AI的衡量指标",
+      "tldr": "针对医疗数据隐私和异构性挑战，本文提出TrustFed框架，旨在实现可信的联邦学习。该框架通过表征感知客户端分配和软最近阈值聚合策略，在不共享原始数据的前提下，为异构且不平衡的医疗数据提供无分布、有限样本的预测覆盖保证。通过对超过43万张、涵盖六种模态的医学图像进行大规模验证，TrustFed证明了其在复杂临床场景下的鲁棒性和可靠性，为下一代医疗AI系统提供了统计学保障。",
+      "tags": "query:q3",
+      "abstract_en": "Protecting patient privacy remains a fundamental barrier to scaling machine learning across healthcare institutions, where centralizing sensitive data is often infeasible due to ethical, legal, and regulatory constraints. Federated learning offers a promising alternative by enabling privacy-preserving, multi-institutional training without sharing raw patient data; however, real-world deployments face severe challenges from data heterogeneity, site-specific biases, and class imbalance, which degrade predictive reliability and render existing uncertainty quantification methods ineffective. Here, we present TrustFed, a federated uncertainty quantification framework that provides distribution-free, finite-sample coverage guarantees under heterogeneous and imbalanced healthcare data, without requiring centralized access. TrustFed introduces a representation-aware client assignment mechanism that leverages internal model representations to enable effective calibration across institutions, along with a soft-nearest threshold aggregation strategy that mitigates assignment uncertainty while producing compact and reliable prediction sets. Using over 430,000 medical images across six clinically distinct imaging modalities, we conduct one of the most comprehensive evaluations of uncertainty-aware federated learning in medical imaging, demonstrating robust coverage guarantees across datasets with diverse class cardinalities and imbalance regimes. By validating TrustFed at this scale and breadth, our study advances uncertainty-aware federated learning from proof-of-concept toward clinically meaningful, modality-agnostic deployment, positioning statistically guaranteed uncertainty as a core requirement for next-generation healthcare AI systems.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202603/28/2603.24735v1-examining-the-effect-of-explanations-of-ai-privacy-redaction-in-ai-mediated-interactions",
+      "section": "quick",
+      "title_en": "Examining the Effect of Explanations of AI Privacy Redaction in AI-mediated Interactions",
+      "authors": "Roshni Kaushik, Maarten Sap, Koichi Onoue",
+      "date": "2026-03-25",
+      "pdf": "https://arxiv.org/pdf/2603.24735v1",
+      "score": "7.0",
+      "evidence": "通过用户研究调查解释如何影响用户信任",
+      "tldr": "本研究探讨了在AI中介通信中，AI对敏感信息进行脱敏处理时，提供解释对用户信任的影响。研究者设计了一个自动脱敏系统，并通过180名参与者的用户实验，分析了不同脱敏比例和解释详细程度下的用户反馈。结果表明，解释能显著提升用户对系统隐私保护能力的认可，尤其在大量信息被脱敏时，解释的价值更高。研究强调了在设计隐私感知AI时，采用情境感知和个性化解释策略的重要性。",
+      "tags": "query:profile-1",
+      "abstract_en": "AI-mediated communication is increasingly being utilized to help facilitate interactions; however, in privacy sensitive domains, an AI mediator has the additional challenge of considering how to preserve privacy. In these contexts, a mediator may redact or withhold information, raising questions about how users perceive these interventions and whether explanations of system behavior can improve trust. In this work, we investigate how explanations of redaction operations can affect user trust in AI-mediated communication. We devise a scenario where a validated system removes sensitive content from messages and generates explanations of varying detail to communicate its decisions to recipients. We then conduct a user study with $180$ participants that studies how user trust and preferences vary for cases with different amounts of redacted content and different levels of explanation detail. Our results show that participants believed our system was more effective at preserving privacy when explanations were provided ($p<0.05$, Cohen's $d \\approx 0.3$). We also found that contextual factors had an impact; participants relied more on explanations and found them more helpful when the system performed extensive redactions ($p<0.05$, Cohen's $f \\approx 0.2$). We also found that explanation preferences depended on individual differences as well, and factors such as age and baseline familiarity with AI affected user trust in our system. These findings highlight the importance and challenge of balancing transparency and privacy in AI-mediated communications and suggest that adaptive, context-aware explanations are essential for designing privacy-aware, trustworthy AI systems.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202603/28/2603.22928v1-sok-the-attack-surface-of-agentic-ai----tools-and-autonomy",
+      "section": "quick",
+      "title_en": "SoK: The Attack Surface of Agentic AI -- Tools, and Autonomy",
+      "authors": "Ali Dehghantanha, Sajad Homayoun",
+      "date": "2026-03-24",
+      "pdf": "https://arxiv.org/pdf/2603.22928v1",
+      "score": "6.0",
+      "evidence": "映射代理 AI 系统中的信任边界和安全风险",
+      "tldr": "本文系统地梳理了代理式人工智能（Agentic AI）的攻击面，涵盖了工具使用、检索增强生成（RAG）及自主决策带来的安全风险。研究通过对2023-2025年间文献的综述，构建了包括提示词注入、知识库污染和多智能体威胁在内的攻击分类法，并提出了评估安全态势的指标与防御框架，为构建安全的自主AI系统提供了实践指南。",
+      "tags": "query:profile-1",
+      "abstract_en": "Recent AI systems combine large language models with tools, external knowledge via retrieval-augmented generation (RAG), and even autonomous multi-agent decision loops. This agentic AI paradigm greatly expands capabilities - but also vastly enlarges the attack surface. In this systematization, we map out the trust boundaries and security risks of agentic LLM-based systems. We develop a comprehensive taxonomy of attacks spanning prompt-level injections, knowledge-base poisoning, tool/plug-in exploits, and multi-agent emergent threats. Through a detailed literature review, we synthesize evidence from 2023-2025, including more than 20 peer-reviewed and archival studies, industry reports, and standards. We find that agentic systems introduce new vectors for indirect prompt injection, code execution exploits, RAG index poisoning, and cross-agent manipulation that go beyond traditional AI threats. We define attacker models and threat scenarios, and propose metrics (e.g., Unsafe Action Rate, Privilege Escalation Distance) to evaluate security posture. Our survey examines defenses such as input sanitization, retrieval filters, sandboxes, access control, and \"AI guardrails,\" assessing their effectiveness and pointing out the areas where protection is still lacking. To assist practitioners, we outline defensive controls and provide a phased security checklist for deploying agentic AI (covering design-time hardening, runtime monitoring, and incident response). Finally, we outline open research challenges in secure autonomous AI (robust tool APIs, verifiable agent behavior, supply-chain safeguards) and discuss ethical and responsible disclosure practices. We systematize recent findings to help researchers and engineers understand and mitigate security risks in agentic AI.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
