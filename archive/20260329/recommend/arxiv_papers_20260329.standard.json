@@ -1,0 +1,162 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-03-29T20:18:05.158546+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2603.24904v1",
+      "title": "On the Foundations of Trustworthy Artificial Intelligence",
+      "abstract": "We prove that platform-deterministic inference is necessary and sufficient for   trustworthy AI. We formalize this as the Determinism Thesis and introduce trust   entropy to quantify the cost of non-determinism, proving that verification failure   probability equals 1 - 2^{-H_T} exactly. We prove a Determinism-Verification   Collapse: verification under determinism requires O(1) hash comparison; without it,   the verifier faces an intractable membership problem. IEEE 754 floating-point   arithmetic fundamentally violates the determinism requirement. We resolve this by   constructing a pure integer inference engine that achieves bitwise identical output   across ARM and x86. In 82 cross-architecture tests on models up to 6.7B parameters,   we observe zero hash mismatches. Four geographically distributed nodes produce   identical outputs, verified by 356 on-chain attestation transactions. Every major   trust property of AI systems (fairness, robustness, privacy, safety, alignment)   presupposes platform determinism. Our system, 99,000 lines of Rust deployed across   three continents, establishes that AI trust is a question of arithmetic.",
+      "authors": [
+        "TJ Dunham"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CR"
+      ],
+      "published": "2026-03-26T00:37:14+00:00",
+      "link": "https://arxiv.org/pdf/2603.24904v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "introduces trust entropy to quantify cost of non-determinism",
+      "llm_evidence_cn": "引入信任熵来量化非确定性的成本",
+      "llm_evidence": "引入信任熵来量化非确定性的成本",
+      "canonical_evidence": "引入信任熵来量化非确定性的成本",
+      "llm_tldr_en": "Formalizes trustworthy AI through platform-deterministic inference and a new trust entropy metric.",
+      "llm_tldr_cn": "通过平台确定性推理和新的信任熵指标，为可信人工智能奠定了理论基础。",
+      "llm_tldr": "通过平台确定性推理和新的信任熵指标，为可信人工智能奠定了理论基础。",
+      "llm_tags": [
+        "query:q4"
+      ],
+      "matched_query_tag": "query:q4",
+      "matched_query_text": "quantitative metrics used to assess trust",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2603.24172v2",
+      "title": "Towards Remote Attestation of Microarchitectural Attacks: The Case of Rowhammer",
+      "abstract": "Microarchitectural vulnerabilities increasingly undermine the assumption that hardware can be treated as a reliable root of trust. Prevention mechanisms often lag behind evolving attack techniques, leaving deployed systems unable to assume continued trustworthiness. We propose a shift from prevention to detection through microarchitectural-aware remote attestation. As a first instantiation of this idea, we present HammerWatch, a Rowhammer-aware remote attestation protocol that enables an external verifier to assess whether a system exhibits hardware-induced disturbance behavior. HammerWatch leverages memory-level evidence available on commodity platforms, specifically Machine-Check Exceptions (MCEs) from ECC DRAM and counter-based indicators from Per-Row Activation Counting (PRAC), and protects these measurements against kernel-level adversaries using TPM-anchored hash chains. We implement HammerWatch on commodity hardware and evaluate it on 20000 simulated benign and malicious access patterns. Our results show that the verifier reliably distinguishes Rowhammer-like behavior from benign operation under conservative heuristics, demonstrating that detection-oriented attestation is feasible and can complement incomplete prevention mechanisms",
+      "authors": [
+        "Martin Herrmann",
+        "Oussama Draissi",
+        "Christian Niesler",
+        "Ahmad-Reza Sadeghi",
+        "Lucas Davi"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-03-25T10:42:08+00:00",
+      "link": "https://arxiv.org/pdf/2603.24172v2",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "remote attestation protocol to assess system trustworthiness",
+      "llm_evidence_cn": "评估系统可信度的远程验证协议",
+      "llm_evidence": "评估系统可信度的远程验证协议",
+      "canonical_evidence": "评估系统可信度的远程验证协议",
+      "llm_tldr_en": "Proposes a remote attestation protocol to detect hardware attacks and assess system trustworthiness.",
+      "llm_tldr_cn": "提出了一种远程验证协议，用于检测硬件攻击并评估系统的可信度。",
+      "llm_tldr": "提出了一种远程验证协议，用于检测硬件攻击并评估系统的可信度。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.24172v1",
+      "title": "Towards Remote Attestation of Microarchitectural Attacks: The Case of Rowhammer",
+      "abstract": "Microarchitectural vulnerabilities increasingly undermine the assumption that hardware can be treated as a reliable root of trust. Prevention mechanisms often lag behind evolving attack techniques, leaving deployed systems unable to assume continued trustworthiness. We propose a shift from prevention to detection through microarchitectural-aware remote attestation. As a first instantiation of this idea, we present HammerWatch, a Rowhammer-aware remote attestation protocol that enables an external verifier to assess whether a system exhibits hardware-induced disturbance behavior. HammerWatch leverages memory-level evidence available on commodity platforms, specifically Machine-Check Exceptions (MCEs) from ECC DRAM and counter-based indicators from Per-Row Activation Counting (PRAC), and protects these measurements against kernel-level adversaries using TPM-anchored hash chains. We implement HammerWatch on commodity hardware and evaluate it on 20000 simulated benign and malicious access patterns. Our results show that the verifier reliably distinguishes Rowhammer-like behavior from benign operation under conservative heuristics, demonstrating that detection-oriented attestation is feasible and can complement incomplete prevention mechanisms",
+      "authors": [
+        "Martin Herrmann",
+        "Oussama Draissi",
+        "Christian Niesler",
+        "Lucas Davi"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-03-25T10:42:08+00:00",
+      "link": "https://arxiv.org/pdf/2603.24172v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "remote attestation to assess system trustworthiness",
+      "llm_evidence_cn": "通过远程度量评估系统的可信性",
+      "llm_evidence": "通过远程度量评估系统的可信性",
+      "canonical_evidence": "通过远程度量评估系统的可信性",
+      "llm_tldr_en": "Proposes a remote attestation protocol to detect hardware attacks and verify system trustworthiness.",
+      "llm_tldr_cn": "提出一种远程度量协议，用于检测硬件攻击并验证系统的可信性。",
+      "llm_tldr": "提出一种远程度量协议，用于检测硬件攻击并验证系统的可信性。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.24754v1",
+      "title": "An Explainable Federated Framework for Zero Trust Micro-Segmentation in IIoT Networks",
+      "abstract": "Micro-segmentation as a core requirement of zero trust architecture (ZTA) divides networks into small security zones, called micro-segments, thereby minimizing impact of security breaches and restricting lateral movement of attackers. Existing approaches for Industrial Internet of Things (IIoT) networks often remain centralized, static, or difficult to interpret. These limitations are critical in IIoT, where devices are heterogeneous, communication behavior evolves over time, and raw data sharing across sites is often undesirable. Accordingly, we propose EFAH-ZTM, an Explainable Federated Autoencoder-Hypergraph framework for Zero Trust micro-segmentation in IIoT networks. The framework includes a trained federated DNAE that learns behavioral embeddings from distributed clients. kNN-based and Manifold-based hypergraphs capture higher-order relationships among device-flow instances. To generate micro-segments, MiniBatch KMeans and HDBSCAN clustering techniques are applied on the spectral embeddings, while an operational risk score that combines reconstruction error and structural outlierness drives allow/block policy decisions. Trustworthiness of the policy decision is improved through feature-level explanations using LIME and SHAP. Experiments on the WUSTL-IIoT-2021 dataset show that HDBSCAN achieved the strongest structural quality, while the manifold-based hypergraph produces the best oracle-aligned security efficacy that reaches a purity of 0.9990 with near-zero contamination. Similarly, the explainability module also showed high fidelity and stability, with surrogate classifier having an accuracy of 0.9927 and stable explanations across runs. Moreover, an ablation analysis shows that the federated learning preserves competitive segmentation quality relative to centralized training, and the hypergraph modeling significantly improves structural separation and risk stratification.",
+      "authors": [
+        "Muhammad Liman Gambo",
+        "Ahmad Almulhem"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-03-25T19:26:08+00:00",
+      "link": "https://arxiv.org/pdf/2603.24754v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "zero trust architecture and behavior learning for security",
+      "llm_evidence_cn": "零信任架构与安全行为学习",
+      "llm_evidence": "零信任架构与安全行为学习",
+      "canonical_evidence": "零信任架构与安全行为学习",
+      "llm_tldr_en": "Develops a federated framework for zero trust micro-segmentation to enhance IIoT network security.",
+      "llm_tldr_cn": "开发了一个用于零信任微隔离的联邦框架，以增强工业物联网的安全。",
+      "llm_tldr": "开发了一个用于零信任微隔离的联邦框架，以增强工业物联网的安全。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

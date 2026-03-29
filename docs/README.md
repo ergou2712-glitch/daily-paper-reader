@@ -6,32 +6,34 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-03-28
-- 运行时间：2026-03-28 20:13:25 UTC
+- 最新运行日期：2026-03-29
+- 运行时间：2026-03-29 20:19:02 UTC
 - 运行状态：成功
-- 本次总论文数：3
-- 精读区：0
+- 本次总论文数：4
+- 精读区：1
 - 速读区：3
 
 ### 今日简报（AI）
-今日聚焦 AI 隐私与安全前沿，深入剖析了医疗联邦学习、隐私脱敏解释及智能体攻击面。
-重点推荐医疗 AI 的可信框架研究，以及针对自主智能体（Agentic AI）工具调用与自主性的安全风险系统性梳理。
-建议普通读者关注 AI 隐私保护中的用户感知差异，并警惕智能体自动化流程中的潜在安全漏洞。
-- 详情：[/202603/28/README](/202603/28/README)
+今日聚焦可信人工智能的底层基石，同步追踪微架构攻击防御与工业物联网零信任架构的前沿进展。
+核心结论指出构建可信 AI 需从理论根基抓起，而针对 Rowhammer 的远程验证与可解释联邦框架为复杂系统安全提供了新思路。
+建议优先研读 9.0 分的可信 AI 综述以夯实认知，并关注硬件底层安全与分布式防御的跨界融合。
+- 详情：[/202603/29/README](/202603/29/README)
 
 ### 精读区论文标签
-- 本次无精读推荐。
+1. [On the Foundations of Trustworthy Artificial Intelligence](/202603/29/2603.24904v1-on-the-foundations-of-trustworthy-artificial-intelligence)  
+   标签：评分：9.0/10、query:q4
+   evidence：引入信任熵来量化非确定性的成本
 
 ### 速读区论文标签
-1. [TrustFed: Enabling Trustworthy Medical AI under Data Privacy Constraints](/202603/28/2603.21656v1-trustfed-enabling-trustworthy-medical-ai-under-data-privacy-constraints)  
-   标签：评分：7.0/10、query:q3
-   evidence：不确定性量化作为可信AI的衡量指标
-2. [Examining the Effect of Explanations of AI Privacy Redaction in AI-mediated Interactions](/202603/28/2603.24735v1-examining-the-effect-of-explanations-of-ai-privacy-redaction-in-ai-mediated-interactions)  
-   标签：评分：7.0/10、query:profile-1
-   evidence：通过用户研究调查解释如何影响用户信任
-3. [SoK: The Attack Surface of Agentic AI -- Tools, and Autonomy](/202603/28/2603.22928v1-sok-the-attack-surface-of-agentic-ai----tools-and-autonomy)  
+1. [Towards Remote Attestation of Microarchitectural Attacks: The Case of Rowhammer](/202603/29/2603.24172v2-towards-remote-attestation-of-microarchitectural-attacks-the-case-of-rowhammer)  
+   标签：评分：7.0/10、query:q5
+   evidence：评估系统可信度的远程验证协议
+2. [Towards Remote Attestation of Microarchitectural Attacks: The Case of Rowhammer](/202603/29/2603.24172v1-towards-remote-attestation-of-microarchitectural-attacks-the-case-of-rowhammer)  
    标签：评分：6.0/10、query:profile-1
-   evidence：映射代理 AI 系统中的信任边界和安全风险
+   evidence：通过远程度量评估系统的可信性
+3. [An Explainable Federated Framework for Zero Trust Micro-Segmentation in IIoT Networks](/202603/29/2603.24754v1-an-explainable-federated-framework-for-zero-trust-micro-segmentation-in-iiot-networks)  
+   标签：评分：6.0/10、query:q5
+   evidence：零信任架构与安全行为学习
 
 
 <div class="dpr-home-promo-card">

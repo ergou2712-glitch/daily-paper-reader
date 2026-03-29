@@ -1,0 +1,65 @@
+{
+  "label": "2026-03-29",
+  "date": "2026-03-29",
+  "generated_at": "2026-03-29T20:19:12",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202603/29/2603.24904v1-on-the-foundations-of-trustworthy-artificial-intelligence",
+      "section": "deep",
+      "title_en": "On the Foundations of Trustworthy Artificial Intelligence",
+      "authors": "TJ Dunham",
+      "date": "2026-03-26",
+      "pdf": "https://arxiv.org/pdf/2603.24904v1",
+      "score": "9.0",
+      "evidence": "引入信任熵来量化非确定性的成本",
+      "tldr": "本研究探讨了可信人工智能的基础，提出“确定性论题”，认为平台确定性推理是实现AI可信的充要条件。研究引入了信任熵来量化非确定性成本，并证明了确定性对于高效验证的必要性。为解决浮点运算导致的非确定性，作者开发了一个纯整数推理引擎，在跨架构（ARM/x86）测试中实现了位级一致的输出，并通过链上存证验证了其在分布式环境下的可靠性，证明了AI可信性本质上是一个算术问题。",
+      "tags": "query:q4",
+      "abstract_en": "We prove that platform-deterministic inference is necessary and sufficient for   trustworthy AI. We formalize this as the Determinism Thesis and introduce trust   entropy to quantify the cost of non-determinism, proving that verification failure   probability equals 1 - 2^{-H_T} exactly. We prove a Determinism-Verification   Collapse: verification under determinism requires O(1) hash comparison; without it,   the verifier faces an intractable membership problem. IEEE 754 floating-point   arithmetic fundamentally violates the determinism requirement. We resolve this by   constructing a pure integer inference engine that achieves bitwise identical output   across ARM and x86. In 82 cross-architecture tests on models up to 6.7B parameters,   we observe zero hash mismatches. Four geographically distributed nodes produce   identical outputs, verified by 356 on-chain attestation transactions. Every major   trust property of AI systems (fairness, robustness, privacy, safety, alignment)   presupposes platform determinism. Our system, 99,000 lines of Rust deployed across   three continents, establishes that AI trust is a question of arithmetic.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202603/29/2603.24172v2-towards-remote-attestation-of-microarchitectural-attacks-the-case-of-rowhammer",
+      "section": "quick",
+      "title_en": "Towards Remote Attestation of Microarchitectural Attacks: The Case of Rowhammer",
+      "authors": "Martin Herrmann, Oussama Draissi, Christian Niesler, Ahmad-Reza Sadeghi, Lucas Davi",
+      "date": "2026-03-25",
+      "pdf": "https://arxiv.org/pdf/2603.24172v2",
+      "score": "7.0",
+      "evidence": "评估系统可信度的远程验证协议",
+      "tldr": "针对微架构漏洞（如Rowhammer）导致硬件信任根失效的问题，本文提出从防御转向检测的思路，开发了HammerWatch远程度量协议。该协议利用商品化平台的ECC内存错误记录和PRAC计数器作为证据，通过TPM锚定的哈希链保护测量结果，实现了对Rowhammer攻击行为的可靠识别，为现有防御机制提供了有效补充。",
+      "tags": "query:q5",
+      "abstract_en": "Microarchitectural vulnerabilities increasingly undermine the assumption that hardware can be treated as a reliable root of trust. Prevention mechanisms often lag behind evolving attack techniques, leaving deployed systems unable to assume continued trustworthiness. We propose a shift from prevention to detection through microarchitectural-aware remote attestation. As a first instantiation of this idea, we present HammerWatch, a Rowhammer-aware remote attestation protocol that enables an external verifier to assess whether a system exhibits hardware-induced disturbance behavior. HammerWatch leverages memory-level evidence available on commodity platforms, specifically Machine-Check Exceptions (MCEs) from ECC DRAM and counter-based indicators from Per-Row Activation Counting (PRAC), and protects these measurements against kernel-level adversaries using TPM-anchored hash chains. We implement HammerWatch on commodity hardware and evaluate it on 20000 simulated benign and malicious access patterns. Our results show that the verifier reliably distinguishes Rowhammer-like behavior from benign operation under conservative heuristics, demonstrating that detection-oriented attestation is feasible and can complement incomplete prevention mechanisms",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202603/29/2603.24172v1-towards-remote-attestation-of-microarchitectural-attacks-the-case-of-rowhammer",
+      "section": "quick",
+      "title_en": "Towards Remote Attestation of Microarchitectural Attacks: The Case of Rowhammer",
+      "authors": "Martin Herrmann, Oussama Draissi, Christian Niesler, Lucas Davi",
+      "date": "2026-03-25",
+      "pdf": "https://arxiv.org/pdf/2603.24172v1",
+      "score": "6.0",
+      "evidence": "通过远程度量评估系统的可信性",
+      "tldr": "针对微架构漏洞（如Rowhammer）导致硬件信任根失效的问题，本文提出从防御转向检测的思路，开发了HammerWatch远程度量协议。该协议利用商品化平台的ECC内存错误（MCE）和行激活计数（PRAC）作为证据，结合TPM保护度量数据，实现了对Rowhammer攻击行为的可靠识别，为增强系统可信度提供了新途径。",
+      "tags": "query:profile-1",
+      "abstract_en": "Microarchitectural vulnerabilities increasingly undermine the assumption that hardware can be treated as a reliable root of trust. Prevention mechanisms often lag behind evolving attack techniques, leaving deployed systems unable to assume continued trustworthiness. We propose a shift from prevention to detection through microarchitectural-aware remote attestation. As a first instantiation of this idea, we present HammerWatch, a Rowhammer-aware remote attestation protocol that enables an external verifier to assess whether a system exhibits hardware-induced disturbance behavior. HammerWatch leverages memory-level evidence available on commodity platforms, specifically Machine-Check Exceptions (MCEs) from ECC DRAM and counter-based indicators from Per-Row Activation Counting (PRAC), and protects these measurements against kernel-level adversaries using TPM-anchored hash chains. We implement HammerWatch on commodity hardware and evaluate it on 20000 simulated benign and malicious access patterns. Our results show that the verifier reliably distinguishes Rowhammer-like behavior from benign operation under conservative heuristics, demonstrating that detection-oriented attestation is feasible and can complement incomplete prevention mechanisms",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202603/29/2603.24754v1-an-explainable-federated-framework-for-zero-trust-micro-segmentation-in-iiot-networks",
+      "section": "quick",
+      "title_en": "An Explainable Federated Framework for Zero Trust Micro-Segmentation in IIoT Networks",
+      "authors": "Muhammad Liman Gambo, Ahmad Almulhem",
+      "date": "2026-03-25",
+      "pdf": "https://arxiv.org/pdf/2603.24754v1",
+      "score": "6.0",
+      "evidence": "零信任架构与安全行为学习",
+      "tldr": "针对工业物联网（IIoT）中零信任架构的微隔离需求，本文提出EFAH-ZTM框架。该框架结合联邦学习保护隐私，利用深度自编码器和超图建模捕获设备间的高阶复杂关系，并通过聚类实现动态微隔离。同时，引入LIME和SHAP提供可解释性，在保障安全性的同时提升了决策透明度，实验证明其在安全效能和结构质量上表现优异。",
+      "tags": "query:q5",
+      "abstract_en": "Micro-segmentation as a core requirement of zero trust architecture (ZTA) divides networks into small security zones, called micro-segments, thereby minimizing impact of security breaches and restricting lateral movement of attackers. Existing approaches for Industrial Internet of Things (IIoT) networks often remain centralized, static, or difficult to interpret. These limitations are critical in IIoT, where devices are heterogeneous, communication behavior evolves over time, and raw data sharing across sites is often undesirable. Accordingly, we propose EFAH-ZTM, an Explainable Federated Autoencoder-Hypergraph framework for Zero Trust micro-segmentation in IIoT networks. The framework includes a trained federated DNAE that learns behavioral embeddings from distributed clients. kNN-based and Manifold-based hypergraphs capture higher-order relationships among device-flow instances. To generate micro-segments, MiniBatch KMeans and HDBSCAN clustering techniques are applied on the spectral embeddings, while an operational risk score that combines reconstruction error and structural outlierness drives allow/block policy decisions. Trustworthiness of the policy decision is improved through feature-level explanations using LIME and SHAP. Experiments on the WUSTL-IIoT-2021 dataset show that HDBSCAN achieved the strongest structural quality, while the manifold-based hypergraph produces the best oracle-aligned security efficacy that reaches a purity of 0.9990 with near-zero contamination. Similarly, the explainability module also showed high fidelity and stability, with surrogate classifier having an accuracy of 0.9927 and stable explanations across runs. Moreover, an ablation analysis shows that the federated learning preserves competitive segmentation quality relative to centralized training, and the hypergraph modeling significantly improves structural separation and risk stratification.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
