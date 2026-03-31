@@ -1,0 +1,50 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-03-31T21:41:45.874407+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2603.27197v1",
+      "title": "K$α$LOS finds Consensus: A Meta-Algorithm for Evaluating Inter-Annotator Agreement in Complex Vision Tasks",
+      "abstract": "Progress in object detection benchmarks is stagnating. It is limited not by architectures but by the inability to distinguish model improvements from label noise. To restore trust in benchmarking the field requires rigorous quantification of annotation consistency to ensure the reliability of evaluation data. However, standard statistical metrics fail to handle the instance correspondence problem inherent to vision tasks. Furthermore, validating new agreement metrics remains circular because no objective ground truth for agreement exists. This forces reliance on unverifiable heuristics.   We propose K$α$LOS (KALOS), a unified meta-algorithm that generalizes the \"Localization First\" principle to standardize dataset quality evaluation. By resolving spatial correspondence before assessing agreement, our framework transforms complex spatio-categorical problems into nominal reliability matrices. Unlike prior heuristic implementations, K$α$LOS employs a principled, data-driven configuration; by statistically calibrating the localization parameters to the inherent agreement distribution, it generalizes to diverse tasks ranging from bounding boxes to volumetric segmentation or pose estimation. This standardization enables granular diagnostics beyond a single score. These include annotator vitality, collaboration clustering, and localization sensitivity. To validate this approach, we introduce a novel and empirically derived noise generator. Where prior validations relied on uniform error assumptions, our controllable testbed models complex and non-isotropic human variability. This provides evidence of the metric's properties and establishes K$α$LOS as a robust standard for distinguishing signal from noise in modern computer vision benchmarks.",
+      "authors": [
+        "David Tschirschwitz",
+        "Volker Rodehorst"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-28T08:54:05+00:00",
+      "link": "https://arxiv.org/pdf/2603.27197v1",
+      "tags": [
+        "keyword:信任测量"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "rigorous quantification of annotation consistency to restore trust in benchmarking",
+      "llm_evidence_cn": "通过严格量化标注一致性来恢复对基准测试的信任",
+      "llm_evidence": "通过严格量化标注一致性来恢复对基准测试的信任",
+      "canonical_evidence": "通过严格量化标注一致性来恢复对基准测试的信任",
+      "llm_tldr_en": "Introduces a meta-algorithm to quantify annotation consistency and improve reliability in vision benchmarks.",
+      "llm_tldr_cn": "引入了一种元算法来量化标注一致性，从而提高视觉基准测试的可信度。",
+      "llm_tldr": "引入了一种元算法来量化标注一致性，从而提高视觉基准测试的可信度。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "methods and metrics for measuring trust",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}

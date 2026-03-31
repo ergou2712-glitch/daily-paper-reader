@@ -1,0 +1,23 @@
+{
+  "label": "2026-03-31",
+  "date": "2026-03-31",
+  "generated_at": "2026-03-31T21:42:33",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202603/31/2603.27197v1-klos-finds-consensus-a-meta-algorithm-for-evaluating-inter-annotator-agreement-in-complex-vision-tasks",
+      "section": "deep",
+      "title_en": "K$α$LOS finds Consensus: A Meta-Algorithm for Evaluating Inter-Annotator Agreement in Complex Vision Tasks",
+      "authors": "David Tschirschwitz, Volker Rodehorst",
+      "date": "2026-03-28",
+      "pdf": "https://arxiv.org/pdf/2603.27197v1",
+      "score": "8.0",
+      "evidence": "通过严格量化标注一致性来恢复对基准测试的信任",
+      "tldr": "针对目标检测等复杂视觉任务中标注噪声难以量化的问题，本文提出了 KαLOS 元算法。该算法遵循“定位优先”原则，先解决空间对应关系再评估一致性，将复杂的空间类别问题转化为标称可靠性矩阵。通过数据驱动的统计校准，KαLOS 适用于从边界框到体积分割等多种视觉任务，并能提供细粒度的诊断分析。此外，研究还引入了新型噪声生成器验证了其稳健性，为区分基准测试中的信号与噪声提供了标准。",
+      "tags": "query:q3",
+      "abstract_en": "Progress in object detection benchmarks is stagnating. It is limited not by architectures but by the inability to distinguish model improvements from label noise. To restore trust in benchmarking the field requires rigorous quantification of annotation consistency to ensure the reliability of evaluation data. However, standard statistical metrics fail to handle the instance correspondence problem inherent to vision tasks. Furthermore, validating new agreement metrics remains circular because no objective ground truth for agreement exists. This forces reliance on unverifiable heuristics.   We propose K$α$LOS (KALOS), a unified meta-algorithm that generalizes the \"Localization First\" principle to standardize dataset quality evaluation. By resolving spatial correspondence before assessing agreement, our framework transforms complex spatio-categorical problems into nominal reliability matrices. Unlike prior heuristic implementations, K$α$LOS employs a principled, data-driven configuration; by statistically calibrating the localization parameters to the inherent agreement distribution, it generalizes to diverse tasks ranging from bounding boxes to volumetric segmentation or pose estimation. This standardization enables granular diagnostics beyond a single score. These include annotator vitality, collaboration clustering, and localization sensitivity. To validate this approach, we introduce a novel and empirically derived noise generator. Where prior validations relied on uniform error assumptions, our controllable testbed models complex and non-isotropic human variability. This provides evidence of the metric's properties and establishes K$α$LOS as a robust standard for distinguishing signal from noise in modern computer vision benchmarks.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

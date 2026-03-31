@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-03-31 <!--dpr-date:20260331-->
+    * 精读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202603/31/2603.27197v1-klos-finds-consensus-a-meta-algorithm-for-evaluating-inter-annotator-agreement-in-complex-vision-tasks" data-sidebar-item="{&quot;title&quot;: &quot;K$α$LOS finds Consensus: A Meta-Algorithm for Evaluating Inter-Annotator Agreement in Complex Vision Tasks&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2603.27197v1-klos-finds-consensus-a-meta-algorithm-for-evaluating-inter-annotator-agreement-in-complex-vision-tasks&quot;, &quot;score&quot;: &quot;8.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;q3&quot;}], &quot;evidence&quot;: &quot;通过严格量化标注一致性来恢复对基准测试的信任&quot;}">K$α$LOS finds Consensus: A Meta-Algorithm for Evaluating Inter-Annotator Agreement in Complex Vision Tasks</a>
   * 2026-03-29 <!--dpr-date:20260329-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202603/29/2603.24904v1-on-the-foundations-of-trustworthy-artificial-intelligence" data-sidebar-item="{&quot;title&quot;: &quot;On the Foundations of Trustworthy Artificial Intelligence&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2603.24904v1-on-the-foundations-of-trustworthy-artificial-intelligence&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;q4&quot;}], &quot;evidence&quot;: &quot;引入信任熵来量化非确定性的成本&quot;}">On the Foundations of Trustworthy Artificial Intelligence</a>

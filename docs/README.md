@@ -6,19 +6,23 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-03-30
-- 运行时间：2026-03-30 21:39:45 UTC
+- 最新运行日期：2026-03-31
+- 运行时间：2026-03-31 21:42:25 UTC
 - 运行状态：成功
-- 本次总论文数：0
-- 精读区：0
+- 本次总论文数：1
+- 精读区：1
 - 速读区：0
 
 ### 今日简报（AI）
-> 今日无新推荐，系统未产出可展示论文。
-- 详情：[/202603/30/README](/202603/30/README)
+今日聚焦复杂视觉任务中的标注一致性评估，重点解读了能统一衡量多人标注差异的 K$\alpha$LOS 元算法。
+该研究为目标检测、分割等复杂场景提供了标准化的共识评估方案，有效解决了标注质量难以量化的痛点。
+推荐关注数据清洗与模型评测的开发者参考此算法，以提升多源标注数据的可靠性。
+- 详情：[/202603/31/README](/202603/31/README)
 
 ### 精读区论文标签
-- 本次无精读推荐。
+1. [K$α$LOS finds Consensus: A Meta-Algorithm for Evaluating Inter-Annotator Agreement in Complex Vision Tasks](/202603/31/2603.27197v1-klos-finds-consensus-a-meta-algorithm-for-evaluating-inter-annotator-agreement-in-complex-vision-tasks)  
+   标签：评分：8.0/10、query:q3
+   evidence：通过严格量化标注一致性来恢复对基准测试的信任
 
 ### 速读区论文标签
 - 本次无速读推荐。
