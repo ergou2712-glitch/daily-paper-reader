@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-04-01 <!--dpr-date:20260401-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202604/01/2603.29749v1-hpccfa-leveraging-hardware-performance-counters-for-control-flow-attestation" data-sidebar-item="{&quot;title&quot;: &quot;HPCCFA: Leveraging Hardware Performance Counters for Control Flow Attestation&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2603.29749v1-hpccfa-leveraging-hardware-performance-counters-for-control-flow-attestation&quot;, &quot;score&quot;: &quot;7.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;q5&quot;}], &quot;evidence&quot;: &quot;静态和运行时证明作为建立TEE信任的机制&quot;}">HPCCFA: Leveraging Hardware Performance Counters for Control Flow Attestation</a>
   * 2026-03-31 <!--dpr-date:20260331-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202603/31/2603.27197v1-klos-finds-consensus-a-meta-algorithm-for-evaluating-inter-annotator-agreement-in-complex-vision-tasks" data-sidebar-item="{&quot;title&quot;: &quot;K$α$LOS finds Consensus: A Meta-Algorithm for Evaluating Inter-Annotator Agreement in Complex Vision Tasks&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2603.27197v1-klos-finds-consensus-a-meta-algorithm-for-evaluating-inter-annotator-agreement-in-complex-vision-tasks&quot;, &quot;score&quot;: &quot;8.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;q3&quot;}], &quot;evidence&quot;: &quot;通过严格量化标注一致性来恢复对基准测试的信任&quot;}">K$α$LOS finds Consensus: A Meta-Algorithm for Evaluating Inter-Annotator Agreement in Complex Vision Tasks</a>

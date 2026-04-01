@@ -1,0 +1,23 @@
+{
+  "label": "2026-04-01",
+  "date": "2026-04-01",
+  "generated_at": "2026-04-01T21:40:20",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202604/01/2603.29749v1-hpccfa-leveraging-hardware-performance-counters-for-control-flow-attestation",
+      "section": "quick",
+      "title_en": "HPCCFA: Leveraging Hardware Performance Counters for Control Flow Attestation",
+      "authors": "Claudius Pott, Luca Wilke, Jan Wichelmann, Thomas Eisenbarth",
+      "date": "2026-03-31",
+      "pdf": "https://arxiv.org/pdf/2603.29749v1",
+      "score": "7.0",
+      "evidence": "静态和运行时证明作为建立TEE信任的机制",
+      "tldr": "针对可信执行环境（TEE）仅支持静态度量而无法防御运行时攻击的问题，本文提出了HPCCFA。该方法创新性地利用商用CPU内置的硬件性能计数器（HPC）来实现控制流度量（CFA），从而在通用硬件上生成受硬件保护的执行追踪。通过在RISC-V Keystone环境下的原型实现，研究展示了如何在检测可靠性与性能开销之间取得平衡，显著增强了远程系统的运行时安全性。",
+      "tags": "query:q5",
+      "abstract_en": "Trusted Execution Environments (TEEs) allow the secure execution of code on remote systems without the need to trust their operators. They use static attestation as a central mechanism for establishing trust, allowing remote parties to verify that their code is executed unmodified in an isolated environment. However, this form of attestation does not cover runtime attacks, where an attacker exploits vulnerabilities in the software inside the TEE. Control Flow Attestation (CFA), a form of runtime attestation, is designed to detect such attacks.   In this work, we present a method to extend TEEs with CFA and discuss how it can prevent exploitation in the event of detected control flow violations. Furthermore, we introduce HPCCFA, a mechanism that uses HPCs for CFA purposes, enabling hardware-backed trace generation on commodity CPUs. We demonstrate the feasibility of HPCCFA on a proof-of-concept implementation for Keystone on RISC-V. Our evaluation investigates the interplay of the number of measurement points and runtime protection, and reveals a trade-off between detection reliability and performance overhead.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
