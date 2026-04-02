@@ -6,26 +6,34 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-01
-- 运行时间：2026-04-01 21:40:07 UTC
+- 最新运行日期：2026-04-02
+- 运行时间：2026-04-02 20:44:07 UTC
 - 运行状态：成功
-- 本次总论文数：1
+- 本次总论文数：4
 - 精读区：0
-- 速读区：1
+- 速读区：4
 
 ### 今日简报（AI）
-今日探索利用硬件性能计数器（HPC）强化控制流度量（CFA）的安全新范式。
-HPCCFA 证明了无需修改源码即可通过硬件原生特性实现高效、低开销的程序执行完整性验证。
-推荐关注硬件辅助安全及系统防护技术的读者快速浏览。
-- 详情：[/202604/01/README](/202604/01/README)
+今日速览 4 篇前沿论文，深度聚焦分布式优化、智能体评估标准及移动端隐私安全。
+重点关注通过边缘丢弃实现的拜占庭容错梯度追踪，以及手机智能体在实际使用中的隐私合规性挑战。
+- 详情：[/202604/02/README](/202604/02/README)
 
 ### 精读区论文标签
 - 本次无精读推荐。
 
 ### 速读区论文标签
-1. [HPCCFA: Leveraging Hardware Performance Counters for Control Flow Attestation](/202604/01/2603.29749v1-hpccfa-leveraging-hardware-performance-counters-for-control-flow-attestation)  
-   标签：评分：7.0/10、query:q5
-   evidence：静态和运行时证明作为建立TEE信任的机制
+1. [Convergence of Byzantine-Resilient Gradient Tracking via Probabilistic Edge Dropout](/202604/02/2604.00449v1-convergence-of-byzantine-resilient-gradient-tracking-via-probabilistic-edge-dropout)  
+   标签：评分：7.0/10、query:q4
+   evidence：用于拜占庭容错优化的双指标信任评分
+2. [Logarithmic Scores, Power-Law Discoveries: Disentangling Measurement from Coverage in Agent-Based Evaluation](/202604/02/2604.00477v1-logarithmic-scores-power-law-discoveries-disentangling-measurement-from-coverage-in-agent-based-evaluation)  
+   标签：评分：7.0/10、query:profile-1
+   evidence：通过与人类无异的指标验证智能体评估的可信度
+3. [Do Phone-Use Agents Respect Your Privacy?](/202604/02/2604.00986v1-do-phone-use-agents-respect-your-privacy)  
+   标签：评分：7.0/10、query:q4
+   evidence：移动智能体隐私行为的可验证评估框架
+4. [Mimetic Alignment with ASPECT: Evaluation of AI-inferred Personal Profiles](/202604/02/2603.26922v1-mimetic-alignment-with-aspect-evaluation-of-ai-inferred-personal-profiles)  
+   标签：评分：6.0/10、query:profile-1
+   evidence：自动化的沟通特质心理测量评估
 
 
 <div class="dpr-home-promo-card">

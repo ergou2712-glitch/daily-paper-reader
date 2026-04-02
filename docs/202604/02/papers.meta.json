@@ -1,0 +1,65 @@
+{
+  "label": "2026-04-02",
+  "date": "2026-04-02",
+  "generated_at": "2026-04-02T20:44:17",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202604/02/2604.00449v1-convergence-of-byzantine-resilient-gradient-tracking-via-probabilistic-edge-dropout",
+      "section": "quick",
+      "title_en": "Convergence of Byzantine-Resilient Gradient Tracking via Probabilistic Edge Dropout",
+      "authors": "Amirhossein Dezhboro, Fateme Maleki, Arman Adibi, Erfan Amini, Jose E. Ramirez-Marquez",
+      "date": "2026-04-01",
+      "pdf": "https://arxiv.org/pdf/2604.00449v1",
+      "score": "7.0",
+      "evidence": "用于拜占庭容错优化的双指标信任评分",
+      "tldr": "本研究针对分布式网络中拜占庭节点的恶意攻击问题，提出了基于概率边缘丢弃的梯度追踪方法（GT-PD）。该方法通过自我中心投影限制消息范围，并利用双指标信任评分实现去中心化的概率丢弃，从而在抵御攻击的同时保留了双随机混合结构。针对持续性扰动，进一步引入漏积分器（GT-PD-L）以控制误差累积。理论证明了其线性收敛性，实验显示在多种攻击下性能显著优于传统鲁棒聚合算法。",
+      "tags": "query:q4",
+      "abstract_en": "We study distributed optimization over networks with Byzantine agents that may send arbitrary adversarial messages. We propose \\emph{Gradient Tracking with Probabilistic Edge Dropout} (GT-PD), a stochastic gradient tracking method that preserves the convergence properties of gradient tracking under adversarial communication. GT-PD combines two complementary defense layers: a universal self-centered projection that clips each incoming message to a ball of radius $τ$ around the receiving agent, and a fully decentralized probabilistic dropout rule driven by a dual-metric trust score in the decision and tracking channels. This design bounds adversarial perturbations while preserving the doubly stochastic mixing structure, a property often lost under robust aggregation in decentralized settings. Under complete Byzantine isolation ($p_b=0$), GT-PD converges linearly to a neighborhood determined solely by stochastic gradient variance. For partial isolation ($p_b>0$), we introduce \\emph{Gradient Tracking with Probabilistic Edge Dropout and Leaky Integration} (GT-PD-L), which uses a leaky integrator to control the accumulation of tracking errors caused by persistent perturbations and achieves linear convergence to a bounded neighborhood determined by the stochastic variance and the clipping-to-leak ratio. We further show that under two-tier dropout with $p_h=1$, isolating Byzantine agents introduces no additional variance into the honest consensus dynamics. Experiments on MNIST under Sign Flip, ALIE, and Inner Product Manipulation attacks show that GT-PD-L outperforms coordinate-wise trimmed mean by up to 4.3 percentage points under stealth attacks.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/02/2604.00477v1-logarithmic-scores-power-law-discoveries-disentangling-measurement-from-coverage-in-agent-based-evaluation",
+      "section": "quick",
+      "title_en": "Logarithmic Scores, Power-Law Discoveries: Disentangling Measurement from Coverage in Agent-Based Evaluation",
+      "authors": "HyunJoon Jung, William Na",
+      "date": "2026-04-01",
+      "pdf": "https://arxiv.org/pdf/2604.00477v1",
+      "score": "7.0",
+      "evidence": "通过与人类无异的指标验证智能体评估的可信度",
+      "tldr": "本研究探讨了基于大模型智能体（Agent）的对话AI评估可靠性及规模效应。通过960次实验，证明了基于人格设定的智能体评审员在评估质量上与人类无异。研究揭示了评分与问题发现之间的解耦现象：评分随评审团规模呈对数增长并快速饱和，而独特问题的发现则遵循幂律分布，饱和速度较慢。这一发现类比生态学中的物种累积曲线，强调了多样化人格设定在挖掘长尾缺陷中的关键作用。",
+      "tags": "query:profile-1",
+      "abstract_en": "LLM-based agent judges are an emerging approach to evaluating conversational AI, yet a fundamental uncertainty remains: can we trust their assessments, and if so, how many are needed? Through 960 sessions with two model pairs across 15 tasks, we show that persona-based agent judges produce evaluations indistinguishable from human raters in a Turing-style validation. We then identify a score-coverage dissociation: quality scores improve logarithmically with panel size, while unique issue discoveries follow a sublinear power law-both exhibit diminishing returns, but scores saturate roughly twice as fast as discoveries. We hypothesize this reflects a power law distribution of the finding space: critical issues are discovered first by small panels, while corner cases require progressively larger panels, analogous to species accumulation curves in ecology. The mechanism traces to ensemble diversity-Big Five personality conditioning makes agents probe different quality dimensions, with expert judges acting as adversarial probes that push discovery into the tail of the finding distribution. A controlled ablation confirms that structured persona conditioning, not simple prompting, is required to produce these scaling properties.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/02/2604.00986v1-do-phone-use-agents-respect-your-privacy",
+      "section": "quick",
+      "title_en": "Do Phone-Use Agents Respect Your Privacy?",
+      "authors": "Zhengyang Tang, Ke Ji, Xidong Wang, Zihan Ye, Xinyuan Wang, Yiduo Guo, Ziniu Li, Chenxin Li, Jingyuan Hu, Shunian Chen, Tongxu Luo, Jiaxi Bi, Zeyu Qin, Shaobo Wang, Xin Lai, Pengyuan Lyu, Junyi Li, Can Xu, Chengquan Zhang, Han Hu, Ming Yan, Benyou Wang",
+      "date": "2026-04-01",
+      "pdf": "https://arxiv.org/pdf/2604.00986v1",
+      "score": "7.0",
+      "evidence": "移动智能体隐私行为的可验证评估框架",
+      "tldr": "本研究探讨了手机使用智能体在执行任务时是否尊重隐私。由于隐私合规行为缺乏量化标准且应用内部数据流难以监测，作者提出了MyPhoneBench评估框架。该框架通过iMy隐私契约定义了权限访问、最小披露和用户控制内存，并利用模拟应用和规则审计来检测违规行为。对5种前沿模型的测试显示，任务成功与隐私合规是不同维度的能力，现有模型普遍存在过度填写非必要个人信息的问题，表明仅靠成功率评估会高估智能体的部署就绪度。",
+      "tags": "query:q4",
+      "abstract_en": "We study whether phone-use agents respect privacy while completing benign mobile tasks. This question has remained hard to answer because privacy-compliant behavior is not operationalized for phone-use agents, and ordinary apps do not reveal exactly what data agents type into which form entries during execution. To make this question measurable, we introduce MyPhoneBench, a verifiable evaluation framework for privacy behavior in mobile agents. We operationalize privacy-respecting phone use as permissioned access, minimal disclosure, and user-controlled memory through a minimal privacy contract, iMy, and pair it with instrumented mock apps plus rule-based auditing that make unnecessary permission requests, deceptive re-disclosure, and unnecessary form filling observable and reproducible. Across five frontier models on 10 mobile apps and 300 tasks, we find that task success, privacy-compliant task completion, and later-session use of saved preferences are distinct capabilities, and no single model dominates all three. Evaluating success and privacy jointly reshuffles the model ordering relative to either metric alone. The most persistent failure mode across models is simple data minimization: agents still fill optional personal entries that the task does not require. These results show that privacy failures arise from over-helpful execution of benign tasks, and that success-only evaluation overestimates the deployment readiness of current phone-use agents. All code, mock apps, and agent trajectories are publicly available at~ https://github.com/tangzhy/MyPhoneBench.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/02/2603.26922v1-mimetic-alignment-with-aspect-evaluation-of-ai-inferred-personal-profiles",
+      "section": "quick",
+      "title_en": "Mimetic Alignment with ASPECT: Evaluation of AI-inferred Personal Profiles",
+      "authors": "Ruoxi Shang, Dan Marshall, Edward Cutrell, Denae Ford",
+      "date": "2026-03-27",
+      "pdf": "https://arxiv.org/pdf/2603.26922v1",
+      "score": "6.0",
+      "evidence": "自动化的沟通特质心理测量评估",
+      "tldr": "本研究针对AI代理难以精准模拟个人沟通风格的问题，提出了ASPECT框架。该框架利用大模型基于心理测量量表，从职场行为数据中自动推断个人沟通特质，无需昂贵的针对性微调。通过对20名参与者的实证研究，证明了该方法生成的画像与自我评估高度一致，且生成的回复在偏好度上优于基准模型。ASPECT还通过关联证据增强了画像的可解释性，让用户能有效控制AI的表达方式。",
+      "tags": "query:profile-1",
+      "abstract_en": "AI agents that communicate on behalf of individuals need to capture how each person actually communicates, yet current approaches either require costly per-person fine-tuning, produce generic outputs from shallow persona descriptions, or optimize preferences without modeling communication style. We present ASPECT (Automated Social Psychometric Evaluation of Communication Traits), a pipeline that directs LLMs to assess constructs from a validated communication scale against behavioral evidence from workplace data, without per-person training. In a case study with 20 participants (1,840 paired item ratings, 600 scenario evaluations), ASPECT-generated profiles achieved moderate alignment with self-assessments, and ASPECT-generated responses were preferred over generic and self-report baselines on aggregate, with substantial variation across individuals and scenarios. During the profile review phase, linked evidence helped participants identify mischaracterizations, recalibrate their own self-ratings, and negotiate context-appropriate representations. We discuss implications for building inspectable, individually scoped communication profiles that let individuals control how agents represent them at work.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
