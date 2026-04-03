@@ -6,34 +6,31 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-02
-- 运行时间：2026-04-02 20:44:07 UTC
+- 最新运行日期：2026-04-03
+- 运行时间：2026-04-03 20:11:53 UTC
 - 运行状态：成功
-- 本次总论文数：4
+- 本次总论文数：3
 - 精读区：0
-- 速读区：4
+- 速读区：3
 
 ### 今日简报（AI）
-今日速览 4 篇前沿论文，深度聚焦分布式优化、智能体评估标准及移动端隐私安全。
-重点关注通过边缘丢弃实现的拜占庭容错梯度追踪，以及手机智能体在实际使用中的隐私合规性挑战。
-- 详情：[/202604/02/README](/202604/02/README)
+今日聚焦大模型的人格化交互演进、RAG 权威感知评估及手机智能体的隐私安全红线。
+重点推荐
+- 详情：[/202604/03/README](/202604/03/README)
 
 ### 精读区论文标签
 - 本次无精读推荐。
 
 ### 速读区论文标签
-1. [Convergence of Byzantine-Resilient Gradient Tracking via Probabilistic Edge Dropout](/202604/02/2604.00449v1-convergence-of-byzantine-resilient-gradient-tracking-via-probabilistic-edge-dropout)  
-   标签：评分：7.0/10、query:q4
-   evidence：用于拜占庭容错优化的双指标信任评分
-2. [Logarithmic Scores, Power-Law Discoveries: Disentangling Measurement from Coverage in Agent-Based Evaluation](/202604/02/2604.00477v1-logarithmic-scores-power-law-discoveries-disentangling-measurement-from-coverage-in-agent-based-evaluation)  
+1. [Dual Optimal: Make Your LLM Peer-like with Dignity](/202604/03/2604.00979v2-dual-optimal-make-your-llm-peer-like-with-dignity)  
    标签：评分：7.0/10、query:profile-1
-   evidence：通过与人类无异的指标验证智能体评估的可信度
-3. [Do Phone-Use Agents Respect Your Privacy?](/202604/02/2604.00986v1-do-phone-use-agents-respect-your-privacy)  
-   标签：评分：7.0/10、query:q4
-   evidence：移动智能体隐私行为的可验证评估框架
-4. [Mimetic Alignment with ASPECT: Evaluation of AI-inferred Personal Profiles](/202604/02/2603.26922v1-mimetic-alignment-with-aspect-evaluation-of-ai-inferred-personal-profiles)  
+   evidence：大语言模型可信度与评估偏差框架
+2. [AuthorityBench: Benchmarking LLM Authority Perception for Reliable Retrieval-Augmented Generation](/202604/03/2603.25092v1-authoritybench-benchmarking-llm-authority-perception-for-reliable-retrieval-augmented-generation)  
    标签：评分：6.0/10、query:profile-1
-   evidence：自动化的沟通特质心理测量评估
+   evidence：可靠生成的权威感知基准测试
+3. [Do Phone-Use Agents Respect Your Privacy?](/202604/03/2604.00986v2-do-phone-use-agents-respect-your-privacy)  
+   标签：评分：6.0/10、query:q3
+   evidence：隐私行为的可验证评估框架
 
 
 <div class="dpr-home-promo-card">

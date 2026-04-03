@@ -1,0 +1,150 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-03T20:11:35.991672+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2604.00979v2",
+      "title": "Dual Optimal: Make Your LLM Peer-like with Dignity",
+      "abstract": "Current aligned language models exhibit a dual failure mode we term the Evasive Servant: they sycophantically validate flawed user beliefs while deflecting responsibility with boilerplate disclaimers. We propose the Dignified Peer framework, which counters servility with anti-sycophancy and trustworthiness, and mitigates evasiveness through empathy and creativity. Realizing this agent requires overcoming significant challenges in data supervision, objective collapse, and evaluation bias. We address these issues by introducing the PersonaKnob dataset which features a compositional partial order structure of multiple persona preference. This data is utilized alongside a tolerant constrained Lagrangian DPO algorithm that dynamically balances all persona dimensions to prevent behavioral collapse. Additionally, we employ a psychometrically calibrated Item Response Theory evaluation protocol to disentangle latent model persona capability from confounders like judge biases. Extensive empirical studies demonstrate that our approach successfully build a LLM agent with both dignity and peer.",
+      "authors": [
+        "Xiangqi Wang",
+        "Yue Huang",
+        "Haomin Zhuang",
+        "Kehan Guo",
+        "Xiangliang Zhang"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI"
+      ],
+      "published": "2026-04-01T14:48:44+00:00",
+      "link": "https://arxiv.org/pdf/2604.00979v2",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "framework for trustworthiness and evaluation bias in LLMs",
+      "llm_evidence_cn": "大语言模型可信度与评估偏差框架",
+      "llm_evidence": "大语言模型可信度与评估偏差框架",
+      "canonical_evidence": "大语言模型可信度与评估偏差框架",
+      "llm_tldr_en": "Proposes the Dignified Peer framework to improve LLM trustworthiness and reduce sycophancy.",
+      "llm_tldr_cn": "提出Dignified Peer框架以提高大语言模型的可信度并减少谄媚行为。",
+      "llm_tldr": "提出Dignified Peer框架以提高大语言模型的可信度并减少谄媚行为。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.25092v1",
+      "title": "AuthorityBench: Benchmarking LLM Authority Perception for Reliable Retrieval-Augmented Generation",
+      "abstract": "Retrieval-Augmented Generation (RAG) enhances Large Language Models (LLMs) with external knowledge but remains vulnerable to low-authority sources that can propagate misinformation. We investigate whether LLMs can perceive information authority - a capability extending beyond semantic understanding. To address this, we introduce AuthorityBench, a comprehensive benchmark for evaluating LLM authority perception comprising three datasets: DomainAuth (10K web domains with PageRank-based authority), EntityAuth (22K entities with popularity-based authority), and RAGAuth (120 queries with documents of varying authority for downstream evaluation). We evaluate five LLMs using three judging methods (PointJudge, PairJudge, ListJudge) across multiple output formats. Results show that ListJudge and PairJudge with PointScore output achieve the strongest correlation with ground-truth authority, while ListJudge offers optimal cost-effectiveness. Notably, incorporating webpage text consistently degrades judgment performance, suggesting authority is distinct from textual style. Downstream experiments on RAG demonstrate that authority-guided filtering largely improves answer accuracy, validating the practical importance of authority perception for reliable knowledge retrieval. Code and benchmark are available at: https://github.com/Trustworthy-Information-Access/AuthorityBench.",
+      "authors": [
+        "Zhihui Yao",
+        "Hengran Zhang",
+        "Keping Bi"
+      ],
+      "primary_category": "cs.IR",
+      "categories": [
+        "cs.IR"
+      ],
+      "published": "2026-03-26T06:58:22+00:00",
+      "link": "https://arxiv.org/pdf/2603.25092v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "benchmarking authority perception for reliable generation",
+      "llm_evidence_cn": "可靠生成的权威感知基准测试",
+      "llm_evidence": "可靠生成的权威感知基准测试",
+      "canonical_evidence": "可靠生成的权威感知基准测试",
+      "llm_tldr_en": "Introduces AuthorityBench to evaluate how LLMs perceive information authority for reliable RAG.",
+      "llm_tldr_cn": "引入AuthorityBench基准，评估大模型在可靠检索增强生成中的权威感知能力。",
+      "llm_tldr": "引入AuthorityBench基准，评估大模型在可靠检索增强生成中的权威感知能力。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.00986v2",
+      "title": "Do Phone-Use Agents Respect Your Privacy?",
+      "abstract": "We study whether phone-use agents respect privacy while completing benign mobile tasks. This question has remained hard to answer because privacy-compliant behavior is not operationalized for phone-use agents, and ordinary apps do not reveal exactly what data agents type into which form entries during execution. To make this question measurable, we introduce MyPhoneBench, a verifiable evaluation framework for privacy behavior in mobile agents. We operationalize privacy-respecting phone use as permissioned access, minimal disclosure, and user-controlled memory through a minimal privacy contract, iMy, and pair it with instrumented mock apps plus rule-based auditing that make unnecessary permission requests, deceptive re-disclosure, and unnecessary form filling observable and reproducible. Across five frontier models on 10 mobile apps and 300 tasks, we find that task success, privacy-compliant task completion, and later-session use of saved preferences are distinct capabilities, and no single model dominates all three. Evaluating success and privacy jointly reshuffles the model ordering relative to either metric alone. The most persistent failure mode across models is simple data minimization: agents still fill optional personal entries that the task does not require. These results show that privacy failures arise from over-helpful execution of benign tasks, and that success-only evaluation overestimates the deployment readiness of current phone-use agents. All code, mock apps, and agent trajectories are publicly available at~ https://github.com/FreedomIntelligence/MyPhoneBench.",
+      "authors": [
+        "Zhengyang Tang",
+        "Ke Ji",
+        "Xidong Wang",
+        "Zihan Ye",
+        "Xinyuan Wang",
+        "Yiduo Guo",
+        "Ziniu Li",
+        "Chenxin Li",
+        "Jingyuan Hu",
+        "Shunian Chen",
+        "Tongxu Luo",
+        "Jiaxi Bi",
+        "Zeyu Qin",
+        "Shaobo Wang",
+        "Xin Lai",
+        "Pengyuan Lyu",
+        "Junyi Li",
+        "Can Xu",
+        "Chengquan Zhang",
+        "Han Hu",
+        "Ming Yan",
+        "Benyou Wang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.CL",
+        "cs.LG"
+      ],
+      "published": "2026-04-01T14:50:50+00:00",
+      "link": "https://arxiv.org/pdf/2604.00986v2",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "verifiable evaluation framework for privacy behavior",
+      "llm_evidence_cn": "隐私行为的可验证评估框架",
+      "llm_evidence": "隐私行为的可验证评估框架",
+      "canonical_evidence": "隐私行为的可验证评估框架",
+      "llm_tldr_en": "Introduces MyPhoneBench to measure and audit privacy-respecting behavior in mobile agents.",
+      "llm_tldr_cn": "引入MyPhoneBench框架，用于衡量和审计移动智能体的隐私保护行为。",
+      "llm_tldr": "引入MyPhoneBench框架，用于衡量和审计移动智能体的隐私保护行为。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "methods and metrics for measuring trust",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

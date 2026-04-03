@@ -1,0 +1,51 @@
+{
+  "label": "2026-04-03",
+  "date": "2026-04-03",
+  "generated_at": "2026-04-03T20:12:05",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202604/03/2604.00979v2-dual-optimal-make-your-llm-peer-like-with-dignity",
+      "section": "quick",
+      "title_en": "Dual Optimal: Make Your LLM Peer-like with Dignity",
+      "authors": "Xiangqi Wang, Yue Huang, Haomin Zhuang, Kehan Guo, Xiangliang Zhang",
+      "date": "2026-04-01",
+      "pdf": "https://arxiv.org/pdf/2604.00979v2",
+      "score": "7.0",
+      "evidence": "大语言模型可信度与评估偏差框架",
+      "tldr": "针对当前大模型表现出的“唯唯诺诺”和“推卸责任”等奴性与回避问题，本文提出了“有尊严的同伴”框架。通过引入PersonaKnob数据集、改进的拉格朗日DPO算法以及基于项目反应理论的评估体系，该研究成功构建了既能反谄媚、保持诚信，又具备同理心和创造力的LLM智能体，实现了模型人格的平衡与提升。",
+      "tags": "query:profile-1",
+      "abstract_en": "Current aligned language models exhibit a dual failure mode we term the Evasive Servant: they sycophantically validate flawed user beliefs while deflecting responsibility with boilerplate disclaimers. We propose the Dignified Peer framework, which counters servility with anti-sycophancy and trustworthiness, and mitigates evasiveness through empathy and creativity. Realizing this agent requires overcoming significant challenges in data supervision, objective collapse, and evaluation bias. We address these issues by introducing the PersonaKnob dataset which features a compositional partial order structure of multiple persona preference. This data is utilized alongside a tolerant constrained Lagrangian DPO algorithm that dynamically balances all persona dimensions to prevent behavioral collapse. Additionally, we employ a psychometrically calibrated Item Response Theory evaluation protocol to disentangle latent model persona capability from confounders like judge biases. Extensive empirical studies demonstrate that our approach successfully build a LLM agent with both dignity and peer.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/03/2603.25092v1-authoritybench-benchmarking-llm-authority-perception-for-reliable-retrieval-augmented-generation",
+      "section": "quick",
+      "title_en": "AuthorityBench: Benchmarking LLM Authority Perception for Reliable Retrieval-Augmented Generation",
+      "authors": "Zhihui Yao, Hengran Zhang, Keping Bi",
+      "date": "2026-03-26",
+      "pdf": "https://arxiv.org/pdf/2603.25092v1",
+      "score": "6.0",
+      "evidence": "可靠生成的权威感知基准测试",
+      "tldr": "针对检索增强生成（RAG）中低权威来源导致误导信息的问题，本文提出了AuthorityBench基准，旨在评估大语言模型对信息权威性的感知能力。该基准包含域名、实体及RAG场景下的三个数据集。研究发现，LLM能通过特定判断方法识别权威性，且权威性感知与文本风格不同。实验证明，利用权威性过滤能显著提升RAG的回答准确性，为构建可靠的知识检索系统提供了新思路。",
+      "tags": "query:profile-1",
+      "abstract_en": "Retrieval-Augmented Generation (RAG) enhances Large Language Models (LLMs) with external knowledge but remains vulnerable to low-authority sources that can propagate misinformation. We investigate whether LLMs can perceive information authority - a capability extending beyond semantic understanding. To address this, we introduce AuthorityBench, a comprehensive benchmark for evaluating LLM authority perception comprising three datasets: DomainAuth (10K web domains with PageRank-based authority), EntityAuth (22K entities with popularity-based authority), and RAGAuth (120 queries with documents of varying authority for downstream evaluation). We evaluate five LLMs using three judging methods (PointJudge, PairJudge, ListJudge) across multiple output formats. Results show that ListJudge and PairJudge with PointScore output achieve the strongest correlation with ground-truth authority, while ListJudge offers optimal cost-effectiveness. Notably, incorporating webpage text consistently degrades judgment performance, suggesting authority is distinct from textual style. Downstream experiments on RAG demonstrate that authority-guided filtering largely improves answer accuracy, validating the practical importance of authority perception for reliable knowledge retrieval. Code and benchmark are available at: https://github.com/Trustworthy-Information-Access/AuthorityBench.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/03/2604.00986v2-do-phone-use-agents-respect-your-privacy",
+      "section": "quick",
+      "title_en": "Do Phone-Use Agents Respect Your Privacy?",
+      "authors": "Zhengyang Tang, Ke Ji, Xidong Wang, Zihan Ye, Xinyuan Wang, Yiduo Guo, Ziniu Li, Chenxin Li, Jingyuan Hu, Shunian Chen, Tongxu Luo, Jiaxi Bi, Zeyu Qin, Shaobo Wang, Xin Lai, Pengyuan Lyu, Junyi Li, Can Xu, Chengquan Zhang, Han Hu, Ming Yan, Benyou Wang",
+      "date": "2026-04-01",
+      "pdf": "https://arxiv.org/pdf/2604.00986v2",
+      "score": "6.0",
+      "evidence": "隐私行为的可验证评估框架",
+      "tldr": "本研究探讨了手机使用智能体在执行任务时是否尊重隐私。由于隐私合规行为缺乏量化标准且应用内部数据流难以监测，作者提出了MyPhoneBench评估框架。该框架通过iMy隐私契约定义了权限访问、最小披露和用户控制内存等准则，并利用模拟应用和规则审计来检测违规行为。实验发现，当前模型在任务成功率与隐私保护之间难以兼顾，普遍存在过度填写非必要个人信息的“过度热心”问题，表明仅靠成功率评估无法衡量智能体的部署就绪度。",
+      "tags": "query:q3",
+      "abstract_en": "We study whether phone-use agents respect privacy while completing benign mobile tasks. This question has remained hard to answer because privacy-compliant behavior is not operationalized for phone-use agents, and ordinary apps do not reveal exactly what data agents type into which form entries during execution. To make this question measurable, we introduce MyPhoneBench, a verifiable evaluation framework for privacy behavior in mobile agents. We operationalize privacy-respecting phone use as permissioned access, minimal disclosure, and user-controlled memory through a minimal privacy contract, iMy, and pair it with instrumented mock apps plus rule-based auditing that make unnecessary permission requests, deceptive re-disclosure, and unnecessary form filling observable and reproducible. Across five frontier models on 10 mobile apps and 300 tasks, we find that task success, privacy-compliant task completion, and later-session use of saved preferences are distinct capabilities, and no single model dominates all three. Evaluating success and privacy jointly reshuffles the model ordering relative to either metric alone. The most persistent failure mode across models is simple data minimization: agents still fill optional personal entries that the task does not require. These results show that privacy failures arise from over-helpful execution of benign tasks, and that success-only evaluation overestimates the deployment readiness of current phone-use agents. All code, mock apps, and agent trajectories are publicly available at~ https://github.com/FreedomIntelligence/MyPhoneBench.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
