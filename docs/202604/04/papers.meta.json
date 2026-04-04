@@ -1,0 +1,93 @@
+{
+  "label": "2026-04-04",
+  "date": "2026-04-04",
+  "generated_at": "2026-04-04T19:59:10",
+  "count": 6,
+  "papers": [
+    {
+      "paper_id": "202604/04/2603.28622v1-trust-aware-routing-for-distributed-generative-ai-inference-at-the-edge",
+      "section": "deep",
+      "title_en": "Trust-Aware Routing for Distributed Generative AI Inference at the Edge",
+      "authors": "Chanh Nguyen, Erik Elmroth",
+      "date": "2026-03-30",
+      "pdf": "https://arxiv.org/pdf/2603.28622v1",
+      "score": "8.0",
+      "evidence": "考虑可靠性和节点信任的信任感知协作框架",
+      "tldr": "针对生成式AI在边缘设备分布式推理中面临的可靠性与信任挑战，本文提出G-TRAC框架。该框架将路由问题建模为风险受限最短路径，结合信任剪枝与Dijkstra算法实现低延迟路径选择，并采用混合信任架构维护全局声誉。实验证明，G-TRAC能有效隔离不可靠节点，显著提升推理完成率，确保动态环境下的鲁棒执行。",
+      "tags": "query:profile-1",
+      "abstract_en": "Emerging deployments of Generative AI increasingly execute inference across decentralized and heterogeneous edge devices rather than on a single trusted server. In such environments, a single device failure or misbehavior can disrupt the entire inference process, making traditional best-effort peer-to-peer routing insufficient. Coordinating distributed generative inference therefore requires mechanisms that explicitly account for reliability, performance variability, and trust among participating peers.   In this paper, we present G-TRAC, a trust-aware coordination framework that integrates algorithmic path selection with system-level protocol design to ensure robust distributed inference. First, we formulate the routing problem as a \\textit{Risk-Bounded Shortest Path} computation and introduce a polynomial-time solution that combines trust-floor pruning with Dijkstra's search, achieving sub-millisecond median routing latency at practical edge scales, and remaining below 10 ms at larger scales. Second, to operationally support the routing logic in dynamic environments, the framework employs a \\textit{Hybrid Trust Architecture} that maintains global reputation state at stable anchors while disseminating lightweight updates to edge peers via background synchronization.   Experimental evaluation on a heterogeneous testbed of commodity devices demonstrates that G-TRAC significantly improves inference completion rates, effectively isolates unreliable peers, and sustains robust execution even under node failures and network partitions.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/04/2603.28984v1-truth-and-distortion-in-complex-networks-a-global-consistency-approach",
+      "section": "quick",
+      "title_en": "Truth and distortion in complex networks: a global consistency approach",
+      "authors": "Arturo Tozzi",
+      "date": "2026-03-30",
+      "pdf": "https://arxiv.org/pdf/2603.28984v1",
+      "score": "7.0",
+      "evidence": "评估网络信息可靠性的全局一致性方法",
+      "tldr": "该研究提出了一种基于网络全局一致性的真理定义，认为真理源于多层交互系统中的全局关系协调，而非简单的多数意见或外部标准。通过模拟一千个节点的合成网络，研究揭示了节点状态与多种互动类型（如言行不一、强制力等）之间的对齐程度。结果表明，少数产生冲突约束的节点会形成“扭曲场”，破坏整体连贯性。该方法为评估社交媒体信息可靠性和识别集体状态约束提供了新视角。",
+      "tags": "query:profile-1",
+      "abstract_en": "Understanding how reliable information emerges in interconnected populations is a challenge in social science, network theory and data analysis. Many existing approaches model treat truth as an external reference or a property of individual statements, rather than a global consistency feature of the network itself. We introduce a network-based approach in which truth arises from global relational coherence in a multiplex system of interacting individuals. Nodes are individuals with internal states, while edges capture different types of interactions, including declared relations, observed behavior, influence asymmetries and information exchange. We evaluate how well node states align with cooperative or antagonistic interactions, incorporating coercion, variability and mismatches between what individuals say and what they do. Simulations on synthetic networks of one thousand nodes show that the minimum global inconsistency does not coincide with majority opinion or simple averaging. Nodes contributing most to inconsistency create conflicting constraints across interaction layers, defining a measurable distortion field. For example, in online social media during an election, a small number of accounts spreading inconsistent or manipulative information across groups can disrupt overall coherence, even when most users appear to agree. These results suggest possible applications in assessing relational coherence, identifying irreducible inconsistencies and analyzing constraints on collective states. Therefore, truth can be seen as the state of maximal relational coherence, rather than simple agreement or correctness of individual statements.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/04/2603.28988v1-attesting-llm-pipelines-enforcing-verifiable-training-and-release-claims",
+      "section": "quick",
+      "title_en": "Attesting LLM Pipelines: Enforcing Verifiable Training and Release Claims",
+      "authors": "Zhuoran Tan, Jeremy Singer, Christos Anagnostopoulos",
+      "date": "2026-03-30",
+      "pdf": "https://arxiv.org/pdf/2603.28988v1",
+      "score": "7.0",
+      "evidence": "可验证声明和用于信任环境的证明感知门控",
+      "tldr": "针对现代大语言模型（LLM）供应链中存在的恶意工件、伪造来源等安全风险，本文提出了一种基于证明的晋升网关（attestation-aware promotion gate）。该方案通过将训练和发布声明与工件进行密码学绑定，在模型进入生产环境前强制执行验证、静态扫描和安全部署策略，旨在构建可验证的LLM开发与发布流程，提升系统安全性。",
+      "tags": "query:profile-1",
+      "abstract_en": "Modern Large Language Model (LLM) systems are assembled from third-party artifacts such as pre-trained weights, fine-tuning adapters, datasets, dependency packages, and container images, fetched through automated pipelines. This speed comes with supply-chain risks, including compromised dependencies, malicious hub artifacts, unsafe deserialization, forged provenance, and backdoored models. A core gap is that training and release claims (e.g., data and code lineage, build environment, and security scanning results) are rarely cryptographically bound to the artifacts they describe, making enforcement inconsistent across teams and stages. We propose an attestation-aware promotion gate: before an artifact is admitted into trusted environments (training, fine-tuning, deployment), the gate verifies claim evidence, enforces safe loading and static scanning policies, and applies secure-by-default deployment constraints. When organizations operate runtime security tooling, the same gate can optionally ingest standardized dynamic signals via plugins to reduce uncertainty for high-risk artifacts. We outline a practical claims-to-controls mapping and an evaluation blueprint using representative supply-chain scenarios and operational metrics (coverage and decisions), charting a path toward a full research paper.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/04/2604.00312v1-physically-intuitive-privacy-and-security-a-design-paradigm-for-building-user-trust-in-smart-sensing-environments",
+      "section": "quick",
+      "title_en": "Physically-intuitive Privacy and Security: A Design Paradigm for Building User Trust in Smart Sensing Environments",
+      "authors": "Youngwook Do, Yuxi Wu, Gregory D. Abowd, Sauvik Das",
+      "date": "2026-03-31",
+      "pdf": "https://arxiv.org/pdf/2604.00312v1",
+      "score": "7.0",
+      "evidence": "在智能感知环境中建立用户信任的设计范式",
+      "tldr": "针对智能感知设备引发的用户隐私担忧和信任危机，本文提出了一种名为“物理直观隐私与安全”（PIPS）的新设计范式。该范式通过物理操作、感知保障和意图对齐三大原则，为用户提供简单且符合物理直觉的控制模型。通过智能摄像头盖、隐私供电和按需RFID三个案例研究，证明了该方法能有效提升用户对系统的信任度。",
+      "tags": "query:profile-1",
+      "abstract_en": "Sensor-based interactive systems -- e.g., \"smart\" speakers, webcams, and RFID tags -- allow us to embed computational functionality into physical environments. They also expose users to real and perceived privacy risks: users know that device manufacturers, app developers, and malicious third parties want to collect and monetize their personal data, which fuels their mistrust of these systems even in the presence of privacy and security controls. We propose a new design paradigm, physically-intuitive privacy and security (PIPS), which aims to improve user trust by designing privacy and security controls that provide users with simple, physics-based conceptual models of their operation. PIPS consists of three principles: (1) direct physical manipulation of sensor state; (2) perceptible assurance of sensor state; and, (3) intent-aligned sensor (de)activation. We illustrate these principles through three case studies -- Smart Webcam Cover, Powering for Privacy, and On-demand RFID -- each of which has been shown to improve trust relative to existing sensor-based systems.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/04/2604.00979v1-dual-optimal-make-your-llm-peer-like-with-dignity",
+      "section": "quick",
+      "title_en": "Dual Optimal: Make Your LLM Peer-like with Dignity",
+      "authors": "Xiangqi Wang, Yue Huang, Haomin Zhuang, Kehan Guo, Xiangliang Zhang",
+      "date": "2026-04-01",
+      "pdf": "https://arxiv.org/pdf/2604.00979v1",
+      "score": "6.0",
+      "evidence": "大语言模型反谄媚与可信度框架",
+      "tldr": "针对当前大模型表现出的“唯唯诺诺”和“推卸责任”等仆从化倾向，本文提出了“有尊严的同伴（Dignified Peer）”框架。通过引入PersonaKnob数据集、改进的拉格朗日DPO算法以及基于项目反应理论（IRT）的评估体系，该研究成功缓解了模型的谄媚与逃避行为，使其在保持专业性的同时更具同理心和创造力，实现了更像人类同伴的交互体验。",
+      "tags": "query:profile-1",
+      "abstract_en": "Current aligned language models exhibit a dual failure mode we term the Evasive Servant: they sycophantically validate flawed user beliefs while deflecting responsibility with boilerplate disclaimers. We propose the Dignified Peer framework, which counters servility with anti-sycophancy and trustworthiness, and mitigates evasiveness through empathy and creativity. Realizing this agent requires overcoming significant challenges in data supervision, objective collapse, and evaluation bias. We address these issues by introducing the PersonaKnob dataset which features a compositional partial order structure of multiple persona preference. This data is utilized alongside a tolerant constrained Lagrangian DPO algorithm that dynamically balances all persona dimensions to prevent behavioral collapse. Additionally, we employ a psychometrically calibrated Item Response Theory evaluation protocol to disentangle latent model persona capability from confounders like judge biases. Extensive empirical studies demonstrate that our approach successfully build a LLM agent with both dignity and peer.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/04/2604.01186v1-from-validity-to-inter-subjectivity-an-argument-for-reliability-signals-in-search-environments",
+      "section": "quick",
+      "title_en": "From Validity to Inter-Subjectivity: An Argument for Reliability Signals in Search Environments",
+      "authors": "Frans van der Sluis",
+      "date": "2026-04-01",
+      "pdf": "https://arxiv.org/pdf/2604.01186v1",
+      "score": "6.0",
+      "evidence": "搜索环境中信息信任度量的可靠性信号",
+      "tldr": "本文探讨了搜索引擎应对虚假信息的局限性，指出传统的“真实性”验证框架不足以应对复杂的认知挑战。研究提出应从验证主张真伪转向关注“主体间性”和“可靠性信号”。文章论证了在搜索环境中，提供来源可靠性和共识信息比单纯的真假判定更能有效提升用户的信息素养。",
+      "tags": "query:q3",
+      "abstract_en": "Search engines and information platforms are increasingly scrutinized for their role in spreading misinformation. Traditional responses often focus on detecting falsehoods or verifying the ultimate validity of claims. This paper argues that such a validity-centered framing is inadequate for the epistemic challenges of search environments.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

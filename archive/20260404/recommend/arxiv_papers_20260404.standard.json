@@ -1,0 +1,235 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-04T19:57:51.903846+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 5,
+    "quick_skim_target": 11,
+    "quick_selected": 5
+  },
+  "deep_dive": [
+    {
+      "id": "2603.28622v1",
+      "title": "Trust-Aware Routing for Distributed Generative AI Inference at the Edge",
+      "abstract": "Emerging deployments of Generative AI increasingly execute inference across decentralized and heterogeneous edge devices rather than on a single trusted server. In such environments, a single device failure or misbehavior can disrupt the entire inference process, making traditional best-effort peer-to-peer routing insufficient. Coordinating distributed generative inference therefore requires mechanisms that explicitly account for reliability, performance variability, and trust among participating peers.   In this paper, we present G-TRAC, a trust-aware coordination framework that integrates algorithmic path selection with system-level protocol design to ensure robust distributed inference. First, we formulate the routing problem as a \\textit{Risk-Bounded Shortest Path} computation and introduce a polynomial-time solution that combines trust-floor pruning with Dijkstra's search, achieving sub-millisecond median routing latency at practical edge scales, and remaining below 10 ms at larger scales. Second, to operationally support the routing logic in dynamic environments, the framework employs a \\textit{Hybrid Trust Architecture} that maintains global reputation state at stable anchors while disseminating lightweight updates to edge peers via background synchronization.   Experimental evaluation on a heterogeneous testbed of commodity devices demonstrates that G-TRAC significantly improves inference completion rates, effectively isolates unreliable peers, and sustains robust execution even under node failures and network partitions.",
+      "authors": [
+        "Chanh Nguyen",
+        "Erik Elmroth"
+      ],
+      "primary_category": "cs.DC",
+      "categories": [
+        "cs.DC",
+        "cs.AI",
+        "cs.NI"
+      ],
+      "published": "2026-03-30T16:07:11+00:00",
+      "link": "https://arxiv.org/pdf/2603.28622v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "trust-aware coordination framework accounting for reliability and peer trust",
+      "llm_evidence_cn": "考虑可靠性和节点信任的信任感知协作框架",
+      "llm_evidence": "考虑可靠性和节点信任的信任感知协作框架",
+      "canonical_evidence": "考虑可靠性和节点信任的信任感知协作框架",
+      "llm_tldr_en": "G-TRAC framework uses trust-aware routing to ensure robust distributed AI inference across edge devices.",
+      "llm_tldr_cn": "G-TRAC框架通过信任感知路由确保边缘设备上分布式AI推理的鲁棒性。",
+      "llm_tldr": "G-TRAC框架通过信任感知路由确保边缘设备上分布式AI推理的鲁棒性。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2603.28984v1",
+      "title": "Truth and distortion in complex networks: a global consistency approach",
+      "abstract": "Understanding how reliable information emerges in interconnected populations is a challenge in social science, network theory and data analysis. Many existing approaches model treat truth as an external reference or a property of individual statements, rather than a global consistency feature of the network itself. We introduce a network-based approach in which truth arises from global relational coherence in a multiplex system of interacting individuals. Nodes are individuals with internal states, while edges capture different types of interactions, including declared relations, observed behavior, influence asymmetries and information exchange. We evaluate how well node states align with cooperative or antagonistic interactions, incorporating coercion, variability and mismatches between what individuals say and what they do. Simulations on synthetic networks of one thousand nodes show that the minimum global inconsistency does not coincide with majority opinion or simple averaging. Nodes contributing most to inconsistency create conflicting constraints across interaction layers, defining a measurable distortion field. For example, in online social media during an election, a small number of accounts spreading inconsistent or manipulative information across groups can disrupt overall coherence, even when most users appear to agree. These results suggest possible applications in assessing relational coherence, identifying irreducible inconsistencies and analyzing constraints on collective states. Therefore, truth can be seen as the state of maximal relational coherence, rather than simple agreement or correctness of individual statements.",
+      "authors": [
+        "Arturo Tozzi"
+      ],
+      "primary_category": "physics.soc-ph",
+      "categories": [
+        "physics.soc-ph"
+      ],
+      "published": "2026-03-30T20:34:16+00:00",
+      "link": "https://arxiv.org/pdf/2603.28984v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "global consistency approach to evaluate information reliability in networks",
+      "llm_evidence_cn": "评估网络信息可靠性的全局一致性方法",
+      "llm_evidence": "评估网络信息可靠性的全局一致性方法",
+      "canonical_evidence": "评估网络信息可靠性的全局一致性方法",
+      "llm_tldr_en": "Introduces a network-based approach where truth and reliability emerge from global relational coherence.",
+      "llm_tldr_cn": "引入一种基于网络的方法，通过全局关系连贯性来衡量信息的真实性与可靠性。",
+      "llm_tldr": "引入一种基于网络的方法，通过全局关系连贯性来衡量信息的真实性与可靠性。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.00979v1",
+      "title": "Dual Optimal: Make Your LLM Peer-like with Dignity",
+      "abstract": "Current aligned language models exhibit a dual failure mode we term the Evasive Servant: they sycophantically validate flawed user beliefs while deflecting responsibility with boilerplate disclaimers. We propose the Dignified Peer framework, which counters servility with anti-sycophancy and trustworthiness, and mitigates evasiveness through empathy and creativity. Realizing this agent requires overcoming significant challenges in data supervision, objective collapse, and evaluation bias. We address these issues by introducing the PersonaKnob dataset which features a compositional partial order structure of multiple persona preference. This data is utilized alongside a tolerant constrained Lagrangian DPO algorithm that dynamically balances all persona dimensions to prevent behavioral collapse. Additionally, we employ a psychometrically calibrated Item Response Theory evaluation protocol to disentangle latent model persona capability from confounders like judge biases. Extensive empirical studies demonstrate that our approach successfully build a LLM agent with both dignity and peer.",
+      "authors": [
+        "Xiangqi Wang",
+        "Yue Huang",
+        "Haomin Zhuang",
+        "Kehan Guo",
+        "Xiangliang Zhang"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI"
+      ],
+      "published": "2026-04-01T14:48:44+00:00",
+      "link": "https://arxiv.org/pdf/2604.00979v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "framework for anti-sycophancy and trustworthiness in LLMs",
+      "llm_evidence_cn": "大语言模型反谄媚与可信度框架",
+      "llm_evidence": "大语言模型反谄媚与可信度框架",
+      "canonical_evidence": "大语言模型反谄媚与可信度框架",
+      "llm_tldr_en": "Proposes the Dignified Peer framework to improve LLM trustworthiness and reduce sycophancy.",
+      "llm_tldr_cn": "提出Dignified Peer框架以提高大语言模型的可信度并减少谄媚行为。",
+      "llm_tldr": "提出Dignified Peer框架以提高大语言模型的可信度并减少谄媚行为。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.28988v1",
+      "title": "Attesting LLM Pipelines: Enforcing Verifiable Training and Release Claims",
+      "abstract": "Modern Large Language Model (LLM) systems are assembled from third-party artifacts such as pre-trained weights, fine-tuning adapters, datasets, dependency packages, and container images, fetched through automated pipelines. This speed comes with supply-chain risks, including compromised dependencies, malicious hub artifacts, unsafe deserialization, forged provenance, and backdoored models. A core gap is that training and release claims (e.g., data and code lineage, build environment, and security scanning results) are rarely cryptographically bound to the artifacts they describe, making enforcement inconsistent across teams and stages. We propose an attestation-aware promotion gate: before an artifact is admitted into trusted environments (training, fine-tuning, deployment), the gate verifies claim evidence, enforces safe loading and static scanning policies, and applies secure-by-default deployment constraints. When organizations operate runtime security tooling, the same gate can optionally ingest standardized dynamic signals via plugins to reduce uncertainty for high-risk artifacts. We outline a practical claims-to-controls mapping and an evaluation blueprint using representative supply-chain scenarios and operational metrics (coverage and decisions), charting a path toward a full research paper.",
+      "authors": [
+        "Zhuoran Tan",
+        "Jeremy Singer",
+        "Christos Anagnostopoulos"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-03-30T20:37:48+00:00",
+      "link": "https://arxiv.org/pdf/2603.28988v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "verifiable claims and attestation-aware gates for trusted environments",
+      "llm_evidence_cn": "可验证声明和用于信任环境的证明感知门控",
+      "llm_evidence": "可验证声明和用于信任环境的证明感知门控",
+      "canonical_evidence": "可验证声明和用于信任环境的证明感知门控",
+      "llm_tldr_en": "Proposes a system to cryptographically bind training claims to LLM artifacts for supply-chain trust.",
+      "llm_tldr_cn": "提出一种将训练声明与LLM产物进行密码学绑定的系统，以增强供应链信任。",
+      "llm_tldr": "提出一种将训练声明与LLM产物进行密码学绑定的系统，以增强供应链信任。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.01186v1",
+      "title": "From Validity to Inter-Subjectivity: An Argument for Reliability Signals in Search Environments",
+      "abstract": "Search engines and information platforms are increasingly scrutinized for their role in spreading misinformation. Traditional responses often focus on detecting falsehoods or verifying the ultimate validity of claims. This paper argues that such a validity-centered framing is inadequate for the epistemic challenges of search environments.",
+      "authors": [
+        "Frans van der Sluis"
+      ],
+      "primary_category": "cs.DL",
+      "categories": [
+        "cs.DL",
+        "cs.IR"
+      ],
+      "published": "2026-04-01T17:34:45+00:00",
+      "link": "https://arxiv.org/pdf/2604.01186v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "reliability signals as metrics for information trust in search environments",
+      "llm_evidence_cn": "搜索环境中信息信任度量的可靠性信号",
+      "llm_evidence": "搜索环境中信息信任度量的可靠性信号",
+      "canonical_evidence": "搜索环境中信息信任度量的可靠性信号",
+      "llm_tldr_en": "Argues for using reliability signals instead of just validity to address trust in search platforms.",
+      "llm_tldr_cn": "主张在搜索平台中使用可靠性信号而非仅凭有效性来解决信任问题。",
+      "llm_tldr": "主张在搜索平台中使用可靠性信号而非仅凭有效性来解决信任问题。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "methods and metrics for measuring trust",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.00312v1",
+      "title": "Physically-intuitive Privacy and Security: A Design Paradigm for Building User Trust in Smart Sensing Environments",
+      "abstract": "Sensor-based interactive systems -- e.g., \"smart\" speakers, webcams, and RFID tags -- allow us to embed computational functionality into physical environments. They also expose users to real and perceived privacy risks: users know that device manufacturers, app developers, and malicious third parties want to collect and monetize their personal data, which fuels their mistrust of these systems even in the presence of privacy and security controls. We propose a new design paradigm, physically-intuitive privacy and security (PIPS), which aims to improve user trust by designing privacy and security controls that provide users with simple, physics-based conceptual models of their operation. PIPS consists of three principles: (1) direct physical manipulation of sensor state; (2) perceptible assurance of sensor state; and, (3) intent-aligned sensor (de)activation. We illustrate these principles through three case studies -- Smart Webcam Cover, Powering for Privacy, and On-demand RFID -- each of which has been shown to improve trust relative to existing sensor-based systems.",
+      "authors": [
+        "Youngwook Do",
+        "Yuxi Wu",
+        "Gregory D. Abowd",
+        "Sauvik Das"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC"
+      ],
+      "published": "2026-03-31T23:26:39+00:00",
+      "link": "https://arxiv.org/pdf/2604.00312v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "design paradigm for building user trust in smart sensing environments",
+      "llm_evidence_cn": "在智能感知环境中建立用户信任的设计范式",
+      "llm_evidence": "在智能感知环境中建立用户信任的设计范式",
+      "canonical_evidence": "在智能感知环境中建立用户信任的设计范式",
+      "llm_tldr_en": "Proposes a design paradigm using physics-based models to improve user trust in smart sensing systems.",
+      "llm_tldr_cn": "提出一种利用基于物理的模型来增强用户对智能感知系统信任的设计范式。",
+      "llm_tldr": "提出一种利用基于物理的模型来增强用户对智能感知系统信任的设计范式。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

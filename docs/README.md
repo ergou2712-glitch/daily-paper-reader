@@ -6,31 +6,40 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-03
-- 运行时间：2026-04-03 20:11:53 UTC
+- 最新运行日期：2026-04-04
+- 运行时间：2026-04-04 19:59:00 UTC
 - 运行状态：成功
-- 本次总论文数：3
-- 精读区：0
-- 速读区：3
+- 本次总论文数：6
+- 精读区：1
+- 速读区：5
 
 ### 今日简报（AI）
-今日聚焦大模型的人格化交互演进、RAG 权威感知评估及手机智能体的隐私安全红线。
-重点推荐
-- 详情：[/202604/03/README](/202604/03/README)
+今日聚焦边缘生成式AI与大模型可信体系，深度解析了分布式推理中的信任感知路由技术。
+研究重点探讨了如何通过可验证声明保障LLM训练透明度，并利用物理直觉设计提升智能感知环境的用户信任。
+建议关注“信任”如何从抽象概念转化为分布式AI架构与复杂网络中的核心技术指标。
+- 详情：[/202604/04/README](/202604/04/README)
 
 ### 精读区论文标签
-- 本次无精读推荐。
+1. [Trust-Aware Routing for Distributed Generative AI Inference at the Edge](/202604/04/2603.28622v1-trust-aware-routing-for-distributed-generative-ai-inference-at-the-edge)  
+   标签：评分：8.0/10、query:profile-1
+   evidence：考虑可靠性和节点信任的信任感知协作框架
 
 ### 速读区论文标签
-1. [Dual Optimal: Make Your LLM Peer-like with Dignity](/202604/03/2604.00979v2-dual-optimal-make-your-llm-peer-like-with-dignity)  
+1. [Truth and distortion in complex networks: a global consistency approach](/202604/04/2603.28984v1-truth-and-distortion-in-complex-networks-a-global-consistency-approach)  
    标签：评分：7.0/10、query:profile-1
-   evidence：大语言模型可信度与评估偏差框架
-2. [AuthorityBench: Benchmarking LLM Authority Perception for Reliable Retrieval-Augmented Generation](/202604/03/2603.25092v1-authoritybench-benchmarking-llm-authority-perception-for-reliable-retrieval-augmented-generation)  
+   evidence：评估网络信息可靠性的全局一致性方法
+2. [Attesting LLM Pipelines: Enforcing Verifiable Training and Release Claims](/202604/04/2603.28988v1-attesting-llm-pipelines-enforcing-verifiable-training-and-release-claims)  
+   标签：评分：7.0/10、query:profile-1
+   evidence：可验证声明和用于信任环境的证明感知门控
+3. [Physically-intuitive Privacy and Security: A Design Paradigm for Building User Trust in Smart Sensing Environments](/202604/04/2604.00312v1-physically-intuitive-privacy-and-security-a-design-paradigm-for-building-user-trust-in-smart-sensing-environments)  
+   标签：评分：7.0/10、query:profile-1
+   evidence：在智能感知环境中建立用户信任的设计范式
+4. [Dual Optimal: Make Your LLM Peer-like with Dignity](/202604/04/2604.00979v1-dual-optimal-make-your-llm-peer-like-with-dignity)  
    标签：评分：6.0/10、query:profile-1
-   evidence：可靠生成的权威感知基准测试
-3. [Do Phone-Use Agents Respect Your Privacy?](/202604/03/2604.00986v2-do-phone-use-agents-respect-your-privacy)  
+   evidence：大语言模型反谄媚与可信度框架
+5. [From Validity to Inter-Subjectivity: An Argument for Reliability Signals in Search Environments](/202604/04/2604.01186v1-from-validity-to-inter-subjectivity-an-argument-for-reliability-signals-in-search-environments)  
    标签：评分：6.0/10、query:q3
-   evidence：隐私行为的可验证评估框架
+   evidence：搜索环境中信息信任度量的可靠性信号
 
 
 <div class="dpr-home-promo-card">
