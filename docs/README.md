@@ -6,40 +6,32 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-04
-- 运行时间：2026-04-04 19:59:00 UTC
+- 最新运行日期：2026-04-05
+- 运行时间：2026-04-05 20:40:46 UTC
 - 运行状态：成功
-- 本次总论文数：6
-- 精读区：1
-- 速读区：5
+- 本次总论文数：3
+- 精读区：0
+- 速读区：3
 
 ### 今日简报（AI）
-今日聚焦边缘生成式AI与大模型可信体系，深度解析了分布式推理中的信任感知路由技术。
-研究重点探讨了如何通过可验证声明保障LLM训练透明度，并利用物理直觉设计提升智能感知环境的用户信任。
-建议关注“信任”如何从抽象概念转化为分布式AI架构与复杂网络中的核心技术指标。
-- 详情：[/202604/04/README](/202604/04/README)
+今日聚焦 AI 安全防线，涵盖政务 RAG 防毒、计算机代理溯源及模型信息泄露三大前沿议题。
+重点关注 RAGShield 提出的溯源验证防御机制，以及提升计算机操作代理透明度以降低风险的实证研究。
+建议在部署自动化 AI 工具时，优先建立严密的溯源审计流程并警惕战略沟通中的隐私外泄。
+- 详情：[/202604/05/README](/202604/05/README)
 
 ### 精读区论文标签
-1. [Trust-Aware Routing for Distributed Generative AI Inference at the Edge](/202604/04/2603.28622v1-trust-aware-routing-for-distributed-generative-ai-inference-at-the-edge)  
-   标签：评分：8.0/10、query:profile-1
-   evidence：考虑可靠性和节点信任的信任感知协作框架
+- 本次无精读推荐。
 
 ### 速读区论文标签
-1. [Truth and distortion in complex networks: a global consistency approach](/202604/04/2603.28984v1-truth-and-distortion-in-complex-networks-a-global-consistency-approach)  
+1. [RAGShield: Provenance-Verified Defense-in-Depth Against Knowledge Base Poisoning in Government Retrieval-Augmented Generation Systems](/202604/05/2604.00387v1-ragshield-provenance-verified-defense-in-depth-against-knowledge-base-poisoning-in-government-retrieval-augmented-generation-systems)  
    标签：评分：7.0/10、query:profile-1
-   evidence：评估网络信息可靠性的全局一致性方法
-2. [Attesting LLM Pipelines: Enforcing Verifiable Training and Release Claims](/202604/04/2603.28988v1-attesting-llm-pipelines-enforcing-verifiable-training-and-release-claims)  
-   标签：评分：7.0/10、query:profile-1
-   evidence：可验证声明和用于信任环境的证明感知门控
-3. [Physically-intuitive Privacy and Security: A Design Paradigm for Building User Trust in Smart Sensing Environments](/202604/04/2604.00312v1-physically-intuitive-privacy-and-security-a-design-paradigm-for-building-user-trust-in-smart-sensing-environments)  
-   标签：评分：7.0/10、query:profile-1
-   evidence：在智能感知环境中建立用户信任的设计范式
-4. [Dual Optimal: Make Your LLM Peer-like with Dignity](/202604/04/2604.00979v1-dual-optimal-make-your-llm-peer-like-with-dignity)  
+   evidence：RAG系统中的信任加权检索
+2. ["What Did It Actually Do?": Understanding Risk Awareness and Traceability for Computer-Use Agents](/202604/05/2603.28551v1-what-did-it-actually-do-understanding-risk-awareness-and-traceability-for-computer-use-agents)  
    标签：评分：6.0/10、query:profile-1
-   evidence：大语言模型反谄媚与可信度框架
-5. [From Validity to Inter-Subjectivity: An Argument for Reliability Signals in Search Environments](/202604/04/2604.01186v1-from-validity-to-inter-subjectivity-an-argument-for-reliability-signals-in-search-environments)  
-   标签：评分：6.0/10、query:q3
-   evidence：搜索环境中信息信任度量的可靠性信号
+   evidence：智能体的风险意识与事后审计性
+3. [SNEAK: Evaluating Strategic Communication and Information Leakage in Large Language Models](/202604/05/2603.29846v1-sneak-evaluating-strategic-communication-and-information-leakage-in-large-language-models)  
+   标签：评分：6.0/10、query:q4
+   evidence：评估策略性通信与信息泄露的基准
 
 
 <div class="dpr-home-promo-card">

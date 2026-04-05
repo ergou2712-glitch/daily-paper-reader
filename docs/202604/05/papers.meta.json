@@ -1,0 +1,51 @@
+{
+  "label": "2026-04-05",
+  "date": "2026-04-05",
+  "generated_at": "2026-04-05T20:40:57",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202604/05/2604.00387v1-ragshield-provenance-verified-defense-in-depth-against-knowledge-base-poisoning-in-government-retrieval-augmented-generation-systems",
+      "section": "quick",
+      "title_en": "RAGShield: Provenance-Verified Defense-in-Depth Against Knowledge Base Poisoning in Government Retrieval-Augmented Generation Systems",
+      "authors": "KrishnaSaiReddy Patil",
+      "date": "2026-04-01",
+      "pdf": "https://arxiv.org/pdf/2604.00387v1",
+      "score": "7.0",
+      "evidence": "RAG系统中的信任加权检索",
+      "tldr": "针对政府RAG系统易受知识库投毒攻击的问题，本文提出RAGShield防御框架。该框架借鉴软件供应链安全理念，构建了包含加密文档认证、信任加权检索、跨源矛盾检测等在内的五层深度防御体系。实验表明，RAGShield在多种攻击场景下实现了0%的攻击成功率，并能有效识别绕过溯源验证的复杂内部威胁，为政府级AI应用提供了符合NIST标准的合规安全保障。",
+      "tags": "query:profile-1",
+      "abstract_en": "RAG systems deployed across federal agencies for citizen-facing services are vulnerable to knowledge base poisoning attacks, where adversaries inject malicious documents to manipulate outputs. Recent work demonstrates that as few as 10 adversarial passages can achieve 98.2% retrieval success rates. We observe that RAG knowledge base poisoning is structurally analogous to software supply chain attacks, and propose RAGShield, a five-layer defense-in-depth framework applying supply chain provenance verification to the RAG knowledge pipeline. RAGShield introduces: (1) C2PA-inspired cryptographic document attestation blocking unsigned and forged documents at ingestion; (2) trust-weighted retrieval prioritizing provenance-verified sources; (3) a formal taint lattice with cross-source contradiction detection catching insider threats even when provenance is valid; (4) provenance-aware generation with auditable citations; and (5) NIST SP 800-53 compliance mapping across 15 control families. Evaluation on a 500-passage Natural Questions corpus with 63 attack documents and 200 queries against five adversary tiers achieves 0.0% attack success rate including adaptive attacks (95% CI: [0.0%, 1.9%]) with 0.0% false positive rate. We honestly report that insider in-place replacement attacks achieve 17.5% ASR, identifying the fundamental limit of ingestion-time defense. The cross-source contradiction detector catches subtle numerical manipulation attacks that bypass provenance verification entirely.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/05/2603.28551v1-what-did-it-actually-do-understanding-risk-awareness-and-traceability-for-computer-use-agents",
+      "section": "quick",
+      "title_en": "\"What Did It Actually Do?\": Understanding Risk Awareness and Traceability for Computer-Use Agents",
+      "authors": "Zifan Peng",
+      "date": "2026-03-30",
+      "pdf": "https://arxiv.org/pdf/2603.28551v1",
+      "score": "6.0",
+      "evidence": "智能体的风险意识与事后审计性",
+      "tldr": "本研究探讨了计算机使用智能体（如OpenClaw）在普及过程中带来的风险意识与可追溯性缺失问题。通过分析生态系统语料库和访谈研究，发现用户对智能体的权限、资源访问及持久性影响缺乏具体认知。为此，研究提出了AgentTrace框架及可视化界面，旨在通过展示操作历史、资源访问和副作用，提升用户的审计能力并促进更合理的信任校准。",
+      "tags": "query:profile-1",
+      "abstract_en": "Personalized computer-use agents are rapidly moving from expert communities into mainstream use. Unlike conventional chatbots, these systems can install skills, invoke tools, access private resources, and modify local environments on users' behalf. Yet users often do not know what authority they have delegated, what the agent actually did during task execution, or whether the system has been safely removed afterward.   We investigate this gap as a combined problem of risk understanding and post-hoc auditability, using OpenClaw as a motivating case. We first build a multi-source corpus of the OpenClaw ecosystem, including incidents, advisories, malicious-skill reports, news coverage, tutorials, and social-media narratives. We then conduct an interview study to examine how users and practitioners understand skills, autonomy, privilege, persistence, and uninstallation. Our findings suggest that participants often recognized these systems as risky in the abstract, but lacked concrete mental models of what skills can do, what resources agents can access, and what changes may remain after execution or removal. Motivated by these findings, we propose AgentTrace, a traceability framework and prototype interface for visualizing agent actions, touched resources, permission history, provenance, and persistent side effects. A scenario-based evaluation suggests that traceability-oriented interfaces can improve understanding of agent behavior, support anomaly detection, and foster more calibrated trust.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/05/2603.29846v1-sneak-evaluating-strategic-communication-and-information-leakage-in-large-language-models",
+      "section": "quick",
+      "title_en": "SNEAK: Evaluating Strategic Communication and Information Leakage in Large Language Models",
+      "authors": "Adar Avsian, Larry Heck",
+      "date": "2026-03-31",
+      "pdf": "https://arxiv.org/pdf/2603.29846v1",
+      "score": "6.0",
+      "evidence": "评估策略性通信与信息泄露的基准",
+      "tldr": "本文针对大语言模型在多智能体协作中平衡信息传递与隐私保护的需求，提出了SNEAK基准测试。该框架要求模型在不直接泄露秘密词的前提下向盟友传递信号，通过模拟“盟友”和“伪装者”两个角色来评估信息的效用与泄露程度。研究发现，当前模型在非对称信息下的策略性沟通能力较弱，人类表现远超现有模型，得分高达模型的四倍。",
+      "tags": "query:q4",
+      "abstract_en": "Large language models (LLMs) are increasingly deployed in multi-agent settings where communication must balance informativeness and secrecy. In such settings, an agent may need to signal information to collaborators while preventing an adversary from inferring sensitive details. However, existing LLM benchmarks primarily evaluate capabilities such as reasoning, factual knowledge, or instruction following, and do not directly measure strategic communication under asymmetric information. We introduce SNEAK (Secret-aware Natural language Evaluation for Adversarial Knowledge), a benchmark for evaluating selective information sharing in language models. In SNEAK, a model is given a semantic category, a candidate set of words, and a secret word, and must generate a message that indicates knowledge of the secret without revealing it too clearly. We evaluate generated messages using two simulated agents with different information states: an ally, who knows the secret and must identify the intended message, and a chameleon, who does not know the secret and attempts to infer it from the message. This yields two complementary metrics: utility, measuring how well the message communicates to collaborators, and leakage, measuring how much information it reveals to an adversary. Using this framework, we analyze the trade-off between informativeness and secrecy in modern language models and show that strategic communication under asymmetric information remains a challenging capability for current systems. Notably, human participants outperform all evaluated models by a large margin, achieving up to four times higher scores.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
