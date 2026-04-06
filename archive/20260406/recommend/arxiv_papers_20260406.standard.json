@@ -1,0 +1,138 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-06T20:11:03.500843+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2604.02992v1",
+      "title": "Why is Regularization Underused? An Empirical Study on Trust and Adoption of Statistical Methods",
+      "abstract": "Statistical practice does not automatically follow methodological innovation. Regularization methods, widely advocated to reduce overfitting and stabilize inference, are readily available in modern software, but are not consistently used by data analysts. We investigate this implementation gap in a large-scale empirical study of trust in, and acceptance of, regularization techniques, based on $N = 606$ data analysts. Drawing on measurement frameworks from technology acceptance research, we survey practitioners and embed a randomized experiment to test whether written recommendation of regularization methods increases trust or intended use. We find no evidence of such an effect. Instead, adoption intentions are strongly associated with analysts' perceptions of ease of implementation and practical benefit, such as improved bias control or interpretability. Perceived social norms also emerge as a central driver. These results indicate that uptake of statistical methodology depends less on formal recommendations than on usability, perceived utility, and community practice.",
+      "authors": [
+        "Konstantin Emil Thiel",
+        "Marléne Baumeister",
+        "Nicole Krämer",
+        "Andreas Groll",
+        "Markus Pauly",
+        "Magdalena Wischnewski"
+      ],
+      "primary_category": "stat.OT",
+      "categories": [
+        "stat.OT",
+        "stat.AP",
+        "stat.ME"
+      ],
+      "published": "2026-04-03T12:12:10+00:00",
+      "link": "https://arxiv.org/pdf/2604.02992v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "measurement frameworks for trust in statistical methods",
+      "llm_evidence_cn": "统计方法信任度的测量框架",
+      "llm_evidence": "统计方法信任度的测量框架",
+      "canonical_evidence": "统计方法信任度的测量框架",
+      "llm_tldr_en": "Empirically studies trust and adoption of regularization methods using technology acceptance frameworks.",
+      "llm_tldr_cn": "利用技术接受框架实证研究了数据分析师对正则化方法的信任与采用情况。",
+      "llm_tldr": "利用技术接受框架实证研究了数据分析师对正则化方法的信任与采用情况。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.02450v1",
+      "title": "Do We Need Frontier Models to Verify Mathematical Proofs?",
+      "abstract": "Advances in training, post-training, and inference-time methods have enabled frontier reasoning models to win gold medals in math competitions and settle challenging open problems. Gaining trust in the responses of these models requires that natural language proofs be checked for errors. LLM judges are increasingly being adopted to meet the growing demand for evaluating such proofs. While verification is considered easier than generation, what model capability does reliable verification actually require? We systematically evaluate four open-source and two frontier LLMs on datasets of human-graded natural language proofs of competition-level problems. We consider two key metrics: verifier accuracy and self-consistency (the rate of agreement across repeated judgments on the same proof). We observe that smaller open-source models are only up to ~10% behind frontier models in accuracy but they are up to ~25% more inconsistent. Furthermore, we see that verifier accuracy is sensitive to prompt choice across all models. We then demonstrate that the smaller models, in fact, do possess the mathematical capabilities to verify proofs at the level of frontier models, but they struggle to reliably elicit these capabilities with general judging prompts. Through an LLM-guided prompt search, we synthesize an ensemble of specialized prompts that overcome the specific failure modes of smaller models, boosting their performance by up to 9.1% in accuracy and 15.9% in self-consistency. These gains are realized across models and datasets, allowing models like Qwen3.5-35B to perform on par with frontier models such as Gemini 3.1 Pro for proof verification.",
+      "authors": [
+        "Aaditya Naik",
+        "Guruprerana Shabadi",
+        "Rajeev Alur",
+        "Mayur Naik"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-04-02T18:31:44+00:00",
+      "link": "https://arxiv.org/pdf/2604.02450v1",
+      "tags": [
+        "keyword:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "evaluating metrics for gaining trust in model responses",
+      "llm_evidence_cn": "评估用于建立模型响应信任度的指标",
+      "llm_evidence": "评估用于建立模型响应信任度的指标",
+      "canonical_evidence": "评估用于建立模型响应信任度的指标",
+      "llm_tldr_en": "Evaluates LLM capabilities in verifying mathematical proofs using metrics like accuracy and self-consistency.",
+      "llm_tldr_cn": "通过准确性和自一致性等指标评估大模型验证数学证明的能力，以增强模型信任度。",
+      "llm_tldr": "通过准确性和自一致性等指标评估大模型验证数学证明的能力，以增强模型信任度。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.01036v1",
+      "title": "Aligning Recommendations with User Popularity Preferences",
+      "abstract": "Popularity bias is a pervasive problem in recommender systems, where recommendations disproportionately favor popular items. This not only results in \"rich-get-richer\" dynamics and a homogenization of visible content, but can also lead to misalignment of recommendations with individual users' preferences for popular or niche content. This work studies popularity bias through the lens of user-recommender alignment. To this end, we introduce Popularity Quantile Calibration, a measurement framework that quantifies misalignment between a user's historical popularity preference and the popularity of their recommendations. Building on this notion of popularity alignment, we propose SPREE, an inference-time mitigation method for sequential recommenders based on activation steering. SPREE identifies a popularity direction in representation space and adaptively steers model activations based on an estimate of each user's personal popularity bias, allowing both the direction and magnitude of steering to vary across users. Unlike global debiasing approaches, SPREE explicitly targets alignment rather than uniformly reducing popularity. Experiments across multiple datasets show that SPREE consistently improves user-level popularity alignment while preserving recommendation quality.",
+      "authors": [
+        "Mona Schirmer",
+        "Anton Thielmann",
+        "Pola Schwöbel",
+        "Thomas Martynec",
+        "Giuseppe Di Benedetto",
+        "Ben London",
+        "Yannik Stein"
+      ],
+      "primary_category": "cs.IR",
+      "categories": [
+        "cs.IR",
+        "cs.AI",
+        "cs.CY"
+      ],
+      "published": "2026-04-01T15:45:24+00:00",
+      "link": "https://arxiv.org/pdf/2604.01036v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "measurement framework for quantifying alignment in recommendations",
+      "llm_evidence_cn": "量化推荐系统对齐情况的测量框架",
+      "llm_evidence": "量化推荐系统对齐情况的测量框架",
+      "canonical_evidence": "量化推荐系统对齐情况的测量框架",
+      "llm_tldr_en": "Proposes a measurement framework to quantify misalignment between user preferences and recommendations.",
+      "llm_tldr_cn": "提出一种测量框架，用于量化用户偏好与推荐内容之间的失配程度。",
+      "llm_tldr": "提出一种测量框架，用于量化用户偏好与推荐内容之间的失配程度。",
+      "llm_tags": [
+        "query:q4"
+      ],
+      "matched_query_tag": "query:q4",
+      "matched_query_text": "quantitative metrics used to assess trust",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

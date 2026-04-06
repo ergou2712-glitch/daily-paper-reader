@@ -6,32 +6,31 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-05
-- 运行时间：2026-04-05 20:40:46 UTC
+- 最新运行日期：2026-04-06
+- 运行时间：2026-04-06 20:12:12 UTC
 - 运行状态：成功
 - 本次总论文数：3
-- 精读区：0
-- 速读区：3
+- 精读区：1
+- 速读区：2
 
 ### 今日简报（AI）
-今日聚焦 AI 安全防线，涵盖政务 RAG 防毒、计算机代理溯源及模型信息泄露三大前沿议题。
-重点关注 RAGShield 提出的溯源验证防御机制，以及提升计算机操作代理透明度以降低风险的实证研究。
-建议在部署自动化 AI 工具时，优先建立严密的溯源审计流程并警惕战略沟通中的隐私外泄。
-- 详情：[/202604/05/README](/202604/05/README)
+今日聚焦统计正则化技术的信任与采用困境，并探讨数学证明验证及推荐系统对齐的前沿课题。
+重点研究揭示了正则化因解释性挑战而被低估的现状，同时反思了数学逻辑校验对顶级大模型的依赖必要性。
+建议在算法实践中重拾经典正则化工具以提升稳健性，并关注垂直领域轻量化验证模型的应用潜力。
+- 详情：[/202604/06/README](/202604/06/README)
 
 ### 精读区论文标签
-- 本次无精读推荐。
+1. [Why is Regularization Underused? An Empirical Study on Trust and Adoption of Statistical Methods](/202604/06/2604.02992v1-why-is-regularization-underused-an-empirical-study-on-trust-and-adoption-of-statistical-methods)  
+   标签：评分：9.0/10、query:q5
+   evidence：统计方法信任度的测量框架
 
 ### 速读区论文标签
-1. [RAGShield: Provenance-Verified Defense-in-Depth Against Knowledge Base Poisoning in Government Retrieval-Augmented Generation Systems](/202604/05/2604.00387v1-ragshield-provenance-verified-defense-in-depth-against-knowledge-base-poisoning-in-government-retrieval-augmented-generation-systems)  
+1. [Do We Need Frontier Models to Verify Mathematical Proofs?](/202604/06/2604.02450v1-do-we-need-frontier-models-to-verify-mathematical-proofs)  
    标签：评分：7.0/10、query:profile-1
-   evidence：RAG系统中的信任加权检索
-2. ["What Did It Actually Do?": Understanding Risk Awareness and Traceability for Computer-Use Agents](/202604/05/2603.28551v1-what-did-it-actually-do-understanding-risk-awareness-and-traceability-for-computer-use-agents)  
-   标签：评分：6.0/10、query:profile-1
-   evidence：智能体的风险意识与事后审计性
-3. [SNEAK: Evaluating Strategic Communication and Information Leakage in Large Language Models](/202604/05/2603.29846v1-sneak-evaluating-strategic-communication-and-information-leakage-in-large-language-models)  
+   evidence：评估用于建立模型响应信任度的指标
+2. [Aligning Recommendations with User Popularity Preferences](/202604/06/2604.01036v1-aligning-recommendations-with-user-popularity-preferences)  
    标签：评分：6.0/10、query:q4
-   evidence：评估策略性通信与信息泄露的基准
+   evidence：量化推荐系统对齐情况的测量框架
 
 
 <div class="dpr-home-promo-card">

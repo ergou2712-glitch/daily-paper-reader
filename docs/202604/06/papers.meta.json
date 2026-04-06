@@ -1,0 +1,51 @@
+{
+  "label": "2026-04-06",
+  "date": "2026-04-06",
+  "generated_at": "2026-04-06T20:12:25",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202604/06/2604.02992v1-why-is-regularization-underused-an-empirical-study-on-trust-and-adoption-of-statistical-methods",
+      "section": "deep",
+      "title_en": "Why is Regularization Underused? An Empirical Study on Trust and Adoption of Statistical Methods",
+      "authors": "Konstantin Emil Thiel, Marléne Baumeister, Nicole Krämer, Andreas Groll, Markus Pauly, Magdalena Wischnewski",
+      "date": "2026-04-03",
+      "pdf": "https://arxiv.org/pdf/2604.02992v1",
+      "score": "9.0",
+      "evidence": "统计方法信任度的测量框架",
+      "tldr": "本研究针对正则化方法在数据分析实践中应用不足的问题，对606名数据分析师进行了大规模实证研究。通过技术接受度测量框架和随机实验，探讨了书面建议对提升信任和采用意愿的影响。研究发现，正式建议效果有限，而易用性、感知实用性（如偏差控制和可解释性）以及社会规范是驱动方法采用的关键因素，为统计方法的推广提供了新视角。",
+      "tags": "query:q5",
+      "abstract_en": "Statistical practice does not automatically follow methodological innovation. Regularization methods, widely advocated to reduce overfitting and stabilize inference, are readily available in modern software, but are not consistently used by data analysts. We investigate this implementation gap in a large-scale empirical study of trust in, and acceptance of, regularization techniques, based on $N = 606$ data analysts. Drawing on measurement frameworks from technology acceptance research, we survey practitioners and embed a randomized experiment to test whether written recommendation of regularization methods increases trust or intended use. We find no evidence of such an effect. Instead, adoption intentions are strongly associated with analysts' perceptions of ease of implementation and practical benefit, such as improved bias control or interpretability. Perceived social norms also emerge as a central driver. These results indicate that uptake of statistical methodology depends less on formal recommendations than on usability, perceived utility, and community practice.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/06/2604.02450v1-do-we-need-frontier-models-to-verify-mathematical-proofs",
+      "section": "quick",
+      "title_en": "Do We Need Frontier Models to Verify Mathematical Proofs?",
+      "authors": "Aaditya Naik, Guruprerana Shabadi, Rajeev Alur, Mayur Naik",
+      "date": "2026-04-02",
+      "pdf": "https://arxiv.org/pdf/2604.02450v1",
+      "score": "7.0",
+      "evidence": "评估用于建立模型响应信任度的指标",
+      "tldr": "本研究探讨了小型开源模型验证数学证明的潜力。通过对比开源与前沿模型在竞赛级证明上的表现，发现小型模型虽准确率尚可，但自一致性较差。研究证明，小型模型具备验证能力，只是难以被通用提示词激发。通过LLM引导的提示词搜索，研究者构建了专门的提示词集成，显著提升了小型模型的准确率与一致性，使其验证性能达到了与前沿模型相当的水平。",
+      "tags": "query:profile-1",
+      "abstract_en": "Advances in training, post-training, and inference-time methods have enabled frontier reasoning models to win gold medals in math competitions and settle challenging open problems. Gaining trust in the responses of these models requires that natural language proofs be checked for errors. LLM judges are increasingly being adopted to meet the growing demand for evaluating such proofs. While verification is considered easier than generation, what model capability does reliable verification actually require? We systematically evaluate four open-source and two frontier LLMs on datasets of human-graded natural language proofs of competition-level problems. We consider two key metrics: verifier accuracy and self-consistency (the rate of agreement across repeated judgments on the same proof). We observe that smaller open-source models are only up to ~10% behind frontier models in accuracy but they are up to ~25% more inconsistent. Furthermore, we see that verifier accuracy is sensitive to prompt choice across all models. We then demonstrate that the smaller models, in fact, do possess the mathematical capabilities to verify proofs at the level of frontier models, but they struggle to reliably elicit these capabilities with general judging prompts. Through an LLM-guided prompt search, we synthesize an ensemble of specialized prompts that overcome the specific failure modes of smaller models, boosting their performance by up to 9.1% in accuracy and 15.9% in self-consistency. These gains are realized across models and datasets, allowing models like Qwen3.5-35B to perform on par with frontier models such as Gemini 3.1 Pro for proof verification.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/06/2604.01036v1-aligning-recommendations-with-user-popularity-preferences",
+      "section": "quick",
+      "title_en": "Aligning Recommendations with User Popularity Preferences",
+      "authors": "Mona Schirmer, Anton Thielmann, Pola Schwöbel, Thomas Martynec, Giuseppe Di Benedetto, Ben London, Yannik Stein",
+      "date": "2026-04-01",
+      "pdf": "https://arxiv.org/pdf/2604.01036v1",
+      "score": "6.0",
+      "evidence": "量化推荐系统对齐情况的测量框架",
+      "tldr": "针对推荐系统中的流行度偏差问题，本文提出从用户对齐的角度进行优化。研究首先引入流行度分位数校准框架来量化用户偏好与推荐内容的失配，并提出SPREE方法，在推理阶段通过激活引导技术，根据用户个性化的流行度偏好动态调整模型表征。实验证明，该方法在保持推荐质量的同时，显著提升了推荐内容与用户流行度偏好的对齐程度，避免了盲目去偏带来的性能损失。",
+      "tags": "query:q4",
+      "abstract_en": "Popularity bias is a pervasive problem in recommender systems, where recommendations disproportionately favor popular items. This not only results in \"rich-get-richer\" dynamics and a homogenization of visible content, but can also lead to misalignment of recommendations with individual users' preferences for popular or niche content. This work studies popularity bias through the lens of user-recommender alignment. To this end, we introduce Popularity Quantile Calibration, a measurement framework that quantifies misalignment between a user's historical popularity preference and the popularity of their recommendations. Building on this notion of popularity alignment, we propose SPREE, an inference-time mitigation method for sequential recommenders based on activation steering. SPREE identifies a popularity direction in representation space and adaptively steers model activations based on an estimate of each user's personal popularity bias, allowing both the direction and magnitude of steering to vary across users. Unlike global debiasing approaches, SPREE explicitly targets alignment rather than uniformly reducing popularity. Experiments across multiple datasets show that SPREE consistently improves user-level popularity alignment while preserving recommendation quality.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
