@@ -1,0 +1,254 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-07T20:18:34.488577+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2604.03447v1",
+      "title": "Measuring LLM Trust Allocation Across Conflicting Software Artifacts",
+      "abstract": "LLM-based software engineering assistants fail not only by producing incorrect outputs, but also by allocating trust to the wrong artifact when code, documentation, and tests disagree. Existing evaluations focus mainly on downstream outcomes and therefore cannot reveal whether a model recognized degraded evidence, identified the unreliable source, or calibrated its trust across artifacts. We present TRACE (Trust Reasoning over Artifacts for Calibrated Evaluation), a framework that elicits structured artifact-level trust traces over Javadoc, method signatures, implementations, and test prefixes under blind perturbations. Using 22,339 valid traces from seven models on 456 curated Java method bundles, we evaluate per-artifact quality assessment, inconsistency detection, affected artifact attribution, and source prioritization. Across all models, quality penalties are largely localized to the perturbed artifact and increase with severity, but sensitivity is asymmetric across artifact types: documentation bugs induce a substantially larger heavy-to-subtle gap than implementation faults (0.152-0.253 vs. 0.049-0.123). Models detect explicit documentation bugs well (67-94%) and Javadoc and implementation contradictions at 50-91%, yet show a systematic blind spot when only the implementation drifts while the documentation remains plausible, with detection dropping by 7-42 percentage points. Confidence is poorly calibrated for six of seven models. These findings suggest that current LLMs are better at auditing natural-language specifications than at detecting subtle code-level drift, motivating explicit artifact-level trust reasoning before correctness-critical downstream use.",
+      "authors": [
+        "Noshin Ulfat",
+        "Ahsanul Ameen Sabit",
+        "Soneya Binta Hossain"
+      ],
+      "primary_category": "cs.SE",
+      "categories": [
+        "cs.SE",
+        "cs.AI"
+      ],
+      "published": "2026-04-03T20:38:14+00:00",
+      "link": "https://arxiv.org/pdf/2604.03447v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "framework for measuring trust allocation and calibrated evaluation across artifacts",
+      "llm_evidence_cn": "测量跨软件制品的信任分配与校准评估框架",
+      "llm_evidence": "测量跨软件制品的信任分配与校准评估框架",
+      "canonical_evidence": "测量跨软件制品的信任分配与校准评估框架",
+      "llm_tldr_en": "Presents TRACE, a framework to measure how LLMs allocate trust across conflicting software artifacts.",
+      "llm_tldr_cn": "提出了TRACE框架，用于测量大模型在冲突的软件制品中如何分配信任并进行校准评估。",
+      "llm_tldr": "提出了TRACE框架，用于测量大模型在冲突的软件制品中如何分配信任并进行校准评估。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.03976v1",
+      "title": "Quantifying Trust: Financial Risk Management for Trustworthy AI Agents",
+      "abstract": "Prior work on trustworthy AI emphasizes model-internal properties such as bias mitigation, adversarial robustness, and interpretability. As AI systems evolve into autonomous agents deployed in open environments and increasingly connected to payments or assets, the operational meaning of trust shifts to end-to-end outcomes: whether an agent completes tasks, follows user intent, and avoids failures that cause material or psychological harm. These risks are fundamentally product-level and cannot be eliminated by technical safeguards alone because agent behavior is inherently stochastic. To address this gap between model-level reliability and user-facing assurance, we propose a complementary framework based on risk management. Drawing inspiration from financial underwriting, we introduce the \\textbf{Agentic Risk Standard (ARS)}, a payment settlement standard for AI-mediated transactions. ARS integrates risk assessment, underwriting, and compensation into a single transaction framework that protects users when interacting with agents. Under ARS, users receive predefined and contractually enforceable compensation in cases of execution failure, misalignment, or unintended outcomes. This shifts trust from an implicit expectation about model behavior to an explicit, measurable, and enforceable product guarantee. We also present a simulation study analyzing the social benefits of applying ARS to agentic transactions. ARS's implementation can be found at https://github.com/t54-labs/AgenticRiskStandard.",
+      "authors": [
+        "Wenyue Hua",
+        "Tianyi Peng",
+        "Chi Wang",
+        "Ian Kaufman",
+        "Bryan Lim",
+        "Chandler Fang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CE"
+      ],
+      "published": "2026-04-05T05:42:20+00:00",
+      "link": "https://arxiv.org/pdf/2604.03976v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "quantifying trust through financial risk management metrics for AI agents",
+      "llm_evidence_cn": "通过金融风险管理指标量化AI智能体的信任",
+      "llm_evidence": "通过金融风险管理指标量化AI智能体的信任",
+      "canonical_evidence": "通过金融风险管理指标量化AI智能体的信任",
+      "llm_tldr_en": "Proposes a framework to quantify trust in AI agents using financial risk management principles.",
+      "llm_tldr_cn": "借鉴金融风险管理原则，提出了一种量化AI智能体信任度的风险管理框架。",
+      "llm_tldr": "借鉴金融风险管理原则，提出了一种量化AI智能体信任度的风险管理框架。",
+      "llm_tags": [
+        "query:q4"
+      ],
+      "matched_query_tag": "query:q4",
+      "matched_query_text": "quantitative metrics used to assess trust",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.04120v1",
+      "title": "Shorter, but Still Trustworthy? An Empirical Study of Chain-of-Thought Compression",
+      "abstract": "Long chain-of-thought (Long-CoT) reasoning models have motivated a growing body of work on compressing reasoning traces to reduce inference cost, yet existing evaluations focus almost exclusively on task accuracy and token savings. Trustworthiness properties, whether acquired or reinforced through post-training, are encoded in the same parameter space that compression modifies. This means preserving accuracy does not, a priori, guarantee preserving trustworthiness. We conduct the first systematic empirical study of how CoT compression affects model trustworthiness, evaluating multiple models of different scales along three dimensions: safety, hallucination resistance, and multilingual robustness. Under controlled comparisons, we find that CoT compression frequently introduces trustworthiness regressions and that different methods exhibit markedly different degradation profiles across dimensions. To enable fair comparison across bases, we propose a normalized efficiency score for each dimension that reveals how naïve scalar metrics can obscure trustworthiness trade-offs. As an existence proof, we further introduce an alignment-aware DPO variant that reduces CoT length by 19.3\\% on reasoning benchmarks with substantially smaller trustworthiness loss. Our findings suggest that CoT compression should be optimized not only for efficiency but also for trustworthiness, treating both as equally important design constraints.",
+      "authors": [
+        "Lingjie Zeng",
+        "Xiaofan Chen",
+        "Yanbo Wang",
+        "Xiuying Chen"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-04-05T13:43:12+00:00",
+      "link": "https://arxiv.org/pdf/2604.04120v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "evaluating model trustworthiness along three dimensions: safety, hallucination resistance, and robustness",
+      "llm_evidence_cn": "从安全性、抗幻觉和鲁棒性三个维度评估模型的可信度",
+      "llm_evidence": "从安全性、抗幻觉和鲁棒性三个维度评估模型的可信度",
+      "canonical_evidence": "从安全性、抗幻觉和鲁棒性三个维度评估模型的可信度",
+      "llm_tldr_en": "This study evaluates how chain-of-thought compression affects LLM trustworthiness across multiple metrics.",
+      "llm_tldr_cn": "该研究系统评估了思维链压缩如何影响大语言模型在安全性、抗幻觉等维度的可信度指标。",
+      "llm_tldr": "该研究系统评估了思维链压缩如何影响大语言模型在安全性、抗幻觉等维度的可信度指标。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.00449v2",
+      "title": "Convergence of Byzantine-Resilient Gradient Tracking via Probabilistic Edge Dropout",
+      "abstract": "We study distributed optimization over networks with Byzantine agents that may send arbitrary adversarial messages. We propose \\emph{Gradient Tracking with Probabilistic Edge Dropout} (GT-PD), a stochastic gradient tracking method that preserves the convergence properties of gradient tracking under adversarial communication. GT-PD combines two complementary defense layers: a universal self-centered projection that clips each incoming message to a ball of radius $τ$ around the receiving agent, and a fully decentralized probabilistic dropout rule driven by a dual-metric trust score in the decision and tracking channels. This design bounds adversarial perturbations while preserving the doubly stochastic mixing structure, a property often lost under robust aggregation in decentralized settings. Under complete Byzantine isolation ($p_b=0$), GT-PD converges linearly to a neighborhood determined solely by stochastic gradient variance. For partial isolation ($p_b>0$), we introduce \\emph{Gradient Tracking with Probabilistic Edge Dropout and Leaky Integration} (GT-PD-L), which uses a leaky integrator to control the accumulation of tracking errors caused by persistent perturbations and achieves linear convergence to a bounded neighborhood determined by the stochastic variance and the clipping-to-leak ratio. We further show that under two-tier dropout with $p_h=1$, isolating Byzantine agents introduces no additional variance into the honest consensus dynamics. Experiments on MNIST under Sign Flip, ALIE, and Inner Product Manipulation attacks show that GT-PD-L outperforms coordinate-wise trimmed mean by up to 4.3 percentage points under stealth attacks.",
+      "authors": [
+        "Amirhossein Dezhboro",
+        "Fateme Maleki",
+        "Arman Adibi",
+        "Erfan Amini",
+        "Jose E. Ramirez-Marquez"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.MA",
+        "eess.SY"
+      ],
+      "published": "2026-04-01T03:55:42+00:00",
+      "link": "https://arxiv.org/pdf/2604.00449v2",
+      "tags": [
+        "keyword:信任测量"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "dual-metric trust score for adversarial communication",
+      "llm_evidence_cn": "针对对抗性通信的双指标信任评分",
+      "llm_evidence": "针对对抗性通信的双指标信任评分",
+      "canonical_evidence": "针对对抗性通信的双指标信任评分",
+      "llm_tldr_en": "Proposes a decentralized dropout rule driven by a dual-metric trust score to defend against Byzantine agents.",
+      "llm_tldr_cn": "提出一种由双指标信任评分驱动的去中心化丢弃规则，以防御拜占庭代理。",
+      "llm_tldr": "提出一种由双指标信任评分驱动的去中心化丢弃规则，以防御拜占庭代理。",
+      "llm_tags": [
+        "query:q4"
+      ],
+      "matched_query_tag": "query:q4",
+      "matched_query_text": "quantitative metrics used to assess trust",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.03451v1",
+      "title": "Do Robots Need Body Language? Comparing Communication Modalities for Legible Motion Intent in Human-Shared Spaces",
+      "abstract": "Robots in shared spaces often move in ways that are difficult for people to interpret, placing the burden on humans to adapt. High-DoF robots exhibit motion that people read as expressive, intentionally or not, making it important to understand how such cues are perceived. We present an online video study evaluating how different signaling modalities, expressive motion, lights, text, and audio, shape people's ability to understand a quadruped robot's upcoming navigation actions (Boston Dynamics Spot). Across four common scenarios, we measure how each modality influences humans' (1) accuracy in predicting the robot's next navigation action, (2) confidence in that prediction, and (3) trust in the robot to act safely. The study tests how expressive motions compare to explicit channels, whether aligned multimodal cues enhance interpretability, and how conflicting cues affect user confidence and trust. We contribute initial evidence on the relative effectiveness of implicit versus explicit signaling strategies.",
+      "authors": [
+        "Jonathan Albert Cohen",
+        "Kye Shimizu",
+        "Allen Song",
+        "Vishnu Bharath",
+        "Kent Larson",
+        "Pattie Maes"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.CY",
+        "cs.HC"
+      ],
+      "published": "2026-04-03T20:53:05+00:00",
+      "link": "https://arxiv.org/pdf/2604.03451v1",
+      "tags": [
+        "keyword:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "measuring how communication modalities influence trust in robots",
+      "llm_evidence_cn": "测量沟通方式如何影响对机器人的信任",
+      "llm_evidence": "测量沟通方式如何影响对机器人的信任",
+      "canonical_evidence": "测量沟通方式如何影响对机器人的信任",
+      "llm_tldr_en": "Evaluates how different signaling modalities influence human trust and prediction accuracy in robot motion.",
+      "llm_tldr_cn": "评估了不同的信号传达方式如何影响人类对机器人动作的信任度与预测准确性。",
+      "llm_tldr": "评估了不同的信号传达方式如何影响人类对机器人动作的信任度与预测准确性。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "methods and metrics for measuring trust",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.04749v1",
+      "title": "AI Trust OS -- A Continuous Governance Framework for Autonomous AI Observability and Zero-Trust Compliance in Enterprise Environments",
+      "abstract": "The accelerating adoption of large language models, retrieval-augmented generation pipelines, and multi-agent AI workflows has created a structural governance crisis. Organizations cannot govern what they cannot see, and existing compliance methodologies built for deterministic web applications provide no mechanism for discovering or continuously validating AI systems that emerge across engineering teams without formal oversight. The result is a widening trust gap between what regulators demand as proof of AI governance maturity and what organizations can demonstrate. This paper proposes AI Trust OS, a governance architecture for continuous, autonomous AI observability and zero-trust compliance. AI Trust OS reconceptualizes compliance as an always-on, telemetry-driven operating layer in which AI systems are discovered through observability signals, control assertions are collected by automated probes, and trust artifacts are synthesized continuously. The framework rests on four principles: proactive discovery, telemetry evidence over manual attestation, continuous posture over point-in-time audit, and architecture-backed proof over policy-document trust. The framework operates through a zero-trust telemetry boundary in which ephemeral read-only probes validate structural metadata without ingressing source code or payload-level PII. An AI Observability Extractor Agent scans LangSmith and Datadog LLM telemetry, automatically registering undocumented AI systems and shifting governance from organizational self-report to empirical machine observation. Evaluated across ISO 42001, the EU AI Act, SOC 2, GDPR, and HIPAA, the paper argues that telemetry-first AI governance represents a categorical architectural shift in how enterprise trust is produced and demonstrated.",
+      "authors": [
+        "Eranga Bandara",
+        "Asanga Gunaratna",
+        "Ross Gore",
+        "Abdul Rahman",
+        "Ravi Mukkamala",
+        "Sachin Shetty",
+        "Sachini Rajapakse",
+        "Isurunima Kularathna",
+        "Peter Foytik",
+        "Safdar H. Bouk",
+        "Xueping Liang",
+        "Amin Hass",
+        "Ng Wee Keong",
+        "Kasun De Zoysa"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-04-06T15:14:10+00:00",
+      "link": "https://arxiv.org/pdf/2604.04749v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "continuous validation and zero-trust compliance framework for AI observability",
+      "llm_evidence_cn": "用于AI可观测性的持续验证和零信任合规框架",
+      "llm_evidence": "用于AI可观测性的持续验证和零信任合规框架",
+      "canonical_evidence": "用于AI可观测性的持续验证和零信任合规框架",
+      "llm_tldr_en": "Proposes a governance architecture for continuous validation and observability to bridge the AI trust gap.",
+      "llm_tldr_cn": "提出了一种用于持续验证和可观测性的治理架构，以弥合AI治理中的信任差距。",
+      "llm_tldr": "提出了一种用于持续验证和可观测性的治理架构，以弥合AI治理中的信任差距。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

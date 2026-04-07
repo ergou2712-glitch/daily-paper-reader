@@ -1,0 +1,93 @@
+{
+  "label": "2026-04-07",
+  "date": "2026-04-07",
+  "generated_at": "2026-04-07T20:19:55",
+  "count": 6,
+  "papers": [
+    {
+      "paper_id": "202604/07/2604.03447v1-measuring-llm-trust-allocation-across-conflicting-software-artifacts",
+      "section": "deep",
+      "title_en": "Measuring LLM Trust Allocation Across Conflicting Software Artifacts",
+      "authors": "Noshin Ulfat, Ahsanul Ameen Sabit, Soneya Binta Hossain",
+      "date": "2026-04-03",
+      "pdf": "https://arxiv.org/pdf/2604.03447v1",
+      "score": "9.0",
+      "evidence": "测量跨软件制品的信任分配与校准评估框架",
+      "tldr": "本研究针对 LLM 在软件工程中面对代码、文档和测试冲突时信任分配不明的问题，提出了 TRACE 评估框架。该框架通过对 Java 方法构件进行盲扰动，评估模型在质量评估、不一致检测及来源优先级排序方面的表现。研究发现，虽然模型能较好地识别文档错误，但在代码实现发生细微偏移时存在显著盲点，且置信度校准普遍较差。这一贡献揭示了模型在处理多源冲突时的局限性，强调了显式信任推理的重要性。",
+      "tags": "query:q5",
+      "abstract_en": "LLM-based software engineering assistants fail not only by producing incorrect outputs, but also by allocating trust to the wrong artifact when code, documentation, and tests disagree. Existing evaluations focus mainly on downstream outcomes and therefore cannot reveal whether a model recognized degraded evidence, identified the unreliable source, or calibrated its trust across artifacts. We present TRACE (Trust Reasoning over Artifacts for Calibrated Evaluation), a framework that elicits structured artifact-level trust traces over Javadoc, method signatures, implementations, and test prefixes under blind perturbations. Using 22,339 valid traces from seven models on 456 curated Java method bundles, we evaluate per-artifact quality assessment, inconsistency detection, affected artifact attribution, and source prioritization. Across all models, quality penalties are largely localized to the perturbed artifact and increase with severity, but sensitivity is asymmetric across artifact types: documentation bugs induce a substantially larger heavy-to-subtle gap than implementation faults (0.152-0.253 vs. 0.049-0.123). Models detect explicit documentation bugs well (67-94%) and Javadoc and implementation contradictions at 50-91%, yet show a systematic blind spot when only the implementation drifts while the documentation remains plausible, with detection dropping by 7-42 percentage points. Confidence is poorly calibrated for six of seven models. These findings suggest that current LLMs are better at auditing natural-language specifications than at detecting subtle code-level drift, motivating explicit artifact-level trust reasoning before correctness-critical downstream use.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/07/2604.03976v1-quantifying-trust-financial-risk-management-for-trustworthy-ai-agents",
+      "section": "deep",
+      "title_en": "Quantifying Trust: Financial Risk Management for Trustworthy AI Agents",
+      "authors": "Wenyue Hua, Tianyi Peng, Chi Wang, Ian Kaufman, Bryan Lim, Chandler Fang",
+      "date": "2026-04-05",
+      "pdf": "https://arxiv.org/pdf/2604.03976v1",
+      "score": "9.0",
+      "evidence": "通过金融风险管理指标量化AI智能体的信任",
+      "tldr": "随着AI演变为处理支付和资产的自主智能体，传统的模型内部安全措施已不足以应对随机行为带来的风险。本文提出了“智能体风险标准（ARS）”，这是一种借鉴金融承保的风险管理框架。ARS将风险评估、承保和补偿整合到交易中，当智能体出现执行失败或偏离意图时，为用户提供合同保障的经济补偿。该研究通过模拟实验证明了ARS在提升社会效益和建立可量化信任方面的潜力，将信任从隐式预期转变为显式的产品保证。",
+      "tags": "query:q4",
+      "abstract_en": "Prior work on trustworthy AI emphasizes model-internal properties such as bias mitigation, adversarial robustness, and interpretability. As AI systems evolve into autonomous agents deployed in open environments and increasingly connected to payments or assets, the operational meaning of trust shifts to end-to-end outcomes: whether an agent completes tasks, follows user intent, and avoids failures that cause material or psychological harm. These risks are fundamentally product-level and cannot be eliminated by technical safeguards alone because agent behavior is inherently stochastic. To address this gap between model-level reliability and user-facing assurance, we propose a complementary framework based on risk management. Drawing inspiration from financial underwriting, we introduce the \\textbf{Agentic Risk Standard (ARS)}, a payment settlement standard for AI-mediated transactions. ARS integrates risk assessment, underwriting, and compensation into a single transaction framework that protects users when interacting with agents. Under ARS, users receive predefined and contractually enforceable compensation in cases of execution failure, misalignment, or unintended outcomes. This shifts trust from an implicit expectation about model behavior to an explicit, measurable, and enforceable product guarantee. We also present a simulation study analyzing the social benefits of applying ARS to agentic transactions. ARS's implementation can be found at https://github.com/t54-labs/AgenticRiskStandard.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/07/2604.04120v1-shorter-but-still-trustworthy-an-empirical-study-of-chain-of-thought-compression",
+      "section": "deep",
+      "title_en": "Shorter, but Still Trustworthy? An Empirical Study of Chain-of-Thought Compression",
+      "authors": "Lingjie Zeng, Xiaofan Chen, Yanbo Wang, Xiuying Chen",
+      "date": "2026-04-05",
+      "pdf": "https://arxiv.org/pdf/2604.04120v1",
+      "score": "9.0",
+      "evidence": "从安全性、抗幻觉和鲁棒性三个维度评估模型的可信度",
+      "tldr": "本研究针对长思维链（Long-CoT）模型的压缩问题，首次系统性地探讨了压缩对模型可信度（安全性、抗幻觉、多语言鲁棒性）的影响。通过对多种规模模型的实证研究，发现现有压缩方法在提升效率的同时往往会导致可信度显著下降。为此，研究者提出了归一化效率评分标准，并开发了一种对齐感知的DPO变体，在减少19.3%推理长度的同时，有效缓解了可信度损失，强调了在压缩设计中平衡效率与可信度的重要性。",
+      "tags": "query:profile-1",
+      "abstract_en": "Long chain-of-thought (Long-CoT) reasoning models have motivated a growing body of work on compressing reasoning traces to reduce inference cost, yet existing evaluations focus almost exclusively on task accuracy and token savings. Trustworthiness properties, whether acquired or reinforced through post-training, are encoded in the same parameter space that compression modifies. This means preserving accuracy does not, a priori, guarantee preserving trustworthiness. We conduct the first systematic empirical study of how CoT compression affects model trustworthiness, evaluating multiple models of different scales along three dimensions: safety, hallucination resistance, and multilingual robustness. Under controlled comparisons, we find that CoT compression frequently introduces trustworthiness regressions and that different methods exhibit markedly different degradation profiles across dimensions. To enable fair comparison across bases, we propose a normalized efficiency score for each dimension that reveals how naïve scalar metrics can obscure trustworthiness trade-offs. As an existence proof, we further introduce an alignment-aware DPO variant that reduces CoT length by 19.3\\% on reasoning benchmarks with substantially smaller trustworthiness loss. Our findings suggest that CoT compression should be optimized not only for efficiency but also for trustworthiness, treating both as equally important design constraints.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/07/2604.00449v2-convergence-of-byzantine-resilient-gradient-tracking-via-probabilistic-edge-dropout",
+      "section": "deep",
+      "title_en": "Convergence of Byzantine-Resilient Gradient Tracking via Probabilistic Edge Dropout",
+      "authors": "Amirhossein Dezhboro, Fateme Maleki, Arman Adibi, Erfan Amini, Jose E. Ramirez-Marquez",
+      "date": "2026-04-01",
+      "pdf": "https://arxiv.org/pdf/2604.00449v2",
+      "score": "8.0",
+      "evidence": "针对对抗性通信的双指标信任评分",
+      "tldr": "本研究针对分布式网络中拜占庭节点的恶意攻击问题，提出了基于概率边缘丢弃的梯度追踪方法（GT-PD）。该方法通过自我中心投影限制消息范围，并利用双指标信任评分实现去中心化的概率丢弃，从而在抵御攻击的同时保留了双随机混合结构。针对持续性扰动，进一步引入漏积分器（GT-PD-L）以控制误差累积。理论证明了其线性收敛性，实验显示在多种攻击下性能显著优于传统鲁棒聚合算法。",
+      "tags": "query:q4",
+      "abstract_en": "We study distributed optimization over networks with Byzantine agents that may send arbitrary adversarial messages. We propose \\emph{Gradient Tracking with Probabilistic Edge Dropout} (GT-PD), a stochastic gradient tracking method that preserves the convergence properties of gradient tracking under adversarial communication. GT-PD combines two complementary defense layers: a universal self-centered projection that clips each incoming message to a ball of radius $τ$ around the receiving agent, and a fully decentralized probabilistic dropout rule driven by a dual-metric trust score in the decision and tracking channels. This design bounds adversarial perturbations while preserving the doubly stochastic mixing structure, a property often lost under robust aggregation in decentralized settings. Under complete Byzantine isolation ($p_b=0$), GT-PD converges linearly to a neighborhood determined solely by stochastic gradient variance. For partial isolation ($p_b>0$), we introduce \\emph{Gradient Tracking with Probabilistic Edge Dropout and Leaky Integration} (GT-PD-L), which uses a leaky integrator to control the accumulation of tracking errors caused by persistent perturbations and achieves linear convergence to a bounded neighborhood determined by the stochastic variance and the clipping-to-leak ratio. We further show that under two-tier dropout with $p_h=1$, isolating Byzantine agents introduces no additional variance into the honest consensus dynamics. Experiments on MNIST under Sign Flip, ALIE, and Inner Product Manipulation attacks show that GT-PD-L outperforms coordinate-wise trimmed mean by up to 4.3 percentage points under stealth attacks.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/07/2604.03451v1-do-robots-need-body-language-comparing-communication-modalities-for-legible-motion-intent-in-human-shared-spaces",
+      "section": "quick",
+      "title_en": "Do Robots Need Body Language? Comparing Communication Modalities for Legible Motion Intent in Human-Shared Spaces",
+      "authors": "Jonathan Albert Cohen, Kye Shimizu, Allen Song, Vishnu Bharath, Kent Larson, Pattie Maes",
+      "date": "2026-04-03",
+      "pdf": "https://arxiv.org/pdf/2604.03451v1",
+      "score": "7.0",
+      "evidence": "测量沟通方式如何影响对机器人的信任",
+      "tldr": "本研究探讨了在共享空间中，机器人如何通过不同通信模态提高其运动意图的可解释性。研究人员以波士顿动力公司的Spot机器人为对象，通过在线视频实验对比了肢体语言（表达性运动）、灯光、文本和音频四种模态。实验涵盖四种常见导航场景，重点衡量了这些模态对人类预测准确性、置信度及安全信任感的影响。研究贡献了关于隐式与显式信号策略在提升人机交互透明度方面的初步证据。",
+      "tags": "query:q3",
+      "abstract_en": "Robots in shared spaces often move in ways that are difficult for people to interpret, placing the burden on humans to adapt. High-DoF robots exhibit motion that people read as expressive, intentionally or not, making it important to understand how such cues are perceived. We present an online video study evaluating how different signaling modalities, expressive motion, lights, text, and audio, shape people's ability to understand a quadruped robot's upcoming navigation actions (Boston Dynamics Spot). Across four common scenarios, we measure how each modality influences humans' (1) accuracy in predicting the robot's next navigation action, (2) confidence in that prediction, and (3) trust in the robot to act safely. The study tests how expressive motions compare to explicit channels, whether aligned multimodal cues enhance interpretability, and how conflicting cues affect user confidence and trust. We contribute initial evidence on the relative effectiveness of implicit versus explicit signaling strategies.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/07/2604.04749v1-ai-trust-os----a-continuous-governance-framework-for-autonomous-ai-observability-and-zero-trust-compliance-in-enterprise-environments",
+      "section": "quick",
+      "title_en": "AI Trust OS -- A Continuous Governance Framework for Autonomous AI Observability and Zero-Trust Compliance in Enterprise Environments",
+      "authors": "Eranga Bandara, Asanga Gunaratna, Ross Gore, Abdul Rahman, Ravi Mukkamala, Sachin Shetty, Sachini Rajapakse, Isurunima Kularathna, Peter Foytik, Safdar H. Bouk, Xueping Liang, Amin Hass, Ng Wee Keong, Kasun De Zoysa",
+      "date": "2026-04-06",
+      "pdf": "https://arxiv.org/pdf/2604.04749v1",
+      "score": "6.0",
+      "evidence": "用于AI可观测性的持续验证和零信任合规框架",
+      "tldr": "针对企业中大模型和多智能体工作流带来的治理危机，本文提出了 AI Trust OS 框架。该框架通过零信任遥测边界和自动化探测技术，实现了对 AI 系统的持续发现、实时观测与合规性验证。它将治理从传统的手动报告转向基于遥测数据的自动化证明，有效弥合了监管要求与企业实际治理能力之间的差距，为 ISO 42001 和欧盟 AI 法案等标准提供了技术支撑。",
+      "tags": "query:q5",
+      "abstract_en": "The accelerating adoption of large language models, retrieval-augmented generation pipelines, and multi-agent AI workflows has created a structural governance crisis. Organizations cannot govern what they cannot see, and existing compliance methodologies built for deterministic web applications provide no mechanism for discovering or continuously validating AI systems that emerge across engineering teams without formal oversight. The result is a widening trust gap between what regulators demand as proof of AI governance maturity and what organizations can demonstrate. This paper proposes AI Trust OS, a governance architecture for continuous, autonomous AI observability and zero-trust compliance. AI Trust OS reconceptualizes compliance as an always-on, telemetry-driven operating layer in which AI systems are discovered through observability signals, control assertions are collected by automated probes, and trust artifacts are synthesized continuously. The framework rests on four principles: proactive discovery, telemetry evidence over manual attestation, continuous posture over point-in-time audit, and architecture-backed proof over policy-document trust. The framework operates through a zero-trust telemetry boundary in which ephemeral read-only probes validate structural metadata without ingressing source code or payload-level PII. An AI Observability Extractor Agent scans LangSmith and Datadog LLM telemetry, automatically registering undocumented AI systems and shifting governance from organizational self-report to empirical machine observation. Evaluated across ISO 42001, the EU AI Act, SOC 2, GDPR, and HIPAA, the paper argues that telemetry-first AI governance represents a categorical architectural shift in how enterprise trust is produced and demonstrated.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
