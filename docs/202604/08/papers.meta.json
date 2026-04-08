@@ -1,0 +1,79 @@
+{
+  "label": "2026-04-08",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T20:40:42",
+  "count": 5,
+  "papers": [
+    {
+      "paper_id": "202604/08/2604.05658v1-how-much-trust-is-enough-towards-calibrating-trust-in-technology",
+      "section": "deep",
+      "title_en": "How Much Trust is Enough? Towards Calibrating Trust in Technology",
+      "authors": "Gabriela Beltrão, Debora F. de Souza, Sonia Sousa, David Lamas",
+      "date": "2026-04-07",
+      "pdf": "https://arxiv.org/pdf/2604.05658v1",
+      "score": "10.0",
+      "evidence": "使用人机信任量表进行信任倾向评估的解释",
+      "tldr": "随着技术日益自主和不透明，用户难以理解系统局限性，导致信任校准变得至关重要。本研究通过实证研究，利用人机信任量表（HCTS）评估用户的信任倾向，并制定了结果解释指南。研究贡献在于为HCI领域提供了实用的信任评估工具和解释框架，强调在特定交互背景下进行信任校准的重要性，以确保用户对技术持有适度的信任。",
+      "tags": "query:q5",
+      "abstract_en": "The role of trust within Human-Computer Interaction is being redefined. With the increasing omnipresence, autonomy, and opacity of technology, users often struggle to understand the capabilities and limitations of systems. In this article, we present the results of an empirical study designed to provide a practical, evidence-based interpretation of trust propensity assessment using the Human-Computer Trust Scale (HCTS). We outline the process used to develop a guideline for interpreting the instrument's results and explain the rationale for our decisions, advocating for calibrating trust in technology within HCI. Our findings demonstrate that the HCTS is a promising tool for conducting an initial evaluation of propensity to trust, but that such an assessment requires reflection and interpretation that should be considered within the context of the interaction.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/08/2604.05952v1-towards-trustworthy-report-generation-a-deep-research-agent-with-progressive-confidence-estimation-and-calibration",
+      "section": "deep",
+      "title_en": "Towards Trustworthy Report Generation: A Deep Research Agent with Progressive Confidence Estimation and Calibration",
+      "authors": "Yi Yuan, Xuhong Wang, Shanzhe Lei",
+      "date": "2026-04-07",
+      "pdf": "https://arxiv.org/pdf/2604.05952v1",
+      "score": "8.0",
+      "evidence": "测量认知置信度以评估可信度",
+      "tldr": "针对深度研究智能体在生成报告时缺乏可信度评估的问题，本文提出一种具备渐进式置信度估计与校准功能的新型智能体。该系统通过深层检索和多跳推理将输出锚定在可验证证据上，并为每个声明分配置信度分数。实验证明，该方法显著提升了报告的透明度、可解释性及用户信任度，为生成式研究报告的可信度评估提供了新方案。",
+      "tags": "query:q5",
+      "abstract_en": "As agent-based systems continue to evolve, deep research agents are capable of automatically generating research-style reports across diverse domains. While these agents promise to streamline information synthesis and knowledge exploration, existing evaluation frameworks-typically based on subjective dimensions-fail to capture a critical aspect of report quality: trustworthiness. In open-ended research scenarios where ground-truth answers are unavailable, current evaluation methods cannot effectively measure the epistemic confidence of generated content, making calibration difficult and leaving users susceptible to misleading or hallucinated information. To address this limitation, we propose a novel deep research agent that incorporates progressive confidence estimation and calibration within the report generation pipeline. Our system leverages a deliberative search model, featuring deep retrieval and multi-hop reasoning to ground outputs in verifiable evidence while assigning confidence scores to individual claims. Combined with a carefully designed workflow, this approach produces trustworthy reports with enhanced transparency. Experimental results and case studies demonstrate that our method substantially improves interpretability and significantly increases user trust.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/08/2604.05485v1-auditable-agents",
+      "section": "quick",
+      "title_en": "Auditable Agents",
+      "authors": "Yi Nian, Aojie Yuan, Haiyue Zhang, Jiate Li, Yue Zhao",
+      "date": "2026-04-07",
+      "pdf": "https://arxiv.org/pdf/2604.05485v1",
+      "score": "7.0",
+      "evidence": "定义了从可信证据中审计行为的维度和指标",
+      "tldr": "随着LLM智能体在现实世界中执行任务，其行为的可追责性变得至关重要。本文提出“没有审计性就没有问责制”的观点，定义了审计性的五个维度（动作可恢复性、生命周期覆盖等）和三类机制（检测、执行、恢复）。通过对开源项目的安全评估、运行时开销测试及恢复实验，证明了当前系统审计能力的不足及提升审计性的可行性，并提出了审计卡片和未来研究方向。",
+      "tags": "query:q5",
+      "abstract_en": "LLM agents call tools, query databases, delegate tasks, and trigger external side effects. Once an agent system can act in the world, the question is no longer only whether harmful actions can be prevented--it is whether those actions remain answerable after deployment. We distinguish accountability (the ability to determine compliance and assign responsibility), auditability (the system property that makes accountability possible), and auditing (the process of reconstructing behavior from trustworthy evidence). Our claim is direct: no agent system can be accountable without auditability.   To make this operational, we define five dimensions of agent auditability, i.e., action recoverability, lifecycle coverage, policy checkability, responsibility attribution, and evidence integrity, and identify three mechanism classes (detect, enforce, recover) whose temporal information-and-intervention constraints explain why, in practice, no single approach suffices. We support the position with layered evidence rather than a single benchmark: lower-bound ecosystem measurements suggest that even basic security prerequisites for auditability are widely unmet (617 security findings across six prominent open-source projects); runtime feasibility results show that pre-execution mediation with tamper-evident records adds only 8.3 ms median overhead; and controlled recovery experiments show that responsibility-relevant information can be partially recovered even when conventional logs are missing. We propose an Auditability Card for agent systems and identify six open research problems organized by mechanism class.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/08/2604.05593v1-label-effects-shared-heuristic-reliance-in-trust-assessment-by-humans-and-llm-as-a-judge",
+      "section": "quick",
+      "title_en": "Label Effects: Shared Heuristic Reliance in Trust Assessment by Humans and LLM-as-a-Judge",
+      "authors": "Xin Sun, Di Wu, Sijing Qin, Isao Echizen, Abdallah El Ali, Saku Sugawara",
+      "date": "2026-04-07",
+      "pdf": "https://arxiv.org/pdf/2604.05593v1",
+      "score": "7.0",
+      "evidence": "人类与大模型评委的信任评估",
+      "tldr": "本研究探讨了 LLM 作为自动评估者的可靠性，重点分析了来源标签对信任判断的影响。通过反事实实验设计，研究发现人类和 LLM 在面对相同内容时，均对标记为“人类创作”的信息表现出更高的信任度。通过眼动追踪和模型内部状态分析，揭示了两者都将标签视为关键的启发式线索。这一发现揭示了模型对齐可能引入的人类偏见，为开发去偏见的评估方法提供了重要依据。",
+      "tags": "query:q5",
+      "abstract_en": "Large language models (LLMs) are increasingly used as automated evaluators (LLM-as-a-Judge). This work challenges its reliability by showing that trust judgments by LLMs are biased by disclosed source labels. Using a counterfactual design, we find that both humans and LLM judges assign higher trust to information labeled as human-authored than to the same content labeled as AI-generated. Eye-tracking data reveal that humans rely heavily on source labels as heuristic cues for judgments. We analyze LLM internal states during judgment. Across label conditions, models allocate denser attention to the label region than the content region, and this label dominance is stronger under Human labels than AI labels, consistent with the human gaze patterns. Besides, decision uncertainty measured by logits is higher under AI labels than Human labels. These results indicate that the source label is a salient heuristic cue for both humans and LLMs. It raises validity concerns for label-sensitive LLM-as-a-Judge evaluation, and we cautiously raise that aligning models with human preferences may propagate human heuristic reliance into models, motivating debiased evaluation and alignment.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/08/2604.05826v1-reciprocal-trust-and-distrust-in-artificial-intelligence-systems-the-hard-problem-of-regulation",
+      "section": "quick",
+      "title_en": "Reciprocal Trust and Distrust in Artificial Intelligence Systems: The Hard Problem of Regulation",
+      "authors": "Martino Maggetti",
+      "date": "2026-04-07",
+      "pdf": "https://arxiv.org/pdf/2604.05826v1",
+      "score": "6.0",
+      "evidence": "讨论了使人工智能值得信赖的因素以及互惠信任关系",
+      "tldr": "本文探讨了人工智能监管中信任与不信任的复杂动态。研究指出，AI系统应被视为具有一定代理能力的实体，能够与人类建立互惠的信任关系。文章分析了这种双向信任对监管者的挑战，并识别了未来AI治理中亟待解决的关键矛盾与困境，为完善AI监管框架提供了理论支撑。",
+      "tags": "query:profile-1",
+      "abstract_en": "Policy makers, scientists, and the public are increasingly confronted with thorny questions about the regulation of artificial intelligence (AI) systems. A key common thread concerns whether AI can be trusted and the factors that can make it more trustworthy in front of stakeholders and users. This is indeed crucial, as the trustworthiness of AI systems is fundamental for both democratic governance and for the development and deployment of AI. This article advances the discussion by arguing that AI systems should also be recognized, as least to some extent, as artifacts capable of exercising a form of agency, thereby enabling them to engage in relationships of trust or distrust with humans. It further examines the implications of these reciprocal trust dynamics for regulators tasked with overseeing AI systems. The article concludes by identifying key tensions and unresolved dilemmas that these dynamics pose for the future of AI regulation and governance.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

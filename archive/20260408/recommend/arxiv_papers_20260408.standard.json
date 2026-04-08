@@ -1,0 +1,203 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-08T20:39:42.200456+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2604.05658v1",
+      "title": "How Much Trust is Enough? Towards Calibrating Trust in Technology",
+      "abstract": "The role of trust within Human-Computer Interaction is being redefined. With the increasing omnipresence, autonomy, and opacity of technology, users often struggle to understand the capabilities and limitations of systems. In this article, we present the results of an empirical study designed to provide a practical, evidence-based interpretation of trust propensity assessment using the Human-Computer Trust Scale (HCTS). We outline the process used to develop a guideline for interpreting the instrument's results and explain the rationale for our decisions, advocating for calibrating trust in technology within HCI. Our findings demonstrate that the HCTS is a promising tool for conducting an initial evaluation of propensity to trust, but that such an assessment requires reflection and interpretation that should be considered within the context of the interaction.",
+      "authors": [
+        "Gabriela Beltrão",
+        "Debora F. de Souza",
+        "Sonia Sousa",
+        "David Lamas"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC"
+      ],
+      "published": "2026-04-07T09:58:49+00:00",
+      "link": "https://arxiv.org/pdf/2604.05658v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "interpretation of trust propensity assessment using the Human-Computer Trust Scale",
+      "llm_evidence_cn": "使用人机信任量表进行信任倾向评估的解释",
+      "llm_evidence": "使用人机信任量表进行信任倾向评估的解释",
+      "canonical_evidence": "使用人机信任量表进行信任倾向评估的解释",
+      "llm_tldr_en": "Provides a practical guideline for interpreting results from the Human-Computer Trust Scale (HCTS).",
+      "llm_tldr_cn": "为解释人机信任量表 (HCTS) 的结果提供了实用的证据支持指南。",
+      "llm_tldr": "为解释人机信任量表 (HCTS) 的结果提供了实用的证据支持指南。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.05952v1",
+      "title": "Towards Trustworthy Report Generation: A Deep Research Agent with Progressive Confidence Estimation and Calibration",
+      "abstract": "As agent-based systems continue to evolve, deep research agents are capable of automatically generating research-style reports across diverse domains. While these agents promise to streamline information synthesis and knowledge exploration, existing evaluation frameworks-typically based on subjective dimensions-fail to capture a critical aspect of report quality: trustworthiness. In open-ended research scenarios where ground-truth answers are unavailable, current evaluation methods cannot effectively measure the epistemic confidence of generated content, making calibration difficult and leaving users susceptible to misleading or hallucinated information. To address this limitation, we propose a novel deep research agent that incorporates progressive confidence estimation and calibration within the report generation pipeline. Our system leverages a deliberative search model, featuring deep retrieval and multi-hop reasoning to ground outputs in verifiable evidence while assigning confidence scores to individual claims. Combined with a carefully designed workflow, this approach produces trustworthy reports with enhanced transparency. Experimental results and case studies demonstrate that our method substantially improves interpretability and significantly increases user trust.",
+      "authors": [
+        "Yi Yuan",
+        "Xuhong Wang",
+        "Shanzhe Lei"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-04-07T14:46:26+00:00",
+      "link": "https://arxiv.org/pdf/2604.05952v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "measuring epistemic confidence for trustworthiness",
+      "llm_evidence_cn": "测量认知置信度以评估可信度",
+      "llm_evidence": "测量认知置信度以评估可信度",
+      "canonical_evidence": "测量认知置信度以评估可信度",
+      "llm_tldr_en": "Introduces confidence estimation and calibration to measure the trustworthiness of research agents.",
+      "llm_tldr_cn": "引入置信度估计和校准来衡量研究代理的可信度。",
+      "llm_tldr": "引入置信度估计和校准来衡量研究代理的可信度。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.05485v1",
+      "title": "Auditable Agents",
+      "abstract": "LLM agents call tools, query databases, delegate tasks, and trigger external side effects. Once an agent system can act in the world, the question is no longer only whether harmful actions can be prevented--it is whether those actions remain answerable after deployment. We distinguish accountability (the ability to determine compliance and assign responsibility), auditability (the system property that makes accountability possible), and auditing (the process of reconstructing behavior from trustworthy evidence). Our claim is direct: no agent system can be accountable without auditability.   To make this operational, we define five dimensions of agent auditability, i.e., action recoverability, lifecycle coverage, policy checkability, responsibility attribution, and evidence integrity, and identify three mechanism classes (detect, enforce, recover) whose temporal information-and-intervention constraints explain why, in practice, no single approach suffices. We support the position with layered evidence rather than a single benchmark: lower-bound ecosystem measurements suggest that even basic security prerequisites for auditability are widely unmet (617 security findings across six prominent open-source projects); runtime feasibility results show that pre-execution mediation with tamper-evident records adds only 8.3 ms median overhead; and controlled recovery experiments show that responsibility-relevant information can be partially recovered even when conventional logs are missing. We propose an Auditability Card for agent systems and identify six open research problems organized by mechanism class.",
+      "authors": [
+        "Yi Nian",
+        "Aojie Yuan",
+        "Haiyue Zhang",
+        "Jiate Li",
+        "Yue Zhao"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-04-07T06:25:49+00:00",
+      "link": "https://arxiv.org/pdf/2604.05485v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Defines dimensions and metrics for auditing behavior from trustworthy evidence",
+      "llm_evidence_cn": "定义了从可信证据中审计行为的维度和指标",
+      "llm_evidence": "定义了从可信证据中审计行为的维度和指标",
+      "canonical_evidence": "定义了从可信证据中审计行为的维度和指标",
+      "llm_tldr_en": "Proposes a framework for agent auditability to ensure accountability through trustworthy evidence.",
+      "llm_tldr_cn": "提出了智能体可审计性框架，通过可信证据确保问责制。",
+      "llm_tldr": "提出了智能体可审计性框架，通过可信证据确保问责制。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.05826v1",
+      "title": "Reciprocal Trust and Distrust in Artificial Intelligence Systems: The Hard Problem of Regulation",
+      "abstract": "Policy makers, scientists, and the public are increasingly confronted with thorny questions about the regulation of artificial intelligence (AI) systems. A key common thread concerns whether AI can be trusted and the factors that can make it more trustworthy in front of stakeholders and users. This is indeed crucial, as the trustworthiness of AI systems is fundamental for both democratic governance and for the development and deployment of AI. This article advances the discussion by arguing that AI systems should also be recognized, as least to some extent, as artifacts capable of exercising a form of agency, thereby enabling them to engage in relationships of trust or distrust with humans. It further examines the implications of these reciprocal trust dynamics for regulators tasked with overseeing AI systems. The article concludes by identifying key tensions and unresolved dilemmas that these dynamics pose for the future of AI regulation and governance.",
+      "authors": [
+        "Martino Maggetti"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CY"
+      ],
+      "published": "2026-04-07T12:57:16+00:00",
+      "link": "https://arxiv.org/pdf/2604.05826v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Discusses factors making AI trustworthy and reciprocal trust relationships",
+      "llm_evidence_cn": "讨论了使人工智能值得信赖的因素以及互惠信任关系",
+      "llm_evidence": "讨论了使人工智能值得信赖的因素以及互惠信任关系",
+      "canonical_evidence": "讨论了使人工智能值得信赖的因素以及互惠信任关系",
+      "llm_tldr_en": "Explores the conceptual framework of reciprocal trust between humans and AI agents for regulation.",
+      "llm_tldr_cn": "探讨了人类与AI智能体之间互惠信任的概念框架，以支持监管讨论。",
+      "llm_tldr": "探讨了人类与AI智能体之间互惠信任的概念框架，以支持监管讨论。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.05593v1",
+      "title": "Label Effects: Shared Heuristic Reliance in Trust Assessment by Humans and LLM-as-a-Judge",
+      "abstract": "Large language models (LLMs) are increasingly used as automated evaluators (LLM-as-a-Judge). This work challenges its reliability by showing that trust judgments by LLMs are biased by disclosed source labels. Using a counterfactual design, we find that both humans and LLM judges assign higher trust to information labeled as human-authored than to the same content labeled as AI-generated. Eye-tracking data reveal that humans rely heavily on source labels as heuristic cues for judgments. We analyze LLM internal states during judgment. Across label conditions, models allocate denser attention to the label region than the content region, and this label dominance is stronger under Human labels than AI labels, consistent with the human gaze patterns. Besides, decision uncertainty measured by logits is higher under AI labels than Human labels. These results indicate that the source label is a salient heuristic cue for both humans and LLMs. It raises validity concerns for label-sensitive LLM-as-a-Judge evaluation, and we cautiously raise that aligning models with human preferences may propagate human heuristic reliance into models, motivating debiased evaluation and alignment.",
+      "authors": [
+        "Xin Sun",
+        "Di Wu",
+        "Sijing Qin",
+        "Isao Echizen",
+        "Abdallah El Ali",
+        "Saku Sugawara"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-04-07T08:43:30+00:00",
+      "link": "https://arxiv.org/pdf/2604.05593v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "trust assessment by humans and LLM-as-a-judge",
+      "llm_evidence_cn": "人类与大模型评委的信任评估",
+      "llm_evidence": "人类与大模型评委的信任评估",
+      "canonical_evidence": "人类与大模型评委的信任评估",
+      "llm_tldr_en": "Analyzes how source labels bias trust assessments in both humans and automated LLM judges.",
+      "llm_tldr_cn": "分析了来源标签如何偏向人类和自动大模型评委的信任评估。",
+      "llm_tldr": "分析了来源标签如何偏向人类和自动大模型评委的信任评估。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

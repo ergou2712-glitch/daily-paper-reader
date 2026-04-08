@@ -6,40 +6,37 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-07
-- 运行时间：2026-04-07 20:19:45 UTC
+- 最新运行日期：2026-04-08
+- 运行时间：2026-04-08 20:40:32 UTC
 - 运行状态：成功
-- 本次总论文数：6
-- 精读区：4
-- 速读区：2
+- 本次总论文数：5
+- 精读区：2
+- 速读区：3
 
 ### 今日简报（AI）
-今日聚焦 AI 信任度量，深度解析了 LLM 在软件冲突处理与金融风险管理中的核心表现。
-重点推荐量化 AI 智能体金融风险的框架，以及评估模型在矛盾软件信息中如何分配信任的研究。
-建议开发者与金融从业者关注 AI 治理体系，提升自动化决策的透明度与合规性。
-- 详情：[/202604/07/README](/202604/07/README)
+今日聚焦 AI 信任校准与高可信智能体，深度研读了从技术信任边界到可审计架构的 5 篇前沿成果。
+重点推荐通过渐进式置信度评估提升研究智能体可靠性的方案，并警惕人类与 LLM 在信任判断中存在的共同偏见。
+建议
+- 详情：[/202604/08/README](/202604/08/README)
 
 ### 精读区论文标签
-1. [Measuring LLM Trust Allocation Across Conflicting Software Artifacts](/202604/07/2604.03447v1-measuring-llm-trust-allocation-across-conflicting-software-artifacts)  
-   标签：评分：9.0/10、query:q5
-   evidence：测量跨软件制品的信任分配与校准评估框架
-2. [Quantifying Trust: Financial Risk Management for Trustworthy AI Agents](/202604/07/2604.03976v1-quantifying-trust-financial-risk-management-for-trustworthy-ai-agents)  
-   标签：评分：9.0/10、query:q4
-   evidence：通过金融风险管理指标量化AI智能体的信任
-3. [Shorter, but Still Trustworthy? An Empirical Study of Chain-of-Thought Compression](/202604/07/2604.04120v1-shorter-but-still-trustworthy-an-empirical-study-of-chain-of-thought-compression)  
-   标签：评分：9.0/10、query:profile-1
-   evidence：从安全性、抗幻觉和鲁棒性三个维度评估模型的可信度
-4. [Convergence of Byzantine-Resilient Gradient Tracking via Probabilistic Edge Dropout](/202604/07/2604.00449v2-convergence-of-byzantine-resilient-gradient-tracking-via-probabilistic-edge-dropout)  
-   标签：评分：8.0/10、query:q4
-   evidence：针对对抗性通信的双指标信任评分
+1. [How Much Trust is Enough? Towards Calibrating Trust in Technology](/202604/08/2604.05658v1-how-much-trust-is-enough-towards-calibrating-trust-in-technology)  
+   标签：评分：10.0/10、query:q5
+   evidence：使用人机信任量表进行信任倾向评估的解释
+2. [Towards Trustworthy Report Generation: A Deep Research Agent with Progressive Confidence Estimation and Calibration](/202604/08/2604.05952v1-towards-trustworthy-report-generation-a-deep-research-agent-with-progressive-confidence-estimation-and-calibration)  
+   标签：评分：8.0/10、query:q5
+   evidence：测量认知置信度以评估可信度
 
 ### 速读区论文标签
-1. [Do Robots Need Body Language? Comparing Communication Modalities for Legible Motion Intent in Human-Shared Spaces](/202604/07/2604.03451v1-do-robots-need-body-language-comparing-communication-modalities-for-legible-motion-intent-in-human-shared-spaces)  
-   标签：评分：7.0/10、query:q3
-   evidence：测量沟通方式如何影响对机器人的信任
-2. [AI Trust OS -- A Continuous Governance Framework for Autonomous AI Observability and Zero-Trust Compliance in Enterprise Environments](/202604/07/2604.04749v1-ai-trust-os----a-continuous-governance-framework-for-autonomous-ai-observability-and-zero-trust-compliance-in-enterprise-environments)  
-   标签：评分：6.0/10、query:q5
-   evidence：用于AI可观测性的持续验证和零信任合规框架
+1. [Auditable Agents](/202604/08/2604.05485v1-auditable-agents)  
+   标签：评分：7.0/10、query:q5
+   evidence：定义了从可信证据中审计行为的维度和指标
+2. [Label Effects: Shared Heuristic Reliance in Trust Assessment by Humans and LLM-as-a-Judge](/202604/08/2604.05593v1-label-effects-shared-heuristic-reliance-in-trust-assessment-by-humans-and-llm-as-a-judge)  
+   标签：评分：7.0/10、query:q5
+   evidence：人类与大模型评委的信任评估
+3. [Reciprocal Trust and Distrust in Artificial Intelligence Systems: The Hard Problem of Regulation](/202604/08/2604.05826v1-reciprocal-trust-and-distrust-in-artificial-intelligence-systems-the-hard-problem-of-regulation)  
+   标签：评分：6.0/10、query:profile-1
+   evidence：讨论了使人工智能值得信赖的因素以及互惠信任关系
 
 
 <div class="dpr-home-promo-card">
