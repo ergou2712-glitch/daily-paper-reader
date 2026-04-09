@@ -1,0 +1,37 @@
+{
+  "label": "2026-04-09",
+  "date": "2026-04-09",
+  "generated_at": "2026-04-09T21:22:06",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202604/09/2604.07065v1-trust-as-a-service-task-specific-orchestration-for-effective-task-completion-via-model-context-protocol-aided-agentic-ai",
+      "section": "deep",
+      "title_en": "Trust-as-a-Service: Task-Specific Orchestration for Effective Task Completion via Model Context Protocol-Aided Agentic AI",
+      "authors": "Botao Zhu, Xianbin Wang",
+      "date": "2026-04-08",
+      "pdf": "https://arxiv.org/pdf/2604.07065v1",
+      "score": "9.0",
+      "evidence": "对潜在协作节点的准确信任评估",
+      "tldr": "针对网络化系统中分布式设备协作面临的信任评估难题，本文提出“信任即服务”（TaaS）新范式。该范式通过封装复杂的信任机制，实现分布式信任数据的有效利用和任务驱动的协作组织。研究利用模型上下文协议（MCP）构建了智能体AI框架，由中心智能体自主执行信任评估，设备端智能体动态暴露资源。实验证明，该方案在协作伙伴选择上达到100%准确率，显著提升了任务完成的可靠性与资源效率。",
+      "tags": "query:q5",
+      "abstract_en": "As future tasks in networked systems are increasingly relying on collaborative execution among distributed devices, trust has become an essential tool for securing both reliable collaborators and task-specific resources. However, the diverse requirements of different tasks, the limited information of task owners on others, and the complex relationships among networked devices pose significant challenges to achieving timely and accurate trust evaluation of potential collaborators for meeting task-specific needs. To address these challenges, this paper proposes Trust-as-a-Service (TaaS), a novel paradigm that encapsulates complex trust mechanisms into a unified, system-wide service. This paradigm enables efficient utilization of distributed trust-related data, need-driven trust evaluation service provision, and task-specific collaborator organization. To realize TaaS, we develop an agentic AI-based framework as the enabling platform by leveraging the Model Context Protocol (MCP). The central server-side agent autonomously performs trust-related operations in accordance with specific task requirements, delivering the trust assessment service to all task owners through a unified interface. Meanwhile, all device-side agents expose their capabilities and resources via MCP servers, allowing devices to be dynamically discovered, evaluated, engaged, and released, thereby forming task-specific collaborative units. Experimental results demonstrate that the proposed TaaS achieves 100\\% collaborator selection accuracy, along with high reliability and resource-efficient task completion.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/09/2604.06235v1-negotiating-privacy-with-smart-voice-assistants-risk-benefit-and-control-acceptance-tensions",
+      "section": "quick",
+      "title_en": "Negotiating Privacy with Smart Voice Assistants: Risk-Benefit and Control-Acceptance Tensions",
+      "authors": "Molly Campbell, Mohamad Sheikho Al Jasem, Ajay Kumar Shrestha",
+      "date": "2026-04-04",
+      "pdf": "https://arxiv.org/pdf/2604.06235v1",
+      "score": "7.0",
+      "evidence": "在语音助手中量化信任和风险指数",
+      "tldr": "本研究探讨了青少年在使用智能语音助手（SVA）时的隐私决策机制。通过对469名16-24岁加拿大青少年的调查，研究引入了“风险-收益张力指数（RBTI）”和“控制-接受张力指数（CATI）”来量化隐私协商过程。结果表明，这些张力指数能有效预测隐私保护行为，且高频用户往往为了便利而牺牲控制感。该研究将隐私决策视为动态协商而非简单的矛盾，为解释“隐私悖论”提供了新视角和测量工具。",
+      "tags": "query:profile-1",
+      "abstract_en": "Smart Voice assistants (SVAs) are widely adopted by youth, yet privacy decision-making in these environments is often characterized by competing considerations rather than clear-cut preferences. While our prior research has examined privacy risks, benefits, trust, and self-efficacy as distinct predictors of behavior, less attention has been paid to how these factors combine into higher-level tension that shapes privacy outcomes. This study introduces a negotiation-based framework for understanding youth privacy decision-making with SVAs by operationalizing two composite indices: the Risk-Benefit Tension Index (RBTI) and the Control-Acceptance Tension Index (CATI), using survey data from 469 Canadian youth aged 16-24. We examine the distribution of these indices and their relationship with privacy-protective behavior and SVA usage. Results show that both indices are meaningfully associated with protective action. Frequent SVA usage exhibits more benefit-dominant and acceptance-leaning negotiation profiles, suggesting that convenience-driven engagement may come at the expense of perceived control. By reframing privacy decision-making as a process of negotiation rather than inconsistency, this study offers a complementary perspective on the privacy paradox and provides a compact measurement approach for capturing how youth navigate competing privacy pressures in voice-enabled ecosystems.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

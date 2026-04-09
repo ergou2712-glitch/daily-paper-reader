@@ -1,0 +1,90 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-09T21:21:05.072125+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2604.07065v1",
+      "title": "Trust-as-a-Service: Task-Specific Orchestration for Effective Task Completion via Model Context Protocol-Aided Agentic AI",
+      "abstract": "As future tasks in networked systems are increasingly relying on collaborative execution among distributed devices, trust has become an essential tool for securing both reliable collaborators and task-specific resources. However, the diverse requirements of different tasks, the limited information of task owners on others, and the complex relationships among networked devices pose significant challenges to achieving timely and accurate trust evaluation of potential collaborators for meeting task-specific needs. To address these challenges, this paper proposes Trust-as-a-Service (TaaS), a novel paradigm that encapsulates complex trust mechanisms into a unified, system-wide service. This paradigm enables efficient utilization of distributed trust-related data, need-driven trust evaluation service provision, and task-specific collaborator organization. To realize TaaS, we develop an agentic AI-based framework as the enabling platform by leveraging the Model Context Protocol (MCP). The central server-side agent autonomously performs trust-related operations in accordance with specific task requirements, delivering the trust assessment service to all task owners through a unified interface. Meanwhile, all device-side agents expose their capabilities and resources via MCP servers, allowing devices to be dynamically discovered, evaluated, engaged, and released, thereby forming task-specific collaborative units. Experimental results demonstrate that the proposed TaaS achieves 100\\% collaborator selection accuracy, along with high reliability and resource-efficient task completion.",
+      "authors": [
+        "Botao Zhu",
+        "Xianbin Wang"
+      ],
+      "primary_category": "eess.SY",
+      "categories": [
+        "eess.SY"
+      ],
+      "published": "2026-04-08T13:15:28+00:00",
+      "link": "https://arxiv.org/pdf/2604.07065v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "accurate trust evaluation of potential collaborators",
+      "llm_evidence_cn": "对潜在协作节点的准确信任评估",
+      "llm_evidence": "对潜在协作节点的准确信任评估",
+      "canonical_evidence": "对潜在协作节点的准确信任评估",
+      "llm_tldr_en": "Proposes Trust-as-a-Service for task-specific trust evaluation in networked agent systems.",
+      "llm_tldr_cn": "为网络化智能体系统提出了面向任务的信任评估服务框架。",
+      "llm_tldr": "为网络化智能体系统提出了面向任务的信任评估服务框架。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.06235v1",
+      "title": "Negotiating Privacy with Smart Voice Assistants: Risk-Benefit and Control-Acceptance Tensions",
+      "abstract": "Smart Voice assistants (SVAs) are widely adopted by youth, yet privacy decision-making in these environments is often characterized by competing considerations rather than clear-cut preferences. While our prior research has examined privacy risks, benefits, trust, and self-efficacy as distinct predictors of behavior, less attention has been paid to how these factors combine into higher-level tension that shapes privacy outcomes. This study introduces a negotiation-based framework for understanding youth privacy decision-making with SVAs by operationalizing two composite indices: the Risk-Benefit Tension Index (RBTI) and the Control-Acceptance Tension Index (CATI), using survey data from 469 Canadian youth aged 16-24. We examine the distribution of these indices and their relationship with privacy-protective behavior and SVA usage. Results show that both indices are meaningfully associated with protective action. Frequent SVA usage exhibits more benefit-dominant and acceptance-leaning negotiation profiles, suggesting that convenience-driven engagement may come at the expense of perceived control. By reframing privacy decision-making as a process of negotiation rather than inconsistency, this study offers a complementary perspective on the privacy paradox and provides a compact measurement approach for capturing how youth navigate competing privacy pressures in voice-enabled ecosystems.",
+      "authors": [
+        "Molly Campbell",
+        "Mohamad Sheikho Al Jasem",
+        "Ajay Kumar Shrestha"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.CY"
+      ],
+      "published": "2026-04-04T06:35:59+00:00",
+      "link": "https://arxiv.org/pdf/2604.06235v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "operationalizing trust and risk indices in voice assistants",
+      "llm_evidence_cn": "在语音助手中量化信任和风险指数",
+      "llm_evidence": "在语音助手中量化信任和风险指数",
+      "canonical_evidence": "在语音助手中量化信任和风险指数",
+      "llm_tldr_en": "Develops composite indices to measure trust and privacy tensions in smart voice assistant users.",
+      "llm_tldr_cn": "开发了复合指数来衡量智能语音助手用户的信任与隐私博弈。",
+      "llm_tldr": "开发了复合指数来衡量智能语音助手用户的信任与隐私博弈。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
