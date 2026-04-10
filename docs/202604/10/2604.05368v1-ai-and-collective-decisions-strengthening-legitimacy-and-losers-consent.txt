@@ -1,0 +1,736 @@
+Title: AI and Collective Decisions: Strengthening Legitimacy and Losers' Consent
+
+URL Source: https://arxiv.org/pdf/2604.05368v1
+
+Published Time: Wed, 08 Apr 2026 00:30:47 GMT
+
+Number of Pages: 27
+
+Markdown Content:
+# AI and Collective Decisions: Strengthening Legitimacy and Losers’ Consent 
+
+# Suyash Fulay ∗
+
+Massachusetts Institute of Technology Cambridge, Massachusetts, USA sfulay@mit.edu 
+
+# Prerna Ravi ∗
+
+Massachusetts Institute of Technology Cambridge, Massachusetts, USA prernar@mit.edu 
+
+# Emily Kubin 
+
+Oxford University Oxford, United Kingdom emily.kubin@psy.ox.ac.uk 
+
+# Shrestha Mohanty 
+
+Massachusetts Institute of Technology Cambridge, Massachusetts, USA shresmoh@mit.edu 
+
+# Michiel Bakker 
+
+Massachusetts Institute of Technology Cambridge, Massachusetts, USA bakker@mit.edu 
+
+# Deb Roy 
+
+Massachusetts Institute of Technology Cambridge, Massachusetts, USA dkroy@mit.edu 
+
+## Abstract 
+
+AI is increasingly used to scale collective decision-making, but far less attention has been paid to how such systems can support procedural legitimacy, particularly the conditions shaping losers’ consent—whether participants who do not get their preferred out-come still accept it as fair. We ask: (1) how can AI help ground col-lective decisions in participants’ different experiences and beliefs, and (2) whether exposure to these experiences can increase trust, understanding, and social cohesion even when people disagree with the outcome. We built a system that uses a semi-structured AI interviewer to elicit personal experiences on policy topics and an interactive visualization that displays predicted policy support alongside those voiced experiences. In a randomized experiment (n = 181), interacting with the visualization increased perceived legitimacy, trust, and understanding of others’ perspectives—even though all participants encountered decisions that went against their stated preferences. Our hope is that the design and evaluation of this tool spurs future researchers to focus on how AI can help not only achieve scale and efficiency in democratic processes, but also increase trust and connection between participants. 
+
+## CCS Concepts 
+
+• Applied computing → Voting / election technologies ; •
+
+Human-centered computing → Empirical studies in collabo-rative and social computing .
+
+## Keywords 
+
+decision-making, artificial intelligence, collective intelligence, de-liberation  
+
+> ∗Both authors contributed equally to this research. Permission to make digital or hard copies of all or part of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for profit or commercial advantage and that copies bear this notice and the full citation on the first page. Copyrights for components of this work owned by others than the author(s) must be honored. Abstracting with credit is permitted. To copy otherwise, or republish, to post on servers or to redistribute to lists, requires prior specific permission and/or a fee. Request permissions from permissions@acm.org.
+> Conference acronym ’XX, Woodstock, NY
+> ©2018 Copyright held by the owner/author(s). Publication rights licensed to ACM. ACM ISBN 978-1-4503-XXXX-X/2018/06 https://doi.org/XXXXXXX.XXXXXXX
+
+ACM Reference Format: 
+
+Suyash Fulay, Prerna Ravi, Emily Kubin, Shrestha Mohanty, Michiel Bakker, and Deb Roy. 2018. AI and Collective Decisions: Strengthening Legitimacy and Losers’ Consent. In Proceedings of Make sure to enter the correct con-ference title from your rights confirmation email (Conference acronym ’XX). 
+
+ACM, New York, NY, USA, 27 pages. https://doi.org/XXXXXXX.XXXXXXX 
+
+## 1 Introduction 
+
+Interest in using AI, particularly LLMs, to enhance collective decision-making has been growing rapidly. Here, collective decision-making involves groups forming preferences, exchanging information, and converging on shared outcomes whose legitimacy depends on ac-ceptance even among those who disagree and “lose” [ 2, 21 , 50 ]. Prior work shows LLMs can predict voting behavior [ 33 , 37 , 58 , 82 ], analyze large volumes of written opinions [ 26 , 73 ], and surface consensus at scale [ 72 , 76 ]. These ideas are already deployed in practice (e.g., Pol.is) [ 54 , 65 ], but raise concerns that AI may re-place—rather than augment—human participation, risking reduced human agency and civic disengagement [8, 30, 66]. A key challenge in collective decision-making is what political scientists call “losers’ consent”: whether those whose preferred outcome doesn’t prevail still accept it as legitimate [ 1]. Accepting decisions and future engagement depends less on outcomes alone and more on perceived procedural fairness and deliberation quality, suggesting systems should prioritize these process-level factors [ 14 , 75 ]. Existing HCI work has focused on improving deliberation through reflective nudges that encourage perspective-taking [ 83 ,84 , 86 ] and mapping opinion spaces to explore issues’ pros and cons [ 24 , 41 ], but this often flattens participants’ contributions into decontextualized text stripped of their experiences and beliefs [ 40 ]. Also, prior work emphasizes efficient aggregation and consensus, overlooking how the deliberation process itself shapes legitimacy and social cohesion which are key to achieving losers’ consent. Thus, rather than prioritizing consensus, we focus on process elements that help participants, especially dissenters, feel heard, respected, and understand others’ perspectives. Drawing on in-sights from deliberative democracy [ 13 ], social psychology (par-ticularly in bridging moral and political divides [ 39 , 44 ]), and HCI [ 24 , 41 , 83 , 84 , 86 ], we develop and evaluate a scalable collective decision-making system where decisions are supported by real, voice-based participant experiences to foster mutual understanding and trust in both process and outcomes. We use a semi-structured  
+
+> arXiv:2604.05368v1 [cs.HC] 7 Apr 2026 Conference acronym ’XX, June 03–05, 2018, Woodstock, NY Fulay et al.
+
+AI interviewer to capture participants’ backgrounds on several top-ics, predict their support on given issues, and provide an interactive tool to explore how diverse beliefs and experiences relate to the topic across the full support spectrum. Our main contributions are: (1) A tool that supports losers’ consent by grounding outcomes in human voice and experience (2) An empirical study that evaluates this tool’s impact on per-ceptions of process legitimacy, social cohesion, and learning, with a particular focus on supporting losers’ consent To evaluate our system, we ran a 2 × 2 factorial randomized experiment ( 𝑛 = 181 ) with crowd-workers on Prolific on a series of work-related policy topics, where the two factors were participa-tion in an AI interview and viewing a visualization. Topics included minimum wage increases, use of race and gender in hiring, and prioritizing domestic vs foreign workers. Overall, the visualization increased pro-social outcomes: participants reported greater trust, understanding, and perceived legitimacy of decisions, and viewed others as more rational and worthy of respect. However, it did not consistently increase curiosity or willingness to engage with others, as exposure to differing views sometimes highlighted divi-sions—suggesting a need for features that surface common ground and encourage post-decision interaction. As AI becomes embedded in democratic practices, we show that well-designed systems can improve decision quality while strengthening mutual understand-ing among participants, even amid disagreement. 
+
+## 2 Background 2.1 Increasing Trust in Collective Decisions 
+
+2.1.1 Lessons from Deliberative Democracy. How can we increase trust in decision-making? Deliberative democracy offers approaches, where citizens exchange ideas and experiences before deciding [ 13 ]. Citizens’ assemblies show success through diverse representation, face-to-face interaction, and structured dialogue, but are limited in scale [ 31 , 38 , 53 , 68 ]. While our system cannot replicate in-person deliberation, it aims to preserve its key benefits by amplifying hu-man voice and exposing participants to diverse perspectives. 
+
+2.1.2 Bridging Moral and Political Divides. Polarization often stems from moral divides that entrench opposing views [ 5 , 29 , 71 ]. But intervention research shows exposing people to opponents’ per-sonal experiences and reasoning behind their views [ 62 ], emphasiz-ing apolitical commonalities [ 7 ], and leveraging authentic voices over text [ 67 ] can foster tolerance and reduce dehumanization [ 39 , 43 , 45 ]. Accordingly, our system highlights a wide range of beliefs while preserving participants’ voices and backgrounds. 
+
+2.1.3 Losers’ Consent. A key challenge in collective decision-making is whether those who disagree still view decisions as legitimate [ 1]. This depends more on perceived procedural fairness than outcomes. Our work thus focuses on fostering process-level understanding and trust for those on the “losing” side of a decision [85]. 
+
+## 2.2 AI in Collective Decision-Making 
+
+LLM-enabled systems are shifting collective decision-making from preference aggregation to reason-giving and negotiated understand-ing. Tools like Pol.is map opinion clusters and bridge statements at scale [ 56 , 72 ], while LLMs extract rationales and model preferences across diverse groups [ 6, 12 , 74 , 76 ]. Prior HCI work emphasizes preserving human agency and reducing automation bias [ 32 ] by po-sitioning AI as a deliberative partner rather than a decision-maker [28 , 52 ]. Our thus system grounds model predictions in inspectable interview evidence to support auditability. Simultaneously, sus-taining pluralism is crucial, as premature consensus can silence disagreement and weaken legitimacy [ 56 ]. We treat dissent as infor-mationally valuable, use LLMs to surface diverse lived experiences instead of collapsing opinions into a single outcome, and evalu-ate whether this fosters losers’ consent by improving participants’ sense of being heard, reflection, and trust in outcomes [1]. 
+
+## 2.3 HCI and Collective Decision-making 
+
+HCI has long explored interfaces that make large-scale public input navigable, interpretable, and reflective—key to legitimate decision-making—by surfacing underlying rationales alongside outcomes to help evaluate fairness [ 16 ]. Systems like Opinion Space showed that mapping opinion spectra for exploration can increase agreement with and respect for opposing views [ 25 ]. Multi-agent approaches have also been introduced with LLMs to model pluralistic deliber-ation [ 3 ]. Our 2D visualization (see Figure 1) similarly maps par-ticipants across predicted support and curates diverse profiles to encourage perspective-taking. A parallel thread emphasizes structured reflection to enhance deliberation quality [ 83 , 84 ]. Prompting users to articulate pros/-cons and engage with points raised by others can support more thoughtful reasoning [ 41 ]. Beyond mere information access, re-flection nudges that ask participants to clarify their views, adopt an opponent’s perspective, and infer others’ reasons increase atti-tude certainty and willingness to express opinions [ 86 ]. Chatbot-mediated co-design shows that summarizing others’ inputs and prompting perspective-taking can increase willingness to commit to group decisions—even amid disagreement [ 69 ]. These increase deliberativeness [ 84 ] and support higher-quality discourse in in-flammatory online spaces [ 83 ]. Building on this, our system elicits views and experiences via an AI interviewer and embeds reflection prompts to encourage understanding and empathy over rebuttal. Another factor is that platforms often surface opinions with-out contextualizing stakeholder identities, limiting understanding of lived consequences and intra-group variations [ 40 ]. Listening-centered designs such as Reflect that summarize others’ viewpoints increase communication satisfaction and engagement [ 42 ]. Our in-terface centers authentic voice by pairing profiles with lived experi-ences via transcript audio, adds a self-view to enhance transparency and feeling heard [ 42 ], and supports asynchronous participation while surfacing both dominant and minority perspectives [57]. 
+
+## 3 System Design and Implementation 3.1 Objectives 
+
+The design of our collective decision-making system was guided by four primary objectives: ensuring process legitimacy , fostering social cohesion , supporting both individual and collective learning , and enabling a broad scale of participation . The first three were evaluated directly via surveys (subsection 4.3), while scale of participation 
+
+informed our design of how users interacted with the system. AI and Collective Decisions: Strengthening Legitimacy and Losers’ Consent Conference acronym ’XX, June 03–05, 2018, Woodstock, NY 
+
+3.1.1 Process Legitimacy. A core aspect of sustainable democracy is viewing decision-making processes as fair and trustworthy [ 20 , 22 ,34 , 47 ]. People accept decisions more readily when processes seem legitimate—described as "procedural justice" in the legal domain [49, 77, 78]—even when decisions go against their preferences [1]. 
+
+3.1.2 Social Cohesion. Participating in collective decision-making can increase understanding of others and learning about a topic’s di-verse beliefs and experiences. This can reduce inter-group prejudice [ 59 ], though sometimes it may backfire and increase polarization [ 5]. We aimed to design a system encouraging perspective explo-ration while increasing mutual understanding and respect. 
+
+3.1.3 Learning. We aimed to support individual and group learn-ing. Individually, participants should gain clearer understanding of policy issues. Collectively, they should learn from diverse perspec-tives, values, and experiences—helping people form more informed opinions and enabling stronger group decisions [46]. 
+
+3.1.4 Scale of Participation. In-person deliberation often increases process legitimacy and social cohesion but lacks scalability (often only 100-200 participants can join) and is expensive: assemblies can cost hundreds of thousands of dollars [ 36 ]. Our goal was to use LLMs to enable greater, cheaper participation while maintaining process legitimacy and social cohesion. 
+
+## 3.2 User Interface Design 
+
+Our user interface had two parts: an AI interviewer where partic-ipants discussed their experiences on policy topics, and a visual-ization showing predicted positions on these issues based on the interviews. Below, we connect each component to our objectives. 
+
+3.2.1 STEP 0: AI Interview. Traditionally, collective decision-making has faced a trade-off between scale (how many people can partici-pate) and depth (how much nuance their preferences can convey). Achieving mass participation, political equality, and deliberation at once is difficult [ 27 ]. Historically, collecting and analyzing rich qualitative data at large scales has been nearly impossible. LLMs are shifting this constraint by enabling collection and syn-thesis of nuanced qualitative data at scale [ 48 ]. AI-driven interviews can gather deep insights and preferences from large numbers of participants efficiently [ 18 , 58 , 81 ] while adapting to their responses in real-time [ 4 ]. We leveraged this capability using a voice-based AI interviewer that conducted 45-minute interviews with participants about their backgrounds, life experiences, and policy beliefs. We used interviews over surveys to elicit nuanced, personalized expe-riences while ensuring consistency through a deterministic script with predefined questions that limited the agent’s own opinions [ 58 ]. This enabled scalable, uniform data collection of 90+ inter-views in two days—infeasible with human interviewers [58]. The AI interviewer (Figure 1) was adapted from Park et al. (2024) [58 ], prioritizing low latency and voice-to-voice interaction to sim-ulate the feeling of talking to an interviewer. Participants simply spoke their answers; the system automatically detected completion, transcribed speech, and generated the next question vocally. We used interview data to predict participants’ positions on policy proposals and highlight their relevant experiences. Like a semi-structured interview, the LLM began with background questions about the interviewee’s life and then moved to three policy top-ics: minimum wage, race and gender in hiring, and domestic vs foreign hiring. We captured both beliefs and personal experiences grounding them: “Have you or someone close to you ever been im-pacted by immigration policy around work?” and “How do you feel about companies prioritizing local over foreign applicants?” . Check Appendix G for full list of questions and LLM prompts. 
+
+3.2.2 Voting Visualization. After the AI interview, participants ex-plored others’ perspectives and experiences on each policy through a visualization interface. The steps (Figure 1) are outlined below. 
+
+STEP 1: Proposal Voting. Participants first saw a proposal screen with a single policy statement. A transparency cue stated that 
+
+“proposals were generated with an AI model based on interviews of participants in the study.” Participants voted on a 6-point Likert scale (Strongly Disagree → Strongly Agree), avoiding a neutral midpoint to encourage directional commitment. They then pro-vided a free-response justification to elicit reasoning, not just posi-tions—aligning with deliberative principles [ 27 ] and evidence that articulated reasons can reduce misperception and polarization [ 62 ]. 
+
+STEP 2: Showing the User Where They Stand: After initial voting, participants saw a two-dimensional plot visualizing the crowd. Each avatar represents one interviewee, positioned by model derived pre-dicted support (horizontal axis, 0–100%) and experience relevance (vertical axis, how closely their interview concerned lived experi-ences salient to the proposal). We also distinguished stated opinions from concrete lived experiences (see section 3.3.2). A purple dashed line shows mean support for transparency, akin to public polling breakdowns [ 56 , 72 ]. The user’s avatar and prediction appears high-lighted in blue. An inline "Disagree with prediction?" control lets users correct their placement, building on contestability princi-ples [ 51 ] to promote trust. Avatars with pseudonyms humanize the crowd while preserving anonymity, and a left–right color gradient visualizes the opinion landscape. Clicking the blue avatar opens a panel with content from the user’s interview (implementation detailed in section 3.3.2): (i) a Life Story with an LLM-generated bio, clickable transcript excerpts, and synchronized audio from their interview self-introduction, preserving their voice; and (ii) Policy-Relevant Experience section surfacing proposal related experiences with transcript snippets and an LLM summary. This self-view in-creases transparency by showing which excerpts others will see and refreshing users’ memory of what they shared. It clarifies how the system represents everyone while preserving authentic testimony. 
+
+STEP 3: Explore Diverse Perspectives: Participants then see three "featured" avatars in yellow, preselected to represent distinct stances across the predicted-support spectrum with high relevance to the proposal (selection algorithm in section 3.3.2). A dialogue box prompts users to explore all three profiles before proceeding, coun-tering confirmation bias by ensuring exposure to substantively diverse viewpoints. Clicking a featured avatar opens the profile view (voice clips + transcript snippets) with concrete, experience-based rationales [ 39 , 43 ]. Built-in reflection scaffolds ask users to rate “How connected do you feel to Adrian?” and “How do you think Adrian would vote on this policy?” , with optional open-ended expla-nation boxes for perspective-taking. Users may also send optional “connection requests” to continue the conversation. After reviewing Conference acronym ’XX, June 03–05, 2018, Woodstock, NY Fulay et al. Step 0: AI Interview Step 1: Voting 
+
+Step 2: Show user where they stand 
+
+Step 3: Explore Diverse Perspectives 
+
+Step 4: Decision Page 
+
+Figure 1: An overview of the different elements used in our study’s process (Detailed version in Appendix K) AI and Collective Decisions: Strengthening Legitimacy and Losers’ Consent Conference acronym ’XX, June 03–05, 2018, Woodstock, NY 
+
+Figure 2: Procedure for curating data for the visualization 
+
+the three required profiles, participants can explore other avatars freely. This balances scalability with in-depth exposure. Instead of skimming a list of pros and cons, participants hear the reasons behind beliefs [ 39 , 43 ], helping them recognize key arguments and approach other profiles with greater empathy and openness. 
+
+STEP 4: Decision Page: After exploration, users see a final deci-sion screen summarizing the policy outcome: reporting majority vote, resulting decision, and brief justification. An embedded feed-back panel gathers post-decision reflections via Likert questions. These four steps were repeated for each of the three proposals. 
+
+## 3.3 Implementation 
+
+The tool was built using the Django 4.2.5 web framework and hosted on AWS Elastic Beanstalk for easy deployment and scalability. 
+
+3.3.1 AI Interviewer. For the AI interviewer, adapted from Park et al . [58] , we used OpenAI’s Whisper to transcribe speech to text [63 ], GPT-4o to generate responses [ 35 ], and OpenAI’s tts-1 to con-vert those back to speech [ 55 ]. The interview allocated an estimated time for participants’ responses to each question, allowing the LLM to ask follow-ups before proceeding to the next scripted item. 
+
+3.3.2 Voting Visualization. 
+
+Participant Background. Before engaging with policy-related ex-periences, we shared a brief summary of the individual’s back-ground with 1-2 relevant transcript excerpts to help participants understand their story. See Appendix B for LLM life prompts. 
+
+Policy Support and Relevance. Figure 2 shows the steps described below. For the visualization, we wanted to estimate each partici-pant’s support and relevance of their experiences for every policy. 
+
+Step A : We hence began with the full interview transcript and the policy proposal. Step B : Next, GPT-4.1 extracted policy rele-vant utterances from the interview transcript, prioritizing in-depth personal experiences shown to bridge moral and political divides [39 , 44 ]. Step C : GPT-4.1 was prompted with the transcript and pro-posal to rate predicted support (0–100), provide reasoning, and give a confidence score. Asking for reasoning before answers increases accuracy [ 80 ]. We used predictions rather than pre-reported support because LLMs are increasingly used for policy preference estima-tion [ 37 , 58 ]; this also let us test prediction accuracy and examine participant reactions to seeing their own and others’ predictions (most work tests accuracy alone, not responses to predictions in deployment). Though we didn’t isolate this effect, we explored these perceptions in follow-up interviews. We validated predictions against interviewee’s initial stances, finding 82% average accuracy across policies (Appendix A). Step D : A separate prompt scored the extracted utterances from step B on depth, relevance, and the extent to which each reflected an opinion vs. a personal experience. These scores were averaged into a composite "relevance" score. Step E :The support score (Step C) and relevance score (Step D) together determined each participant’s avatar position in the visualization, as well as featured profiles selection. When a user clicks on an avatar, they will see and hear the utterances selected in Step B. See Appendix B for the full set of LLM prompts. 
+
+Featured Profile Selection. Since reviewing every profile was unre-alistic, we guided participants to explore three profiles representing the full support spectrum. We grouped profiles into Low (0–33), Medium (33–66), and High (66–100) Support, then sampled one profile with relevance score ≥ 70 from each category. This ensured participants encountered diverse, high-quality, relevant experiences without results being overly shaped by any single profile set. 
+
+## 4 Methods 4.1 Study Context and Participants 
+
+Our study was IRB-approved with informed consent obtained from all participants. We recruited from Prolific [ 61 ], requiring partici-pants to commit one continuous hour, have desktop access, consent to audio sharing with other participants, and agree to return for a second phase one week later. We filtered for participants with 
+
+> 95% approval ratings on the Prolific platform, currently living in the U.S., and at least one year of work experience. We also used Prolific’s sampling settings to recruit a politically balanced mix of liberal, moderate, and conservative participants. In phase two, we invited participants to “Vote on proposals for how to make workers’ lives better!” Due to our 2 × 2 factorial design, we re-invited phase one participants and recruited new participants who hadn’t done the AI interview, applying the same filters for recruitment as phase one. See Appendix I for demographic break-down. Participants received $10/hour. 
+
+## 4.2 Experimental Design 
+
+We ran a randomized controlled trial ( 𝑛 = 181 ) with four conditions: [Condition A , 𝑛 = 42 ]: Took AI interview and saw voting visualization. Completed all steps from Figure 1. [Condition B , 𝑛 = 48 ]: Took AI interview but did not see voting visualization. Completed steps 0, 1 and 4 from Figure 1. [Condition C , 𝑛 = 44 ]: No AI interview but saw voting visual-ization. Completed steps 1, 2, 3, and 4 from Figure 1. [Condition D , 𝑛 = 47 ]: No AI interview and did not see voting visualization. Completed only steps 1 and 4 from Figure 1. This 2 × 2 factorial design enabled us to examine the effects of both the AI interview and the visualization. Conference acronym ’XX, June 03–05, 2018, Woodstock, NY Fulay et al. 
+
+## 4.3 Measurement Framework 
+
+Our measurement framework has three tiers: domains (high-level goals), concepts (specific aspects within domains), and items (indi-vidual questions). The three domains are tied directly to our system objectives: process legitimacy , social cohesion , and stances and learn-ing . Each domain contained multiple concepts assessed by one or more survey items, which we describe below. Full survey items are in Appendix F and item reliability within each concept is in Appendix E. 
+
+4.3.1 Process Legitimacy. These outcomes capture participants’ perceptions of the fairness and transparency of the decision-making process. They include concepts of 1) trust in the process, 2) willing-ness to comply with resulting decisions, 3) understanding of how decisions were reached, and 4) the extent to which participants felt their voices were heard. 
+
+4.3.2 Social Cohesion. These outcomes reflect the degree to which the process fostered 1) a sense of connection among participants. They include perceptions of 2) rationality and 3) mutual respect, 4) gained insight into diverse viewpoints different from their own, 5) ability to understand the origins of others’ beliefs, 6) respect for pluralism and 7) whether they recognized shared commonalities and felt more 8) curious and 9) willing to engage with other participants. 
+
+4.3.3 Stances and Learning. We measured 1) participants’ stances on policies and 2) their confidence in those stances before and after the process to 3) record changes, and 4) whether they learned something about each of the topics through the process. 
+
+## 5 Study Procedure 
+
+We outline the stages of the study here, and put in parentheses which participant conditions participated in each stage. 
+
+## 5.1 Pre-survey (A, B, C, D) 
+
+Participants were routed from Prolific to Qualtrics for a pre-survey capturing demographics, policy stances (minimum wage, race/gen-der in hiring, domestic vs. foreign hiring), and respect for pluralism. 
+
+## 5.2 Phase One: AI Interview (A, B) 
+
+Participants then logged into the tool platform using their Prolific ID, created their avatar, and took the voice-driven AI interview. 
+
+## 5.3 Phase Two: Voting and Tool Interaction 
+
+Participants voted on three different proposals shown in random or-der: “Race and gender should be used in hiring decisions to combat inequality in the workplace”, “The federal minimum wage should be raised to $30 an hour”, and “Companies should strongly prioritize hiring domestically before considering foreign applicants.” 
+
+5.3.1 Policy Voting (A, B, C, D). Participants first were shown a screen where they were asked to vote on one of the proposals via a six point Likert scale. This screen is shown under step 1 in Figure 1. 
+
+5.3.2 Visualization Interaction (A, C). Participants used the visu-alization for a guided exploration of the other participants’ expe-riences on the topic. After exploring three featured profiles, they could explore other profiles if they desired. See step 3 in Figure 1. 
+
+5.3.3 Decision Page (A, B, C, D). Participants then saw a simulated policy decision page (pass/not pass) and answered questions about their trust in the decision, willingness to abide by it, and understand-ing of others’ stances. A key design choice was participants always saw the final decision go against them. Since individuals scrutinize fairness most when outcomes are unfavorable [ 11 ], this let us assess whether the system could foster trust, acceptance, and cohesion under disagreement, aligning with the democratic importance of "losers’ consent" [ 1]. To align outcomes with the visualization, we precomputed biased profile sets so mean predicted support matched the displayed result during 5.3.2. For example, raising the minimum wage supporters saw profiles with aggregate support opposing it, with the visualization showing the policy didn’t pass; opponents saw the inverse distribution. This ensured comparable experiences across conditions and controlled for variation in participant stance. Full profile sampling details are in Appendix C. 
+
+## 5.4 Post-survey 
+
+Finally, participants returned to Qualtrics for the post-survey, which repeated the pre-survey stance and pluralism questions and added questions on process trust and social cohesion (from subsection 4.3). 
+
+## 5.5 Data Collection 
+
+5.5.1 Surveys. Participants completed Qualtrics surveys in two places: a pre-survey at the beginning (subsection 5.1) and a post-survey at the end (subsection 5.4). Questions primarily used seven-point Likert scales with optional text boxes for elaboration. 
+
+5.5.2 Interviews. To examine experiences across conditions, the two lead authors conducted 22 semi-structured Zoom interviews (20–30 mins each), recruited via post-survey opt-in ($10 incentive). We interviewed eight from Condition A, six from Condition B, four from Condition C, and three from Condition D till we reached thematic saturation. We explored participants’ trust, representation in process, outcome acceptance (especially under disagreement), empathy and connection with others, perceptions of AI’s role in fairness and quality, comfort with the AI interviewer, perspective-taking moments, and factors influencing real-world adoption. 
+
+## 5.6 Quantitative Data Analysis 
+
+5.6.1 Creating Concept Measures. For each concept in subsec-tion 4.3, we asked multiple survey questions to ensure robustness to phrasing effects [ 17 ]. To aggregate into a single concept score, we normalized responses to each question (across all conditions), then averaged the normalized responses within each concept to create a composite concept score for each participant. 
+
+5.6.2 Estimating Treatment Effects. We used a standard regression framework for our 2 × 2 factorial design. For each concept, we used the following model, regressed the concept measure on binary indicators for AI interview completion and visualization viewing, the interaction between the two, and control variables. We con-trolled for demographics (age, gender, income, education, ethnicity, employment status, political orientation), as well as initial policy support, average stance confidence, and respect for pluralism. 
+
+𝑌 𝑖 = 𝛽 0 + 𝛽 1 AI 𝑖 + 𝛽 2 Viz 𝑖 + 𝛽 3 (AI 𝑖 × Viz 𝑖 ) + 𝜸 ⊤X𝑖 (1) AI and Collective Decisions: Strengthening Legitimacy and Losers’ Consent Conference acronym ’XX, June 03–05, 2018, Woodstock, NY 
+
+Figure 3: Coefficients for visualization, AI interview, and their interaction (90% CI). Red: p < 0.1 ; solid markers: p < 0.05 .
+
+In this specification, 𝑌 𝑖 denotes the concept measure for participant 
+
+𝑖 . Binary indicators AI 𝑖 equals 1 if the participant completed an AI interview, 0 otherwise; Viz 𝑖 equals 1 if shown the visualization, 0 otherwise. The interaction term AI 𝑖 × Viz 𝑖 captures joint treatment effects. The vector X𝑖 comprises the control variables described above with coefficient vector 𝜸 measuring their effects. 
+
+5.6.3 Analyzing Item-level Responses. While we focus on concept-level effects in the main manuscript, we also analyzed effects on individual survey items using the same regression but with each item as a single outcome 𝑌 𝑖 . To account for multiple testing within each concept, we applied the Benjamini–Hochberg procedure [9]. 
+
+## 5.7 Qualitative Interview Analysis 
+
+We transcribed and cleaned all 22 interviews, then conducted in-ductive thematic analysis [ 15 , 19 ]. One of the lead authors read each transcript for analytic notes; a second pass generated prelimi-nary codes, refined through discussion with other authors. Related quotes were clustered into high-level categories, themes, and defi-nitions; these were revised until consensus and thematic saturation. We then examined thematic variation across experimental condi-tions, consulting the broader team to validate interpretations. This qualitative analysis contextualized the quantitative survey findings. 
+
+## 6 Quantitative Results 
+
+Results for concepts are in Figure 3. We report the coefficient of the treatment of interest as well as the 90% confidence interval and p-value. Since all outcomes were standardized, coefficients can be interpreted as effect sizes in standard deviation units. 
+
+## 6.1 Visualization 
+
+The visualization enhanced process legitimacy and social cohesion. Participants reported better understanding of decisions ( 𝛽 = 0.77 ,CI = [0.47, 1.07], 𝑝 < .001 , 𝑅 2 
+
+> 𝑎𝑑 𝑗
+
+= 0.18 ) and greater trust in out-comes ( 𝛽 = 0.71 , CI = [0.41, 1.01], 𝑝 < .001 , 𝑅 2 
+
+> 𝑎𝑑 𝑗
+
+= 0.13 ). They showed higher willingness to adhere ( 𝛽 = 0.34 , CI = [0.04, 0.64], 
+
+𝑝 = .06 , 𝑅 2 
+
+> 𝑎𝑑 𝑗
+
+= 0.23 ) and stronger sense that their input mattered (𝛽 = 0.29 , CI = [0.04, 0.54], 𝑝 = .06 , 𝑅 2 
+
+> 𝑎𝑑 𝑗
+
+= 0.21 ), though these effects were smaller. The visualization improved most social cohesion mea-sures, except curiosity about others and willingness to interact with them, we discuss this further in the qualitative section. Participants viewing the visualization reported learning more about the topics (𝛽 = 0.93 , CI = [0.63, 1.23], 𝑝 < .001 , 𝑅 2 
+
+> 𝑎𝑑 𝑗
+
+= 0.28 ) and self-reported shifts in stance ( 𝛽 = 0.32 , CI = [0.02, 0.63], 𝑝 = .08 , 𝑅 2 
+
+> 𝑎𝑑 𝑗
+
+= 0.50 ). However, we found no meaningful visualization effects on actual policy support ( 𝛽 = 0.10 , CI = [ −0.07 , 0.28], 𝑝 = .32 , 𝑅 2 
+
+> 𝑎𝑑 𝑗
+
+= 0.50 ) or stance certainty ( 𝛽 = −0.13 , CI = [ −0.33 , 0.07], 𝑝 = .27 , 𝑅 2 
+
+> 𝑎𝑑 𝑗
+
+= 0.33 ). Though outside our RCT RQs, we report: Conditions A and C explored an average of 4.04 profiles and listened to 358.34 seconds (6 minutes) of audio. Appendix H shows the regression analysis we conducted using these telemetry variables. While audio and profile exploration had limited effects overall, listening to audio increased social connectedness ( 𝛽 = 0.282 , CI = [0.043, 0.521], 𝑝 < 0.1) and self-reported stance changes ( 𝛽 = 0.399 , CI = [0.114, 0.684], 𝑝 <
+
+0.05 ), corroborated by qualitative interviews. 
+
+## 6.2 AI Interview 
+
+The interview did not significantly influence most concepts. How-ever, participants who took the AI interview felt more heard ( 𝛽 =
+
+0.51 , CI = [0.25, 0.76], 𝑝 < .001 , 𝑅 2 
+
+> 𝑎𝑑 𝑗
+
+= 0.21 ) and reported learn-ing more about the topic ( 𝛽 = 0.47 , CI = [0.16, 0.78], 𝑝 = .01 ,
+
+𝑅 2 
+
+> 𝑎𝑑 𝑗
+
+= 0.28 ) and about others ( 𝛽 = 0.29 , CI = [0.02, 0.55], 𝑝 = .07 ,
+
+𝑅 2 
+
+> 𝑎𝑑 𝑗
+
+= 0.47 )—despite the interview eliciting their own beliefs rather than providing information about the topic or others. Reflection on personal beliefs through interviews may have increased self-reported learning. Results for individual survey items are in Ap-pendix F. 
+
+## 6.3 Interaction between Visualization and AI Interview 
+
+While the visualization enhanced trust and learning overall, effects were strongest for participants who did not take the AI interview (𝛽 = −0.53 , CI = [-0.95, -0.11], 𝑝 = .04 , 𝑅 2 
+
+> 𝑎𝑑 𝑗
+
+= 0.13 ) ( 𝛽 = −0.72 , CI = [-1.15, -0.29], 𝑝 = .01 , 𝑅 2 
+
+> 𝑎𝑑 𝑗
+
+= 0.28 ). Similar reductions appeared for respect ( 𝛽 = −0.35 , CI = [-0.70, -0.01], 𝑝 = .09 , 𝑅 2 
+
+> 𝑎𝑑 𝑗
+
+= 0.41 ) and connection ( 𝛽 = −0.50 , CI = [-0.98, -0.02], 𝑝 = .09 , 𝑅 2 
+
+> 𝑎𝑑 𝑗
+
+= 0.22 ). Interestingly, participants who didn’t take the interview showed stronger positive effects from the visualization than those that did (though the overall visualization effect was positive). Perhaps, those interviewed felt more invested in the process and reacted more negatively when decisions went against them. 
+
+## 7 Qualitative Results 
+
+Appendix J outlines interview themes and their definitions. Partici-pant ID’s have been appended with condition type for comparison. 
+
+## 7.1 Social Cohesion 
+
+7.1.1 Social Connection with Other Participants. Participants’ so-cial connectedness, empathy, and openness to engagement varied by how much of people’s life stories they could “hear”. In Condition A , audio functioned as social glue: "Being able to see their background and actually hear their voice made them Conference acronym ’XX, June 03–05, 2018, Woodstock, NY Fulay et al. 
+
+seem like actual real people behind opinions" (A3). Voice conveyed affect and credibility that text couldn’t: "I could really understand their emotions a lot more when I heard audio...it made me relate" 
+
+(A4), deepening empathy toward life histories that "lent a lot more credence" to stances (A4). Participants found commonalities around shared identities or pro–working-class values. However, without two-way exchange, "I don’t feel any connection to a stranger just by hearing a story" (A2); backstories clarified reasoning but rarely shifted positions: "knowing their background helped me understand why they feel that way, but I still disagree" (A4). For those in Condition B , social connection was notably thinner. Many described the experience as opaque or “relationship-less” :with no visibility into others’ viewpoints, they felt disengaged— “I have no insight into what they’re doing” (B3). Still, some expressed a strong desire for engagement features: B6 asked for “an ability to engage with the other voters. . . even a brief session,” or at minimum see “profiles. . . occupation, education, age, gender.” 
+
+In Condition C , hearing others again catalyzed connection, em-pathy, and curiosity, mirroring Condition A . Exposure to others’ stances and reasoning prompted desires for follow-up conversa-tions, though not universally: C4 feared confrontation with oppos-ing views wouldn’t "end. . . positive(ly) for either of us." Backstories also helped participants rethink assumptions; C1, for instance, re-considered their "hire locals first" stance after hearing a healthcare worker describe labor shortages. C4 suggested adding prompts like 
+
+"what resources did you use to form this view?" to avoid over-relying on inferences from biography alone. Social connection was most constrained in Condition D , where participants had no audio or visualization. Without any way to see others, participants called the experience "so impersonal" (D3) and questioned whether other participants were even real: "AI’s gotten so smart, you don’t know." Yet several still wanted to engage: D3 put it plainly that empathy requires knowing: "if this was somebody who had jumped through hoops. . . that would definitely make me. . . sympathize. . . but not knowing." Condition D—while realistic in that many decisions go against one’s beliefs without any input—may have been artificially weak for social cohesion, given participants had no opportunity to engage with or influence the process. 
+
+7.1.2 Rationality, Understanding, and Respect for Others’ Views. 
+
+Participants’ perceptions of the rationality behind diverse opposing views varied by condition, producing different levels of respect. In Condition A , participants articulated concrete criteria for what made others’ views feel rational and worthy of deference: en-gagement with counter-arguments, explicit logic, and links between personal experience and policy. A2 dismissed profiles that "just told me what [they] think" without addressing opposing points; one-off 
+
+"sob stories" were insufficient to justify broad policy choices. A1 similarly distinguished "me-centered" claims (e.g., minimum wage as personal gain) from population-level reasoning (e.g., a nurse’s account of staffing shortages), treating the latter as more valid even without fully shifting their stance. Respect, then, was conditional on perceived depth, counter-positioning, and relevance. In Condition B , without access to others’ reasoning, partici-pants struggled to assess rationality and offer informed respect. B3 noted that both the interview and voting phases "flattened nuance" 
+
+into binary outcomes, reducing people to numbers; B5 wanted to see "the arguments for their side" when decisions diverged; and B6 described peers well-meaning but "not fully thought out" on down-stream effects such as the small-business impacts of a $30 minimum wage. Respect was affirmed as a norm, but judgments of rationality remained hypothetical without concrete justifications. In Condition C , respect was anchored in how claims were jus-tified. It rose when decisions were traceable : linking individuals’ stances to concrete constraints made positions legible and reason-able (C2). Other participants flagged when peers conflated concepts (e.g., treating inflation and minimum wage as the same) or leaned on dated gender norms (C4). In Condition D , participants adopted an accepting but skeptical stance. When outcomes contradicted expectations, initial disbelief shifted into a desire for justification: "I would want to know their reasoning. . . it might be a legitimate reason and persuade me" (D2). Because "everybody was a blank table," they didn’t presume to know others’ stories, leaving room for doubt and treating opposing views as potentially valid given unseen life circumstances (D3). 
+
+## 7.2 Process Legitimacy 
+
+7.2.1 Participant Voice in the Process. While all participants en-gaged in interviews, voting, or both, feeling "heard" varied markedly depending on the mechanisms available to their condition. 
+
+Condition A offered both expressive and visible outlets for par-ticipation, but participants diverged on whether these adequately conveyed their voices. Some described the process as "really fair" ,valuing the reciprocity of mutual opinion voting (A4). Others re-mained uncertain, troubled by the lack of feedback on whether their specific avatar had actually been seen by atleast some partici-pants. This uncertainty bled into broader democratic frustration: 
+
+"you spend so much time and energy reading about different policies and then you go vote. . . and then, you know, no matter what. . . it felt like none of it even mattered" (A4), suggesting perceptions of voice were inseparable from larger narratives of political efficacy. In Condition B , the interview was personally validating: "I did feel heard. . . I really did" (B2) yet broader ambiguity persisted. B3 noted however that limited transparency around voting left them "between neutral and frustrated," and B5 tied their sense of voice directly to outcomes: "When it went my way. . . they must have listened. But if it failed. . . I wouldn’t feel that I was heard." Others regretted the inability to exchange experiences, particularly on sensitive topics like affirmative action where personal narratives felt sidelined without dialogue (B6). In Condition C , voting was the primary mechanism of voice. Participants appreciated that "my vote counted just as much as ev-eryone else" (C1) and the collective agency: "we all had a voice, we all had ability to make a choice, a decision" (C2). Yet some felt asymmet-rically disadvantaged relative to those who had given interviews: 
+
+"The only thing I was able to do was to vote yes or no. But I think with them being able to speak gave meat to their vote" (C2). Some also pushed for options to reform aspects of proposals: "If there was checkboxes of what you would like to see move forward with it that would make it more apt to everybody" (C4). In Condition D , due to the absence of both expressive input and visible aggregation, participants described the process as hollow: AI and Collective Decisions: Strengthening Legitimacy and Losers’ Consent Conference acronym ’XX, June 03–05, 2018, Woodstock, NY 
+
+"Wow. I really didn’t [feel heard]. I was like, okay, this is some bull" 
+
+(D2)—making this the most exclusionary condition. Participants thus equated feeling heard with opportunities for expression and transparency (seeing how contributions were used). 
+
+7.2.2 Process Clarity and Explanations. Participants evaluated legit-imacy through two lenses: can I see how this decision was produced? 
+
+and does what I see feel fair, even when it goes against me? 
+
+In Condition A , several participants trusted the process as rec-ognizable democratic choice: "basically just voting. . . the decision was what the majority wanted. . . fair it is what it is" (A3). Yet cracks appeared when outcomes conflicted with expectations. Some spec-ulated that vote percentages "were not real," before concluding that 
+
+"hearing myself" convinced them genuine participant profiles had been shown (A7). Others called for procedural transparency to shore up legitimacy: guarantees that each profile would reach a minimum number of voters (A1), "a sentence or two about why it didn’t pass" (A8), and avenues to revise proposals. In Condition B , without visualization, many described the sys-tem as a "black box" that "it’s rigged" and can "manipulate" reactions (B1). They wanted to know "how my answers would affect every-thing," "who said yes, who said no," and to "chat back and forth" 
+
+to understand others’ reasoning (B3). Some rejected decisions as illegitimate, asking for tallies, counterarguments, and factual ac-companiments (B4). Others exhibited outcome-dependent trust: 
+
+"when it passed, great; when it fails, I question legitimacy" and called for a "trustworthy seal of approval" to ground the process (B5). In Condition C , seeing the vote was the primary engine of legitimacy: "I could see how people voted. . . usually you don’t get to see, you only know the outcome," . Others accepted majority rule even when it didn’t favor them: "it actually happens all the time, it just doesn’t always work in your favor" (C3). Still, some worried that quick voting failed to capture considered views, and wanted ways to weigh pros and cons or revisit their own choices (C4). In Condition D , trust was predictably lowest. D1 wanted to understand "how the AI was programmed" and its biases; another wanted reasons: "they not giving me nothing to go on. If it gave me more with a percentage, I would have believed it more and could be persuaded" (D2). The process thus felt opaque and unconvincing. Participants thus converged on: (1) visibility on who voted and how; (2) explanations synthesizing why a proposal passed or failed, ideally in participants’ own words; and (3) assurances on vetted process and options to revote. 
+
+7.2.3 Conditional Willingness to Comply. Across conditions, will-ingness to abide by outcomes depended less on agreement and more on whether decisions felt justified and transparent. Several rejected "bare majority" rationales: "The only explanation is ‘because the majority of people supported this, thus we decided to pass.’ That’s not a reason. . . You didn’t say anything about if it’s good for business or not" (A2). Others tied compliance to their community collectively backing the system. Some framed it as civic duty: "I’m a rule fol-lower. . . I might not agree with it, but if you don’t have a choice" (A6), while D3 emphasized honoring outcomes alongside recourse: "I have to honor and respect it. Can I protest it? Can I write letters? Yes." 
+
+7.2.4 Future Contexts for Using this Process. Participants distin-guished clearly between contexts where they would welcome the tool and where they would resist it, based on transparency, stakes, and opportunities for dialogue. Many were comfortable with civic or community use, seeing it as inclusive and low-friction. A7 high-lighted its promise for local decision-making that surfaces under-represented voices without forcing public confrontation, while warning that anonymity can backfire if results seem fabricated or controlled by unseen actors. A9 saw potential for building civic dialogue: simply creating space to listen can foster a more com-passionate community. Municipal elections served as a legitimacy benchmark: public counts, identifiable officials, and media scrutiny led participants in conditions B and D to caution that obscuring decision processes invites suspicion. Participants thus saw strong fit for participatory civic use, but only with evidence trails, credible oversight, and avenues to question outcomes. 
+
+## 7.3 Stances and Learning 
+
+Participants described the process as a gateway to diverse perspec-tives, but how much those perspectives shifted opinions depended on whether they could both see others and trace their reasoning. In Condition A , hearing others reframed disagreement as sit-uational rather than adversarial— "it wasn’t really about somebody being right or wrong. . . it was about their own perspective from where they are in their life," which "made me really appreciate their opinion a lot more than I normally might" (A4). A6 said hearing varied age groups "put things into perspective" on the cost-of-living implica-tions of a $30 minimum wage. Others described no shift but a more holistic understanding: "it’s a collectivistic sort of view, but it’s still individualized for me" (A7). Several wished to re-vote after exposure: 
+
+"I might change some of my answers. . . not dramatically" (A9), with A4 noting others were "starting to, like, even sway my opinion" .In Condition B , limited exposure muted learning and led to little movement: "everything was so opaque. . . once I was done. . . I kind of just forgot about it." The core barrier was lack of access to others’ views: B3 repeatedly asked to "hear what the other participants had said" since sharing could reveal "we may all be feeling the same way. . . just [with] a little bit more nuance." B5 wanted opposing arguments to make sense of disagreement; B6 argued these topics aren’t "black and white" and called for dialog before voting. 
+
+Condition C again created fertile exposure, producing both shifts and reinforcement. Some explicitly changed their minds after hearing sector-specific work experiences; others found the process reinforced prior views by clarifying both "flaws" and "strengths" (C4) without ultimately shifting them. C4 also offered a critical reading of what she saw as pessimistic stances, noting some "project[ed] their disdain for the things that they went through" rather than reasoning from broader grounds. Several emphasized that hearing actual voices and seeing multiple perspectives prompted deeper reflection on weighing both sides even without changing a vote. In Condition D , exposure was weakest but still nudged meta-level openness. D1 noted that seeing their opinion go against the majority "made me question my stance" and would "help with the acceptance portion." D2 felt they needed to "hear people and their experience," wanting numbers and reasons to explain divergence. Opinion shift was thus most likely when participants could hear lived context as opposed to obscuring others’ thinking. Conference acronym ’XX, June 03–05, 2018, Woodstock, NY Fulay et al. 
+
+## 7.4 Role of AI in the Process 
+
+Participants saw clear value in AI but emphasized oversight and transparency. Many found it easier than a human who might judge them (A4, B2), but still "like a person" (A6). Some avoided sensitive topics over anonymity concerns (B3) or missed emotional nuance (A8). For the visualization, participants endorsed AI for scalability and aggregation (A1), viewing it as potentially fairer than humans if trained on diverse input (D2). Core concerns centered on opacity and fidelity: participants wanted to know how the system was built and tested for bias (D1), worried about "black box" summaries dis-torting intent (C4) or leaning ideologically (B5), and feared AI might 
+
+"change my words" (A5), preferring verification against transcripts (D3). Participants thus positioned AI for collection and synthesis, not as final decision-maker especially in high-stakes contexts. 
+
+## 8 Discussion 
+
+Our goal was to design a system strengthening process condi-tions to help participants feel heard, respected, and willing to ac-cept decisions even when they go against them. We examine how AI-powered tools can enhance trust, understanding, and recogni-tion across diverse experiences. We built on best practices from HCI [ 40 , 41 , 84 , 86 ], social psychology [ 39 , 44 ], and deliberation [ 13 , 31 , 68 ], centering authentic experiences while achieving scale via semi-structured AI interviews and LLM extraction of relevant experiences. We discuss our tool’s impact on losers’ consent objec-tives and identify areas for improvement and future work. 
+
+## 8.1 Impact on Process Trust and Legitimacy 
+
+Previous work identified trust as a challenge in public deliberation platforms, with Kriplean et al . [41] noting participants “wanted to know more about the people who were adding the points.” Pro-cess trust and legitimacy are crucial for accepting disagreeable outcomes. Our visualization addressed this: participants valued hearing backgrounds and seeing the support spectrum. However, qualitative feedback revealed limits: procedural options like ability to repeal/reform decisions were lacking. Future work could blend our approach with tools for iterative consensus refinement [76]. Both the AI interview and visualization increased whether par-ticipants felt heard. However, some doubted their avatars would ac-tually be viewed by others, limiting representation impact. Features like showing profile views could address this but risk encouraging performative input, like polarizing rhetoric attracting engagement on social media [ 64 ]. Balancing authentic expression with genuine recognition is an important direction for future research. 
+
+## 8.2 Impact on Social Cohesion 
+
+Participants using the visualization reported higher social cohe-sion on most measures. To support this, we incorporated reflective prompts after hearing others’ input [ 84 , 86 ]. Unlike prior text-based online deliberation systems [ 24 , 40 , 41 , 72 ], we included real voice audio. Participants valued hearing tone and cadence, which im-proved perceptions of others. Amid concerns about LLM-fabricated text, unedited audio ensured authenticity and provenance. This addresses Kriplean et al . [41] ’s finding that participants want more context: hearing backgrounds before policy views helped grasp underlying reasoning, addressing deliberative systems’ common tendency to strip contextual richness [ 40 ]. Research also shows participants in online deliberations object to content deemed false, misleading, or insufficiently persuasive [ 41 ]. While our visualiza-tion had strong positive effects on respect and perceived rationality, reception varied. Content connecting personal experiences to pol-icy implications or engaging counter-arguments was well-received; one-off anecdotes were sometimes seen as self-centered. This raises questions for better connecting personal experiences effective at bridging divides [44] to concrete policy outcomes. While most social cohesion measures improved, participants did 
+
+not report significantly greater willingness to engage with others. Though hearing personal experiences encouraged this for some, others felt uncertain if further interaction would succeed with very different perspectives. We saw no full "backfire" effect, but recogniz-ing diversity didn’t universally lead to more positive impressions. 
+
+## 8.3 Impact on Stances and Learning 
+
+Learning from others’ perspectives and updating opinions based on this information is central to productive deliberation [ 13 , 31 ]. We adopted HCI approaches like mapping agreement spectrums [ 24 ]and reflection nudges for perspective-taking [ 83 , 84 ]. Participants viewing our visualization reported learning about the topic and small self-reported stance shifts, though pre/post measurements showed no actual policy support changes. Instead, participants 
+
+understood others’ perspectives, broadening their views without meaningful stance shifts. Some clarified and reflected on their own stances, even when unchanged. We believe prioritizing openness to different perspectives [ 23 ] over persuasion is important for future deliberative technologies, especially on controversial issues. 
+
+## 9 Limitations 9.1 Study Limitations 
+
+While our 2 × 2 design examined the AI interviewer and visualiza-tion’s impact, we couldn’t isolate individual visualization features such as support distribution displays, types of background infor-mation, presentation of experiences vs. beliefs, or audio vs. text modalities. Our learning measure relied on self-reports, capturing perceived understanding but potentially missing objective learning from seeing others’ viewpoints. Future work could use more direct measures like search-as-learning methods [ 79 ]. The complexity and cost of data collection limited sample size and statistical power. Our study only examined “losing” scenarios, when outcomes didn’t align with preferences, so findings don’t generalize to participants whose preferred outcome prevailed. Conducting ablation studies across all these factors was infeasible. Future studies can examine how randomizing outcomes influences trust, legitimacy, and social connection. Our aim was to demonstrate how AI can implement established HCI best practices in a functional, scalable system. 
+
+## 9.2 Platform Limitations 
+
+Participants appreciated the AI interviewer’s affordances (7.4) but acknowledged privacy risks. AI interviews can carry social and perceptual biases from voice, timing, and embodiment [ 10 ]; we used the same female voice as prior work [ 58 ] but didn’t study gen-der/accent effects on interactions. Our study focused on inferring interview content rather than human-agent interaction dynamics. AI and Collective Decisions: Strengthening Legitimacy and Losers’ Consent Conference acronym ’XX, June 03–05, 2018, Woodstock, NY 
+
+Future work should examine implications of deploying AI inter-viewers with these characteristics in decision-making settings. Our visualization drew on deliberative democracy practices: ex-posing and encouraging holistic understanding of diverse perspec-tives and hearing others’ views in their own words. However, back-and-forth dialogue and expert learning phases were absent. Given privacy risks with real voice recordings, future iterations could inte-grate watermarking, provenance indicators, or prosody-preserving anonymization. Though reducing support and experience to single dimensions aids interpretability, it simplifies inherent nuance in each, underscoring the need for richer encodings in the future. While our platform cannot replace fully deliberative processes, it demonstrates how AI can enhance trust in collective decisions, pro-cess legitimacy, and social connectedness—fundamental building blocks of healthy democracy [ 34 , 47 , 78 ]. With trust in institutions and other citizens near all-time lows [ 60 , 70 ], technology strength-ening these connections is crucial. This work could inspire future research using technology to enhance collective decision-making. 
+
+## References 
+
+[1] Christopher J. Anderson, André Blais, Shaun Bowler, Todd Donovan, and Ola Listhaug. 2005. Losers’ Consent: Elections and Democratic Legitimacy . Oxford University Press. doi:10.1093/0199276382.001.0001 [2] Kenneth Joseph Arrow. 1983. Collected papers of Kenneth J. Arrow: Social choice and justice . Vol. 1. Harvard University Press. [3] Joshua Ashkinaze, Emily Fry, Narendra Edara, Eric Gilbert, and Ceren Budak. 2025. Plurals: A system for guiding llms via simulated social ensembles. In 
+
+Proceedings of the 2025 CHI Conference on Human Factors in Computing Systems .1–21. [4] Fynn Bachmann, Daan van der Weijden, Lucien Heitz, Cristina Sarasua, and Abraham Bernstein. 2025. Adaptive political surveys and GPT-4: Tackling the cold start problem with simulated user interactions. PLoS One 20, 5 (2025), e0322690. [5] Christopher A. Bail, Lisa P. Argyle, Taylor W. Brown, John P. Bum-pus, Haohan Chen, M. B. Fallin Hunzaker, Jaemin Lee, Marcus Mann, Friedolin Merhout, and Alexander Volfovsky. 2018. Exposure to op-posing views on social media can increase political polarization. Pro-ceedings of the National Academy of Sciences 115, 37 (2018), 9216–9221. arXiv:https://www.pnas.org/doi/pdf/10.1073/pnas.1804840115 doi:10.1073/pnas. 1804840115 [6] Michiel Bakker, Martin Chadwick, Hannah Sheahan, Michael Tessler, Lucy Campbell-Gillingham, Jan Balaguer, Nat McAleese, Amelia Glaese, John Aslanides, Matt Botvinick, et al . 2022. Fine-tuning language models to find agreement among humans with diverse preferences. Advances in neural informa-tion processing systems 35 (2022), 38176–38189. [7] Stefano Balietti, Lise Getoor, Daniel G. Goldstein, and Duncan J. Watts. 2021. Re-ducing opinion polarization: Effects of exposure to similar people with differing political views. Proceedings of the National Academy of Sciences 118, 52 (2021), e2112552118. arXiv:https://www.pnas.org/doi/pdf/10.1073/pnas.2112552118 doi:10.1073/pnas.2112552118 [8] Liz Barry and Joseph Gubbels. 2025. Digital Platforms and Democ-racy: Double-Edged Sword: Values in Governance Technology. https://static1.squarespace.com/static/5ea874746663b45e14a384a4/t/ 6824e8902170402177ae89b0/1747249297047/Conversation+Networks.pdf [9] Yoav Benjamini and Yosef Hochberg. 1995. Controlling the False Discovery Rate: A Practical and Powerful Approach to Multiple Testing. Journal of the Royal Statistical Society. Series B (Methodological) 57, 1 (1995), 289–300. http: //www.jstor.org/stable/2346101 [10] Shreyan Biswas, Ji-Youn Jung, Abhishek Unnam, Kuldeep Yadav, Shreyansh Gupta, and Ujwal Gadiraju. 2024. “Hi. I’m Molly, Your Virtual Interviewer!” Exploring the impact of race and gender in AI-powered virtual interview ex-periences. In Proceedings of the AAAI Conference on Human Computation and Crowdsourcing , Vol. 12. 12–22. [11] Joel Brockner and Batia M. Wiesenfeld. 1996. An integrative framework for explaining reactions to decisions: interactive effects of outcomes and procedures. 
+
+Psychological Bulletin 120, 2 (1996), 189–208. doi:10.1037/0033-2909.120.2.189 [12] Josh Burton, Joon Sung Park, Pranav Arora, John Millet, Ali Farhadi, and Yejin Choi. 2024. How Can AI Automate and Augment Collective Intelligence? arXiv preprint arXiv:2408.03356 (2024). [13] Andre Bächtiger, John S. Dryzek, Jane Mansbridge, and Mark D. Warren. 2018. 
+
+The Oxford Handbook of Deliberative Democracy . Oxford University Press. doi:10. 1093/oxfordhb/9780198747369.001.0001 [14] Christopher Carman. 2010. The process is the reality: Perceptions of procedural fairness and participatory democracy. Political Studies 58, 4 (2010), 731–751. [15] Kathy Charmaz. 2008. Grounded theory as an emergent method. Handbook of emergent methods 155 (2008), 172. [16] Hao-Fei Cheng, Ruotong Wang, Zheng Zhang, Fiona O’Connell, Terrance Gray, F Maxwell Harper, and Haiyi Zhu. 2019. Explaining Decision-Making Algorithms through UI: Strategies to Help Non-Expert Stakeholders. In Proceedings of the 2019 CHI Conference on Human Factors in Computing Systems . ACM, 1–12. [17] Bernard C. K. Choi and Anita W. P. Pak. 2005. A catalog of biases in questionnaires. 
+
+Preventing Chronic Disease 2, 1 (2005), A13. https://www.ncbi.nlm.nih.gov/pmc/ articles/PMC1323316/ Epub 2004 Dec 15. [18] Felix Chopra and Ingar Haaland. 2023. Conducting qualitative interviews with AI. (2023). [19] Juliet M Corbin and Anselm Strauss. 1990. Grounded theory research: Procedures, canons, and evaluative criteria. Qualitative sociology 13, 1 (1990), 3–21. [20] Robert A. Dahl. 1989. Democracy and Its Critics . Yale University Press, New Haven. [21] James H Davis. 2013. Group decision making and quantitative judgments: A consensus model. In Understanding group behavior . Psychology Press, 35–59. [22] David Easton. 1965. A Systems Analysis of Political Life . Wiley, New York. [23] Youmna Farag, Charlotte O. Brand, Jacopo Amidei, Paul Piwek, Tom Stafford, Svetlana Stoyanchev, and Andreas Vlachos. 2022. Opening up Minds with Argu-mentative Dialogues. In Findings of the Association for Computational Linguistics: EMNLP . 4569–4582. https://aclanthology.org/2022.findings-emnlp.335.pdf [24] Siamak Faridani, Ephrat Bitton, Kimiko Ryokai, and Ken Goldberg. 2010. Opinion space: a scalable tool for browsing online comments. In Proceedings of the SIGCHI Conference on Human Factors in Computing Systems (Atlanta, Georgia, USA) (CHI ’10) . Association for Computing Machinery, New York, NY, USA, 1175–1184. doi:10.1145/1753326.1753502 [25] Siamak Faridani, Ephrat Bitton, Kimiko Ryokai, and Ken Goldberg. 2010. Opinion space: a scalable tool for browsing online comments. In Proceedings of the SIGCHI Conference on Human Factors in Computing Systems . 1175–1184. [26] Sara Fish, Paul Gölz, David C. Parkes, Ariel D. Procaccia, Gili Rusak, Itai Shapira, and Manuel Wüthrich. 2025. Generative Social Choice. arXiv:2309.01291 [cs.GT] https://arxiv.org/abs/2309.01291 [27] James S. Fishkin. 2011. 32The Trilemma of Democratic Reform. In When the People Speak: Deliberative Democracy and Public Consultation . Oxford University Press. arXiv:https://academic.oup.com/book/0/chapter/162456365/chapter-ag-pdf/44911898/book_12596_section_162456365.ag.pdf doi:10.1093/acprof:osobl/ 9780199604432.003.0002 [28] George Fragiadakis, Christos Diou, George Kousiouris, and Mara Nikolaidou. 2024. Evaluating Human-AI Collaboration: A Review and Methodological Frame-work. arXiv preprint arXiv:2407.19098 (2024). [29] Jeremy A Frimer, Linda J Skitka, and Matt Motyl. 2017. Liberals and conservatives are similarly motivated to avoid exposure to one another’s opinions. Journal of Experimental Social Psychology 72 (2017), 1–12. [30] Domingo García-Marzá and Patrici Calvo. 2024. Algorithmic Democracy: A Critical Perspective Based on Deliberative Democracy (1 ed.). Springer Cham. XIII+257 pages. doi:10.1007/978-3-031-53015-9 [31] John Gastil et al . 2005. The deliberative democracy handbook: Strategies for effective civic engagement in the twenty-first century . Jossey-Bass. [32] Ben Green and Yiling Chen. 2019. The Principles and Limits of Algorithm-in-the-Loop Decision Making. In Proceedings of the ACM on Human-Computer Interaction , Vol. 3. ACM, 50:1–50:24. [33] Jairo F. Gudiño, Umberto Grandi, and César Hidalgo. 2024. Large Language Models (LLMs) as Agents for Augmented Democracy. Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences 382, 2285 (dec 2024). doi:10.1098/rsta.2024.0100 [34] Marc J. Hetherington. 2005. Why Trust Matters: Declining Political Trust and the Demise of American Liberalism . Princeton University Press. http://www.jstor. org/stable/j.ctv301fkq [35] Aaron Hurst, Adam Lerer, Adam P Goucher, Adam Perelman, Aditya Ramesh, Aidan Clark, AJ Ostrow, Akila Welihinda, Alan Hayes, Alec Radford, et al . 2024. Gpt-4o system card. arXiv preprint arXiv:2410.21276 (2024). [36] Involve. 2024. How much does a citizens’ assembly cost? https://www.involve. org.uk/resources/knowledge-base/how-much-do-participatory-processes-cost/how-much-does-citizens-assembly. Accessed: 2025-08-19. [37] Daniel Jarrett, Miruna Pîslar, Michiel A. Bakker, Michael Henry Tessler, Raphael Köster, Jan Balaguer, Romuald Elie, Christopher Summerfield, and Andrea Tac-chetti. 2025. Language Agents as Digital Representatives in Collective Decision-Making. arXiv:2502.09369 [cs.LG] https://arxiv.org/abs/2502.09369 [38] Christopher F Karpowitz and Chad Raphael. 2014. Deliberation, democracy, and civic forums: Improving equality and publicity . Cambridge University Press. Conference acronym ’XX, June 03–05, 2018, Woodstock, NY Fulay et al. 
+
+[39] Daniel Kessler, Dimitra Dimitrakopoulou, and Deb Roy. 2023. Hearing Personal Experiences Improves Social Evaluations Compared to Personal Opinions, Es-pecially for Polarized Parties. SSRN Electronic Journal (2023). doi:10.2139/ssrn. 4978495 [40] Hyunwoo Kim, Eun-Young Ko, Donghoon Han, Sung-Chul Lee, Simon T. Perrault, Jihee Kim, and Juho Kim. 2019. Crowdsourcing Perspectives on Public Policy from Stakeholders. In Extended Abstracts of the 2019 CHI Conference on Human Factors in Computing Systems (Glasgow, Scotland Uk) (CHI EA ’19) . Association for Computing Machinery, New York, NY, USA, 1–6. doi:10.1145/3290607.3312769 [41] Travis Kriplean, Jonathan Morgan, Deen Freelon, Alan Borning, and Lance Ben-nett. 2012. Supporting reflective public thought with considerit. In Proceedings of the ACM 2012 Conference on Computer Supported Cooperative Work (Seattle, Washington, USA) (CSCW ’12) . Association for Computing Machinery, New York, NY, USA, 265–274. doi:10.1145/2145204.2145249 [42] Travis Kriplean, Michael Toomim, Jonathan Morgan, Alan Borning, and Amy J Ko. 2012. Is this what you meant? Promoting listening on the web with reflect. In proceedings of the SIGCHI conference on human factors in computing systems .1559–1568. [43] Emily Kubin, Kurt J Gray, and Christian von Sikorski. 2023. Reducing political dehumanization by pairing facts with personal experiences. Political Psychology 
+
+44, 5 (2023), 1119–1140. [44] Emily Kubin, Curtis Puryear, Chelsea Schein, and Kurt Gray. 2021. Per-sonal experiences bridge moral and political divides better than facts. Pro-ceedings of the National Academy of Sciences 118, 6 (2021), e2008389118. arXiv:https://www.pnas.org/doi/pdf/10.1073/pnas.2008389118 doi:10.1073/pnas. 2008389118 [45] Emily Kubin, Christian von Sikorski, and Kurt Gray. 2025. Political censorship feels acceptable when ideas seem harmful and false. Political Psychology 46, 2 (2025), 279–299. [46] Helene E Landemore. 2012. Why the many are smarter than the few and why it matters. Journal of Deliberative Democracy 8, 1 (2012). [47] Margaret Levi and Laura Stoker. 2000. Political trust and trustworthiness. Annual Review of Political Science 3 (2000), 475–507. [48] Belinda Z. Li, Alex Tamkin, Noah Goodman, and Jacob Andreas. 2023. Eliciting Human Preferences with Language Models. arXiv:2310.11589 [cs.CL] https: //arxiv.org/abs/2310.11589 [49] E Allan Lind and Tom R Tyler. 1988. The social psychology of procedural justice .Springer Science & Business Media. [50] Christian List and Philip Pettit. 2011. Group agency: The possibility, design, and status of corporate agents . Oxford University Press. [51] Henrietta Lyons, Eduardo Velloso, and Tim Miller. 2021. Conceptualising con-testability: Perspectives on contesting algorithmic decisions. Proceedings of the ACM on Human-Computer Interaction 5, CSCW1 (2021), 1–25. [52] Shuai Ma, Qiaoyi Chen, Xinru Wang, Chengbo Zheng, Zhenhui Peng, Ming Yin, and Xiaojuan Ma. 2025. Towards Human–AI Deliberation: Design and Evaluation of LLM-Empowered Deliberative AI for AI-Assisted Decision-Making. In Proceedings of the 2025 CHI Conference on Human Factors in Computing Systems .ACM. [53] Diana C Mutz. 2006. Hearing the other side: Deliberative versus participatory democracy . Cambridge University Press. [54] James O’Donnell. 2025. A small US city experiments with AI to find out what residents want . https://www.technologyreview.com/2025/04/15/1115125/a-small-us-city-experiments-with-ai-to-find-out-what-residents-want/ Accessed: 2025-09-10. [55] OpenAI. 2025. Text-to-Speech (TTS) models . https://platform.openai.com/docs/ models/tts-1 [56] Aviv Ovadya and Luke Thorburn. 2023. Bridging systems: open problems for countering destructive divisiveness across ranking, recommenders, and gover-nance. arXiv preprint arXiv:2301.09976 (2023). [57] Cassandra Overney, Cassandra Moe, Alvin Chang, and Nabeel Gillani. 2025. BoundarEase: Fostering Constructive Community Engagement to Inform More Equitable Student Assignment Policies. Proceedings of the ACM on Human-Computer Interaction 9, 2 (2025), 1–37. [58] Joon Sung Park, Carolyn Q. Zou, Aaron Shaw, Benjamin Mako Hill, Carrie Cai, Meredith Ringel Morris, Robb Willer, Percy Liang, and Michael S. Bernstein. 2024. Generative Agent Simulations of 1,000 People. arXiv:2411.10109 [cs.AI] https://arxiv.org/abs/2411.10109 [59] Thomas F. Pettigrew and Linda R. Tropp. 2006. A meta-analytic test of intergroup contact theory. Journal of Personality and Social Psychology 90, 5 (2006), 751–783. doi:10.1037/0022-3514.90.5.751 [60] Pew Research Center. 2024. Americans’ Deepening Mistrust of Institutions. 
+
+Trend Magazine (October 17 2024). https://www.pew.org/en/trend/archive/fall-2024/americans-deepening-mistrust-of-institutions [61] Prolific. 2025. Prolific . https://www.prolific.com/ [62] Curtis Puryear and Kurt Gray. 2024. Using “balanced pragmatism” in political discussions increases cross-partisan respect. Journal of Experimental Psychology: General 153, 5 (2024), 1189. [63] Alec Radford, Jong Wook Kim, Tao Xu, Greg Brockman, Christine McLeavey, and Ilya Sutskever. 2023. Robust speech recognition via large-scale weak supervision. In International conference on machine learning . PMLR, 28492–28518. [64] Steve Rathje, Jay J. Van Bavel, and Sander van der Linden. 2021. Out-group animosity drives engagement on social media. Proceed-ings of the National Academy of Sciences 118, 26 (2021), e2024292118. arXiv:https://www.pnas.org/doi/pdf/10.1073/pnas.2024292118 doi:10.1073/pnas. 2024292118 [65] Sebastian Cushing Rodriguez. 2023. Consensus Building in Taiwan, the Poster Child of Digital Democracy . https://democracy-technologies.org/participation/ consensus-building-in-taiwan/ Accessed: 2025-09-10. [66] Deb Roy, Lawrence Lessig, and Audrey Tang. 2025. Beyond Clicks and Com-ments: Leveraging AI for Meaningful Civic Engagement: Conversation Net-works. https://static1.squarespace.com/static/5ea874746663b45e14a384a4/t/ 6824e8902170402177ae89b0/1747249297047/Conversation+Networks.pdf [67] Juliana Schroeder, Michael Kardas, and Nicholas Epley. 2017. The humanizing voice: Speech reveals, and text conceals, a more thoughtful mind in the midst of disagreement. Psychological science 28, 12 (2017), 1745–1762. [68] Maija Setälä and Graham Smith. 2018. Mini-publics and deliberative democracy. In The Oxford Handbook of Deliberative Democracy , André Bächtiger, John Dryzek, Jane Mansbridge, and Mark E. Warren (Eds.). Oxford University Press, Oxford. [69] Joongi Shin, Michael A Hedderich, AndréS Lucero, and Antti Oulasvirta. 2022. Chatbots facilitating consensus-building in asynchronous co-design. In Proceed-ings of the 35th Annual ACM Symposium on User Interface Software and Technology .1–13. [70] Laura Silver, Scott Keeter, Stephanie Kramer, Jordan Lippert, Sofia Hernandez Ra-mones, Alan Cooperman, Chris Baronavski, Bill Webster, Reem Nadeem, and Jana-kee Chavda. 2025. Americans’ Trust in One Another . https://www.pewresearch. org/2025/05/08/americans-trust-in-one-another/ Accessed: 2025-08-18. [71] Linda J Skitka and G Scott Morgan. 2014. The social and political implications of moral conviction. Political psychology 35 (2014), 95–110. [72] Christopher T. Small, Michael Bjorkegren, Timo Erkkilä, Lynette Shaw, and Colin Megill. 2021. Polis: Scaling deliberation by mapping high dimensional opinion spaces. Recerca. Revista de Pensament i Anàlisi 26, 2 (2021), 1–26. doi:10.6035/ recerca.5516 [73] Christopher T. Small, Ivan Vendrov, Esin Durmus, Hadjar Homaei, Eliza-beth Barry, Julien Cornebise, Ted Suzman, Deep Ganguli, and Colin Megill. 2023. Opportunities and Risks of LLMs for Scalable Deliberation with Polis. arXiv:2306.11932 [cs.SI] https://arxiv.org/abs/2306.11932 [74] Christopher T Small, Ivan Vendrov, Esin Durmus, Hadjar Homaei, Elizabeth Barry, Julien Cornebise, Ted Suzman, Deep Ganguli, and Colin Megill. 2023. Opportunities and risks of LLMs for scalable deliberation with Polis. arXiv preprint arXiv:2306.11932 (2023). [75] Jennifer Stromer-Galley and Peter Muhlberger. 2009. Agreement and disagree-ment in group deliberation: Effects on deliberation satisfaction, future engage-ment, and decision legitimacy. Political communication 26, 2 (2009), 173–192. [76] Michael Henry Tessler, Michiel A. Bakker, Daniel Jarrett, Hannah Sheahan, Martin J. Chadwick, Raphael Koster, Georgina Evans, Lucy Campbell-Gillingham, Tantum Collins, David C. Parkes, Matthew Botvinick, and Christopher Summerfield. 2024. AI can help humans find com-mon ground in democratic deliberation. Science 386, 6719 (2024), eadq2852. arXiv:https://www.science.org/doi/pdf/10.1126/science.adq2852 doi:10.1126/science.adq2852 [77] J.W. Thibaut and L. Walker. 1975. Procedural Justice: A Psychological Analysis . L. Erlbaum Associates. https://books.google.com/books?id=2l5_QgAACAAJ [78] TOM R. TYLER. 2006. Why People Obey the Law . Princeton University Press. http://www.jstor.org/stable/j.ctv1j66769 [79] Pertti Vakkari. 2016. Searching as learning: A systematization based on literature. 
+
+Journal of Information Science 42, 1 (2016), 7–18. [80] Jason Wei, Xuezhi Wang, Dale Schuurmans, Maarten Bosma, Brian Ichter, Fei Xia, Ed Chi, Quoc Le, and Denny Zhou. 2023. Chain-of-Thought Prompting Elicits Reasoning in Large Language Models. arXiv:2201.11903 [cs.CL] https: //arxiv.org/abs/2201.11903 [81] Alexander Wuttke, Matthias Aßenmacher, Christopher Klamm, Max Lang, and Fraue Kreuter. 2025. AI conversational interviewing: Transforming surveys with LLMs as adaptive interviewers. In Proceedings of the 9th Joint SIGHUM Workshop on Computational Linguistics for Cultural Heritage, Social Sciences, Humanities and Literature (LaTeCH-CLfL 2025) . 179–204. [82] Joshua C. Yang, Damian Dailisan, Marcin Korecki, Carina I. Hausladen, and Dirk Helbing. 2025. LLM Voting: Human Choices and AI Collective Decision-Making. In Proceedings of the 2024 AAAI/ACM Conference on AI, Ethics, and Society (San Jose, California, USA) (AIES ’24) . AAAI Press, 1696–1708. [83] ShunYi Yeo, Zhuoqun Jiang, Anthony Tang, and Simon Tangi Perrault. 2025. Enhancing Deliberativeness: Evaluating the Impact of Multimodal Reflection Nudges. In Proceedings of the 2025 CHI Conference on Human Factors in Computing Systems . 1–26. [84] Shun Yi Yeo, Gionnieve Lim, Jie Gao, Weiyu Zhang, and Simon Tangi Perrault. 2024. Help Me Reflect: Leveraging Self-Reflection Interface Nudges to Enhance AI and Collective Decisions: Strengthening Legitimacy and Losers’ Consent Conference acronym ’XX, June 03–05, 2018, Woodstock, NY         
+
+> Deliberativeness on Online Deliberation Platforms. In Proceedings of the 2024 CHI Conference on Human Factors in Computing Systems . ACM. [85] Weiyu Zhang. 2015. Perceived procedural fairness in deliberation: Predictors and effects. Communication Research 42, 3 (2015), 345–364. [86] Weiyu Zhang, Tian Yang, and Simon Tangi Perrault. 2021. Nudge for Reflection: More Than Just a Channel to Political Knowledge. In Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems (Yokohama, Japan) (CHI ’21) .Association for Computing Machinery, New York, NY, USA, Article 705, 10 pages. doi:10.1145/3411764.3445274
+
+## A Predicted Support Validation 
+
+We computed the accuracy, correlation, and MAE of the LLM pre-dicted support and what participants voted prior to interacting with the interface and making a final decision. To compute the accuracy, we simply binarized both the initial vote and predicted support. Above fifty on predicted support we considered to be positive, and below was negative. Since the stance prior to voting was on a six-point scale, we binarized this by considering votes four and higher to positive and three and lower as negative. We also computed the MAE by regression the predicted support (which is on a scale of 0-100) on the prior stance to properly scale the prior stance. We then compute the MAE on the scaled prior stance. Recommendation ID Accuracy Correlation MAE 74 0.81 0.79 17 75 0.81 0.61 20 76 0.84 0.77 16 Average 0.82 0.72 17 
+
+Table 1: Accuracy, correlation, and mean absolute error (MAE) by recommendation. 
+
+## B Prompts for Visualization B.1 Policy Related Prompts 
+
+B.1.1 Prediction Prompts .
+
+You are an assistant that analyzes participant transcripts to predict how much a participant would agree with a specific recommendation, based on their prior statements and experiences. Your task is to return a JSON object that includes: 1. A brief explanation (max 100 words) of why the participant would agree or disagree with the recommendation. 2. A predicted agreement level (0-100), where 0 means total disagreement and 100 means complete agreement. 3. A confidence score (0-100) reflecting how confident you are in your prediction. Here is the transcript for participant {display_name}: {transcript} Here is the recommendation: "{rec_text}" Return only a valid JSON object in the following format: {"reasoning": "Your explanation here (max 100 words)", "predicted_agreement": <integer between 0 and 100>, "confidence_score": <integer between 0 and 100> }
+
+B.1.2 Selecting Utterances Prompt .
+
+You are an assistant that identifies the best supporting evidence from a participant 's transcript that relates to a specific recommendation. Given the transcript, reasoning for predicted agreement, and the recommendation, identify the TOP 2 most relevant utterances that best support the prediction. Bias towards personal experiences that are relevant to the recommendation. Make sure at least one of the utterance is a personal experience related to the recommendation. Try not to select opinion statements (e.g. I think, I feel , I believe, etc.). Rather, select statements that reflect a person 'slife experiences, how they would feel about the recommendation, or how it would impact them or their family/community. For each identified utterance, provide: - The utterance ID - The utterance text with key phrases highlighted using <b > tags - A brief explanation of why this utterance is relevant Here is the transcript: {transcript} Here is the reasoning for predicted agreement: {reasoning} Here is the recommendation: "{rec_text}" Return only a valid JSON object in the following format: {"evidence": [ {"utterance_id": <integer>, "utterance_text_bolded": "The utterance text with highlighted key phrases", "relevance_explanation": "Brief explanation of why this evidence is relevant" }, {"utterance_id": <integer>, "utterance_text_bolded": "The utterance text with highlighted key phrases", "relevance_explanation": "Brief explanation of why this evidence is relevant" }]Conference acronym ’XX, June 03–05, 2018, Woodstock, NY Fulay et al. 
+
+}Important guidelines: - Select exactly 2 utterances (no more, no less) - Bias towards personal experiences, stories, or situations that are directly relevant to the recommendation - Be selective - only include the most relevant and compelling evidence - Make sure all utterance IDs exist in the transcript - Highlight key phrases using <b> tags to emphasize the most relevant parts - Provide brief explanations for why each utterance is relevant 
+
+B.1.3 Scoring Utterances Prompt .
+
+You are a senior academic researcher who reviews qualitative data for rigor and quality. You have extensive experience evaluating how relevant and deep a participant 's experiences are to a specific recommendation. Analyze the provided experiences and rate them on: 1. Opinion vs. Experience (0-100): Is this a personal story or experience, or is the person sharing how they or their community would be impacted? If so, return a high score to indicate that this person is sharing experiences. If they are mostly stating their beliefs (e.g. "I think" "I believe"), then report a low score to indicate these are opinions. 2. Relevance (0-100): How directly related are these experiences to the recommendation? This is not about the opinion expressed ; rather, is this person sharing stories or explaining how they or their community would be impacted? - 90-100: Direct, first-hand experience that directly impacts the person 's stance on this exact recommendation - 70-89: Related experience with clear, obvious connection to the recommendation - 50-69: Somewhat related experience but requires reasoning to connect to the recommendation - 30-49: Tangentially related, minimal impact on stance - 0-29: Unrelated or generic statements 3. Depth (0-100): How detailed, specific, and meaningful are these experiences? - 90-100: Specific details, concrete examples, clear timeline, emotional impact described - 70-89: Good detail with some specifics, clear narrative - 50-69: Some detail but lacks specificity or emotional depth - 30-49: Vague or surface-level description - 0-29: Generic statements with no real detail Consider: - Relevance: Do the experiences directly relate to the recommendation 'stopic? Would they likely influence the person 's stance? - Depth: Are the experiences specific, detailed, and meaningful? Do they show real understanding or just surface-level mentions? Here are the experiences: {experiences} Here is the recommendation: "{rec_text}" IMPORTANT CALIBRATION INSTRUCTIONS: Be conservative in your scoring. Only award high scores (80+) to experiences that are: 1. Directly related to the recommendation 's specific topic 2. Include specific details, dates, locations, or concrete examples 3. Show clear personal impact or emotional connection 4. Would genuinely influence someone 's stance on this recommendation? Even if they have a polar opposite view? Default to lower scores when in doubt. It 's better to underestimate than overestimate quality. Return only a valid JSON object in the following format: {"opinion_vs_experiences": <integer between 0 and 100>, "relevance_score": <integer between 0 and 100>, "depth_score": <integer between 0 and 100>, "explanation": "Brief explanation of your scoring for each metric (max 50 words)" }
+
+B.1.4 Utterance Summary Prompt .
+
+You are an assistant that creates concise summaries of participant experiences. Summarize the provided experiences in a clear, informative way that captures the key points and their significance. Focus on the most important aspects that would be relevant to understanding the participant 's perspective. Here are the experiences: {experiences} AI and Collective Decisions: Strengthening Legitimacy and Losers’ Consent Conference acronym ’XX, June 03–05, 2018, Woodstock, NY 
+
+Return only a valid JSON object in the following format: {"summary": "Your summary here (max 100 words)" }Guidelines: - Be concise but comprehensive - Focus on the most relevant and significant experiences - Maintain the participant 's voice and perspective - Highlight experiences that would influence their views on related topics 
+
+## B.2 Life Prompts 
+
+B.2.1 Life Utterance Prompt .
+
+You are a helpful assistant that selects the most relevant utterances from the transcript that would help someone understand the participant 'slife. Select at most two utterances from the transcript. These should be excerpts that serve as an introduction to who this person is and what they are like. IMPORTANT: Make sure you include the utterance id in the JSON. Include only a single utterance id (an integer) for each part of the narrative. Here is the transcript of the participant {display_name}: {transcript} Return the narrative format in a list of JSON with top level key "utterances". Each json should have the following format: {"utterances": [ {"utterance_id": "The utterance id for the first part.", "interviewee_utterance": "The utterance text for the first part" }, {"utterance_id": "The utterance id for the second part.", "interviewee_utterance": "The utterance text for the second part" }]}The list should flow naturally. Remember, it should be a list of JSONs of at most two. Use the participant 's name in the narrative. Remember to pick sufficiently long excerpts from the transcript for the interviewee_utterance. 
+
+B.2.2 Life Summary Prompt .
+
+You are a helpful assistant that generates a summary of the following statements from a person. The statements are from the person about their life. Please return a short, informative summary of who this person is. Describe the person 'slife in a way that is easy to understand and engaging, but stay very close to what the person said. The person 's name is {display_name}, which you should use in the summary. Keep the summary under 50 words. Here are the utterances: {utterances} Return the summary in a list of JSON with top level key " summary". Each json should have the following format: {"summary": "The summary of the utterances" }Remember to use the person 's name in the summary. 
+
+## C Sampling Profiles 
+
+In our experimental setup, we wanted to particularly focus on how trust and social cohesion were affected when the collective decision went against what the participant desired. Thus, in the treatment condition we needed to show a set of profiles that aligned with the decision was shown to the participant. To do this, we used a constrained optimization to assign a set of weights to the different profiles depending on their level of support and the target mean support. In the case where a participant was 
+
+against the proposal, we set the target mean support at 75. If they voted for the proposal, the target mean was set at 25. We chose to select profiles rather than change the predicted scores of profiles because we thought that inconsistencies between what people said and their predicted support would decrease trust in the system (i.e., if a person expressed a strong desire to raise the minimum wage and their predicted support was medium or low, this would decrease trust in the system’s accuracy). Thus the constrained optimization was set as follows. Given: 
+
+• A set of support values: 
+
+𝑠 = [𝑠 1, 𝑠 2, . . . , 𝑠 𝑛 ]• A target mean: 
+
+𝜇 target 
+
+• Optimization variables: the weights 
+
+𝑤 = [𝑤 1, 𝑤 2, . . . , 𝑤 𝑛 ]
+
+Objective Function: A trivial solution to this problem is to assign all of the weight to a value equal to the target mean. Thus, we want the weights to be as close as possible to uniform weights Conference acronym ’XX, June 03–05, 2018, Woodstock, NY Fulay et al. 
+
+𝑤 uniform = 1 
+
+> 𝑛
+
+and set the objective function as such. Thus, we minimize the squared L2 distance: 
+
+min 
+
+> 𝑤 𝑛
+
+∑︁ 
+
+> 𝑖 =1
+
+
+
+𝑤 𝑖 − 1
+
+𝑛 
+
+2
+
+Constraints: We set the constraints such that the weights should sum to one, range between zero and one, and when applying the weights to the scores, it yields the target mean. 
+
+> 𝑛
+
+∑︁ 
+
+> 𝑖 =1
+
+𝑤 𝑖 = 1 (weights sum to one) (2) 
+
+> 𝑛
+
+∑︁ 
+
+> 𝑖 =1
+
+𝑤 𝑖 𝑠 𝑖 = 𝜇 target (target mean constraint) (3) 
+
+0 ≤ 𝑤 𝑖 ≤ 1, ∀𝑖 (bounds on weights) (4) 
+
+Final Optimization Problem: 
+
+min  
+
+> 𝑤 ∈R𝑛
+> 𝑛
+
+∑︁ 
+
+> 𝑖 =1
+
+
+
+𝑤 𝑖 − 1
+
+𝑛 
+
+2
+
+subject to 
+
+> 𝑛
+
+∑︁ 
+
+> 𝑖 =1
+
+𝑤 𝑖 = 1,
+
+> 𝑛
+
+∑︁ 
+
+> 𝑖 =1
+
+𝑤 𝑖 𝑠 𝑖 = 𝜇 target ,
+
+0 ≤ 𝑤 𝑖 ≤ 1 ∀𝑖. 
+
+We then used these weights to take a biased sample of profiles. Since the original distribution of support for each issue was often skewed, we could not sample of set of profiles in each case that exactly lead to either a mean support of 75 or 25. However, there was enough diversity to sample a set of profiles that aligned that aligned with the decision (i.e. greater than 50 for pass and less than 50 for not pass). Below we should the mean support of the sampled profiles depending on whether we displayed the decision as passing or not passing for each proposal.      
+
+> Proposal Against Mean Pro Mean
+> The federal minimum wage should be raised to $30 an hour. 41.1 63.3 Companies should strongly prioritize hir-ing domestically before considering for-eign applicants. 44.0 67.8 Race and gender should be used in hiring decisions to combat inequality in the work-place. 31.8 54.7
+
+Table 2: Pro and against means for sampled profiles. 
+
+## D Number of Potential Featured Profiles 
+
+We show the number of potential featured profiles for each rec-ommendation in each bucket of support (low, medium, and high support) in Table 3. When interacting with the visualization, a user is shown one randomly sampled profile from each bucket for each recommendation. We also considered other approaches, such as using percentiles to identify segments of the distribution to sample from. However, the initial distribution of opinions for the topics was still biased either for or against each recommendation, mean-ing that percentile-based sampling would have led participants to see more profiles with a particular slant. Thus, using equal-sized buckets offered the simplest and most reliable way to ensure that participants saw a sufficiently diverse range of opinions.             
+
+> Statement Low (0–33) Mid (33–66) High (66+)
+> The federal minimum wage should be raised to $30 an hour. 510 23 Companies should strongly prioritize hiring domestically before considering foreign applicants. 748Race and gender should be used in hiring decisions to combat inequality in the workplace. 17 98
+
+Table 3: Responses categorized by support levels for different policy statements. 
+
+## E Item Reliability within Concept 
+
+In Table 4 we report Cronbach’s alpha for each of our concepts. Most concepts had high item consistency with the exception of the “Felt Heard” concept. The statement “My own opinions and experiences were not reflected in any way by the proposals.” in particular a low correlation with both “I felt that my input was valuable in this process.” and “I felt heard during this process.” While we are not sure what caused this low correlation, we suspect this question was poorly worded and thus may have been difficult for participants to answer.                             
+
+> Domain Concept Cronbach’s 𝛼 N items
+> Process Legitimacy Adherence 0.93 5Understood Deci-sions 0.88 4Trust 0.78 3Felt Heard 0.55 3Social Cohesion Learn about others 0.93 4Respect 0.87 5Rational 0.86 3Respect Pluralism 0.83 5Commonalities 0.75 4Perspective-taking 0.66 3Stances and Learning Learning about top-ics 0.98 9Change stance (self report) 0.82 3Stance certainty 0.79 9
+
+Table 4: Cronbach’s 𝛼 for concepts grouped by domain. AI and Collective Decisions: Strengthening Legitimacy and Losers’ Consent Conference acronym ’XX, June 03–05, 2018, Woodstock, NY 
+
+## F Regression Results 
+
+Here we present the full set of regression results across all concepts and items. For concepts, we report the p-values. For items, since we are testing multiple items per concept, we apply the Benjamini-Hochberg correction and report the corresponding q-value. 
+
+## F.1 Process Legitimacy 
+
+Visualization Interview Interaction Category Outcome Coef. 90% CI 𝑝 Coef. 90% CI 𝑝 Coef. 90% CI 𝑝 𝑅 2
+
+> 𝑎𝑑 𝑗
+
+Process Legitimacy Adherence 0.34* [0.04, 0.64] 0.06 0.11 [-0.20, 0.42] 0.55 -0.23 [-0.66, 0.19] 0.36 0.24 Felt Heard 0.29* [0.04, 0.54] 0.06 0.51*** [0.25, 0.76] 0.001 -0.20 [-0.56, 0.15] 0.34 0.21 Trust 0.71*** [0.41, 1.01] <.001 0.19 [-0.11, 0.50] 0.30 -0.53** [-0.95, -0.11] 0.04 0.13 Understood Decisions 0.77*** [0.47, 1.07] <.001 0.19 [-0.12, 0.50] 0.31 -0.32 [-0.74, 0.11] 0.22 0.18 
+
+Table 5: Concept outcomes associated with adherence to participatory processes across visualization and interview modes. 
+
+Visualization Interview Interaction Category Outcome Coef. 90% CI 𝑞 Coef. 90% CI 𝑞 Coef. 90% CI 𝑞 
+
+Adherence I would be willing to abide by the specific proposal decisions gener-ated from this process. 0.88 [0.26, 1.49] 0.10 0.43 [-0.20, 1.06] 0.81 -0.84 [-1.73, 0.03] 0.50 Generally, I would be willing to abide by proposal decisions from this process (on other issues). 0.64 [0.01, 1.26] 0.10 0.38 [-0.26, 1.03] 0.81 -0.69 [-1.57, 0.16] 0.83 Even if I disagreed with certain pro-posal decisions, I would view them as being legitimately created. 0.69 [0.08, 1.29] 0.12 0.04 [-0.55, 0.63] 0.93 -0.11 [-0.96, 0.75] 0.83 Even if I disagreed with certain pro-posal decisions, I would still respect them. 0.60 [0.03, 1.17] 0.12 0.03 [-0.55, 0.62] 0.93 -0.22 [-1.03, 0.59] 0.83 Even if I disagreed with certain pro-posal decisions, I would still adhere to them. 0.14 [-0.44, 0.72] 0.70 0.10 [-0.50, 0.70] 0.93 -0.19 [-1.01, 0.64] 0.83 Felt Heard I felt that my input was valuable in this process. 0.98** [0.39, 1.57] 0.02 0.63 [0.03, 1.23] 0.13 -1.13* [-2.07, -0.29] 0.08 My own opinions and experiences were not reflected in any way by the proposals. 0.42 [-0.27, 1.11] 0.48 -0.04 [-0.75, 0.67] 0.93 -0.09 [-0.88, 0.89] 0.88 I felt heard during this process. 0.11 [-0.36, 0.59] 0.70 1.99*** [1.50, 2.48] <.001 0.14 [-0.54, 0.82] 0.88 Trust & Legitimacy I trust the legitimacy of the votes that came of this process. 1.47*** [0.88, 2.07] <.001 0.58 [-0.03, 1.18] 0.36 -1.14* [-1.98, -0.30] 0.08 I think the votes on these proposals were well-informed. 1.24*** [0.60, 1.87] 0.003 0.37 [-0.36, 1.02] 0.53 -1.03* [-1.89, 0.06] 0.09 I would be hesitant to rely on this process to make and vote on propos-als on other issues. 0.93** [0.26, 1.60] 0.02 0.03 [-0.66, 0.71] 0.95 -0.54 [-1.49, 0.40] 0.34 Understood Decisions I understood how the proposal de-cisions were made. 1.11*** [0.49, 1.73] 0.003 -0.38 [-1.02, 0.25] 0.42 -0.69 [-1.57, 0.19] 0.40 I had a strong understanding of how participants’ opinions and experi-ences informed the decisions on the proposals. 1.55*** [0.93, 2.16] <.001 0.61 [-0.02, 1.24] 0.42 -0.44 [-1.31, 0.42] 0.40 I was unsure how participants’ opin-ions and experiences aligned with or diverged from each proposal. 1.55*** [0.87, 2.23] <.001 -0.11 [-0.81, 0.59] 0.79 -0.54 [-1.50, 0.42] 0.40 I understood why each proposal de-cision was made. 1.24*** [0.64, 1.83] 0.001 0.41 [-0.20, 1.02] 0.42 -0.54 [-1.38, 0.31] 0.40 
+
+Table 6: Item outcomes associated with adherence to participatory processes across visualization and interview modes. 
+
+## F.2 Social Cohesion Conference acronym ’XX, June 03–05, 2018, Woodstock, NY Fulay et al. 
+
+Visualization Interview Interaction Category Outcome Coef. 90% CI 𝑝 Coef. 90% CI 𝑝 Coef. 90% CI 𝑝 𝑅 2
+
+> 𝑎𝑑 𝑗
+
+Social Cohesion Commonalities 0.40** [0.16, 0.64] 0.01 0.04 [-0.21, 0.29] 0.79 -0.03 [-0.37, 0.31] 0.87 0.23 Inclusion of Self in Others 0.48** [0.12, 0.84] 0.03 0.11 [-0.26, 0.48] 0.63 -0.18 [-0.70, 0.33] 0.56 0.11 Feel Connected 0.82*** [0.48, 1.16] <.001 0.18 [-0.17, 0.53] 0.40 -0.50* [-0.98, -0.02] 0.09 0.22 Willing to Interact -0.14 [-0.49, 0.20] 0.49 0.05 [-0.30, 0.40] 0.81 0.14 [-0.35, 0.62] 0.64 0.21 Curious About Others -0.10 [-0.46, 0.27] 0.65 -0.32 [-0.70, 0.05] 0.16 0.06 [-0.46, 0.58] 0.85 0.10 Learn About Others 1.42*** [1.16, 1.67] <.001 0.29* [0.02, 0.55] 0.07 -0.35 [-0.72, 0.01] 0.11 0.47 Perspective-taking 0.44** [0.18, 0.70] 0.01 0.03 [-0.24, 0.30] 0.87 0.09 [-0.29, 0.46] 0.70 0.24 Rational 0.58*** [0.29, 0.88] <.001 -0.27 [-0.58, 0.03] 0.14 -0.07 [-0.49, 0.35] 0.78 0.26 Respect 0.58*** [0.34, 0.83] <.001 0.02 [-0.22, 0.27] 0.87 -0.35* [-0.70, -0.01] 0.09 0.41 Respect Pluralism 0.29** [0.10, 0.49] 0.01 0.03 [-0.16, 0.23] 0.77 -0.25 [-0.52, 0.03] 0.14 0.58 
+
+Table 7: Concept outcomes associated with social cohesion across visualization and interview modes. Table 8: Outcomes associated with perceptions of social cohesion across visualization and interview modes. 
+
+Visualization Interview Interaction Category Outcome Coef. 90% CI 𝑞 Coef. 90% CI 𝑞 Coef. 90% CI 𝑞 
+
+Commonalities I probably have things in common with the other participants whose experiences and opinions helped to create these proposals. 0.60** [0.16, 1.03] 0.05 0.02 [-0.43, 0.47] 0.94 -0.04 [-0.58, 0.55] 0.93 I probably share values, opinions, or experiences with others who were part of this process. 1.13*** [0.66, 1.61] <.001 0.16 [-0.33, 0.64] 0.85 -0.17 [-0.68, 0.50] 0.93 I probably have very little in com-mon with other people who were part of this process. 0.55 [-0.10, 1.19] 0.21 -0.19 [-0.85, 0.47] 0.85 -0.13 [-1.01, 0.78] 0.93 I am reading all of the questions in this survey carefully. 0.02 [-0.10, 0.14] 0.78 0.04 [-0.08, 0.17] 0.85 0.01 [-0.16, 0.18] 0.93 General Think about yourself (Self) and the other participants in this study (Other)... 0.89** [0.22, 1.57] 0.03 0.20 [-0.49, 0.89] 0.63 -0.34 [-1.30, 0.62] 0.56 I feel connected to the other partici-pants whose interviews were used to generate these proposals. 1.39*** [0.82, 1.97] <.001 0.30 [-0.29, 0.89] 0.40 -0.84* [-1.66, -0.03] 0.09 I would be willing to interact with the other participants whose inter-views helped to generate the pro-posals. -0.20 [-0.68, 0.28] 0.49 0.07 [-0.42, 0.56] 0.81 0.19 [-0.48, 0.87] 0.64 I don’t feel a desire to learn more about the other participants whose interviews helped generate the pro-posals. -0.18 [-0.84, 0.48] 0.65 -0.58 [-1.26, 0.09] 0.16 0.11 [-0.85, 1.04] 0.85 Learn about others I learned more about others’ experi-ences and opinions on this topic by interacting with the proposals. 2.61*** [2.08, 3.13] <.001 0.94** [0.40, 1.47] 0.02 -0.92** [-1.65, -0.18] 0.17 I understood other participants more holistically by interacting with the proposals. 2.49*** [1.94, 3.05] <.001 0.62* [0.05, 1.19] 0.15 -0.74 [-1.53, 0.04] 0.24 I was able to understand why other participants have certain beliefs or opinions on the topic. 2.48*** [1.91, 3.04] <.001 0.45 [-0.13, 1.02] 0.27 -0.42 [-1.11, 0.38] 0.39 This process did not clarify partici-pants’ experiences, beliefs, or opin-ions for me. 3.07*** [2.47, 3.68] <.001 0.05 [-0.57, 0.67] 0.89 -0.53 [-1.39, 0.33] 0.39 Perspective-taking I feel confident in predicting why different people might support or oppose a given proposal. 0.33 [-0.17, 0.84] 0.28 0.05 [-0.47, 0.57] 0.87 0.23 [-0.48, 0.95] 0.86 I feel confident in identifying the key pros and cons of a given pro-posal. 0.91*** [0.45, 1.37] 0.009 0.34 [-0.14, 0.81] 0.52 -0.07 [-0.72, 0.58] 0.86 I would struggle to understand how someone with a different back-ground or values might view each proposal. 0.65* [0.08, 1.23] 0.09 -0.34 [-0.93, 0.25] 0.52 0.22 [-0.58, 1.04] 0.86 Rational Are irrational for holding their stances on this topic 0.84** [0.21, 1.47] 0.03 -0.63 [-1.28, 0.01] 0.18 0.19 [-0.71, 1.08] 0.80 Have a stance that makes sense 0.90*** [0.40, 1.40] 0.005 -0.48 [-0.99, 0.03] 0.18 -0.11 [-0.81, 0.59] 0.80 Are logical for holding their stance 1.03*** [0.52, 1.55] 0.004 -0.21 [-0.74, 0.32] 0.51 -0.38 [-1.11, 0.35] 0.80 AI and Collective Decisions: Strengthening Legitimacy and Losers’ Consent Conference acronym ’XX, June 03–05, 2018, Woodstock, NY 
+
+Visualization Interview Interaction Category Outcome Coef. 90% CI 𝑞 Coef. 90% CI 𝑞 Coef. 90% CI 𝑞 
+
+Respect I have respect for the other peo-ple whose experiences and opinions helped create these proposals. 1.00*** [0.58, 1.42] <.001 0.03 [-0.40, 0.46] 0.90 -0.60* [-1.19, -0.01] 0.29 Even if I disagreed with proposal decisions generated by this process, I still have respect for the people that support it. 0.67** [0.22, 1.12] 0.02 -0.12 [-0.59, 0.34] 0.82 -0.41 [-1.05, 0.23] 0.29 Disregard the other participants’ points of view 1.13*** [0.51, 1.75] 0.008 -0.18 [-0.82, 0.45] 0.82 -0.71 [-1.59, 0.17] 0.29 Be considerate of the other partici-pants’ stances 0.68*** [0.29, 1.07] 0.008 0.11 [-0.29, 0.52] 0.82 -0.37 [-0.92, 0.19] 0.29 Take the other participants’ points of view 0.88** [0.32, 1.44] 0.01 0.34 [-0.24, 0.92] 0.82 -0.54 [-1.34, 0.25] 0.29 Respect Pluralism I find it difficult to be open to politi-cal views that differ from my own. 0.50 [-0.07, 1.08] 0.19 -0.63* [-1.22, -0.03] 0.31 0.11 [-0.70, 0.93] 0.82 I respect people who disagree with me on political issues. 0.48* [0.08, 0.89] 0.13 0.14 [-0.28, 0.55] 0.75 -0.50 [-1.07, 0.08] 0.34 I would be willing to interact with someone who disagrees with me on political issues. -0.02 [-0.42, 0.38] 0.93 0.13 [-0.28, 0.54] 0.75 -0.36 [-0.93, 0.21] 0.37 It is important for people to respect a diversity of different opinions. 0.62*** [0.28, 0.96] 0.02 0.33 [-0.02, 0.68] 0.31 -0.42 [-0.96, 0.07] 0.34 If someone disagrees with me on a political issue, they probably have a good reason for doing so. 0.45* [0.02, 0.87] 0.14 0.07 [-0.37, 0.51] 0.79 -0.47 [-1.08, 0.14] 0.34 
+
+## F.3 Topic and Stances 
+
+Visualization Interview Interaction Category Outcome Coef. 90% CI 𝑝 Coef. 90% CI 𝑝 Coef. 90% CI 𝑝 𝑅 2
+
+> 𝑎𝑑 𝑗
+
+Social Cohesion Learning about topics 0.93*** [0.63, 1.23] 0.00 0.47 [0.01, 0.16] 0.78 -0.72** [-1.15, -0.29] 0.01 0.28 Stance certainty -0.13 [-0.33, 0.07] 0.27 0.10 [-0.10, 0.39] 0.30 0.09 [-0.19, 0.36] 0.60 0.33 Change stance (self report) 0.32* [0.02, 0.63] 0.08 -0.17 [-0.48, 0.39] 0.15 -0.01 [-0.44, 0.43] 0.98 0.12 Topic stance 0.10 [-0.07, 0.28] 0.32 -0.04 [-0.22, 0.68] 0.13 -0.16 [-0.40, 0.08] 0.28 0.50 
+
+Table 9: Concept outcomes associated with attitude change across visualization and interview modes. Table 10: Outcomes associated with attitude change across visualization and interview modes. 
+
+Visualization Interview Interaction Category Outcome Coef. 90% CI 𝑞 Coef. 90% CI 𝑞 Coef. 90% CI 𝑞 
+
+Learning about topics Compared to before, I feel more in-formed about why people may have different beliefs on raising the mini-mum wage. 1.84*** [1.19, 2.49] 0.00 1.13** [0.46, 1.79] 0.03 -1.47** [-2.39, -0.55] 0.02 Learning about topics I feel more informed about the topic of raising the minimum wage. 1.71*** [1.05, 2.38] 0.00 0.80* [0.12, 1.48] 0.06 -1.41** [-2.36, -0.47] 0.02 Learning about topics This exercise has taught me some-thing about raising the minimum wage. 1.62*** [0.96, 2.27] 0.00 0.80* [0.13, 1.47] 0.06 -1.05 [-1.97, -0.12] 0.07 Learning about topics Compared to before, I feel more informed about why people may have different beliefs on hiring lo-cals over international applicants. 2.05*** [1.42, 2.68] 0.00 0.80* [0.16, 1.45] 0.06 -1.23* [-2.12, -0.34] 0.03 Learning about topics I feel more informed about the topic of hiring locals over international applicants. 1.85*** [1.20, 2.50] 0.00 1.02** [0.35, 1.68] 0.03 -1.68** [-2.60, -0.76] 0.01 Learning about topics This exercise has taught me some-thing about hiring locals. 1.86*** [1.20, 2.52] 0.00 0.82* [0.14, 1.49] 0.06 -1.64** [-2.58, -0.71] 0.01 Learning about topics Compared to before, I feel more in-formed about why people may have different beliefs about using race and gender in hiring. 1.88*** [1.25, 2.52] 0.00 0.98** [0.33, 1.63] 0.03 -1.34** [-2.23, -0.44] 0.02 Conference acronym ’XX, June 03–05, 2018, Woodstock, NY Fulay et al. 
+
+Visualization Interview Interaction Category Outcome Coef. 90% CI 𝑞 Coef. 90% CI 𝑞 Coef. 90% CI 𝑞 
+
+Learning about topics I feel more informed about the topic of using race and gender in hiring decisions. 1.97*** [1.32, 2.62] 0.00 1.13** [0.46, 1.79] 0.03 -1.76** [-2.68, -0.84] 0.01 Learning about topics This exercise has taught me some-thing about using race and gender in hiring. 1.55*** [0.87, 2.22] 0.00 0.79* [0.10, 1.48] 0.06 -1.02 [-1.98, -0.07] 0.08 Stance certainty I hold strong beliefs about raising the federal minimum wage. 0.15 [-0.28, 0.58] 0.86 0.31 [-0.13, 0.75] 0.73 -0.24 [-0.85, 0.37] 0.66 Stance certainty I feel certain my stance on the min-imum wage is correct. -0.04 [-0.52, 0.44] 0.89 0.00 [-0.49, 0.50] 0.99 0.28 [-0.40, 0.96] 0.66 Stance certainty I don’t think there are good argu-ments against my minimum wage position. -0.34 [-0.96, 0.28] 0.82 -0.24 [-0.88, 0.39] 0.99 0.75 [-0.13, 1.63] 0.54 Stance certainty I hold strong beliefs about prioritiz-ing locals over international appli-cants. -0.36 [-0.80, 0.08] 0.77 0.08 [-0.37, 0.53] 0.99 -0.32 [-0.94, 0.30] 0.66 Stance certainty I feel certain my stance on prioritiz-ing locals is right. -0.31 [-0.75, 0.14] 0.77 -0.12 [-0.58, 0.34] 0.99 0.04 [-0.59, 0.67] 0.92 Stance certainty No good arguments exist against my position on prioritizing locals. -0.72 [-1.35, -0.10] 0.53 -0.09 [-0.73, 0.56] 0.99 0.72 [-0.17, 1.61] 0.54 Stance certainty Strong beliefs about using race/gen-der in hiring. 0.07 [-0.36, 0.51] 0.89 0.63* [0.18, 1.07] 0.07 -0.30 [-0.92, 0.32] 0.66 Stance certainty I feel certain about my stance on race/gender in hiring. -0.07 [-0.54, 0.40] 0.89 0.52 [0.04, 1.00] 0.35 -0.12 [-0.78, 0.54] 0.86 Stance certainty No good arguments exist against my stance on race/gender in hiring. -0.22 [-0.83, 0.38] 0.86 0.05 [-0.57, 0.67] 0.99 0.82 [-0.04, 1.68] 0.54 Topic stance “The federal minimum wage should be raised to $30 an hour.” 0.01 [-0.47, 0.49] 0.97 -0.23 [-0.73, 0.27] 0.80 0.18 [-0.51, 0.86] 0.67 Topic stance Prioritize hiring domestically be-fore foreign applicants. 0.39 [-0.22, 1.00] 0.85 0.10 [-0.53, 0.72] 0.80 -0.79 [-1.65, 0.08] 0.40 Topic stance Race and gender should be used in hiring to combat inequality. 0.20 [-0.38, 0.79] 0.85 -0.18 [-0.78, 0.42] 0.80 -0.28 [-1.11, 0.55] 0.67 Change stance (self report) My beliefs about the minimum wage have changed. 0.19 [-0.10, 0.49] 0.28 -0.07 [-0.38, 0.23] 0.68 0.04 [-0.38, 0.45] 0.98 Change stance (self report) My beliefs on hiring international applicants have changed. 0.28* [0.01, 0.55] 0.18 -0.10 [-0.37, 0.18] 0.68 -0.05 [-0.43, 0.33] 0.98 Change stance (self report) My beliefs on using race/gender in hiring have changed. 0.26 [-0.02, 0.53] 0.18 -0.20 [-0.48, 0.08] 0.68 0.01 [-0.38, 0.39] 0.98 
+
+## G AI Interviewer G.1 AI Interview Questions 
+
+This is the full set of initial questions that the AI interviewer asked participants along with the allocated times to answer. The interviewer continued to follow up until the maximum time was reached our three conversation turns were completed. 
+
+Question Instruction Max Sec 
+
+To start off, can you tell me a bit about your background? Where did you grow up, and what was it like? You can share anything about your family, your neighborhood, friends, or anything else you can think of. Learn as much as you can about the interviewee’s life experience, and their personal background. Be respectful but curious as you hear about their story. Try to get some specific and detailed experiences or memo-ries about the interviewee’s life. 30 Now I’d like to ask you about an important relationship in your life. Who is someone who has had a big impact on you? Can you tell me about your relationship with them—how you met, what they mean to you, and any important memories you’ve shared? Learn about a personally meaningful relationship. Encourage story-telling and emotional depth. Ask follow-ups to explore how this rela-tionship shaped the interviewee’s identity, values, or perspective. 30 Can you tell me about the work you do now? What’s your job like, and how do you feel about it day to day? Learn about what the interviewee does for a living. Be curious but respectful as you hear about their story. Follow up and ask what they like and dislike about their job. 45 Generally, what could be done to make your work life better? You can discuss whatever you feel would make your life better, either now or in the past. Learn about what the interviewee thinks could be done to make their work life better. Be curious about their thoughts. Try to get some specific examples or ideas about how to improve their work life. If they need inspiration, you can give them some ideas but try not to bias them. If their answers are too brief or surface-level, probe further to understand their reasoning. You can even ask them what they would tell someone in-power like a lawmaker or employer. 60 
+
+Continued on next page AI and Collective Decisions: Strengthening Legitimacy and Losers’ Consent Conference acronym ’XX, June 03–05, 2018, Woodstock, NY 
+
+Question Instruction Max Sec 
+
+We’re now going to turn to the topic of the minimum wage. How would changes in the minimum wage (either raising or lowering it) affect you, your family, or anyone else you know personally? Learn about how the interviewee thinks changes in the minimum wage would affect them, their family, or anyone else they know personally. Be curious about their thoughts. Make sure you ask follow up questions to get more specific on how they would be impacted. If they say they would be negatively impacted, ask why they think that. If they do not think they would be impacted, prompt them to think about different people they interact with that may be impacted. 60 What do you think is a fair minimum wage in your area? Why? Understand the interviewee’s thoughts on what a fair minimum wage is. Be curious and try to get some specific and detailed thoughts about the interviewee’s thoughts on what a fair minimum wage is. For example, you can ask them to think about rent, food, and other basic necessities in their area. 45 If you earned more, what would you do with the extra money? Learn about how the interviewee would spend extra money. You can also ask how it would make them feel to have the extra money, and what goals it would allow them to achieve. 45 Do you have any concerns about raising the minimum wage to $30 an hour? Surface how the interviewee thinks about economic trade-offs and competing narratives. If they cannot think of any downsides, you can provide some examples, such as higher prices, less jobs, etc. 45 I’d now like to ask you about discrimination. Have you ever experienced discrimination? If so, can you tell me about it? Learn about the interviewee’s experiences with discrimination. Be curi-ous and try to get some specific and detailed experiences or memories about the interviewee’s experience with discrimination. Follow up with questions about whether they have experienced discrimination in the workplace or hiring. If they say they have never experienced discrimi-nation, ask them if anyone they know has experienced discrimination. If they say they have not experienced discrimination nor have anyone they know has experienced discrimination, then ask them whether they think discrimination is a problem in society and why. 60 How would you feel if you knew that race or gender was a factor in a hiring decision that affected you? Understand the interviewee’s thoughts on how they would feel if they knew that race or gender was a factor in hiring decisions. Be curious and try to get some specific and detailed thoughts about the interviewee’s thoughts on how they would feel if they knew that race or gender was a factor in hiring decisions. 45 Do you think race or gender should be taken into account for hiring decisions to combat gender and racial inequality? Why or why not? Understand the interviewee’s thoughts on whether race or gender should be taken into account for hiring decisions. Be curious and try to get some specific and detailed thoughts about the interviewee’s thoughts on whether race or gender should be taken into account for hiring decisions. 45 We’re now going to move to a new topic. Have you ever worked with or known someone at work from another country? What was your experience like? Understand whether the interviewee has worked with or known some-one from another country. If they have, ask them specifics questions about their experience working with them and what it was like. If they have not, ask them if they have friends or family who are from another country, or they themselves are from another country. If they know someone from another country, ask them about that relationship and what it was like. 45 Have you or someone close to you ever been impacted by immigration policy, especially around work or hiring? Understand whether the interviewee has been impacted by immigration policy. If they have, ask them specifics questions about their experience and what it was like. If they have not, ask them if they have friends or family who have been impacted by immigration policy. Try to get specific experiences or memories about the interviewee’s experience with immigration policy if they have been impacted. If they have not been impacted at all nor have anyone they know has been impacted, then the objective has been met. 45 Do you think it matters where someone is from when hiring for a job, as long as they’re qualified? Why or why not? Understand the interviewee’s thoughts on whether it matters where someone is from when hiring for a job, as long as they’re qualified. Try to understand the benefits and drawbacks they see. Also follow up by asking if there are any situations where nationality or immigration status should be considered. 45 How do you feel about the idea that companies should prioritize hiring local applicants over foreign applicants? Understand the interviewee’s thoughts on the idea that companies should prioritize hiring local applicants over foreign applicants. Follow up by asking them the benefits and drawbacks of this idea. 45 
+
+Table 12: Interview Questions with Instructions and Maximum Time 
+
+## G.2 AI Interviewer Details 
+
+We used an AI interviewer interface based on the system introduced by Park et al. (2024) for collecting participant experiences used in the audio clips. The implementation was optimized for responsiveness, emphasizing end-to-end voice interaction to create the impression of a live conversational interview. Visually, the interviewer was represented by a central 2D sprite avatar (the agent “Isabella”), while participants were shown as an avatar at the bottom of the screen moving toward a goal marker as the session progressed. Participants could optionally customize their avatar before beginning. Participants responded to interview prompts by speaking naturally. The system monitored speech in real time and inferred response completion by detecting silences longer than four seconds. After each response, it automatically transcribed the participant’s speech and produced the next interviewer turn, which was delivered using text-to-speech. Conference acronym ’XX, June 03–05, 2018, Woodstock, NY Fulay et al. 
+
+## H Effects of Audio and Profile Exploration 
+
+Figure 4: The red values indicate significance at p < 0.1 , with solid markers indicating significance at p < 0.05 .
+
+## I Participant Demographics 
+
+Category Distribution 
+
+Political Orientation Very Liberal (12%), Somewhat Liberal (8%), Liberal (20%), Moderate (16%), Somewhat Conservative (9%), Conservative (19%), Very Conservative (15%) Income Less than $30,000 (15%), $30,000–$49,999 (15%), $50,000–$99,999 (37%), $100,000 or more (31%), Prefer not to answer (1%) Education Some college but no degree (15%), Associate degree in college (2-year) (17%), Bachelor’s degree in college (4-year) (11%), Master’s degree (35%), Doctoral degree (19%), Professional degree (JD, MD) (1%), Prefer not to answer (2%) Ethnicity Asian (7%), Black (14%), Mixed (6%), White (69%), Other (2%), Unreported (3%) Employment Status Full-Time (50%), Part-Time (19%), Unemployed and seeking (8%), Not in paid work (10%), Due to start a new job (1%), Other (3%), Unreported (10%) Sex Female (59%), Male (39%), Unreported (2%) Age 18–30 (17%), 31–45 (37%), 46–59 (37%), 60+ (9%) 
+
+Table 13: We report the breakdown of our sample of participants across various social and demographic categories. AI and Collective Decisions: Strengthening Legitimacy and Losers’ Consent Conference acronym ’XX, June 03–05, 2018, Woodstock, NY 
+
+## J Interview Themes 
+
+Domain Theme Definition 
+
+General Context Overall impressions of the process Initial reactions, comfort, and general reflections on using the AI inter-viewer + platform Tool role, usability, & comprehension Reflections on overall tool usability, its role, and features Personal profile accuracy & agency Reactions to viewing their own profile Profile representation Views on how profiles were represented on the tool, including their positions on the 2-D plot Social Cohesion 
+
+Impact of “hearing” others Impact of voices via transcripts and audio recordings 
+
+Openness to engagement Desire to interact further with other participants, and how 
+
+Empathy building Stated feelings of empathy regardless of stance (dis)agreement 
+
+Shared values and commonalities Similarities noticed with other profiles 
+
+Barriers to connection Reasons for lacking a sense of connection 
+
+Impact of participants’ life experiences Effects of seeing (or not seeing) lived experiences and personal stories 
+
+Depth of participant explanations Perceived depth behind others’ stated opinions 
+
+Exposure to diverse perspectives Seeing (or wanting to see) many viewpoints; evaluating issues from both sides 
+
+Perceived rationality, understanding, and re-spect 
+
+Whether others’ views seemed rational/understandable/respectable Process Legitimacy 
+
+Participant voice in the process Whether participants felt heard through this process 
+
+Process clarity & explanations Feelings about black-box/opacity and features that would improve clarity and decision transparency (positive and negative) 
+
+Conditional willingness to comply Variability in accepting/following decisions; ties to legitimacy, norms, and consensus vs individual beliefs 
+
+Future context for using this process Contexts where participants would (not) use the tool (e.g., workplaces, elections, civic problems) Stances and Learning 
+
+Opinion shift Accounts of stance change (or no change) Perceptions of policy topics Views on the choice of policy topics for this study Nuance in policies Mismatch between nuanced stances and binary outcomes Role of AI 
+
+AI use: opportunities Positives from using AI in this process, including future potential 
+
+AI vs human roles in process Comparisons of human vs AI roles and autonomy 
+
+AI use: concerns Concerns (e.g., accuracy, reliability) 
+
+Comfort and openness with the AI interviewer Experiences with the AI interviewer 
+
+Table 14: Interview themes and their definitions mapped to our study’s domains. The bolded themes are discussed in this paper for the purposes of the study. 
+
+## K Tool Screenshots 
+
+Received 20 February 2007; revised 12 March 2009; accepted 5 June 2009 Conference acronym ’XX, June 03–05, 2018, Woodstock, NY Fulay et al. 
+
+Figure 5: STEP 0: AI Interviewer screen where the user has a back n forth conversation with the AI agent on their personal life as well as policy related experiences 
+
+Figure 6: STEP 1: Voting screen where the user views the proposal and votes on it through a Likert scale and free-response question AI and Collective Decisions: Strengthening Legitimacy and Losers’ Consent Conference acronym ’XX, June 03–05, 2018, Woodstock, NY 
+
+Figure 7: STEP 2a: Visualization showing the user where they stand relative to other study participants 
+
+Figure 8: STEP 2b: Right side panel that opens up when the user clicks on their own avatar from the previous screen. This shows them how their life stories and experiences relevant to the proposal get extracted and shown to other participants Conference acronym ’XX, June 03–05, 2018, Woodstock, NY Fulay et al. 
+
+Figure 9: STEP 3a: Visualization showing three featured profiles of participants from across the spectrum on predicted support for the proposal 
+
+Figure 10: STEP 3b: Right side panel that opens up when the user clicks on any of the featured avatars from the previous screen. This allows the user to listen and react to the participant’s life and policy-related experiences through with audio clips and reflection scaffolds AI and Collective Decisions: Strengthening Legitimacy and Losers’ Consent Conference acronym ’XX, June 03–05, 2018, Woodstock, NY 
+
+Figure 11: STEP 3c: Visualization showing all avatars on the spectrum. The user can optionally explore these after the previous steps 
+
+Figure 12: STEP 4: Decision page showing the user how the participant group voted summatively and if the proposal passed/failed. The user also gives feedback on the decision via likert scales below

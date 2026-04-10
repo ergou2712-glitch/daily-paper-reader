@@ -1,0 +1,51 @@
+{
+  "label": "2026-04-10",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T21:05:51",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202604/10/2604.07532v1-ipek-intelligent-priority-aware-event-based-trust-with-asymmetric-knowledge-for-resilient-vehicular-ad-hoc-networks",
+      "section": "deep",
+      "title_en": "IPEK: Intelligent Priority-Aware Event-Based Trust with Asymmetric Knowledge for Resilient Vehicular Ad-Hoc Networks",
+      "authors": "İpek Abasıkeleş Turgut",
+      "date": "2026-04-08",
+      "pdf": "https://arxiv.org/pdf/2604.07532v1",
+      "score": "8.0",
+      "evidence": "车载网络中基于事件的信任模型和信任计算",
+      "tldr": "针对车载自组织网络（VANETs）中攻击者利用低优先级事件积累信誉并在关键时刻注入虚假数据的策略，本文提出IPEK模型。该模型引入了感知事件和位置严重程度的攻击模型，并设计了非对称局部信任机制，使惩罚随严重程度增加而加重，奖励则呈渐近式增长。此外，通过改进的Dempster-Shafer理论进行全局信任融合，有效应对冲突证据。实验表明，IPEK在维持零误报率的同时，显著提升了对策略性攻击的检测性能。",
+      "tags": "query:q4",
+      "abstract_en": "Vehicular Ad Hoc Networks (VANETs) are vulnerable to intelligent attackers who exploit the homogeneous treatment of traffic events in existing trust models. These attackers accumulate reputation by reporting correctly on low-priority events and then inject false data during safety-critical situations - a strategy that current approaches cannot detect because they ignore event severity and location criticality in trust calculations. This paper addresses this gap through three contributions. First, it introduces event-aware and location-aware intelligent attack models, which have not been formally defined or simulated in prior work. Second, it proposes an asymmetric local trust mechanism where penalties scale with event and location severity while rewards follow an asymptotic model, making trust difficult to regain after misuse. Third, it adapts Dempster-Shafer Theory for global trust fusion using Yager's combination rule - assigning conflicting evidence to uncertainty rather than forcing premature decisions - combined with sequential source-reliability ordering and an asymmetric risk accentuation mechanism. Simulations using OMNeT++, Veins, and SUMO compare the proposed system (IPEK) against MDT and TCEMD under attacker densities of 15-35 percent. IPEK maintained 0 percent False Positive Rate across all scenarios, meaning no honest vehicle was wrongly revoked, while sustaining Recall above 75 percent and F1-scores exceeding 0.86. These results demonstrate that integrating context-awareness into both attack modeling and trust evaluation significantly outperforms symmetric approaches against strategic adversaries.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/10/2604.08113v1-tadp-rme-a-trust-adaptive-differential-privacy-framework-for-enhancing-reliability-of-data-driven-systems",
+      "section": "deep",
+      "title_en": "TADP-RME: A Trust-Adaptive Differential Privacy Framework for Enhancing Reliability of Data-Driven Systems",
+      "authors": "Labani Halder, Payel Sadhukhan, Sarbani Palit",
+      "date": "2026-04-09",
+      "pdf": "https://arxiv.org/pdf/2604.08113v1",
+      "score": "8.0",
+      "evidence": "利用逆信任评分自适应调节隐私预算",
+      "tldr": "针对数据驱动系统在对抗环境下的可靠性问题，本文提出TADP-RME框架。该框架通过引入逆信任评分动态调整差分隐私预算，解决了固定预算导致的效用与隐私权衡僵化问题。同时，利用逆流形嵌入技术对数据进行非线性变换，在保持差分隐私保证的同时破坏几何结构，有效抵御推理攻击。实验表明，该方法在不显著降低效用的情况下，将攻击成功率降低了3.1%，为对抗环境下的可靠学习提供了统一方案。",
+      "tags": "query:q4",
+      "abstract_en": "Ensuring reliability in adversarial settings necessitates treating privacy as a foundational component of data-driven systems. While differential privacy and cryptographic protocols offer strong guarantees, existing schemes rely on a fixed privacy budget, leading to a rigid utility-privacy trade-off that fails under heterogeneous user trust. Moreover, noise-only differential privacy preserves geometric structure, which inference attacks exploit, causing privacy leakage.   We propose TADP-RME (Trust-Adaptive Differential Privacy with Reverse Manifold Embedding), a framework that enhances reliability under varying levels of user trust. It introduces an inverse trust score in the range [0,1] to adaptively modulate the privacy budget, enabling smooth transitions between utility and privacy. Additionally, Reverse Manifold Embedding applies a nonlinear transformation to disrupt local geometric relationships while preserving formal differential privacy guarantees through post-processing.   Theoretical and empirical results demonstrate improved privacy-utility trade-offs, reducing attack success rates by up to 3.1 percent without significant utility degradation. The framework consistently outperforms existing methods against inference attacks, providing a unified approach for reliable learning in adversarial environments.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/10/2604.05368v1-ai-and-collective-decisions-strengthening-legitimacy-and-losers-consent",
+      "section": "quick",
+      "title_en": "AI and Collective Decisions: Strengthening Legitimacy and Losers' Consent",
+      "authors": "Suyash Fulay, Prerna Ravi, Emily Kubin, Shrestha Mohanty, Michiel Bakker, Deb Roy",
+      "date": "2026-04-07",
+      "pdf": "https://arxiv.org/pdf/2604.05368v1",
+      "score": "7.0",
+      "evidence": "研究AI介导的多样化经验接触是否能增加对集体决策的信任",
+      "tldr": "本研究探讨了如何利用AI提升集体决策的合法性，特别是“失败者的认同”。研究开发了一个结合AI访谈员和交互式可视化工具的系统，通过收集并展示参与者的个人经历来辅助决策。实验证明，即使决策结果与个人偏好相悖，该系统也能显著提高参与者对结果的信任、理解及程序合法性的感知，为AI在民主进程中促进社会凝聚力提供了新思路。",
+      "tags": "query:profile-1",
+      "abstract_en": "AI is increasingly used to scale collective decision-making, but far less attention has been paid to how such systems can support procedural legitimacy, particularly the conditions shaping losers' consent: whether participants who do not get their preferred outcome still accept it as fair. We ask: (1) how can AI help ground collective decisions in participants' different experiences and beliefs, and (2) whether exposure to these experiences can increase trust, understanding, and social cohesion even when people disagree with the outcome. We built a system that uses a semi-structured AI interviewer to elicit personal experiences on policy topics and an interactive visualization that displays predicted policy support alongside those voiced experiences. In a randomized experiment (n = 181), interacting with the visualization increased perceived legitimacy, trust in outcomes, and understanding of others' perspectives, even though all participants encountered decisions that went against their stated preferences. Our hope is that the design and evaluation of this tool spurs future researchers to focus on how AI can help not only achieve scale and efficiency in democratic processes, but also increase trust and connection between participants.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

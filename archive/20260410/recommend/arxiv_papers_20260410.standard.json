@@ -1,0 +1,129 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-10T21:04:38.764295+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2604.07532v1",
+      "title": "IPEK: Intelligent Priority-Aware Event-Based Trust with Asymmetric Knowledge for Resilient Vehicular Ad-Hoc Networks",
+      "abstract": "Vehicular Ad Hoc Networks (VANETs) are vulnerable to intelligent attackers who exploit the homogeneous treatment of traffic events in existing trust models. These attackers accumulate reputation by reporting correctly on low-priority events and then inject false data during safety-critical situations - a strategy that current approaches cannot detect because they ignore event severity and location criticality in trust calculations. This paper addresses this gap through three contributions. First, it introduces event-aware and location-aware intelligent attack models, which have not been formally defined or simulated in prior work. Second, it proposes an asymmetric local trust mechanism where penalties scale with event and location severity while rewards follow an asymptotic model, making trust difficult to regain after misuse. Third, it adapts Dempster-Shafer Theory for global trust fusion using Yager's combination rule - assigning conflicting evidence to uncertainty rather than forcing premature decisions - combined with sequential source-reliability ordering and an asymmetric risk accentuation mechanism. Simulations using OMNeT++, Veins, and SUMO compare the proposed system (IPEK) against MDT and TCEMD under attacker densities of 15-35 percent. IPEK maintained 0 percent False Positive Rate across all scenarios, meaning no honest vehicle was wrongly revoked, while sustaining Recall above 75 percent and F1-scores exceeding 0.86. These results demonstrate that integrating context-awareness into both attack modeling and trust evaluation significantly outperforms symmetric approaches against strategic adversaries.",
+      "authors": [
+        "İpek Abasıkeleş Turgut"
+      ],
+      "primary_category": "cs.NI",
+      "categories": [
+        "cs.NI",
+        "cs.CR"
+      ],
+      "published": "2026-04-08T19:15:28+00:00",
+      "link": "https://arxiv.org/pdf/2604.07532v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "event-based trust models and trust calculations for vehicular networks",
+      "llm_evidence_cn": "车载网络中基于事件的信任模型和信任计算",
+      "llm_evidence": "车载网络中基于事件的信任模型和信任计算",
+      "canonical_evidence": "车载网络中基于事件的信任模型和信任计算",
+      "llm_tldr_en": "Proposes an asymmetric local trust mechanism for vehicular networks to detect intelligent data injection attacks.",
+      "llm_tldr_cn": "为车载网络提出一种非对称本地信任机制，以检测智能数据注入攻击。",
+      "llm_tldr": "为车载网络提出一种非对称本地信任机制，以检测智能数据注入攻击。",
+      "llm_tags": [
+        "query:q4"
+      ],
+      "matched_query_tag": "query:q4",
+      "matched_query_text": "quantitative metrics used to assess trust",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.08113v1",
+      "title": "TADP-RME: A Trust-Adaptive Differential Privacy Framework for Enhancing Reliability of Data-Driven Systems",
+      "abstract": "Ensuring reliability in adversarial settings necessitates treating privacy as a foundational component of data-driven systems. While differential privacy and cryptographic protocols offer strong guarantees, existing schemes rely on a fixed privacy budget, leading to a rigid utility-privacy trade-off that fails under heterogeneous user trust. Moreover, noise-only differential privacy preserves geometric structure, which inference attacks exploit, causing privacy leakage.   We propose TADP-RME (Trust-Adaptive Differential Privacy with Reverse Manifold Embedding), a framework that enhances reliability under varying levels of user trust. It introduces an inverse trust score in the range [0,1] to adaptively modulate the privacy budget, enabling smooth transitions between utility and privacy. Additionally, Reverse Manifold Embedding applies a nonlinear transformation to disrupt local geometric relationships while preserving formal differential privacy guarantees through post-processing.   Theoretical and empirical results demonstrate improved privacy-utility trade-offs, reducing attack success rates by up to 3.1 percent without significant utility degradation. The framework consistently outperforms existing methods against inference attacks, providing a unified approach for reliable learning in adversarial environments.",
+      "authors": [
+        "Labani Halder",
+        "Payel Sadhukhan",
+        "Sarbani Palit"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-04-09T11:32:57+00:00",
+      "link": "https://arxiv.org/pdf/2604.08113v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "inverse trust score to adaptively modulate privacy budgets",
+      "llm_evidence_cn": "利用逆信任评分自适应调节隐私预算",
+      "llm_evidence": "利用逆信任评分自适应调节隐私预算",
+      "canonical_evidence": "利用逆信任评分自适应调节隐私预算",
+      "llm_tldr_en": "Develops a framework using trust scores to adaptively manage privacy-utility trade-offs in data systems.",
+      "llm_tldr_cn": "开发了一个利用信任评分自适应管理数据系统中隐私与效用权衡的框架。",
+      "llm_tldr": "开发了一个利用信任评分自适应管理数据系统中隐私与效用权衡的框架。",
+      "llm_tags": [
+        "query:q4"
+      ],
+      "matched_query_tag": "query:q4",
+      "matched_query_text": "quantitative metrics used to assess trust",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.05368v1",
+      "title": "AI and Collective Decisions: Strengthening Legitimacy and Losers' Consent",
+      "abstract": "AI is increasingly used to scale collective decision-making, but far less attention has been paid to how such systems can support procedural legitimacy, particularly the conditions shaping losers' consent: whether participants who do not get their preferred outcome still accept it as fair. We ask: (1) how can AI help ground collective decisions in participants' different experiences and beliefs, and (2) whether exposure to these experiences can increase trust, understanding, and social cohesion even when people disagree with the outcome. We built a system that uses a semi-structured AI interviewer to elicit personal experiences on policy topics and an interactive visualization that displays predicted policy support alongside those voiced experiences. In a randomized experiment (n = 181), interacting with the visualization increased perceived legitimacy, trust in outcomes, and understanding of others' perspectives, even though all participants encountered decisions that went against their stated preferences. Our hope is that the design and evaluation of this tool spurs future researchers to focus on how AI can help not only achieve scale and efficiency in democratic processes, but also increase trust and connection between participants.",
+      "authors": [
+        "Suyash Fulay",
+        "Prerna Ravi",
+        "Emily Kubin",
+        "Shrestha Mohanty",
+        "Michiel Bakker",
+        "Deb Roy"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC",
+        "cs.AI"
+      ],
+      "published": "2026-04-07T03:10:40+00:00",
+      "link": "https://arxiv.org/pdf/2604.05368v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "investigates whether AI-mediated exposure to diverse experiences can increase trust in collective decisions",
+      "llm_evidence_cn": "研究AI介导的多样化经验接触是否能增加对集体决策的信任",
+      "llm_evidence": "研究AI介导的多样化经验接触是否能增加对集体决策的信任",
+      "canonical_evidence": "研究AI介导的多样化经验接触是否能增加对集体决策的信任",
+      "llm_tldr_en": "Explores how AI-driven collective decision systems can foster trust and legitimacy through shared experiences.",
+      "llm_tldr_cn": "探讨AI驱动的集体决策系统如何通过共享经验来培养信任和合法性。",
+      "llm_tldr": "探讨AI驱动的集体决策系统如何通过共享经验来培养信任和合法性。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
