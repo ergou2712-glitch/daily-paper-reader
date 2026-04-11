@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-04-11 <!--dpr-date:20260411-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202604/11/2604.07695v1-aith-a-post-quantum-continuous-delegation-protocol-for-human-ai-trust-establishment" data-sidebar-item="{&quot;title&quot;: &quot;AITH: A Post-Quantum Continuous Delegation Protocol for Human-AI Trust Establishment&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2604.07695v1-aith-a-post-quantum-continuous-delegation-protocol-for-human-ai-trust-establishment&quot;, &quot;score&quot;: &quot;6.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;profile-1&quot;}], &quot;evidence&quot;: &quot;建立和界定人机信任关系的协议&quot;}">AITH: A Post-Quantum Continuous Delegation Protocol for Human-AI Trust Establishment</a>
   * 2026-04-10 <!--dpr-date:20260410-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202604/10/2604.07532v1-ipek-intelligent-priority-aware-event-based-trust-with-asymmetric-knowledge-for-resilient-vehicular-ad-hoc-networks" data-sidebar-item="{&quot;title&quot;: &quot;IPEK: Intelligent Priority-Aware Event-Based Trust with Asymmetric Knowledge for Resilient Vehicular Ad-Hoc Networks&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2604.07532v1-ipek-intelligent-priority-aware-event-based-trust-with-asymmetric-knowledge-for-resilient-vehicular-ad-hoc-networks&quot;, &quot;score&quot;: &quot;8.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;q4&quot;}], &quot;evidence&quot;: &quot;车载网络中基于事件的信任模型和信任计算&quot;}">IPEK: Intelligent Priority-Aware Event-Based Trust with Asymmetric Knowledge for Resilient Vehicular Ad-Hoc Networks</a>

@@ -1,0 +1,23 @@
+{
+  "label": "2026-04-11",
+  "date": "2026-04-11",
+  "generated_at": "2026-04-11T20:06:13",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202604/11/2604.07695v1-aith-a-post-quantum-continuous-delegation-protocol-for-human-ai-trust-establishment",
+      "section": "quick",
+      "title_en": "AITH: A Post-Quantum Continuous Delegation Protocol for Human-AI Trust Establishment",
+      "authors": "Zhaoliang Chen",
+      "date": "2026-04-09",
+      "pdf": "https://arxiv.org/pdf/2604.07695v1",
+      "score": "6.0",
+      "evidence": "建立和界定人机信任关系的协议",
+      "tldr": "AITH是一个针对人类与AI代理之间信任建立的后量子持续授权协议。针对现有协议（如TLS、OAuth）无法处理AI代理概率性行为和动态信任边界的问题，AITH引入了基于ML-DSA-87的持续授权证书、高效的边界引擎和快速撤销机制。该协议通过Tamarin Prover形式化验证，并在多模型对抗审计中表现优异，实现了高效的自主执行与安全管控。",
+      "tags": "query:profile-1",
+      "abstract_en": "The rapid deployment of AI agents acting autonomously on behalf of human principals has outpaced the development of cryptographic protocols for establishing, bounding, and revoking human-AI trust relationships. Existing frameworks (TLS, OAuth 2.0, Macaroons) assume deterministic software and cannot address probabilistic AI agents operating continuously within variable trust boundaries.   We present AITH (AI Trust Handshake), a post-quantum continuous delegation protocol. AITH introduces: (1) a Continuous Delegation Certificate signed once with ML-DSA-87 (FIPS 204, NIST Level 5), replacing per-operation signing with sub-microsecond boundary checks at 4.7M ops/sec; (2) a six-check Boundary Engine enforcing hard constraints, rate limits, and escalation triggers with zero cryptographic overhead on the critical path; (3) a push-based Revocation Protocol propagating invalidation within one second. A three-tier SHA-256 Responsibility Chain provides tamper-evident audit logging. All five security theorems are machine-verified via Tamarin Prover under the Dolev-Yao model.   We validate AITH through five rounds of multi-model adversarial auditing, resolving 12 vulnerabilities across four severity layers. Simulation of 100,000 operations shows 79.5% autonomous execution, 6.1% human escalation, and 14.4% blocked.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
