@@ -1,0 +1,51 @@
+{
+  "label": "2026-04-12",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T20:28:07",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202604/12/2604.04418v1-justified-or-just-convincing-error-verifiability-as-a-dimension-of-llm-quality",
+      "section": "deep",
+      "title_en": "Justified or Just Convincing? Error Verifiability as a Dimension of LLM Quality",
+      "authors": "Xiaoyuan Zhu, Kimberly Le Truong, Riccardo Fogliato, Gokul Swamy, Weijian Zhang, Minglai Yang, Longtian Ye, Bangya Liu, Minghao Liu, Andrew Ilyas, Steven Wu",
+      "date": "2026-04-06",
+      "pdf": "https://arxiv.org/pdf/2604.04418v1",
+      "score": "8.0",
+      "evidence": "将错误可验证性形式化为衡量大模型质量和用户信任的指标",
+      "tldr": "随着大语言模型在关键领域应用，用户需通过模型生成的解释来判断答案正误。本文提出了“错误可验证性”这一新维度，并设计了平衡指标 v_bal 来衡量解释是否能帮助用户准确区分对错。研究发现，传统的模型缩放和后训练无法有效提升该指标。为此，作者提出了 RR 和 OR 两种引入外部信息的方法，显著增强了数学推理和事实问答的可验证性，证明了该维度需独立于准确率进行针对性优化。",
+      "tags": "query:q4",
+      "abstract_en": "As LLMs are deployed in high-stakes settings, users must judge the correctness of individual responses, often relying on model-generated justifications such as reasoning chains or explanations. Yet, no standard measure exists for whether these justifications help users distinguish correct answers from incorrect ones. We formalize this idea as error verifiability and propose $v_{\\text{bal}}$, a balanced metric that measures whether justifications enable raters to accurately assess answer correctness, validated against human raters who show high agreement. We find that neither common approaches, such as post-training and model scaling, nor more targeted interventions recommended improve verifiability. We introduce two methods that succeed at improving verifiability: reflect-and-rephrase (RR) for mathematical reasoning and oracle-rephrase (OR) for factual QA, both of which improve verifiability by incorporating domain-appropriate external information. Together, our results establish error verifiability as a distinct dimension of response quality that does not emerge from accuracy improvements alone and requires dedicated, domain-aware methods to address.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/12/2604.04418v2-justified-or-just-convincing-error-verifiability-as-a-dimension-of-llm-quality",
+      "section": "quick",
+      "title_en": "Justified or Just Convincing? Error Verifiability as a Dimension of LLM Quality",
+      "authors": "Xiaoyuan Zhu, Kimberly Le Truong, Riccardo Fogliato, Gokul Swamy, Weijian Zhang, Minglai Yang, Longtian Ye, Bangya Liu, Minghao Liu, Andrew Ilyas, Steven Wu",
+      "date": "2026-04-06",
+      "pdf": "https://arxiv.org/pdf/2604.04418v2",
+      "score": "7.0",
+      "evidence": "提出了一种平衡指标，用于评估用户对模型解释的信任和正确性校验",
+      "tldr": "本研究探讨了大型语言模型（LLM）生成解释的可验证性，即用户能否通过模型给出的理由准确判断答案的对错。作者提出了衡量该能力的平衡指标 v_bal，并发现模型规模扩大或常规微调并不能有效提升可验证性。为此，研究提出了“反映并改写”（RR）和“预知改写”（OR）两种方法，通过引入外部信息显著改善了数学推理和事实问答中的错误可验证性，强调了该维度作为独立质量指标的重要性。",
+      "tags": "query:q4",
+      "abstract_en": "As LLMs are deployed in high-stakes settings, users must judge the correctness of individual responses, often relying on model-generated justifications such as reasoning chains or explanations. Yet, no standard measure exists for whether these justifications help users distinguish correct answers from incorrect ones. We formalize this idea as error verifiability and propose $v_{\\text{bal}}$, a balanced metric that measures whether justifications enable raters to accurately assess answer correctness, validated against human raters who show high agreement. We find that neither common approaches, such as post-training and model scaling, nor more targeted interventions recommended improve verifiability. We introduce two methods that succeed at improving verifiability: reflect-and-rephrase (RR) for mathematical reasoning and oracle-rephrase (OR) for factual QA, both of which improve verifiability by incorporating domain-appropriate external information. Together, our results establish error verifiability as a distinct dimension of response quality that does not emerge from accuracy improvements alone and requires dedicated, domain-aware methods to address.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/12/2604.07535v1-trust-the-ai-doubt-yourself-the-effect-of-urgency-on-self-confidence-in-human-ai-interaction",
+      "section": "quick",
+      "title_en": "Trust the AI, Doubt Yourself: The Effect of Urgency on Self-Confidence in Human-AI Interaction",
+      "authors": "Baran Shajari, Xiaoran Liu, Kyanna Dagenais, Istvan David",
+      "date": "2026-04-08",
+      "pdf": "https://arxiv.org/pdf/2604.07535v1",
+      "score": "7.0",
+      "evidence": "在紧急情况下测量人类对人工智能信任度的实验",
+      "tldr": "本研究探讨了人机交互中紧急感对用户心理的影响。通过30人的对比实验发现，虽然紧急情况不会改变用户对AI的信任度，但会显著削弱其自信心和自我效能感，长期可能导致决策失误和系统不可持续。研究强调，让用户逐步适应AI协作环境比直接暴露在紧急任务中更能维持其工作自信，为AI系统设计提供了重要参考。",
+      "tags": "query:profile-1",
+      "abstract_en": "Studies show that interactions with an AI system fosters trust in human users towards AI. An often overlooked element of such interaction dynamics is the (sense of) urgency when the human user is prompted by an AI agent, e.g., for advice or guidance. In this paper, we show that although the presence of urgency in human-AI interactions does not affect the trust in AI, it may be detrimental to the human user's self-confidence and self-efficacy. In the long run, the loss of confidence may lead to performance loss, suboptimal decisions, human errors, and ultimately, unsustainable AI systems. Our evidence comes from an experiment with 30 human participants. Our results indicate that users may feel more confident in their work when they are eased into the human-AI setup rather than exposed to it without preparation. We elaborate on the implications of this finding for software engineers and decision-makers.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

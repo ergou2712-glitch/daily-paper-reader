@@ -6,26 +6,31 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-11
-- 运行时间：2026-04-11 20:05:59 UTC
+- 最新运行日期：2026-04-12
+- 运行时间：2026-04-12 20:27:56 UTC
 - 运行状态：成功
-- 本次总论文数：1
-- 精读区：0
-- 速读区：1
+- 本次总论文数：3
+- 精读区：1
+- 速读区：2
 
 ### 今日简报（AI）
-今日聚焦后量子时代的 AI 信任构建，深入探讨 AITH 持续授权协议。
-该研究利用后量子加密技术，为人类与 AI 之间的任务授权提供了安全且持续的信任保障。
-建议关注后量子安全在人机协作中的前沿应用，提前了解保障未来 AI 交互信任的技术底座。
-- 详情：[/202604/11/README](/202604/11/README)
+今日深度剖析 AI 的“说服力陷阱”，探讨模型错误的可验证性及紧急环境下的信任偏差。
+研究指出 LLM 的质量应由错误是否易于察觉来定义，并揭示了时间压力会显著诱导人类盲目依赖 AI。
+建议在快节奏决策中保持警惕，尤其要防范那些听起来“很有道理”但难以证伪的 AI 虚假回复。
+- 详情：[/202604/12/README](/202604/12/README)
 
 ### 精读区论文标签
-- 本次无精读推荐。
+1. [Justified or Just Convincing? Error Verifiability as a Dimension of LLM Quality](/202604/12/2604.04418v1-justified-or-just-convincing-error-verifiability-as-a-dimension-of-llm-quality)  
+   标签：评分：8.0/10、query:q4
+   evidence：将错误可验证性形式化为衡量大模型质量和用户信任的指标
 
 ### 速读区论文标签
-1. [AITH: A Post-Quantum Continuous Delegation Protocol for Human-AI Trust Establishment](/202604/11/2604.07695v1-aith-a-post-quantum-continuous-delegation-protocol-for-human-ai-trust-establishment)  
-   标签：评分：6.0/10、query:profile-1
-   evidence：建立和界定人机信任关系的协议
+1. [Justified or Just Convincing? Error Verifiability as a Dimension of LLM Quality](/202604/12/2604.04418v2-justified-or-just-convincing-error-verifiability-as-a-dimension-of-llm-quality)  
+   标签：评分：7.0/10、query:q4
+   evidence：提出了一种平衡指标，用于评估用户对模型解释的信任和正确性校验
+2. [Trust the AI, Doubt Yourself: The Effect of Urgency on Self-Confidence in Human-AI Interaction](/202604/12/2604.07535v1-trust-the-ai-doubt-yourself-the-effect-of-urgency-on-self-confidence-in-human-ai-interaction)  
+   标签：评分：7.0/10、query:profile-1
+   evidence：在紧急情况下测量人类对人工智能信任度的实验
 
 
 <div class="dpr-home-promo-card">
