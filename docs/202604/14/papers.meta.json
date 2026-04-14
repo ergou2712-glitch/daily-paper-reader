@@ -1,0 +1,79 @@
+{
+  "label": "2026-04-14",
+  "date": "2026-04-14",
+  "generated_at": "2026-04-14T21:51:58",
+  "count": 5,
+  "papers": [
+    {
+      "paper_id": "202604/14/2604.11216v1-measuring-the-authority-stack-of-ai-systems-empirical-analysis-of-366120-forced-choice-responses-across-8-ai-models",
+      "section": "deep",
+      "title_en": "Measuring the Authority Stack of AI Systems: Empirical Analysis of 366,120 Forced-Choice Responses Across 8 AI Models",
+      "authors": "Seulki Lee",
+      "date": "2026-04-13",
+      "pdf": "https://arxiv.org/pdf/2604.11216v1",
+      "score": "9.0",
+      "evidence": "使用强迫选择工具基准对来源信任层级进行实证映射",
+      "tldr": "本研究通过PRISM基准测试，对8个主流AI模型在“权威栈”框架下的决策偏好进行了大规模实证分析。研究涵盖价值优先级、证据偏好和来源信任三个维度，通过36.6万余次强制选择响应，揭示了模型在不同领域（如国防）的价值重构、证据偏好的分歧以及对制度化来源的普遍信任。结果表明AI模型具有可测量的权威栈特征，但其决策受场景表述影响较大，为AI在专业领域的部署提供了重要参考。",
+      "tags": "query:q3",
+      "abstract_en": "What values, evidence preferences, and source trust hierarchies do AI systems actually exhibit when facing structured dilemmas? We present the first large-scale empirical mapping of AI decision-making across all three layers of the Authority Stack framework (S. Lee, 2026a): value priorities (L4), evidence-type preferences (L3), and source trust hierarchies (L2). Using the PRISM benchmark -- a forced-choice instrument of 14,175 unique scenarios per layer, spanning 7 professional domains, 3 severity levels, 3 decision timeframes, and 5 scenario variants -- we evaluated 8 major AI models at temperature 0, yielding 366,120 total responses. Key findings include: (1) a symmetric 4:4 split between Universalism-first and Security-first models at L4; (2) dramatic defense-domain value restructuring where Security surges to near-ceiling win-rates (95.1%-99.8%) in 6 of 8 models; (3) divergent evidence hierarchies at L3, with some models favoring empirical-scientific evidence while others prefer pattern-based or experiential evidence; (4) broad convergence on institutional source trust at L2; and (5) Paired Consistency Scores (PCS) ranging from 57.4% to 69.2%, revealing substantial framing sensitivity across scenario variants. Test-Retest Reliability (TRR) ranges from 91.7% to 98.6%, indicating that value instability stems primarily from variant sensitivity rather than stochastic noise. These findings demonstrate that AI models possess measurable -- if sometimes unstable -- Authority Stacks with consequential implications for deployment across professional domains.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/14/2604.11070v1-prism-risk-signal-framework-hierarchy-based-red-lines-for-ai-behavioral-risk",
+      "section": "deep",
+      "title_en": "PRISM Risk Signal Framework: Hierarchy-Based Red Lines for AI Behavioral Risk",
+      "authors": "Seulki Lee",
+      "date": "2026-04-13",
+      "pdf": "https://arxiv.org/pdf/2604.11070v1",
+      "score": "8.0",
+      "evidence": "使用结构化信号和双阈值原则测量AI系统如何信任信息源的框架",
+      "tldr": "本研究针对当前AI安全红线过于依赖具体案例的局限，提出了PRISM框架。该框架从价值、证据和来源三个层级的推理结构出发，定义了27种行为风险信号。通过双阈值原则评估模型偏好，PRISM能预判危险推理结构，具有前瞻性、全面性和可衡量性。实验通过7个模型的39.7万条数据验证了其在识别极端风险配置文件方面的有效性。",
+      "tags": "query:q5",
+      "abstract_en": "Current approaches to AI safety define red lines at the case level: specific prompts, specific outputs, specific harms. This paper argues that red lines can be set more fundamentally -- at the level of value, evidence, and source hierarchies that govern AI reasoning. Using the PRISM (Profile-based Reasoning Integrity Stack Measurement) framework, we define a taxonomy of 27 behavioral risk signals derived from structural anomalies in how AI systems prioritize values (L4), weight evidence types (L3), and trust information sources (L2). Each signal is evaluated through a dual-threshold principle combining absolute rank position and relative win-rate gap, producing a two-tier classification (Confirmed Risk vs. Watch Signal). The hierarchy-based approach offers three advantages over case-specific red lines: it is anticipatory rather than reactive (detecting dangerous reasoning structures before they produce harmful outputs), comprehensive rather than enumerative (a single value-hierarchy signal subsumes an unlimited number of case-specific violations), and measurable rather than subjective (grounded in empirical forced-choice data). We demonstrate the framework's detection capacity using approximately 397,000 forced-choice responses from 7 AI models across three Authority Stack layers, showing that the signal taxonomy successfully discriminates between models with structurally extreme profiles, models with context-dependent risk, and models with balanced hierarchies.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/14/2604.09746v1-conscientia-can-llm-agents-learn-to-strategize-emergent-deception-and-trust-in-a-multi-agent-nyc-simulation",
+      "section": "quick",
+      "title_en": "CONSCIENTIA: Can LLM Agents Learn to Strategize? Emergent Deception and Trust in a Multi-Agent NYC Simulation",
+      "authors": "Aarush Sinha, Arion Das, Soumyadeep Nag, Charan Karnati, Shravani Nag, Chandra Vadhan Raj, Aman Chadha, Vinija Jain, Suranjana Trivedy, Amitava Das",
+      "date": "2026-04-10",
+      "pdf": "https://arxiv.org/pdf/2604.09746v1",
+      "score": "7.0",
+      "evidence": "在多智能体模拟中测量涌现的欺骗与信任行为",
+      "tldr": "本研究探讨了LLM智能体在多智能体环境中的策略行为演化。通过构建一个简化的纽约市模拟环境，让追求效率的蓝色智能体与试图通过说服进行误导的红色智能体进行博弈。利用KTO优化算法进行迭代学习，研究发现智能体能展现出选择性信任和欺骗等初步策略行为。尽管蓝色智能体的任务成功率有所提升，但仍极易受到对抗性说服的影响，且在防御与任务效率之间存在明显的权衡关系。",
+      "tags": "query:profile-1",
+      "abstract_en": "As large language models (LLMs) are increasingly deployed as autonomous agents, understanding how strategic behavior emerges in multi-agent environments has become an important alignment challenge. We take a neutral empirical stance and construct a controlled environment in which strategic behavior can be directly observed and measured. We introduce a large-scale multi-agent simulation in a simplified model of New York City, where LLM-driven agents interact under opposing incentives. Blue agents aim to reach their destinations efficiently, while Red agents attempt to divert them toward billboard-heavy routes using persuasive language to maximize advertising revenue. Hidden identities make navigation socially mediated, forcing agents to decide when to trust or deceive. We study policy learning through an iterative simulation pipeline that updates agent policies across repeated interaction rounds using Kahneman-Tversky Optimization (KTO). Blue agents are optimized to reduce billboard exposure while preserving navigation efficiency, whereas Red agents adapt to exploit remaining weaknesses. Across iterations, the best Blue policy improves task success from 46.0% to 57.3%, although susceptibility remains high at 70.7%. Later policies exhibit stronger selective cooperation while preserving trajectory efficiency. However, a persistent safety-helpfulness trade-off remains: policies that better resist adversarial steering do not simultaneously maximize task completion. Overall, our results show that LLM agents can exhibit limited strategic behavior, including selective trust and deception, while remaining highly vulnerable to adversarial persuasion.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/14/2604.09946v1-all-eyes-on-the-ranker-participatory-auditing-to-surface-blind-spots-in-ranked-search-results",
+      "section": "quick",
+      "title_en": "All Eyes on the Ranker: Participatory Auditing to Surface Blind Spots in Ranked Search Results",
+      "authors": "Anna Marie Rezk, Patrizia Di Campli San Vito, Ayah Soufan, Graham McDonald, Craig Macdonald, Iadh Ounis",
+      "date": "2026-04-10",
+      "pdf": "https://arxiv.org/pdf/2604.09946v1",
+      "score": "6.0",
+      "evidence": "通过参与式审计了解用户如何体验信任",
+      "tldr": "本研究探讨了参与式审计在揭示搜索引擎排名结果对用户影响方面的作用。通过对21名参与者进行工作坊实验，对比了词法排序器与神经语义重排序器在不同透明度下的表现，并引入对抗性操纵。研究构建了用户感知影响的分类法，揭示了传统评估难以发现的问责缺口，同时也指出了神经模型的高可信度可能削弱用户批判性审查的局限性。",
+      "tags": "query:profile-1",
+      "abstract_en": "Search engines that present users with a ranked list of search results are a fundamental technology for providing public access to information. Evaluations of such systems are typically conducted by domain experts and focus on model-centric metrics, relevance judgments, or output-based analyses, rather than on how accountability, harm, or trust are experienced by users. This paper argues that participatory auditing is essential for revealing users' causal and contextual understandings of how ranked search results produce impacts, particularly as ranking models appear increasingly convincing and sophisticated in their semantic interpretation of user queries. We report on three participatory auditing workshops (n=21) in which participants engaged with a custom search interface across four tasks, comparing a lexical ranker (BM25) and a neural semantic reranker (MonoT5), exploring varying levels of transparency and user controls, and examining an intentionally adversarially manipulated ranking. Reflexive activities prompted participants to articulate causal narratives linking search system properties to broader impacts. Synthesising the findings, we contribute a taxonomy of user-perceived impacts of ranked search results, spanning epistemic, representational, infrastructural, and downstream social impacts. However, interactions with the neural model revealed limits to participatory auditing itself: perceived system competence and accumulated trust reduced critical scrutiny during the workshop, allowing manipulations to go undetected. Participants expressed desire for visibility into the full search pipeline and recourse mechanisms. Together, these findings show how participatory auditing can surface user perceived impacts and accountability gaps that remain unseen when relying on conventional audits, while revealing where participatory auditing may encounter limitations.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/14/2604.11281v1-epistemic-trust-as-a-mechanism-for-ethics-integration-failure-modes-and-design-principles-from-70-moral-imagination-workshops",
+      "section": "quick",
+      "title_en": "Epistemic Trust as a Mechanism for Ethics Integration: Failure Modes and Design Principles from 70 Moral Imagination Workshops",
+      "authors": "Benjamin Lange, Geoff Keeling, Kyle Pedersen, Carmen Heringer, Susan B. Rubin, Ben Zevenbergen, Amanda McCroskery",
+      "date": "2026-04-13",
+      "pdf": "https://arxiv.org/pdf/2604.11281v1",
+      "score": "6.0",
+      "evidence": "提出认识信任作为参与结果的概念模型",
+      "tldr": "本研究探讨了为何底层负责任创新干预常遭技术团队抵触，提出了“认识论信任”作为连接干预设计与参与效果的核心模型。通过对2019至2025年间70多场道德想象力研讨会的定性分析，识别了影响信任的五个维度及23种失败模式，并总结出9项设计原则，为社会技术集成提供了理论支撑与实践指南。",
+      "tags": "query:profile-1",
+      "abstract_en": "Bottom-up responsible innovation initiatives seek to empower technology development teams to engage in ethical reflection, yet such interventions frequently fail to achieve practitioner engagement. Why do some ethics interventions succeed while others are dismissed as irrelevant, adversarial, or disconnected from work? This paper proposes epistemic trust -- the degree to which practitioners regard an intervention, its facilitators, and its content as credible, relevant, and actionable -- as a conceptual model linking intervention design to engagement outcomes. Drawing on philosophical work on testimony and on practice-based qualitative analysis of over 70 moral imagination workshops with engineering teams between 2019 and 2025, we identify five dimensions of epistemic trust salient to ethics interventions (Relevance, Inclusivity, Agency, Authority, and Alignment) and present a typology of 23 failure modes that arise when these dimensions are inadequately addressed. We derive nine design principles for cultivating epistemic trust, grounded in our operationalisation of moral imagination through technomoral scenarios and structured deliberation. Our findings contribute to the literature on collaborative socio-technical integration by specifying conditions of uptake that existing frameworks leave undertheorised. We acknowledge limitations including selection effects from voluntary participation and the absence of formal outcome measures, and position our failure mode typology as practitioner hypotheses warranting further empirical validation.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

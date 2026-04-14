@@ -1,0 +1,209 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-14T21:50:47.777083+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2604.11216v1",
+      "title": "Measuring the Authority Stack of AI Systems: Empirical Analysis of 366,120 Forced-Choice Responses Across 8 AI Models",
+      "abstract": "What values, evidence preferences, and source trust hierarchies do AI systems actually exhibit when facing structured dilemmas? We present the first large-scale empirical mapping of AI decision-making across all three layers of the Authority Stack framework (S. Lee, 2026a): value priorities (L4), evidence-type preferences (L3), and source trust hierarchies (L2). Using the PRISM benchmark -- a forced-choice instrument of 14,175 unique scenarios per layer, spanning 7 professional domains, 3 severity levels, 3 decision timeframes, and 5 scenario variants -- we evaluated 8 major AI models at temperature 0, yielding 366,120 total responses. Key findings include: (1) a symmetric 4:4 split between Universalism-first and Security-first models at L4; (2) dramatic defense-domain value restructuring where Security surges to near-ceiling win-rates (95.1%-99.8%) in 6 of 8 models; (3) divergent evidence hierarchies at L3, with some models favoring empirical-scientific evidence while others prefer pattern-based or experiential evidence; (4) broad convergence on institutional source trust at L2; and (5) Paired Consistency Scores (PCS) ranging from 57.4% to 69.2%, revealing substantial framing sensitivity across scenario variants. Test-Retest Reliability (TRR) ranges from 91.7% to 98.6%, indicating that value instability stems primarily from variant sensitivity rather than stochastic noise. These findings demonstrate that AI models possess measurable -- if sometimes unstable -- Authority Stacks with consequential implications for deployment across professional domains.",
+      "authors": [
+        "Seulki Lee"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-04-13T09:13:32+00:00",
+      "link": "https://arxiv.org/pdf/2604.11216v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "empirical mapping of source trust hierarchies using a forced-choice instrument benchmark",
+      "llm_evidence_cn": "使用强迫选择工具基准对来源信任层级进行实证映射",
+      "llm_evidence": "使用强迫选择工具基准对来源信任层级进行实证映射",
+      "canonical_evidence": "使用强迫选择工具基准对来源信任层级进行实证映射",
+      "llm_tldr_en": "Analyzes AI decision-making and source trust hierarchies using a large-scale empirical benchmark.",
+      "llm_tldr_cn": "使用大规模实证基准分析了AI决策过程中的来源信任层级。",
+      "llm_tldr": "使用大规模实证基准分析了AI决策过程中的来源信任层级。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "methods and metrics for measuring trust",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.11070v1",
+      "title": "PRISM Risk Signal Framework: Hierarchy-Based Red Lines for AI Behavioral Risk",
+      "abstract": "Current approaches to AI safety define red lines at the case level: specific prompts, specific outputs, specific harms. This paper argues that red lines can be set more fundamentally -- at the level of value, evidence, and source hierarchies that govern AI reasoning. Using the PRISM (Profile-based Reasoning Integrity Stack Measurement) framework, we define a taxonomy of 27 behavioral risk signals derived from structural anomalies in how AI systems prioritize values (L4), weight evidence types (L3), and trust information sources (L2). Each signal is evaluated through a dual-threshold principle combining absolute rank position and relative win-rate gap, producing a two-tier classification (Confirmed Risk vs. Watch Signal). The hierarchy-based approach offers three advantages over case-specific red lines: it is anticipatory rather than reactive (detecting dangerous reasoning structures before they produce harmful outputs), comprehensive rather than enumerative (a single value-hierarchy signal subsumes an unlimited number of case-specific violations), and measurable rather than subjective (grounded in empirical forced-choice data). We demonstrate the framework's detection capacity using approximately 397,000 forced-choice responses from 7 AI models across three Authority Stack layers, showing that the signal taxonomy successfully discriminates between models with structurally extreme profiles, models with context-dependent risk, and models with balanced hierarchies.",
+      "authors": [
+        "Seulki Lee"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-04-13T06:50:23+00:00",
+      "link": "https://arxiv.org/pdf/2604.11070v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Measurement framework for how AI systems trust information sources using structural signals and dual-threshold principles",
+      "llm_evidence_cn": "使用结构化信号和双阈值原则测量AI系统如何信任信息源的框架",
+      "llm_evidence": "使用结构化信号和双阈值原则测量AI系统如何信任信息源的框架",
+      "canonical_evidence": "使用结构化信号和双阈值原则测量AI系统如何信任信息源的框架",
+      "llm_tldr_en": "Introduces the PRISM framework to measure AI behavioral risk and trust in information sources via structural signals.",
+      "llm_tldr_cn": "引入PRISM框架，通过结构化信号测量AI行为风险及其对信息源的信任程度。",
+      "llm_tldr": "引入PRISM框架，通过结构化信号测量AI行为风险及其对信息源的信任程度。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.09746v1",
+      "title": "CONSCIENTIA: Can LLM Agents Learn to Strategize? Emergent Deception and Trust in a Multi-Agent NYC Simulation",
+      "abstract": "As large language models (LLMs) are increasingly deployed as autonomous agents, understanding how strategic behavior emerges in multi-agent environments has become an important alignment challenge. We take a neutral empirical stance and construct a controlled environment in which strategic behavior can be directly observed and measured. We introduce a large-scale multi-agent simulation in a simplified model of New York City, where LLM-driven agents interact under opposing incentives. Blue agents aim to reach their destinations efficiently, while Red agents attempt to divert them toward billboard-heavy routes using persuasive language to maximize advertising revenue. Hidden identities make navigation socially mediated, forcing agents to decide when to trust or deceive. We study policy learning through an iterative simulation pipeline that updates agent policies across repeated interaction rounds using Kahneman-Tversky Optimization (KTO). Blue agents are optimized to reduce billboard exposure while preserving navigation efficiency, whereas Red agents adapt to exploit remaining weaknesses. Across iterations, the best Blue policy improves task success from 46.0% to 57.3%, although susceptibility remains high at 70.7%. Later policies exhibit stronger selective cooperation while preserving trajectory efficiency. However, a persistent safety-helpfulness trade-off remains: policies that better resist adversarial steering do not simultaneously maximize task completion. Overall, our results show that LLM agents can exhibit limited strategic behavior, including selective trust and deception, while remaining highly vulnerable to adversarial persuasion.",
+      "authors": [
+        "Aarush Sinha",
+        "Arion Das",
+        "Soumyadeep Nag",
+        "Charan Karnati",
+        "Shravani Nag",
+        "Chandra Vadhan Raj",
+        "Aman Chadha",
+        "Vinija Jain",
+        "Suranjana Trivedy",
+        "Amitava Das"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-04-10T06:33:57+00:00",
+      "link": "https://arxiv.org/pdf/2604.09746v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "measures emergent deception and trust in a multi-agent simulation",
+      "llm_evidence_cn": "在多智能体模拟中测量涌现的欺骗与信任行为",
+      "llm_evidence": "在多智能体模拟中测量涌现的欺骗与信任行为",
+      "canonical_evidence": "在多智能体模拟中测量涌现的欺骗与信任行为",
+      "llm_tldr_en": "Constructs a simulation to observe and measure strategic behavior, deception, and trust in LLM agents.",
+      "llm_tldr_cn": "构建了一个模拟环境来观察和测量LLM智能体中的策略行为、欺骗与信任。",
+      "llm_tldr": "构建了一个模拟环境来观察和测量LLM智能体中的策略行为、欺骗与信任。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.09946v1",
+      "title": "All Eyes on the Ranker: Participatory Auditing to Surface Blind Spots in Ranked Search Results",
+      "abstract": "Search engines that present users with a ranked list of search results are a fundamental technology for providing public access to information. Evaluations of such systems are typically conducted by domain experts and focus on model-centric metrics, relevance judgments, or output-based analyses, rather than on how accountability, harm, or trust are experienced by users. This paper argues that participatory auditing is essential for revealing users' causal and contextual understandings of how ranked search results produce impacts, particularly as ranking models appear increasingly convincing and sophisticated in their semantic interpretation of user queries. We report on three participatory auditing workshops (n=21) in which participants engaged with a custom search interface across four tasks, comparing a lexical ranker (BM25) and a neural semantic reranker (MonoT5), exploring varying levels of transparency and user controls, and examining an intentionally adversarially manipulated ranking. Reflexive activities prompted participants to articulate causal narratives linking search system properties to broader impacts. Synthesising the findings, we contribute a taxonomy of user-perceived impacts of ranked search results, spanning epistemic, representational, infrastructural, and downstream social impacts. However, interactions with the neural model revealed limits to participatory auditing itself: perceived system competence and accumulated trust reduced critical scrutiny during the workshop, allowing manipulations to go undetected. Participants expressed desire for visibility into the full search pipeline and recourse mechanisms. Together, these findings show how participatory auditing can surface user perceived impacts and accountability gaps that remain unseen when relying on conventional audits, while revealing where participatory auditing may encounter limitations.",
+      "authors": [
+        "Anna Marie Rezk",
+        "Patrizia Di Campli San Vito",
+        "Ayah Soufan",
+        "Graham McDonald",
+        "Craig Macdonald",
+        "Iadh Ounis"
+      ],
+      "primary_category": "cs.CY",
+      "categories": [
+        "cs.CY",
+        "cs.IR"
+      ],
+      "published": "2026-04-10T22:55:03+00:00",
+      "link": "https://arxiv.org/pdf/2604.09946v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "participatory auditing to understand how trust is experienced by users",
+      "llm_evidence_cn": "通过参与式审计了解用户如何体验信任",
+      "llm_evidence": "通过参与式审计了解用户如何体验信任",
+      "canonical_evidence": "通过参与式审计了解用户如何体验信任",
+      "llm_tldr_en": "Uses participatory auditing to surface user experiences of trust and accountability in search rankings.",
+      "llm_tldr_cn": "利用参与式审计揭示用户在搜索排名中对信任和问责的体验。",
+      "llm_tldr": "利用参与式审计揭示用户在搜索排名中对信任和问责的体验。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.11281v1",
+      "title": "Epistemic Trust as a Mechanism for Ethics Integration: Failure Modes and Design Principles from 70 Moral Imagination Workshops",
+      "abstract": "Bottom-up responsible innovation initiatives seek to empower technology development teams to engage in ethical reflection, yet such interventions frequently fail to achieve practitioner engagement. Why do some ethics interventions succeed while others are dismissed as irrelevant, adversarial, or disconnected from work? This paper proposes epistemic trust -- the degree to which practitioners regard an intervention, its facilitators, and its content as credible, relevant, and actionable -- as a conceptual model linking intervention design to engagement outcomes. Drawing on philosophical work on testimony and on practice-based qualitative analysis of over 70 moral imagination workshops with engineering teams between 2019 and 2025, we identify five dimensions of epistemic trust salient to ethics interventions (Relevance, Inclusivity, Agency, Authority, and Alignment) and present a typology of 23 failure modes that arise when these dimensions are inadequately addressed. We derive nine design principles for cultivating epistemic trust, grounded in our operationalisation of moral imagination through technomoral scenarios and structured deliberation. Our findings contribute to the literature on collaborative socio-technical integration by specifying conditions of uptake that existing frameworks leave undertheorised. We acknowledge limitations including selection effects from voluntary participation and the absence of formal outcome measures, and position our failure mode typology as practitioner hypotheses warranting further empirical validation.",
+      "authors": [
+        "Benjamin Lange",
+        "Geoff Keeling",
+        "Kyle Pedersen",
+        "Carmen Heringer",
+        "Susan B. Rubin",
+        "Ben Zevenbergen",
+        "Amanda McCroskery"
+      ],
+      "primary_category": "cs.CY",
+      "categories": [
+        "cs.CY"
+      ],
+      "published": "2026-04-13T10:39:10+00:00",
+      "link": "https://arxiv.org/pdf/2604.11281v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "proposes epistemic trust as a conceptual model for engagement outcomes",
+      "llm_evidence_cn": "提出认识信任作为参与结果的概念模型",
+      "llm_evidence": "提出认识信任作为参与结果的概念模型",
+      "canonical_evidence": "提出认识信任作为参与结果的概念模型",
+      "llm_tldr_en": "Uses epistemic trust as a framework to understand practitioner engagement in ethics interventions.",
+      "llm_tldr_cn": "使用认识信任作为框架来理解从业者在伦理干预中的参与度。",
+      "llm_tldr": "使用认识信任作为框架来理解从业者在伦理干预中的参与度。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
