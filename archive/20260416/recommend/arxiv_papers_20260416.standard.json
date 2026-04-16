@@ -1,0 +1,169 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-16T21:58:39.954786+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2604.11996v1",
+      "title": "Filtered Reasoning Score: Evaluating Reasoning Quality on a Model's Most-Confident Traces",
+      "abstract": "Should we trust Large Language Models (LLMs) with high accuracy? LLMs achieve high accuracy on reasoning benchmarks, but correctness alone does not reveal the quality of the reasoning used to produce it. This highlights a fundamental limitation of outcome-based evaluation: models may arrive at correct answers through flawed reasoning, and models with substantially different reasoning capabilities can nevertheless exhibit similar benchmark accuracy, for example due to memorization or over-optimization. In this paper, we ask: given existing benchmarks, can we move beyond outcome-based evaluation to assess the quality of reasoning itself? We seek metrics that (1) differentiate models with similar accuracy and (2) are robust to variations in input prompts and generation configurations. To this end, we propose a reasoning score that evaluates reasoning traces along dimensions such as faithfulness, coherence, utility, and factuality. A remaining question is how to aggregate this score across multiple sampled traces. Naively averaging them is undesirable, particularly in long-horizon settings, where the number of possible trajectories grows rapidly, and low-confidence correct traces are more likely to be coincidental. To address this, we introduce the Filtered Reasoning Score (FRS), which computes reasoning quality using only the top-K% most confident traces. Evaluating with FRS, models that are indistinguishable under standard accuracy exhibit significant differences in reasoning quality. Moreover, models with higher FRS on one benchmark tend to perform better on other reasoning benchmarks, in both accuracy and reasoning quality. Together, these findings suggest that FRS complements accuracy by capturing a model's transferable reasoning capabilities. We open source our evaluation codebase: https://github.com/Manas2006/benchmark_reproducibility.",
+      "authors": [
+        "Manas Pathak",
+        "Xingyao Chen",
+        "Shuozhe Li",
+        "Amy Zhang",
+        "Liu Leqi"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI"
+      ],
+      "published": "2026-04-13T19:37:09+00:00",
+      "link": "https://arxiv.org/pdf/2604.11996v1",
+      "tags": [
+        "keyword:信任测量"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Seeks metrics to assess the quality of reasoning to determine if we should trust LLMs beyond accuracy",
+      "llm_evidence_cn": "寻求评估推理质量的指标，以确定在准确性之外是否应该信任大语言模型",
+      "llm_evidence": "寻求评估推理质量的指标，以确定在准确性之外是否应该信任大语言模型",
+      "canonical_evidence": "寻求评估推理质量的指标，以确定在准确性之外是否应该信任大语言模型",
+      "llm_tldr_en": "Proposes the Filtered Reasoning Score to evaluate LLM reasoning quality as a basis for trust.",
+      "llm_tldr_cn": "提出了过滤推理得分，通过评估大语言模型的推理质量来衡量其可信度。",
+      "llm_tldr": "提出了过滤推理得分，通过评估大语言模型的推理质量来衡量其可信度。",
+      "llm_tags": [
+        "query:q4"
+      ],
+      "matched_query_tag": "query:q4",
+      "matched_query_text": "quantitative metrics used to assess trust",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.13468v1",
+      "title": "From Relevance to Authority: Authority-aware Generative Retrieval in Web Search Engines",
+      "abstract": "Generative information retrieval (GenIR) formulates the retrieval process as a text-to-text generation task, leveraging the vast knowledge of large language models. However, existing works primarily optimize for relevance while often overlooking document trustworthiness. This is critical in high-stakes domains like healthcare and finance, where relying solely on semantic relevance risks retrieving unreliable information. To address this, we propose an Authority-aware Generative Retriever (AuthGR), the first framework that incorporates authority into GenIR. AuthGR consists of three key components: (i) Multimodal Authority Scoring, which employs a vision-language model to quantify authority from textual and visual cues; (ii) a Three-stage Training Pipeline to progressively instill authority awareness into the retriever; and (iii) a Hybrid Ensemble Pipeline for robust deployment. Offline evaluations demonstrate that AuthGR successfully enhances both authority and accuracy, with our 3B model matching a 14B baseline. Crucially, large-scale online A/B tests and human evaluations conducted on the commercial web search platform confirm significant improvements in real-world user engagement and reliability.",
+      "authors": [
+        "Sunkyung Lee",
+        "Jihye Back",
+        "Donghyeon Jeon",
+        "Soonhwan Kwon",
+        "Moonkwon Kim",
+        "Inho Kang",
+        "Jongwuk Lee"
+      ],
+      "primary_category": "cs.IR",
+      "categories": [
+        "cs.IR",
+        "cs.CL"
+      ],
+      "published": "2026-04-15T04:44:45+00:00",
+      "link": "https://arxiv.org/pdf/2604.13468v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "multimodal authority scoring to quantify document trustworthiness",
+      "llm_evidence_cn": "多模态权威评分以量化文档可信度",
+      "llm_evidence": "多模态权威评分以量化文档可信度",
+      "canonical_evidence": "多模态权威评分以量化文档可信度",
+      "llm_tldr_en": "Introduces a framework that quantifies document authority and trustworthiness in generative retrieval.",
+      "llm_tldr_cn": "引入了一个在生成式检索中量化文档权威性和可信度的框架。",
+      "llm_tldr": "引入了一个在生成式检索中量化文档权威性和可信度的框架。",
+      "llm_tags": [
+        "query:q4"
+      ],
+      "matched_query_tag": "query:q4",
+      "matched_query_text": "quantitative metrics used to assess trust",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.12007v1",
+      "title": "When to Forget: A Memory Governance Primitive",
+      "abstract": "Agent memory systems accumulate experience but currently lack a principled operational metric for memory quality governance -- deciding which memories to trust, suppress, or deprecate as the agent's task distribution shifts. Write-time importance scores are static; dynamic management systems use LLM judgment or structural heuristics rather than outcome feedback. This paper proposes Memory Worth (MW): a two-counter per-memory signal that tracks how often a memory co-occurs with successful versus failed outcomes, providing a lightweight, theoretically grounded foundation for staleness detection, retrieval suppression, and deprecation decisions. We prove that MW converges almost surely to the conditional success probability p+(m) = Pr[y_t = +1 | m in M_t] -- the probability of task success given that memory m is retrieved -- under a stationary retrieval regime with a minimum exploration condition. Importantly, p+(m) is an associational quantity, not a causal one: it measures outcome co-occurrence rather than causal contribution. We argue this is still a useful operational signal for memory governance, and we validate it empirically in a controlled synthetic environment where ground-truth utility is known: after 10,000 episodes, the Spearman rank-correlation between Memory Worth and true utilities reaches rho = 0.89 +/- 0.02 across 20 independent seeds, compared to rho = 0.00 for systems that never update their assessments. A retrieval-realistic micro-experiment with real text and neural embedding retrieval (all-MiniLM-L6-v2) further shows stale memories crossing the low-value threshold (MW = 0.17) while specialist memories remain high-value (MW = 0.77) across 3,000 episodes. The estimator requires only two scalar counters per memory unit and can be added to architectures that already log retrievals and episode outcomes.",
+      "authors": [
+        "Baris Simsek"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-04-13T19:54:14+00:00",
+      "link": "https://arxiv.org/pdf/2604.12007v1",
+      "tags": [
+        "keyword:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "metric for memory quality governance and deciding which memories to trust",
+      "llm_evidence_cn": "内存质量治理指标及决定信任哪些记忆",
+      "llm_evidence": "内存质量治理指标及决定信任哪些记忆",
+      "canonical_evidence": "内存质量治理指标及决定信任哪些记忆",
+      "llm_tldr_en": "Proposes Memory Worth (MW) as a metric to track memory reliability based on success/failure outcomes.",
+      "llm_tldr_cn": "提出内存价值（MW）指标，通过成功/失败结果追踪记忆的可靠性并决定是否信任。",
+      "llm_tldr": "提出内存价值（MW）指标，通过成功/失败结果追踪记忆的可靠性并决定是否信任。",
+      "llm_tags": [
+        "query:q4"
+      ],
+      "matched_query_tag": "query:q4",
+      "matched_query_text": "quantitative metrics used to assess trust",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.12069v1",
+      "title": "Robust Explanations for User Trust in Enterprise NLP Systems",
+      "abstract": "Robust explanations are increasingly required for user trust in enterprise NLP, yet pre-deployment validation is difficult in the common case of black-box deployment (API-only access) where representation-based explainers are infeasible and existing studies provide limited guidance on whether explanations remain stable under real user noise, especially when organizations migrate from encoder classifiers to decoder LLMs. To close this gap, we propose a unified black-box robustness evaluation framework for token-level explanations based on leave-one-out occlusion, and operationalize explanation robustness with top-token flip rate under realistic perturbations (swap, deletion, shuffling, and back-translation) at multiple severity levels. Using this protocol, we conduct a systematic cross-architecture comparison across three benchmark datasets and six models spanning encoder and decoder families (BERT, RoBERTa, Qwen 7B/14B, Llama 8B/70B; 64,800 cases). We find that decoder LLMs produce substantially more stable explanations than encoder baselines (73% lower flip rates on average), and that stability improves with model scale (44% gain from 7B to 70B). Finally, we relate robustness improvements to inference cost, yielding a practical cost-robustness tradeoff curve that supports model and explanation selection prior to deployment in compliance-sensitive applications.",
+      "authors": [
+        "Guilin Zhang",
+        "Kai Zhao",
+        "Jeffrey Friedman",
+        "Xu Chu",
+        "Amine Anoun",
+        "Jerry Ting"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-04-13T21:19:59+00:00",
+      "link": "https://arxiv.org/pdf/2604.12069v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "robustness evaluation framework for explanations to support user trust",
+      "llm_evidence_cn": "支持用户信任的解释鲁棒性评估框架",
+      "llm_evidence": "支持用户信任的解释鲁棒性评估框架",
+      "canonical_evidence": "支持用户信任的解释鲁棒性评估框架",
+      "llm_tldr_en": "Proposes a framework to measure the robustness of NLP explanations, which is critical for user trust.",
+      "llm_tldr_cn": "提出一种衡量NLP解释鲁棒性的框架，这对建立用户信任至关重要。",
+      "llm_tldr": "提出一种衡量NLP解释鲁棒性的框架，这对建立用户信任至关重要。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "methods and metrics for measuring trust",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

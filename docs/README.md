@@ -6,37 +6,34 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-14
-- 运行时间：2026-04-14 21:51:47 UTC
+- 最新运行日期：2026-04-16
+- 运行时间：2026-04-16 21:59:34 UTC
 - 运行状态：成功
-- 本次总论文数：5
+- 本次总论文数：4
 - 精读区：2
-- 速读区：3
+- 速读区：2
 
 ### 今日简报（AI）
-今日聚焦 AI 系统的权威架构与行为红线，通过 36 万次实证交互深入剖析了模型权力动态与风险边界。
-研究重点揭示了 AI 权威栈的分布规律，并为行为风险划定了分级“红线”，同时探讨了智能体在模拟环境中的欺骗与信任演化。
-建议关注 AI 决策中的道德想象力与参与式审计，以应对算法排序中的盲点并建立更深层的认知信任。
-- 详情：[/202604/14/README](/202604/14/README)
+今日聚焦大模型推理质量评估与权威性检索，深度解析 4 篇提升 AI 可靠性的前沿论文。
+重点关注通过置信轨迹评估逻辑严密性的 FRS 指标，以及让生成式搜索从“相关”转向“权威”的新架构。
+建议开发者优先优化模型推理的置信度筛选，并探索企业级 NLP 系统中的用户信任增强方案。
+- 详情：[/202604/16/README](/202604/16/README)
 
 ### 精读区论文标签
-1. [Measuring the Authority Stack of AI Systems: Empirical Analysis of 366,120 Forced-Choice Responses Across 8 AI Models](/202604/14/2604.11216v1-measuring-the-authority-stack-of-ai-systems-empirical-analysis-of-366120-forced-choice-responses-across-8-ai-models)  
-   标签：评分：9.0/10、query:q3
-   evidence：使用强迫选择工具基准对来源信任层级进行实证映射
-2. [PRISM Risk Signal Framework: Hierarchy-Based Red Lines for AI Behavioral Risk](/202604/14/2604.11070v1-prism-risk-signal-framework-hierarchy-based-red-lines-for-ai-behavioral-risk)  
-   标签：评分：8.0/10、query:q5
-   evidence：使用结构化信号和双阈值原则测量AI系统如何信任信息源的框架
+1. [Filtered Reasoning Score: Evaluating Reasoning Quality on a Model's Most-Confident Traces](/202604/16/2604.11996v1-filtered-reasoning-score-evaluating-reasoning-quality-on-a-models-most-confident-traces)  
+   标签：评分：9.0/10、query:q4
+   evidence：寻求评估推理质量的指标，以确定在准确性之外是否应该信任大语言模型
+2. [From Relevance to Authority: Authority-aware Generative Retrieval in Web Search Engines](/202604/16/2604.13468v1-from-relevance-to-authority-authority-aware-generative-retrieval-in-web-search-engines)  
+   标签：评分：8.0/10、query:q4
+   evidence：多模态权威评分以量化文档可信度
 
 ### 速读区论文标签
-1. [CONSCIENTIA: Can LLM Agents Learn to Strategize? Emergent Deception and Trust in a Multi-Agent NYC Simulation](/202604/14/2604.09746v1-conscientia-can-llm-agents-learn-to-strategize-emergent-deception-and-trust-in-a-multi-agent-nyc-simulation)  
-   标签：评分：7.0/10、query:profile-1
-   evidence：在多智能体模拟中测量涌现的欺骗与信任行为
-2. [All Eyes on the Ranker: Participatory Auditing to Surface Blind Spots in Ranked Search Results](/202604/14/2604.09946v1-all-eyes-on-the-ranker-participatory-auditing-to-surface-blind-spots-in-ranked-search-results)  
-   标签：评分：6.0/10、query:profile-1
-   evidence：通过参与式审计了解用户如何体验信任
-3. [Epistemic Trust as a Mechanism for Ethics Integration: Failure Modes and Design Principles from 70 Moral Imagination Workshops](/202604/14/2604.11281v1-epistemic-trust-as-a-mechanism-for-ethics-integration-failure-modes-and-design-principles-from-70-moral-imagination-workshops)  
-   标签：评分：6.0/10、query:profile-1
-   evidence：提出认识信任作为参与结果的概念模型
+1. [When to Forget: A Memory Governance Primitive](/202604/16/2604.12007v1-when-to-forget-a-memory-governance-primitive)  
+   标签：评分：7.0/10、query:q4
+   evidence：内存质量治理指标及决定信任哪些记忆
+2. [Robust Explanations for User Trust in Enterprise NLP Systems](/202604/16/2604.12069v1-robust-explanations-for-user-trust-in-enterprise-nlp-systems)  
+   标签：评分：7.0/10、query:q3
+   evidence：支持用户信任的解释鲁棒性评估框架
 
 
 <div class="dpr-home-promo-card">
