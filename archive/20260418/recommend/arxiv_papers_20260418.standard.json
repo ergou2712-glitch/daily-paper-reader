@@ -1,0 +1,53 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-18T20:08:07.514453+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2604.14525v1",
+      "title": "Quantifying Cross-Query Contradictions in Multi-Query LLM Reasoning",
+      "abstract": "Large language models frequently produce mutually inconsistent answers when reasoning over multiple related queries. We study case-file logical consistency: maintaining a globally satisfiable belief state across interdependent queries. We introduce a benchmark of 390 multi-query reasoning instances with entailment/contradiction/unknown labels and propose set-level metrics including Case Satisfiability Rate, Contradiction Density and Revision Cost. Our solver-augmented approach extracts commitments, verifies global satisfiability and performs counterexample-guided repair. Across four reasoning domains, our method substantially reduces cross-query contradictions (SetCons: 0.56 to 0.94) while preserving per-query accuracy, demonstrating that global coherence is critical for robust multi-query reasoning.",
+      "authors": [
+        "Rohit Kumar Salla",
+        "Ramya Manasa Amancherla",
+        "Manoj Saravanan"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-04-16T01:44:19+00:00",
+      "link": "https://arxiv.org/pdf/2604.14525v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "quantitative metrics for logical consistency and belief state reliability",
+      "llm_evidence_cn": "逻辑一致性和信念状态可靠性的定量指标",
+      "llm_evidence": "逻辑一致性和信念状态可靠性的定量指标",
+      "canonical_evidence": "逻辑一致性和信念状态可靠性的定量指标",
+      "llm_tldr_en": "Develops metrics to quantify consistency in LLM reasoning, supporting trust in model reliability.",
+      "llm_tldr_cn": "开发了量化LLM推理一致性的指标，支持对模型可靠性的信任评估。",
+      "llm_tldr": "开发了量化LLM推理一致性的指标，支持对模型可靠性的信任评估。",
+      "llm_tags": [
+        "query:q4"
+      ],
+      "matched_query_tag": "query:q4",
+      "matched_query_text": "quantitative metrics used to assess trust",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

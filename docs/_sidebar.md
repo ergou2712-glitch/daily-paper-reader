@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-04-18 <!--dpr-date:20260418-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202604/18/2604.14525v1-quantifying-cross-query-contradictions-in-multi-query-llm-reasoning" data-sidebar-item="{&quot;title&quot;: &quot;Quantifying Cross-Query Contradictions in Multi-Query LLM Reasoning&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2604.14525v1-quantifying-cross-query-contradictions-in-multi-query-llm-reasoning&quot;, &quot;score&quot;: &quot;6.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;q4&quot;}], &quot;evidence&quot;: &quot;逻辑一致性和信念状态可靠性的定量指标&quot;}">Quantifying Cross-Query Contradictions in Multi-Query LLM Reasoning</a>
   * 2026-04-16 <!--dpr-date:20260416-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202604/16/2604.11996v1-filtered-reasoning-score-evaluating-reasoning-quality-on-a-models-most-confident-traces" data-sidebar-item="{&quot;title&quot;: &quot;Filtered Reasoning Score: Evaluating Reasoning Quality on a Model&#x27;s Most-Confident Traces&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2604.11996v1-filtered-reasoning-score-evaluating-reasoning-quality-on-a-models-most-confident-traces&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;q4&quot;}], &quot;evidence&quot;: &quot;寻求评估推理质量的指标，以确定在准确性之外是否应该信任大语言模型&quot;}">Filtered Reasoning Score: Evaluating Reasoning Quality on a Model&#x27;s Most-Confident Traces</a>

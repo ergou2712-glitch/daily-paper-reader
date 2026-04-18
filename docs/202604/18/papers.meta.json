@@ -1,0 +1,23 @@
+{
+  "label": "2026-04-18",
+  "date": "2026-04-18",
+  "generated_at": "2026-04-18T20:08:29",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202604/18/2604.14525v1-quantifying-cross-query-contradictions-in-multi-query-llm-reasoning",
+      "section": "quick",
+      "title_en": "Quantifying Cross-Query Contradictions in Multi-Query LLM Reasoning",
+      "authors": "Rohit Kumar Salla, Ramya Manasa Amancherla, Manoj Saravanan",
+      "date": "2026-04-16",
+      "pdf": "https://arxiv.org/pdf/2604.14525v1",
+      "score": "6.0",
+      "evidence": "逻辑一致性和信念状态可靠性的定量指标",
+      "tldr": "针对大语言模型在处理多个相关查询时常出现逻辑矛盾的问题，本研究提出了“案卷逻辑一致性”概念，旨在保持全局可满足的信念状态。研究引入了包含390个推理实例的新基准和评估指标，并开发了一种结合求解器的增强方法，通过提取承诺、验证一致性及反例引导修复，在保持单查询准确性的同时显著减少了跨查询矛盾。",
+      "tags": "query:q4",
+      "abstract_en": "Large language models frequently produce mutually inconsistent answers when reasoning over multiple related queries. We study case-file logical consistency: maintaining a globally satisfiable belief state across interdependent queries. We introduce a benchmark of 390 multi-query reasoning instances with entailment/contradiction/unknown labels and propose set-level metrics including Case Satisfiability Rate, Contradiction Density and Revision Cost. Our solver-augmented approach extracts commitments, verifies global satisfiability and performs counterexample-guided repair. Across four reasoning domains, our method substantially reduces cross-query contradictions (SetCons: 0.56 to 0.94) while preserving per-query accuracy, demonstrating that global coherence is critical for robust multi-query reasoning.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
