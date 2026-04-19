@@ -1,0 +1,52 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-19T20:44:25.881746+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2604.13668v1",
+      "title": "Where Trust Fails: Mapping Location-Data Provenance Risks in Europe",
+      "abstract": "European digital sovereignty and security increasingly depends on whether high-impact decisions can be grounded in location evidence that remains credible under adversarial pressure. This paper frames a cross-sector analysis as a location-data provenance problem: not merely what a device or service reports as location, but whether there is contestable evidence about where and when an asserted event occurred, who or what produced the assertion, and under which audit and retention guarantees. There are observable patterns across democratic processes and the information environment, trade and origin-sensitive supply chains, finance and illicit shipping flows, critical infrastructure and mobility, and harms targeting individuals' private and social domains. In these patterns we see a recurring asymmetry in which locality, presence, routing, or jurisdiction can be asserted cheaply while institutions and affected parties face costly reconstruction when disputes arise. To make this challenge actionable, this paper introduces a compact risk taxonomy that decomposes provenance failures into integrity axes and recurring failure modes, and derives design expectations for next-generation digital trust infrastructure centered on contestability under dispute, while remaining privacy- and rights-compatible. It argues for treating location as a digital primitive that should be represented as evidence-bearing claims rather than self-asserted coordinates, and positions proof-of-location (PoL) mechanisms as a candidate capability layer for producing verifiable presence claims under explicit threat and privacy assumptions. The outcome is a sector-neutral foundation for future architectural work on a next-generation digital trust infrastructure for Europe.",
+      "authors": [
+        "Eduardo Brito",
+        "Liina Kamm"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-04-15T09:36:50+00:00",
+      "link": "https://arxiv.org/pdf/2604.13668v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "mapping location-data provenance risks and credibility",
+      "llm_evidence_cn": "映射位置数据溯源风险与可信度",
+      "llm_evidence": "映射位置数据溯源风险与可信度",
+      "canonical_evidence": "映射位置数据溯源风险与可信度",
+      "llm_tldr_en": "Analyzes location-data provenance to assess the credibility of evidence under adversarial pressure.",
+      "llm_tldr_cn": "分析位置数据溯源，以评估对抗压力下证据的可信度。",
+      "llm_tldr": "分析位置数据溯源，以评估对抗压力下证据的可信度。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

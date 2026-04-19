@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-04-19 <!--dpr-date:20260419-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202604/19/2604.13668v1-where-trust-fails-mapping-location-data-provenance-risks-in-europe" data-sidebar-item="{&quot;title&quot;: &quot;Where Trust Fails: Mapping Location-Data Provenance Risks in Europe&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2604.13668v1-where-trust-fails-mapping-location-data-provenance-risks-in-europe&quot;, &quot;score&quot;: &quot;7.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;q5&quot;}], &quot;evidence&quot;: &quot;映射位置数据溯源风险与可信度&quot;}">Where Trust Fails: Mapping Location-Data Provenance Risks in Europe</a>
   * 2026-04-18 <!--dpr-date:20260418-->
     * 速读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202604/18/2604.14525v1-quantifying-cross-query-contradictions-in-multi-query-llm-reasoning" data-sidebar-item="{&quot;title&quot;: &quot;Quantifying Cross-Query Contradictions in Multi-Query LLM Reasoning&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2604.14525v1-quantifying-cross-query-contradictions-in-multi-query-llm-reasoning&quot;, &quot;score&quot;: &quot;6.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;q4&quot;}], &quot;evidence&quot;: &quot;逻辑一致性和信念状态可靠性的定量指标&quot;}">Quantifying Cross-Query Contradictions in Multi-Query LLM Reasoning</a>

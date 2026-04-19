@@ -1,0 +1,23 @@
+{
+  "label": "2026-04-19",
+  "date": "2026-04-19",
+  "generated_at": "2026-04-19T20:44:50",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202604/19/2604.13668v1-where-trust-fails-mapping-location-data-provenance-risks-in-europe",
+      "section": "quick",
+      "title_en": "Where Trust Fails: Mapping Location-Data Provenance Risks in Europe",
+      "authors": "Eduardo Brito, Liina Kamm",
+      "date": "2026-04-15",
+      "pdf": "https://arxiv.org/pdf/2604.13668v1",
+      "score": "7.0",
+      "evidence": "映射位置数据溯源风险与可信度",
+      "tldr": "本研究探讨了欧洲数字主权背景下的位置数据溯源风险。针对当前位置信息易被伪造且验证成本高昂的非对称性问题，论文通过跨行业分析，提出了一套风险分类法，将溯源失败分解为完整性轴和故障模式。研究建议将位置视为具有证据效力的声明而非自述坐标，并提出“位置证明”（PoL）机制作为下一代数字信任基础设施的核心，旨在平衡可验证性、隐私保护与权利兼容性。",
+      "tags": "query:q5",
+      "abstract_en": "European digital sovereignty and security increasingly depends on whether high-impact decisions can be grounded in location evidence that remains credible under adversarial pressure. This paper frames a cross-sector analysis as a location-data provenance problem: not merely what a device or service reports as location, but whether there is contestable evidence about where and when an asserted event occurred, who or what produced the assertion, and under which audit and retention guarantees. There are observable patterns across democratic processes and the information environment, trade and origin-sensitive supply chains, finance and illicit shipping flows, critical infrastructure and mobility, and harms targeting individuals' private and social domains. In these patterns we see a recurring asymmetry in which locality, presence, routing, or jurisdiction can be asserted cheaply while institutions and affected parties face costly reconstruction when disputes arise. To make this challenge actionable, this paper introduces a compact risk taxonomy that decomposes provenance failures into integrity axes and recurring failure modes, and derives design expectations for next-generation digital trust infrastructure centered on contestability under dispute, while remaining privacy- and rights-compatible. It argues for treating location as a digital primitive that should be represented as evidence-bearing claims rather than self-asserted coordinates, and positions proof-of-location (PoL) mechanisms as a candidate capability layer for producing verifiable presence claims under explicit threat and privacy assumptions. The outcome is a sector-neutral foundation for future architectural work on a next-generation digital trust infrastructure for Europe.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
