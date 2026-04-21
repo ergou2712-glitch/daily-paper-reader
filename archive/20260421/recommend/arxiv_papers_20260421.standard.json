@@ -1,0 +1,208 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-21T21:43:51.192658+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 4,
+    "quick_skim_target": 11,
+    "quick_selected": 4
+  },
+  "deep_dive": [
+    {
+      "id": "2604.13468v2",
+      "title": "From Relevance to Authority: Authority-aware Generative Retrieval in Web Search Engines",
+      "abstract": "Generative information retrieval (GenIR) formulates the retrieval process as a text-to-text generation task, leveraging the vast knowledge of large language models. However, existing works primarily optimize for relevance while often overlooking document trustworthiness. This is critical in high-stakes domains like healthcare and finance, where relying solely on semantic relevance risks retrieving unreliable information. To address this, we propose an Authority-aware Generative Retriever (AuthGR), the first framework that incorporates authority into GenIR. AuthGR consists of three key components: (i) Multimodal Authority Scoring, which employs a vision-language model to quantify authority from textual and visual cues; (ii) a Three-stage Training Pipeline to progressively instill authority awareness into the retriever; and (iii) a Hybrid Ensemble Pipeline for robust deployment. Offline evaluations demonstrate that AuthGR successfully enhances both authority and accuracy, with our 3B model matching a 14B baseline. Crucially, large-scale online A/B tests and human evaluations conducted on the commercial web search platform confirm significant improvements in real-world user engagement and reliability.",
+      "authors": [
+        "Sunkyung Lee",
+        "Jihye Back",
+        "Donghyeon Jeon",
+        "Soonhwan Kwon",
+        "Moonkwon Kim",
+        "Inho Kang",
+        "Jongwuk Lee"
+      ],
+      "primary_category": "cs.IR",
+      "categories": [
+        "cs.IR",
+        "cs.CL"
+      ],
+      "published": "2026-04-15T04:44:45+00:00",
+      "link": "https://arxiv.org/pdf/2604.13468v2",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "multimodal authority scoring to quantify document trustworthiness",
+      "llm_evidence_cn": "多模态权威评分以量化文档可信度",
+      "llm_evidence": "多模态权威评分以量化文档可信度",
+      "canonical_evidence": "多模态权威评分以量化文档可信度",
+      "llm_tldr_en": "Introduces AuthGR to incorporate authority and trustworthiness into generative retrieval systems.",
+      "llm_tldr_cn": "引入AuthGR框架，将权威性和可信度整合到生成式检索系统中。",
+      "llm_tldr": "引入AuthGR框架，将权威性和可信度整合到生成式检索系统中。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.16606v1",
+      "title": "SafeLM: Unified Privacy-Aware Optimization for Trustworthy Federated Large Language Models",
+      "abstract": "Large language models (LLMs) are increasingly deployed in high-stakes domains, yet a unified treatment of their overlapping safety challenges remains lacking. We present SafeLM, a framework that jointly addresses four pillars of LLM safety: privacy, security, misinformation, and adversarial robustness. SafeLM combines federated training with gradient smartification and Paillier encryption for privacy, integrates defenses against training and inference-time attacks, employs contrastive grounding with calibrated decoding to reduce hallucinations, and introduces alignment-aware binarized aggregation to enhance robustness while maintaining bounded reconstruction quality. Across benchmarks on factuality, toxicity, and membership inference, SafeLM achieves 98.0% harmful content detection accuracy, reduces communication by 96.9%, and lowers gradient inversion PSNR from 31.7 dB to 15.1 dB. Ablations show that each component contributes independently, whereas their integration yields a strong privacy utility efficiency trade-off for deploying trustworthy LLMs.",
+      "authors": [
+        "Noor Islam S. Mohammad",
+        "Uluğ Bayazıt"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.LG"
+      ],
+      "published": "2026-04-17T18:00:58+00:00",
+      "link": "https://arxiv.org/pdf/2604.16606v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "benchmarks on factuality and toxicity for trustworthy LLMs",
+      "llm_evidence_cn": "针对可信大语言模型的事实性和毒性基准测试",
+      "llm_evidence": "针对可信大语言模型的事实性和毒性基准测试",
+      "canonical_evidence": "针对可信大语言模型的事实性和毒性基准测试",
+      "llm_tldr_en": "SafeLM provides a unified framework and benchmarks for evaluating and optimizing LLM safety and trustworthiness.",
+      "llm_tldr_cn": "SafeLM提供了一个统一的框架和基准，用于评估和优化大语言模型的安全性和可信度。",
+      "llm_tldr": "SafeLM提供了一个统一的框架和基准，用于评估和优化大语言模型的安全性和可信度。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.16753v1",
+      "title": "Know When to Trust the Skill: Delayed Appraisal and Epistemic Vigilance for Single-Agent LLMs",
+      "abstract": "As large language models (LLMs) transition into autonomous agents integrated with extensive tool ecosystems, traditional routing heuristics increasingly succumb to context pollution and \"overthinking\". We argue that the bottleneck is not a deficit in algorithmic capability or skill diversity, but the absence of disciplined second-order metacognitive governance. In this paper, our scientific contribution focuses on the computational translation of human cognitive control - specifically, delayed appraisal, epistemic vigilance, and region-of-proximal offloading - into a single-agent architecture. We introduce MESA-S (Metacognitive Skills for Agents, Single-agent), a preliminary framework that shifts scalar confidence estimation into a vector separating self-confidence (parametric certainty) from source-confidence (trust in retrieved external procedures). By formalizing a delayed procedural probe mechanism and introducing Metacognitive Skill Cards, MESA-S decouples the awareness of a skill's utility from its token-intensive execution. Evaluated under an In-Context Static Benchmark Evaluation natively executed via Gemini 3.1 Pro, our early results suggest that explicitly programming trust provenance and delayed escalation mitigates supply-chain vulnerabilities, prunes unnecessary reasoning loops, and prevents offloading-induced confidence inflation. This architecture offers a scientifically cautious, behaviorally anchored step toward reliable, epistemically vigilant single-agent orchestration.",
+      "authors": [
+        "Eren Unlu"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-04-17T23:55:19+00:00",
+      "link": "https://arxiv.org/pdf/2604.16753v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "shifts scalar confidence estimation into metacognitive governance",
+      "llm_evidence_cn": "将标量置信度估计转变为元认知治理",
+      "llm_evidence": "将标量置信度估计转变为元认知治理",
+      "canonical_evidence": "将标量置信度估计转变为元认知治理",
+      "llm_tldr_en": "Introduces MESA-S to improve agent reliability through metacognitive trust and confidence estimation.",
+      "llm_tldr_cn": "引入MESA-S框架，通过元认知信任和置信度估计提高智能体的可靠性。",
+      "llm_tldr": "引入MESA-S框架，通过元认知信任和置信度估计提高智能体的可靠性。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.17270v1",
+      "title": "What Security and Privacy Transparency Users Need from Consumer-Facing Generative AI",
+      "abstract": "Users increasingly rely on consumer-facing generative AI (GenAI) for tasks ranging from everyday needs to sensitive use cases. Yet, it remains unclear whether and how existing security and privacy (S&P) communications in GenAI tools shape users' adoption decisions and subsequent experiences. Understanding how users seek, interpret, and evaluate S&P information is critical for designing usable transparency that users can trust and act on. We conducted semi-structured interviews and design sessions with 21 U.S. GenAI users. We find that available S&P information rarely drove initial adoption in practice, as participants often perceived it as incomplete, ineffective, or lacking credibility. Instead, they relied on rough proxies, such as popularity, to infer S&P practices. After adoption, uncertainty about S&P practices constrained participants' willingness to use GenAI tools, particularly in high-stakes contexts, and, in some cases, contributed to discontinued use. Participants therefore called for transparency that supports decision-making and use, including trustworthy information (e.g., independent evaluations) and usable interfaces (e.g., on-demand disclosure). We synthesize participants' desired design practices into five dimensions to facilitate systematic future investigation into best practices. We conclude with recommendations for researchers, designers, and policymakers to improve S&P transparency in consumer-facing GenAI.",
+      "authors": [
+        "Jiaxun Cao",
+        "Yu Dong",
+        "Chunxi Zhan",
+        "Rithvik Neti",
+        "Sai Teja Peddinti",
+        "Pardis Emami-Naeini"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC",
+        "cs.AI",
+        "cs.CR",
+        "cs.CY"
+      ],
+      "published": "2026-04-19T05:57:20+00:00",
+      "link": "https://arxiv.org/pdf/2604.17270v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "how users evaluate S&P information to trust GenAI",
+      "llm_evidence_cn": "用户如何评估安全隐私信息以信任生成式AI",
+      "llm_evidence": "用户如何评估安全隐私信息以信任生成式AI",
+      "canonical_evidence": "用户如何评估安全隐私信息以信任生成式AI",
+      "llm_tldr_en": "Investigates how security and privacy transparency affects user trust and adoption of GenAI.",
+      "llm_tldr_cn": "调查安全和隐私透明度如何影响用户对生成式AI的信任和采用。",
+      "llm_tldr": "调查安全和隐私透明度如何影响用户对生成式AI的信任和采用。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.18052v1",
+      "title": "ExAI5G: A Logic-Based Explainable AI Framework for Intrusion Detection in 5G Networks",
+      "abstract": "Intrusion detection systems (IDSs) for 5G networks must handle complex, high-volume traffic. Although opaque \"black-box\" models can achieve high accuracy, their lack of transparency hinders trust and effective operational response. We propose ExAI5G, a framework that prioritizes interpretability by integrating a Transformer-based deep learning IDS with logic-based explainable AI (XAI) techniques. The framework uses Integrated Gradients to attribute feature importance and extracts a surrogate decision tree to derive logical rules. We introduce a novel evaluation methodology for LLM-generated explanations, using a powerful evaluator LLM to assess actionability and measuring their semantic similarity and faithfulness. On a 5G IoT intrusion dataset, our system achieves 99.9\\% accuracy and a 0.854 macro F1-score, demonstrating strong performance. More importantly, we extract 16 logical rules with 99.7\\% fidelity, making the model's reasoning transparent. The evaluation demonstrates that modern LLMs can generate explanations that are both faithful and actionable, indicating that it is possible to build a trustworthy and effective IDS without compromising performance for the sake of marginal gains from an opaque model.",
+      "authors": [
+        "Saeid Sheikhi",
+        "Panos Kostakos",
+        "Lauri Loven"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-04-20T10:19:57+00:00",
+      "link": "https://arxiv.org/pdf/2604.18052v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "evaluation methodology for explanations to enhance trust",
+      "llm_evidence_cn": "增强信任的解释评估方法论",
+      "llm_evidence": "增强信任的解释评估方法论",
+      "canonical_evidence": "增强信任的解释评估方法论",
+      "llm_tldr_en": "Introduces an evaluation methodology for AI explanations to improve transparency and operational trust.",
+      "llm_tldr_cn": "引入了一种AI解释评估方法，以提高透明度和操作信任感。",
+      "llm_tldr": "引入了一种AI解释评估方法，以提高透明度和操作信任感。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "methods and metrics for measuring trust",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

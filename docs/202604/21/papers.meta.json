@@ -1,0 +1,79 @@
+{
+  "label": "2026-04-21",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T21:44:49",
+  "count": 5,
+  "papers": [
+    {
+      "paper_id": "202604/21/2604.13468v2-from-relevance-to-authority-authority-aware-generative-retrieval-in-web-search-engines",
+      "section": "deep",
+      "title_en": "From Relevance to Authority: Authority-aware Generative Retrieval in Web Search Engines",
+      "authors": "Sunkyung Lee, Jihye Back, Donghyeon Jeon, Soonhwan Kwon, Moonkwon Kim, Inho Kang, Jongwuk Lee",
+      "date": "2026-04-15",
+      "pdf": "https://arxiv.org/pdf/2604.13468v2",
+      "score": "9.0",
+      "evidence": "多模态权威评分以量化文档可信度",
+      "tldr": "针对生成式检索（GenIR）在医疗、金融等高风险领域忽视文档权威性的问题，本文提出了首个权威性感知生成式检索框架AuthGR。该框架通过多模态权威性评分、三阶段训练流程及混合集成部署，在提升检索相关性的同时显著增强了结果的可靠性。实验证明，AuthGR在离线评估和真实搜索引擎在线测试中均表现优异，能以较小参数量达到甚至超越大规模基线模型的性能。",
+      "tags": "query:q5",
+      "abstract_en": "Generative information retrieval (GenIR) formulates the retrieval process as a text-to-text generation task, leveraging the vast knowledge of large language models. However, existing works primarily optimize for relevance while often overlooking document trustworthiness. This is critical in high-stakes domains like healthcare and finance, where relying solely on semantic relevance risks retrieving unreliable information. To address this, we propose an Authority-aware Generative Retriever (AuthGR), the first framework that incorporates authority into GenIR. AuthGR consists of three key components: (i) Multimodal Authority Scoring, which employs a vision-language model to quantify authority from textual and visual cues; (ii) a Three-stage Training Pipeline to progressively instill authority awareness into the retriever; and (iii) a Hybrid Ensemble Pipeline for robust deployment. Offline evaluations demonstrate that AuthGR successfully enhances both authority and accuracy, with our 3B model matching a 14B baseline. Crucially, large-scale online A/B tests and human evaluations conducted on the commercial web search platform confirm significant improvements in real-world user engagement and reliability.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/21/2604.16606v1-safelm-unified-privacy-aware-optimization-for-trustworthy-federated-large-language-models",
+      "section": "quick",
+      "title_en": "SafeLM: Unified Privacy-Aware Optimization for Trustworthy Federated Large Language Models",
+      "authors": "Noor Islam S. Mohammad, Uluğ Bayazıt",
+      "date": "2026-04-17",
+      "pdf": "https://arxiv.org/pdf/2604.16606v1",
+      "score": "7.0",
+      "evidence": "针对可信大语言模型的事实性和毒性基准测试",
+      "tldr": "SafeLM是一个统一的联邦学习框架，旨在解决大语言模型在隐私、安全、误导信息和对抗鲁棒性方面的多重挑战。该框架通过结合梯度智能化、同态加密、对比接地和二值化聚合等技术，在保证模型性能的同时，显著提升了隐私保护能力并降低了通信开销。实验表明，SafeLM在有害内容检测和防御梯度反推攻击方面表现优异，为部署可信大语言模型提供了高效且安全的解决方案。",
+      "tags": "query:profile-1",
+      "abstract_en": "Large language models (LLMs) are increasingly deployed in high-stakes domains, yet a unified treatment of their overlapping safety challenges remains lacking. We present SafeLM, a framework that jointly addresses four pillars of LLM safety: privacy, security, misinformation, and adversarial robustness. SafeLM combines federated training with gradient smartification and Paillier encryption for privacy, integrates defenses against training and inference-time attacks, employs contrastive grounding with calibrated decoding to reduce hallucinations, and introduces alignment-aware binarized aggregation to enhance robustness while maintaining bounded reconstruction quality. Across benchmarks on factuality, toxicity, and membership inference, SafeLM achieves 98.0% harmful content detection accuracy, reduces communication by 96.9%, and lowers gradient inversion PSNR from 31.7 dB to 15.1 dB. Ablations show that each component contributes independently, whereas their integration yields a strong privacy utility efficiency trade-off for deploying trustworthy LLMs.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/21/2604.16753v1-know-when-to-trust-the-skill-delayed-appraisal-and-epistemic-vigilance-for-single-agent-llms",
+      "section": "quick",
+      "title_en": "Know When to Trust the Skill: Delayed Appraisal and Epistemic Vigilance for Single-Agent LLMs",
+      "authors": "Eren Unlu",
+      "date": "2026-04-17",
+      "pdf": "https://arxiv.org/pdf/2604.16753v1",
+      "score": "7.0",
+      "evidence": "将标量置信度估计转变为元认知治理",
+      "tldr": "针对大语言模型智能体在集成大量工具时面临的上下文污染和过度思考问题，本文提出了MESA-S框架。该框架借鉴人类认知控制理论，引入延迟评估和认识警觉机制，通过将置信度分解为自我置信与来源置信，并利用元认知技能卡解耦技能效用感知与执行。实验表明，该方法能有效减少无效推理循环，提升智能体在复杂工具调用中的可靠性与决策质量。",
+      "tags": "query:profile-1",
+      "abstract_en": "As large language models (LLMs) transition into autonomous agents integrated with extensive tool ecosystems, traditional routing heuristics increasingly succumb to context pollution and \"overthinking\". We argue that the bottleneck is not a deficit in algorithmic capability or skill diversity, but the absence of disciplined second-order metacognitive governance. In this paper, our scientific contribution focuses on the computational translation of human cognitive control - specifically, delayed appraisal, epistemic vigilance, and region-of-proximal offloading - into a single-agent architecture. We introduce MESA-S (Metacognitive Skills for Agents, Single-agent), a preliminary framework that shifts scalar confidence estimation into a vector separating self-confidence (parametric certainty) from source-confidence (trust in retrieved external procedures). By formalizing a delayed procedural probe mechanism and introducing Metacognitive Skill Cards, MESA-S decouples the awareness of a skill's utility from its token-intensive execution. Evaluated under an In-Context Static Benchmark Evaluation natively executed via Gemini 3.1 Pro, our early results suggest that explicitly programming trust provenance and delayed escalation mitigates supply-chain vulnerabilities, prunes unnecessary reasoning loops, and prevents offloading-induced confidence inflation. This architecture offers a scientifically cautious, behaviorally anchored step toward reliable, epistemically vigilant single-agent orchestration.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/21/2604.17270v1-what-security-and-privacy-transparency-users-need-from-consumer-facing-generative-ai",
+      "section": "quick",
+      "title_en": "What Security and Privacy Transparency Users Need from Consumer-Facing Generative AI",
+      "authors": "Jiaxun Cao, Yu Dong, Chunxi Zhan, Rithvik Neti, Sai Teja Peddinti, Pardis Emami-Naeini",
+      "date": "2026-04-19",
+      "pdf": "https://arxiv.org/pdf/2604.17270v1",
+      "score": "7.0",
+      "evidence": "用户如何评估安全隐私信息以信任生成式AI",
+      "tldr": "本研究探讨了消费者端生成式AI（GenAI）的安全与隐私（S&P）透明度对用户决策的影响。通过对21名美国用户的访谈和设计调研，发现现有S&P信息因缺乏可信度和完整性而难以驱动用户采纳，导致用户依赖流行度等替代指标。研究揭示了S&P不确定性如何限制高风险场景的使用，并提出了包含五个维度的透明度设计框架，为提升GenAI工具的信任与可用性提供了政策和设计建议。",
+      "tags": "query:profile-1",
+      "abstract_en": "Users increasingly rely on consumer-facing generative AI (GenAI) for tasks ranging from everyday needs to sensitive use cases. Yet, it remains unclear whether and how existing security and privacy (S&P) communications in GenAI tools shape users' adoption decisions and subsequent experiences. Understanding how users seek, interpret, and evaluate S&P information is critical for designing usable transparency that users can trust and act on. We conducted semi-structured interviews and design sessions with 21 U.S. GenAI users. We find that available S&P information rarely drove initial adoption in practice, as participants often perceived it as incomplete, ineffective, or lacking credibility. Instead, they relied on rough proxies, such as popularity, to infer S&P practices. After adoption, uncertainty about S&P practices constrained participants' willingness to use GenAI tools, particularly in high-stakes contexts, and, in some cases, contributed to discontinued use. Participants therefore called for transparency that supports decision-making and use, including trustworthy information (e.g., independent evaluations) and usable interfaces (e.g., on-demand disclosure). We synthesize participants' desired design practices into five dimensions to facilitate systematic future investigation into best practices. We conclude with recommendations for researchers, designers, and policymakers to improve S&P transparency in consumer-facing GenAI.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/21/2604.18052v1-exai5g-a-logic-based-explainable-ai-framework-for-intrusion-detection-in-5g-networks",
+      "section": "quick",
+      "title_en": "ExAI5G: A Logic-Based Explainable AI Framework for Intrusion Detection in 5G Networks",
+      "authors": "Saeid Sheikhi, Panos Kostakos, Lauri Loven",
+      "date": "2026-04-20",
+      "pdf": "https://arxiv.org/pdf/2604.18052v1",
+      "score": "7.0",
+      "evidence": "增强信任的解释评估方法论",
+      "tldr": "针对5G网络入侵检测中黑盒模型缺乏透明度的问题，本文提出ExAI5G框架。该框架结合Transformer深度学习模型与逻辑可解释AI技术，利用集成梯度和代理决策树提取逻辑规则，并引入大语言模型（LLM）生成并评估具有可操作性的解释。实验表明，该系统在保持极高检测准确率的同时，实现了高度的模型推理透明度，为构建可信5G安全防御提供了新方案。",
+      "tags": "query:q3",
+      "abstract_en": "Intrusion detection systems (IDSs) for 5G networks must handle complex, high-volume traffic. Although opaque \"black-box\" models can achieve high accuracy, their lack of transparency hinders trust and effective operational response. We propose ExAI5G, a framework that prioritizes interpretability by integrating a Transformer-based deep learning IDS with logic-based explainable AI (XAI) techniques. The framework uses Integrated Gradients to attribute feature importance and extracts a surrogate decision tree to derive logical rules. We introduce a novel evaluation methodology for LLM-generated explanations, using a powerful evaluator LLM to assess actionability and measuring their semantic similarity and faithfulness. On a 5G IoT intrusion dataset, our system achieves 99.9\\% accuracy and a 0.854 macro F1-score, demonstrating strong performance. More importantly, we extract 16 logical rules with 99.7\\% fidelity, making the model's reasoning transparent. The evaluation demonstrates that modern LLMs can generate explanations that are both faithful and actionable, indicating that it is possible to build a trustworthy and effective IDS without compromising performance for the sake of marginal gains from an opaque model.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
