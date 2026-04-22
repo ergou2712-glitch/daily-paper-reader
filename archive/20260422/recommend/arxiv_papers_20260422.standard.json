@@ -1,0 +1,278 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-22T21:38:06.766043+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 5,
+    "quick_skim_target": 11,
+    "quick_selected": 5
+  },
+  "deep_dive": [
+    {
+      "id": "2604.18948v1",
+      "title": "Relationships Between Trust, Compliance, and Performance for Novice Programmers Using AI Code Generation",
+      "abstract": "Objective. To explore how novice programmers' trust in Artificial Intelligence-driven Development Environments (AIDEs) relates to their coding performance and AI compliance while programming under time pressure. Background. Computer programming has undergone rapid upheaval due to state-of-the-art AIDEs, which provide clever automation for many aspects of software development. A longstanding interest of researchers of automation more generally has been the attitude of trust. Decades of research seek to explain how influencing trust can help to achieve desirable outcomes in different domains, but very limited work has provided similar focus on trust in AIDEs. Method. We collected subjective measures of trust along with objective measures of performance and AIDE compliance from a diverse group of 27 novice programmers between two study locations. Results. Our results corroborated traditional understandings of how trust changes through experiences. However, we did not find a relationship between trust and subsequent compliance during programming tasks. Greater compliance was associated with strong performance, and strong performance led to greater subsequent trust. Conclusion. Our findings raise new questions about the utility of trust in the context of interacting with AIDEs and generative AI. We call for further research into the effect of trust on compliance to recommendations from imperfect AI. Application. This work can inform the design of training and educational content for generative AI use within and beyond software development. Instructional designers should consider risks of AI misuse and disuse and focus on promoting desirable interaction outcomes, regardless of trust's connection to them.",
+      "authors": [
+        "Nicholas Gardella",
+        "Matthew L. Bolton",
+        "Sara L. Riggs"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC"
+      ],
+      "published": "2026-04-21T00:52:29+00:00",
+      "link": "https://arxiv.org/pdf/2604.18948v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "subjective measures of trust in AI environments",
+      "llm_evidence_cn": "AI开发环境中信任的主观测量",
+      "llm_evidence": "AI开发环境中信任的主观测量",
+      "canonical_evidence": "AI开发环境中信任的主观测量",
+      "llm_tldr_en": "Explores the relationship between subjective trust measures and performance in AI-driven coding environments.",
+      "llm_tldr_cn": "探讨了AI驱动编程环境中的主观信任测量与绩效之间的关系。",
+      "llm_tldr": "探讨了AI驱动编程环境中的主观信任测量与绩效之间的关系。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.15384v1",
+      "title": "LinuxArena: A Control Setting for AI Agents in Live Production Software Environments",
+      "abstract": "We introduce LinuxArena, a control setting in which agents operate directly on live, multi-service production environments. LinuxArena contains 20 environments, 1,671 main tasks representing legitimate software engineering work, and 184 side tasks representing safety failures such as data exfiltration and backdooring, making it the largest and most diverse control setting for software engineering to date. We validate LinuxArena is useful for control research by running sabotage evaluations, which measure whether attackers can complete side tasks while working on main tasks, and monitor evaluations, which measure a monitor model's ability to detect sabotage attempts. Against a GPT-5-nano trusted monitor at a 1\\% step-wise false positive rate, Claude Opus 4.6 achieves roughly a 23% undetected sabotage success rate. We additionally release LaStraj, a dataset of human-crafted attack trajectories that evade monitors at substantially higher rates than any model-generated attacks we elicited, showing that current attack policies do not saturate LinuxArena. These results suggest that LinuxArena has meaningful headroom for both attackers and defenders, making it a strong testbed for developing and evaluating future control protocols.",
+      "authors": [
+        "Tyler Tracy",
+        "Ram Potham",
+        "Nick Kuhn",
+        "Myles Heller",
+        "Anshul Khandelwal",
+        "Cody Rushing",
+        "Henri Lemoine",
+        "Miguel Brandao",
+        "Tomas Turlik",
+        "Adam Hanson",
+        "Josh Hills",
+        "Amy Ngo",
+        "Ram Rachum",
+        "Nik Mitchell",
+        "Falko Galperin",
+        "Oscar Sykes",
+        "Pip Arnott",
+        "Samuel Prieto Lima",
+        "Carlos Giudice",
+        "Matt Goldwater",
+        "Daniel Popp",
+        "Drew de Wet",
+        "Ruben Castaing",
+        "Qi Guo",
+        "Douw Marx",
+        "Benjamin Shaffrey",
+        "Justin Shenk",
+        "Martin Milbradt",
+        "Hannah Meagher",
+        "Shaheen Ahmed-Chowdhury",
+        "Daniel O'Connell",
+        "Chris Canal",
+        "Buck Shlegeris",
+        "Aryan Bhatt"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.SE"
+      ],
+      "published": "2026-04-16T03:01:11+00:00",
+      "link": "https://arxiv.org/pdf/2604.15384v1",
+      "tags": [
+        "keyword:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "evaluates trusted monitor models and sabotage detection metrics",
+      "llm_evidence_cn": "评估可信监控模型和破坏检测指标",
+      "llm_evidence": "评估可信监控模型和破坏检测指标",
+      "canonical_evidence": "评估可信监控模型和破坏检测指标",
+      "llm_tldr_en": "Introduces LinuxArena for evaluating AI agent safety and the effectiveness of trusted monitor models.",
+      "llm_tldr_cn": "引入 LinuxArena 用于评估 AI 智能体的安全性以及可信监控模型的有效性。",
+      "llm_tldr": "引入 LinuxArena 用于评估 AI 智能体的安全性以及可信监控模型的有效性。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.12184v1",
+      "title": "TRUST Agents: A Collaborative Multi-Agent Framework for Fake News Detection, Explainable Verification, and Logic-Aware Claim Reasoning",
+      "abstract": "TRUST Agents is a collaborative multi-agent framework for explainable fact verification and fake news detection. Rather than treating verification as a simple true-or-false classification task, the system identifies verifiable claims, retrieves relevant evidence, compares claims against that evidence, reasons under uncertainty, and generates explanations that humans can inspect. The baseline pipeline consists of four specialized agents. A claim extractor uses named entity recognition, dependency parsing, and LLM-based extraction to identify factual claims. A retrieval agent performs hybrid sparse and dense search using BM25 and FAISS. A verifier agent compares claims with retrieved evidence and produces verdicts with calibrated confidence. An explainer agent then generates a human-readable report with explicit evidence citations. To handle complex claims more effectively, we introduce a research-oriented extension with three additional components: a decomposer agent inspired by LoCal-style claim decomposition, a Delphi-inspired multi-agent jury with specialized verifier personas, and a logic aggregator that combines atomic verdicts using conjunction, disjunction, negation, and implication. We evaluate both pipelines on the LIAR benchmark against fine-tuned BERT, fine-tuned RoBERTa, and a zero-shot LLM baseline. Although supervised encoders remain stronger on raw metrics, TRUST Agents improves interpretability, evidence transparency, and reasoning over compound claims. Results also show that retrieval quality and uncertainty calibration remain the main bottlenecks in trustworthy automated fact verification.",
+      "authors": [
+        "Gautama Shastry Bulusu Venkata",
+        "Santhosh Kakarla",
+        "Maheedhar Omtri Mohan",
+        "Aishwarya Gaddam"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-04-14T01:31:14+00:00",
+      "link": "https://arxiv.org/pdf/2604.12184v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "explainable verification for trust in news",
+      "llm_evidence_cn": "新闻信任的可解释验证",
+      "llm_evidence": "新闻信任的可解释验证",
+      "canonical_evidence": "新闻信任的可解释验证",
+      "llm_tldr_en": "A multi-agent framework for fake news detection that provides explainable evidence to support human trust.",
+      "llm_tldr_cn": "一种用于虚假新闻检测的多智能体框架，提供可解释的证据以支持人类信任。",
+      "llm_tldr": "一种用于虚假新闻检测的多智能体框架，提供可解释的证据以支持人类信任。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.16935v1",
+      "title": "LLMs can persuade only psychologically susceptible humans on societal issues, via trust in AI and emotional appeals, amid logical fallacies",
+      "abstract": "Scarce longitudinal evidence examines LLMs' persuasiveness and humanness along time-evolving psychological frameworks. We introduce Talk2AI, a longitudinal framework quantifying psycho-social, reasoning and affective dimensions of LLMs' persuasiveness about polarizing societal topics. In a four-way longitudinal setup, Talk2AI's 770 participants engaged in structured conversations with one of four leading LLMs on topics like climate change, social media misinformation, and math anxiety. This produced 3,080 conversations over 60,000 turns. After each wave, participants reported conviction in their initial topic stance, perceived opinion change, LLM's perceived humanness, a self-donation to the topic and a textual explanation. Feedback time series showed longitudinal inertia in convictions, indicating some human anchoring to initial opinions even after repeated exposure to AI-generated arguments. Interestingly, NLP analyses revealed that both humans and LLMs relied on fallacious reasoning in 1 conversational quip every 6, countering the ``LLMs as superior systems\" stereotype behind LLMs' cognitive surrender. LLMs' perceived humanness was most learnable from sociodemographic, psychological and engagement features ($R^2=0.44$), followed by opinion change ($R^2=0.34$), conviction ($R^2=0.26$) and personal endowment ($R^2=0.24$). Crucially, explainable AI (XAI) indicated: (i) the presence of individuals more susceptible to LLM-based opinion changes; (ii) psychological susceptibility to LLM-convincing consisted of having more trust in LLMs, being more agreeable and extraverted and with a higher need for cognition. A multiverse approach with mixed-effects models confirmed XAI results, alongside strong individual differences. Talk2AI provides a grounded framework and evidence for detecting how GenAI can influence human opinions via multiple psycho-social pathways in AI-human digital platforms.",
+      "authors": [
+        "Alexis Carrillo",
+        "Salvatore Citraro",
+        "Ali Aghazhadeh Ardebili",
+        "Enrique Taietta",
+        "Giulio Rossetti",
+        "Emilio Ferrara",
+        "Giuseppe Alessandro Veltri",
+        "Massimo Stella"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CY",
+        "cs.HC",
+        "cs.LG",
+        "cs.SI"
+      ],
+      "published": "2026-04-18T09:39:22+00:00",
+      "link": "https://arxiv.org/pdf/2604.16935v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "quantifying trust in AI and persuasiveness",
+      "llm_evidence_cn": "量化对AI的信任及其说服力",
+      "llm_evidence": "量化对AI的信任及其说服力",
+      "canonical_evidence": "量化对AI的信任及其说服力",
+      "llm_tldr_en": "Introduces Talk2AI to quantify psycho-social dimensions of LLM persuasiveness, including trust in AI.",
+      "llm_tldr_cn": "引入Talk2AI框架，量化大语言模型说服力的心理社会维度，包括对AI的信任。",
+      "llm_tldr": "引入Talk2AI框架，量化大语言模型说服力的心理社会维度，包括对AI的信任。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "methods and metrics for measuring trust",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.17179v1",
+      "title": "Decentralised Trust and Security Mechanisms for IoT Networks at the Edge: A Comprehensive Review",
+      "abstract": "INTRODUCTION: The proliferation of the amalgamation of IoT and edge computing has increased the demand for decentralised trust and security mechanisms capable of operating across heterogeneous and resource-limited devices. Approaches such as federated learning, Zero Trust architectures, lightweight blockchain and distributed neural models offer alternatives to centralised control. OBJECTIVES: This review examines various state-of-the-art decentralised mechanisms and evaluates their effectiveness in terms of securing IoT networks at the edge. METHODS: Thirty recent studies were analysed to compare how decentralised architectures establish trust, support secure communication and enable intrusion and anomaly detection. Frameworks, such as DFGL-LZTA, SecFedDNN and COSIER were assessed. RESULTS: Decentralised designs enhance privacy, reduce single points of failure and improve adaptive threat response, though challenges remain in scalability, efficiency and interoperability. CONCLUSION: The study identifies key considerations and future research needs for building secure and resilient trust-aware IoT edge ecosystems.",
+      "authors": [
+        "Khandoker Ashik Uz Zaman",
+        "Mahdi H. Miraz",
+        "Mohammed N. M. Ali"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.NI"
+      ],
+      "published": "2026-04-19T00:39:15+00:00",
+      "link": "https://arxiv.org/pdf/2604.17179v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "evaluates decentralised mechanisms for establishing trust in IoT",
+      "llm_evidence_cn": "评估物联网中建立信任的去中心化机制",
+      "llm_evidence": "评估物联网中建立信任的去中心化机制",
+      "canonical_evidence": "评估物联网中建立信任的去中心化机制",
+      "llm_tldr_en": "A review of decentralized trust and security mechanisms for IoT and edge computing networks.",
+      "llm_tldr_cn": "综述了物联网和边缘计算网络中的去中心化信任与安全机制。",
+      "llm_tldr": "综述了物联网和边缘计算网络中的去中心化信任与安全机制。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.19429v1",
+      "title": "Discerning Authorship in Online Health Communities: Experience, Trust, and Transparency Implications for Moderating AI",
+      "abstract": "For online health communities, community trust is paramount. Yet, advances in Large Language Models (LLMs) generating advice may erode this trust, especially if users cannot identify whether LLMs have been used. We investigate the feasibility of community-based detection of health advice authorship and how self-moderation of LLMs could help enhance advice utilization. In an online experiment, we evaluate people's ability to distinguish AI-generated from human-written advice across two health conditions, considering lived experience with a condition, AI-recognition training, and user attitudes towards transparency and trust around AI use. Our results indicate the need for transparency coupled with trust. We find little evidence of people's ability to discern advice authorship. However, we find a consistent effect of the health condition. Our qualitative findings identify unreliable signals, resulting in flawed heuristic evaluations of the advice. Our findings point to opportunities to improve the self-moderation of LLM-based AI and aid community-based AI moderation.",
+      "authors": [
+        "Yefim Shulman",
+        "Agnieszka Kitkowska",
+        "Mark Warner"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC",
+        "cs.CY"
+      ],
+      "published": "2026-04-21T12:58:43+00:00",
+      "link": "https://arxiv.org/pdf/2604.19429v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "evaluating user attitudes towards trust and transparency",
+      "llm_evidence_cn": "评估用户对信任和透明度的态度",
+      "llm_evidence": "评估用户对信任和透明度的态度",
+      "canonical_evidence": "评估用户对信任和透明度的态度",
+      "llm_tldr_en": "Evaluates how transparency and authorship detection affect community trust in AI-generated health advice.",
+      "llm_tldr_cn": "评估透明度和作者身份检测如何影响社区对AI生成健康建议的信任。",
+      "llm_tldr": "评估透明度和作者身份检测如何影响社区对AI生成健康建议的信任。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
