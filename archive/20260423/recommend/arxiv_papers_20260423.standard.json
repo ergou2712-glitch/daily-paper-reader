@@ -1,0 +1,172 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-23T21:38:57.203310+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2604.20166v1",
+      "title": "Aligning Human-AI-Interaction Trust for Mental Health Support: Survey and Position for Multi-Stakeholders",
+      "abstract": "Building trustworthy AI systems for mental health support is a shared priority across stakeholders from multiple disciplines. However, \"trustworthy\" remains loosely defined and inconsistently operationalized. AI research often focuses on technical criteria (e.g., robustness, explainability, and safety), while therapeutic practitioners emphasize therapeutic fidelity (e.g., appropriateness, empathy, and long-term user outcomes). To bridge the fragmented landscape, we propose a three-layer trust framework, covering human-oriented, AI-oriented, and interaction-oriented trust, integrating the viewpoints of key stakeholders (e.g., practitioners, researchers, regulators). Using this framework, we systematically review existing AI-driven research in mental health domain and examine evaluation practices for ``trustworthy'' ranging from automatic metrics to clinically validated approaches. We highlight critical gaps between what NLP currently measures and what real-world mental health contexts require, and outline a research agenda for building socio-technically aligned and genuinely trustworthy AI for mental health support.",
+      "authors": [
+        "Xin Sun",
+        "Yue Su",
+        "Yifan Mo",
+        "Qingyu Meng",
+        "Yuxuan Li",
+        "Saku Sugawara",
+        "Mengyuan Zhang",
+        "Charlotte Gerritsen",
+        "Sander L. Koole",
+        "Koen Hindriks",
+        "Jiahuan Pei"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.HC"
+      ],
+      "published": "2026-04-22T04:11:01+00:00",
+      "link": "https://arxiv.org/pdf/2604.20166v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "proposes a three-layer trust framework to operationalize and measure trust",
+      "llm_evidence_cn": "提出了一个三层信任框架来操作化和测量信任",
+      "llm_evidence": "提出了一个三层信任框架来操作化和测量信任",
+      "canonical_evidence": "提出了一个三层信任框架来操作化和测量信任",
+      "llm_tldr_en": "Proposes a multi-stakeholder trust framework for AI in mental health to bridge technical and clinical views.",
+      "llm_tldr_cn": "提出心理健康AI信任框架，整合技术与临床视角以实现信任的标准化测量。",
+      "llm_tldr": "提出心理健康AI信任框架，整合技术与临床视角以实现信任的标准化测量。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.19112v1",
+      "title": "Governed Auditable Decisioning Under Uncertainty: Synthesis and Agentic Extension",
+      "abstract": "When automated decision systems fail, organizations frequently discover that formally compliant governance infrastructure cannot reconstruct what happened or why. This paper synthesizes an operational governance evidence framework -- structural accountability collapse diagnostics, decision trace schemas, evidence sufficiency measurement, and label-free monitoring -- into an integrated chain and analytically assesses its transferability across four decision system architectures. The cross-architecture comparison reveals a governance coverage gradient: deterministic rule engines achieve full DES-property fillability, hybrid ML+rules systems achieve partial fillability, classical ML systems achieve only minimal fillability, and agentic AI systems encounter structural breaks. We introduce the cascade of uncertainty, showing how governance failures propagate through serial dependencies between framework layers. For agentic systems, we identify three structural breaks -- decision diffusion, evidence fragmentation, and responsibility ambiguity -- and propose corresponding analytical extensions. Four propositions formalize the gradient, cascade compounding, delegation-depth effects, and extension sufficiency, establishing boundary conditions for the framework's valid operating envelope.",
+      "authors": [
+        "Oleg Solozobov"
+      ],
+      "primary_category": "cs.CY",
+      "categories": [
+        "cs.CY"
+      ],
+      "published": "2026-04-21T05:45:04+00:00",
+      "link": "https://arxiv.org/pdf/2604.19112v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "synthesizes evidence sufficiency measurement and governance coverage diagnostics",
+      "llm_evidence_cn": "综合证据充分性测量和治理覆盖诊断",
+      "llm_evidence": "综合证据充分性测量和治理覆盖诊断",
+      "canonical_evidence": "综合证据充分性测量和治理覆盖诊断",
+      "llm_tldr_en": "Presents a framework for auditable decisioning and evidence measurement to ensure governance and trust.",
+      "llm_tldr_cn": "提出一个可审计决策和证据测量框架，以确保治理和信任。",
+      "llm_tldr": "提出一个可审计决策和证据测量框架，以确保治理和信任。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.20582v1",
+      "title": "Trust, Lies, and Long Memories: Emergent Social Dynamics and Reputation in Multi-Round Avalon with LLM Agents",
+      "abstract": "We study emergent social dynamics in LLM agents playing The Resistance: Avalon, a hidden-role deception game. Unlike prior work on single-game performance, our agents play repeated games while retaining memory of previous interactions, including who played which roles and how they behaved, enabling us to study how social dynamics evolve. Across 188 games, two key phenomena emerge. First, reputation dynamics emerge organically when agents retain cross-game memory: agents reference past behavior in statements like \"I am wary of repeating last game's mistake of over-trusting early success.\" These reputations are role-conditional: the same agent is described as \"straightforward\" when playing good but \"subtle\" when playing evil, and high-reputation players receive 46% more team inclusions. Second, higher reasoning effort supports more strategic deception: evil players more often pass early missions to build trust before sabotaging later ones, 75% in high-effort games vs 36% in low-effort games. Together, these findings show that repeated interaction with memory gives rise to measurable reputation and deception dynamics among LLM agents.",
+      "authors": [
+        "Suveen Ellawela"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-04-22T14:00:56+00:00",
+      "link": "https://arxiv.org/pdf/2604.20582v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "studies emergent social dynamics and over-trusting behavior in agents",
+      "llm_evidence_cn": "研究智能体中出现的社会动态和过度信任行为",
+      "llm_evidence": "研究智能体中出现的社会动态和过度信任行为",
+      "canonical_evidence": "研究智能体中出现的社会动态和过度信任行为",
+      "llm_tldr_en": "Explores how LLM agents develop reputation and trust dynamics through repeated social interactions in games.",
+      "llm_tldr_cn": "探索大语言模型智能体在博弈社交互动中如何形成声誉和信任动态。",
+      "llm_tldr": "探索大语言模型智能体在博弈社交互动中如何形成声誉和信任动态。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "methods and metrics for measuring trust",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.20763v1",
+      "title": "Coverage, Not Averages: Semantic Stratification for Trustworthy Retrieval Evaluation",
+      "abstract": "Retrieval quality is the primary bottleneck for accuracy and robustness in retrieval-augmented generation (RAG). Current evaluation relies on heuristically constructed query sets, which introduce a hidden intrinsic bias. We formalize retrieval evaluation as a statistical estimation problem, showing that metric reliability is fundamentally limited by the evaluation-set construction. We further introduce \\emph{semantic stratification}, which grounds evaluation in corpus structure by organizing documents into an interpretable global space of entity-based clusters and systematically generating queries for missing strata. This yields (1) formal semantic coverage guarantees across retrieval regimes and (2) interpretable visibility into retrieval failure modes.   Experiments across multiple benchmarks and retrieval methods validate our framework. The results expose systematic coverage gaps, identify structural signals that explain variance in retrieval performance, and show that stratified evaluation yields more stable and transparent assessments while supporting more trustworthy decision-making than aggregate metrics.",
+      "authors": [
+        "Andrew Klearman",
+        "Radu Revutchi",
+        "Rohin Garg",
+        "Rishav Chakravarti",
+        "Samuel Marc Denton",
+        "Yuan Xue"
+      ],
+      "primary_category": "cs.IR",
+      "categories": [
+        "cs.IR",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-04-22T16:49:30+00:00",
+      "link": "https://arxiv.org/pdf/2604.20763v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "formalizes metric reliability and semantic coverage for trustworthy evaluation",
+      "llm_evidence_cn": "形式化可信评估的指标可靠性和语义覆盖范围",
+      "llm_evidence": "形式化可信评估的指标可靠性和语义覆盖范围",
+      "canonical_evidence": "形式化可信评估的指标可靠性和语义覆盖范围",
+      "llm_tldr_en": "Introduces semantic stratification to improve the reliability and trustworthiness of retrieval system metrics.",
+      "llm_tldr_cn": "引入语义分层方法，以提高检索系统评估指标的可靠性和可信度。",
+      "llm_tldr": "引入语义分层方法，以提高检索系统评估指标的可靠性和可信度。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

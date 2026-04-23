@@ -1,0 +1,65 @@
+{
+  "label": "2026-04-23",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T21:40:04",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202604/23/2604.20166v1-aligning-human-ai-interaction-trust-for-mental-health-support-survey-and-position-for-multi-stakeholders",
+      "section": "deep",
+      "title_en": "Aligning Human-AI-Interaction Trust for Mental Health Support: Survey and Position for Multi-Stakeholders",
+      "authors": "Xin Sun, Yue Su, Yifan Mo, Qingyu Meng, Yuxuan Li, Saku Sugawara, Mengyuan Zhang, Charlotte Gerritsen, Sander L. Koole, Koen Hindriks, Jiahuan Pei",
+      "date": "2026-04-22",
+      "pdf": "https://arxiv.org/pdf/2604.20166v1",
+      "score": "10.0",
+      "evidence": "提出了一个三层信任框架来操作化和测量信任",
+      "tldr": "本研究针对心理健康支持中AI系统“可信度”定义模糊且标准不一的问题，提出了一个整合从业者、研究者和监管者视角的三层信任框架（涵盖人、AI及交互维度）。通过系统综述现有AI驱动的心理健康研究，揭示了当前NLP自动评估指标与临床实际需求之间的显著差距，并为构建社会技术对齐的心理健康AI提出了未来研究议程。",
+      "tags": "query:q5",
+      "abstract_en": "Building trustworthy AI systems for mental health support is a shared priority across stakeholders from multiple disciplines. However, \"trustworthy\" remains loosely defined and inconsistently operationalized. AI research often focuses on technical criteria (e.g., robustness, explainability, and safety), while therapeutic practitioners emphasize therapeutic fidelity (e.g., appropriateness, empathy, and long-term user outcomes). To bridge the fragmented landscape, we propose a three-layer trust framework, covering human-oriented, AI-oriented, and interaction-oriented trust, integrating the viewpoints of key stakeholders (e.g., practitioners, researchers, regulators). Using this framework, we systematically review existing AI-driven research in mental health domain and examine evaluation practices for ``trustworthy'' ranging from automatic metrics to clinically validated approaches. We highlight critical gaps between what NLP currently measures and what real-world mental health contexts require, and outline a research agenda for building socio-technically aligned and genuinely trustworthy AI for mental health support.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/23/2604.19112v1-governed-auditable-decisioning-under-uncertainty-synthesis-and-agentic-extension",
+      "section": "deep",
+      "title_en": "Governed Auditable Decisioning Under Uncertainty: Synthesis and Agentic Extension",
+      "authors": "Oleg Solozobov",
+      "date": "2026-04-21",
+      "pdf": "https://arxiv.org/pdf/2604.19112v1",
+      "score": "8.0",
+      "evidence": "综合证据充分性测量和治理覆盖诊断",
+      "tldr": "本文针对自动化决策系统在失效时难以追溯的问题，合成了一套包含结构化问责诊断、决策追踪模式及证据衡量等在内的运营治理框架。通过对比确定性规则、混合系统、传统机器学习及智能体AI四种架构，揭示了治理覆盖梯度的递减趋势，并针对智能体系统的结构性断裂提出了分析扩展方案，为不确定环境下的可审计决策建立了理论边界。",
+      "tags": "query:q5",
+      "abstract_en": "When automated decision systems fail, organizations frequently discover that formally compliant governance infrastructure cannot reconstruct what happened or why. This paper synthesizes an operational governance evidence framework -- structural accountability collapse diagnostics, decision trace schemas, evidence sufficiency measurement, and label-free monitoring -- into an integrated chain and analytically assesses its transferability across four decision system architectures. The cross-architecture comparison reveals a governance coverage gradient: deterministic rule engines achieve full DES-property fillability, hybrid ML+rules systems achieve partial fillability, classical ML systems achieve only minimal fillability, and agentic AI systems encounter structural breaks. We introduce the cascade of uncertainty, showing how governance failures propagate through serial dependencies between framework layers. For agentic systems, we identify three structural breaks -- decision diffusion, evidence fragmentation, and responsibility ambiguity -- and propose corresponding analytical extensions. Four propositions formalize the gradient, cascade compounding, delegation-depth effects, and extension sufficiency, establishing boundary conditions for the framework's valid operating envelope.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/23/2604.20582v1-trust-lies-and-long-memories-emergent-social-dynamics-and-reputation-in-multi-round-avalon-with-llm-agents",
+      "section": "quick",
+      "title_en": "Trust, Lies, and Long Memories: Emergent Social Dynamics and Reputation in Multi-Round Avalon with LLM Agents",
+      "authors": "Suveen Ellawela",
+      "date": "2026-04-22",
+      "pdf": "https://arxiv.org/pdf/2604.20582v1",
+      "score": "7.0",
+      "evidence": "研究智能体中出现的社会动态和过度信任行为",
+      "tldr": "本研究探讨了LLM智能体在多轮《阿瓦隆》博弈中的社交动态。与以往单次博弈研究不同，本研究让智能体保留跨局记忆，观察其社交行为的演变。通过188场游戏，研究发现智能体能自发形成基于角色的声誉系统，且高声誉者更易被信任。此外，增加推理开销能显著提升智能体的欺骗策略，使其更倾向于通过前期示好来建立长期信任。该研究揭示了记忆和推理能力对LLM社交动态和声誉形成的驱动作用。",
+      "tags": "query:q3",
+      "abstract_en": "We study emergent social dynamics in LLM agents playing The Resistance: Avalon, a hidden-role deception game. Unlike prior work on single-game performance, our agents play repeated games while retaining memory of previous interactions, including who played which roles and how they behaved, enabling us to study how social dynamics evolve. Across 188 games, two key phenomena emerge. First, reputation dynamics emerge organically when agents retain cross-game memory: agents reference past behavior in statements like \"I am wary of repeating last game's mistake of over-trusting early success.\" These reputations are role-conditional: the same agent is described as \"straightforward\" when playing good but \"subtle\" when playing evil, and high-reputation players receive 46% more team inclusions. Second, higher reasoning effort supports more strategic deception: evil players more often pass early missions to build trust before sabotaging later ones, 75% in high-effort games vs 36% in low-effort games. Together, these findings show that repeated interaction with memory gives rise to measurable reputation and deception dynamics among LLM agents.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/23/2604.20763v1-coverage-not-averages-semantic-stratification-for-trustworthy-retrieval-evaluation",
+      "section": "quick",
+      "title_en": "Coverage, Not Averages: Semantic Stratification for Trustworthy Retrieval Evaluation",
+      "authors": "Andrew Klearman, Radu Revutchi, Rohin Garg, Rishav Chakravarti, Samuel Marc Denton, Yuan Xue",
+      "date": "2026-04-22",
+      "pdf": "https://arxiv.org/pdf/2604.20763v1",
+      "score": "7.0",
+      "evidence": "形式化可信评估的指标可靠性和语义覆盖范围",
+      "tldr": "针对检索增强生成（RAG）中检索评估存在的启发式查询集偏差问题，本文将检索评估形式化为统计估计问题，并提出“语义分层”框架。该方法通过将语料库组织成基于实体的聚类空间，并针对缺失层级系统生成查询，实现了形式化的语义覆盖保证。实验证明，该框架能揭示系统性覆盖漏洞，提供比传统聚合指标更稳定、透明且可解释的检索性能评估。",
+      "tags": "query:q5",
+      "abstract_en": "Retrieval quality is the primary bottleneck for accuracy and robustness in retrieval-augmented generation (RAG). Current evaluation relies on heuristically constructed query sets, which introduce a hidden intrinsic bias. We formalize retrieval evaluation as a statistical estimation problem, showing that metric reliability is fundamentally limited by the evaluation-set construction. We further introduce \\emph{semantic stratification}, which grounds evaluation in corpus structure by organizing documents into an interpretable global space of entity-based clusters and systematically generating queries for missing strata. This yields (1) formal semantic coverage guarantees across retrieval regimes and (2) interpretable visibility into retrieval failure modes.   Experiments across multiple benchmarks and retrieval methods validate our framework. The results expose systematic coverage gaps, identify structural signals that explain variance in retrieval performance, and show that stratified evaluation yields more stable and transparent assessments while supporting more trustworthy decision-making than aggregate metrics.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
