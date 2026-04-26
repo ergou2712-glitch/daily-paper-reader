@@ -1,0 +1,209 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-26T19:43:11.065802+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 5,
+    "quick_skim_target": 11,
+    "quick_selected": 5
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2604.17143v1",
+      "title": "SeekerGym: A Benchmark for Reliable Information Seeking",
+      "abstract": "Despite their substantial successes, AI agents continue to face fundamental challenges in terms of trustworthiness. Consider deep research agents, tasked with searching for information relevant to a given topic-while AI agents can perform effective information retrieval, there is little guarantee regarding the completeness of this information. Gaps in retrieved information can leave biases that mislead users even if the information they are given is correct and relevant. We introduce SeekerGym, a benchmark designed to evaluate the completeness of information retrieved by AI agents. In addition, SeekerGym also measures how well agents quantify their uncertainty in the completeness of their information; if an agent fails to retrieve all relevant information, it is useful for it to at least quantify how much might be missing. At a high level, each task in SeekerGym is a document (e.g., a Wikipedia article), and the AI agent must issue queries to retrieve passages from that document. Intuitively, the document comprehensively covers a topic, so the ability to retrieve its sections directly measures completeness of information retrieval. In addition to Wikipedia, we also consider machine learning survey papers, where the goal is to retrieve relevant sections of a survey paper. We benchmark several models and algorithms; the best approaches retrieve 42.5% of passages on Wikipedia and 29.2% on ML Surveys, leaving substantial room for improvement.",
+      "authors": [
+        "Remy Kim",
+        "Minseung Lee",
+        "Shuo Li",
+        "Osbert Bastani"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-04-18T20:33:58+00:00",
+      "link": "https://arxiv.org/pdf/2604.17143v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "benchmark to evaluate completeness and trustworthiness of AI agents",
+      "llm_evidence_cn": "评估AI代理完整性和可信度的基准",
+      "llm_evidence": "评估AI代理完整性和可信度的基准",
+      "canonical_evidence": "评估AI代理完整性和可信度的基准",
+      "llm_tldr_en": "Introduces SeekerGym to measure information completeness and uncertainty quantification in AI agents.",
+      "llm_tldr_cn": "引入SeekerGym基准，用于衡量AI代理的信息完整性和不确定性量化。",
+      "llm_tldr": "引入SeekerGym基准，用于衡量AI代理的信息完整性和不确定性量化。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.18697v1",
+      "title": "Beyond Indistinguishability: Measuring Extraction Risk in LLM APIs",
+      "abstract": "Indistinguishability properties such as differential privacy bounds or low empirically measured membership inference are widely treated as proxies to show a model is sufficiently protected against broader memorization risks. However, we show that indistinguishability properties are neither sufficient nor necessary for preventing data extraction in LLM APIs. We formalize a privacy-game separation between extraction and indistinguishability-based privacy, showing that indistinguishability and inextractability are incomparable: upper-bounding distinguishability does not upper-bound extractability. To address this gap, we introduce $(l, b)$-inextractability as a definition that requires at least $2^b$ expected queries for any black-box adversary to induce the LLM API to emit a protected $l$-gram substring. We instantiate this via a worst-case extraction game and derive a rank-based extraction risk upper bound for targeted exact extraction, as well as extensions to cover untargeted and approximate extraction. The resulting estimator captures the extraction risk over multiple attack trials and prefix adaptations. We show that it can provide a tight and efficient estimation for standard greedy extraction and an upper bound on the probabilistic extraction risk given any decoding configuration. We empirically evaluate extractability across different models, clarifying its connection to distinguishability, demonstrating its advantage over existing extraction risk estimators, and providing actionable mitigation guidelines across model training, API access, and decoding configurations in LLM API deployment. Our code is publicly available at: https://github.com/Emory-AIMS/Inextractability.",
+      "authors": [
+        "Ruixuan Liu",
+        "David Evans",
+        "Li Xiong"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.CL",
+        "cs.LG"
+      ],
+      "published": "2026-04-20T18:00:22+00:00",
+      "link": "https://arxiv.org/pdf/2604.18697v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "formalizes inextractability as a quantitative metric for risk",
+      "llm_evidence_cn": "将不可提取性形式化为风险的定量指标",
+      "llm_evidence": "将不可提取性形式化为风险的定量指标",
+      "canonical_evidence": "将不可提取性形式化为风险的定量指标",
+      "llm_tldr_en": "Defines a new quantitative metric to measure data extraction risks in LLM APIs beyond indistinguishability.",
+      "llm_tldr_cn": "定义了一种新的定量指标，用于衡量 LLM API 中超出不可区分性的数据提取风险。",
+      "llm_tldr": "定义了一种新的定量指标，用于衡量 LLM API 中超出不可区分性的数据提取风险。",
+      "llm_tags": [
+        "query:q4"
+      ],
+      "matched_query_tag": "query:q4",
+      "matched_query_text": "quantitative metrics used to assess trust",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.20972v1",
+      "title": "Escaping the Agreement Trap: Defensibility Signals for Evaluating Rule-Governed AI",
+      "abstract": "Content moderation systems are typically evaluated by measuring agreement with human labels. In rule-governed environments this assumption fails: multiple decisions may be logically consistent with the governing policy, and agreement metrics penalize valid decisions while mischaracterizing ambiguity as error -- a failure mode we term the Agreement Trap. We formalize evaluation as policy-grounded correctness and introduce the Defensibility Index (DI) and Ambiguity Index (AI). To estimate reasoning stability without additional audit passes, we introduce the Probabilistic Defensibility Signal (PDS), derived from audit-model token logprobs. We harness LLM reasoning traces as a governance signal rather than a classification output by deploying the audit model not to decide whether content violates policy, but to verify whether a proposed decision is logically derivable from the governing rule hierarchy. We validate the framework on 193,000+ Reddit moderation decisions across multiple communities and evaluation cohorts, finding a 33-46.6 percentage-point gap between agreement-based and policy-grounded metrics, with 79.8-80.6% of the model's false negatives corresponding to policy-grounded decisions rather than true errors. We further show that measured ambiguity is driven by rule specificity: auditing 37,286 identical decisions under three tiers of the same community rules reduces AI by 10.8 pp while DI remains stable. Repeated-sampling analysis attributes PDS variance primarily to governance ambiguity rather than decoding noise. A Governance Gate built on these signals achieves 78.6% automation coverage with 64.9% risk reduction. Together, these results show that evaluation in rule-governed environments should shift from agreement with historical labels to reasoning-grounded validity under explicit rules.",
+      "authors": [
+        "Michael O'Herlihy",
+        "Rosa Català"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CY"
+      ],
+      "published": "2026-04-22T18:05:29+00:00",
+      "link": "https://arxiv.org/pdf/2604.20972v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "introduces Defensibility Index and Ambiguity Index for AI evaluation",
+      "llm_evidence_cn": "引入辩护指数和歧义指数用于AI评估",
+      "llm_evidence": "引入辩护指数和歧义指数用于AI评估",
+      "canonical_evidence": "引入辩护指数和歧义指数用于AI评估",
+      "llm_tldr_en": "Proposes new metrics to evaluate rule-governed AI beyond simple human agreement labels.",
+      "llm_tldr_cn": "提出了一套新的指标，用于在规则治理环境下评估AI的合理性而非仅看一致性。",
+      "llm_tldr": "提出了一套新的指标，用于在规则治理环境下评估AI的合理性而非仅看一致性。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.21308v1",
+      "title": "CI-Work: Benchmarking Contextual Integrity in Enterprise LLM Agents",
+      "abstract": "Enterprise LLM agents can dramatically improve workplace productivity, but their core capability, retrieving and using internal context to act on a user's behalf, also creates new risks for sensitive information leakage. We introduce CI-Work, a Contextual Integrity (CI)-grounded benchmark that simulates enterprise workflows across five information-flow directions and evaluates whether agents can convey essential content while withholding sensitive context in dense retrieval settings. Our evaluation of frontier models reveals that privacy failures are prevalent (violation rates range from 15.8%-50.9%, with leakage reaching up to 26.7%) and uncovers a counterintuitive trade-off critical for industrial deployment: higher task utility often correlates with increased privacy violations. Moreover, the massive scale of enterprise data and potential user behavior further amplify this vulnerability. Simply increasing model size or reasoning depth fails to address the problem. We conclude that safeguarding enterprise workflows requires a paradigm shift, moving beyond model-centric scaling toward context-centric architectures.",
+      "authors": [
+        "Wenjie Fu",
+        "Xiaoting Qin",
+        "Jue Zhang",
+        "Qingwei Lin",
+        "Lukas Wutschitz",
+        "Robert Sim",
+        "Saravan Rajmohan",
+        "Dongmei Zhang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.CL"
+      ],
+      "published": "2026-04-23T06:00:22+00:00",
+      "link": "https://arxiv.org/pdf/2604.21308v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "benchmarks contextual integrity and privacy violation rates",
+      "llm_evidence_cn": "基准测试上下文完整性和隐私违规率",
+      "llm_evidence": "基准测试上下文完整性和隐私违规率",
+      "canonical_evidence": "基准测试上下文完整性和隐私违规率",
+      "llm_tldr_en": "Introduces a benchmark to quantitatively measure privacy failures and trust risks in enterprise LLM agents.",
+      "llm_tldr_cn": "引入基准测试，定量衡量企业 LLM 智能体中的隐私失效和信任风险。",
+      "llm_tldr": "引入基准测试，定量衡量企业 LLM 智能体中的隐私失效和信任风险。",
+      "llm_tags": [
+        "query:q4"
+      ],
+      "matched_query_tag": "query:q4",
+      "matched_query_text": "quantitative metrics used to assess trust",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.21549v1",
+      "title": "Unbiased Prevalence Estimation with Multicalibrated LLMs",
+      "abstract": "Estimating the prevalence of a category in a population using imperfect measurement devices (diagnostic tests, classifiers, or large language models) is fundamental to science, public health, and online trust and safety. Standard approaches correct for known device error rates but assume these rates remain stable across populations. We show this assumption fails under covariate shift and that multicalibration, which enforces calibration conditional on the input features rather than just on average, is sufficient for unbiased prevalence estimation under such shift. Standard calibration and quantification methods fail to provide this guarantee. Our work connects recent theoretical work on fairness to a longstanding measurement problem spanning nearly all academic disciplines. A simulation confirms that standard methods exhibit bias growing with shift magnitude, while a multicalibrated estimator maintains near-zero bias. While we focus the discussion mostly on LLMs, our theoretical results apply to any classification model. Two empirical applications -- estimating employment prevalence across U.S. states using the American Community Survey, and classifying political texts across four countries using an LLM -- demonstrate that multicalibration substantially reduces bias in practice, while highlighting that calibration data should cover the key feature dimensions along which target populations may differ.",
+      "authors": [
+        "Fridolin Linder",
+        "Thomas Leeper",
+        "Daniel Haimovich",
+        "Niek Tax",
+        "Lorenzo Perini",
+        "Milan Vojnovic"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "stat.ME"
+      ],
+      "published": "2026-04-23T11:23:34+00:00",
+      "link": "https://arxiv.org/pdf/2604.21549v1",
+      "tags": [
+        "keyword:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "measurement problem in online trust and safety using multicalibration",
+      "llm_evidence_cn": "利用多校准解决在线信任与安全中的测量问题",
+      "llm_evidence": "利用多校准解决在线信任与安全中的测量问题",
+      "canonical_evidence": "利用多校准解决在线信任与安全中的测量问题",
+      "llm_tldr_en": "Provides a method for unbiased prevalence estimation to improve measurement in trust and safety.",
+      "llm_tldr_cn": "提供了一种无偏流行率估计方法，以改进信任与安全领域的测量。",
+      "llm_tldr": "提供了一种无偏流行率估计方法，以改进信任与安全领域的测量。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

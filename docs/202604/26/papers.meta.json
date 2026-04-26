@@ -1,0 +1,79 @@
+{
+  "label": "2026-04-26",
+  "date": "2026-04-26",
+  "generated_at": "2026-04-26T19:43:51",
+  "count": 5,
+  "papers": [
+    {
+      "paper_id": "202604/26/2604.17143v1-seekergym-a-benchmark-for-reliable-information-seeking",
+      "section": "quick",
+      "title_en": "SeekerGym: A Benchmark for Reliable Information Seeking",
+      "authors": "Remy Kim, Minseung Lee, Shuo Li, Osbert Bastani",
+      "date": "2026-04-18",
+      "pdf": "https://arxiv.org/pdf/2604.17143v1",
+      "score": "7.0",
+      "evidence": "评估AI代理完整性和可信度的基准",
+      "tldr": "针对AI代理在信息检索中因信息不完整而导致的不可信问题，本文推出了SeekerGym基准测试。该基准通过要求代理从维基百科和机器学习综述中检索段落，重点评估检索的完整性以及代理对未知信息的量化能力。研究发现，即使是目前表现最好的模型，在检索完整性方面仍有巨大提升空间，为开发更可靠的深度研究代理提供了重要参考。",
+      "tags": "query:profile-1",
+      "abstract_en": "Despite their substantial successes, AI agents continue to face fundamental challenges in terms of trustworthiness. Consider deep research agents, tasked with searching for information relevant to a given topic-while AI agents can perform effective information retrieval, there is little guarantee regarding the completeness of this information. Gaps in retrieved information can leave biases that mislead users even if the information they are given is correct and relevant. We introduce SeekerGym, a benchmark designed to evaluate the completeness of information retrieved by AI agents. In addition, SeekerGym also measures how well agents quantify their uncertainty in the completeness of their information; if an agent fails to retrieve all relevant information, it is useful for it to at least quantify how much might be missing. At a high level, each task in SeekerGym is a document (e.g., a Wikipedia article), and the AI agent must issue queries to retrieve passages from that document. Intuitively, the document comprehensively covers a topic, so the ability to retrieve its sections directly measures completeness of information retrieval. In addition to Wikipedia, we also consider machine learning survey papers, where the goal is to retrieve relevant sections of a survey paper. We benchmark several models and algorithms; the best approaches retrieve 42.5% of passages on Wikipedia and 29.2% on ML Surveys, leaving substantial room for improvement.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/26/2604.20972v1-escaping-the-agreement-trap-defensibility-signals-for-evaluating-rule-governed-ai",
+      "section": "quick",
+      "title_en": "Escaping the Agreement Trap: Defensibility Signals for Evaluating Rule-Governed AI",
+      "authors": "Michael O'Herlihy, Rosa Català",
+      "date": "2026-04-22",
+      "pdf": "https://arxiv.org/pdf/2604.20972v1",
+      "score": "7.0",
+      "evidence": "引入辩护指数和歧义指数用于AI评估",
+      "tldr": "本文针对内容审核等受规则约束的AI系统，指出传统“与人类标签一致性”评估方法存在“一致性陷阱”，即会误判逻辑上合理的多样化决策。作者提出了以政策为基础的正确性评估框架，引入辩护指数（DI）和模糊指数（AI），并利用LLM推理轨迹和概率辩护信号（PDS）验证决策的逻辑合理性。在Reddit数据集上的实验证明，该方法能更准确地评估AI性能，显著降低误报率并提升自动化治理水平。",
+      "tags": "query:q5",
+      "abstract_en": "Content moderation systems are typically evaluated by measuring agreement with human labels. In rule-governed environments this assumption fails: multiple decisions may be logically consistent with the governing policy, and agreement metrics penalize valid decisions while mischaracterizing ambiguity as error -- a failure mode we term the Agreement Trap. We formalize evaluation as policy-grounded correctness and introduce the Defensibility Index (DI) and Ambiguity Index (AI). To estimate reasoning stability without additional audit passes, we introduce the Probabilistic Defensibility Signal (PDS), derived from audit-model token logprobs. We harness LLM reasoning traces as a governance signal rather than a classification output by deploying the audit model not to decide whether content violates policy, but to verify whether a proposed decision is logically derivable from the governing rule hierarchy. We validate the framework on 193,000+ Reddit moderation decisions across multiple communities and evaluation cohorts, finding a 33-46.6 percentage-point gap between agreement-based and policy-grounded metrics, with 79.8-80.6% of the model's false negatives corresponding to policy-grounded decisions rather than true errors. We further show that measured ambiguity is driven by rule specificity: auditing 37,286 identical decisions under three tiers of the same community rules reduces AI by 10.8 pp while DI remains stable. Repeated-sampling analysis attributes PDS variance primarily to governance ambiguity rather than decoding noise. A Governance Gate built on these signals achieves 78.6% automation coverage with 64.9% risk reduction. Together, these results show that evaluation in rule-governed environments should shift from agreement with historical labels to reasoning-grounded validity under explicit rules.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/26/2604.21549v1-unbiased-prevalence-estimation-with-multicalibrated-llms",
+      "section": "quick",
+      "title_en": "Unbiased Prevalence Estimation with Multicalibrated LLMs",
+      "authors": "Fridolin Linder, Thomas Leeper, Daniel Haimovich, Niek Tax, Lorenzo Perini, Milan Vojnovic",
+      "date": "2026-04-23",
+      "pdf": "https://arxiv.org/pdf/2604.21549v1",
+      "score": "7.0",
+      "evidence": "利用多校准解决在线信任与安全中的测量问题",
+      "tldr": "本研究针对利用LLM等分类器进行类别占比估计时，传统方法在协变量偏移下失效的问题，提出了基于多校准（Multicalibration）的无偏估计方法。该方法通过在输入特征层面强制执行校准，解决了错误率随群体分布变化而波动的问题。实验证明，该方法在模拟环境及就业率、政治文本分类等实际应用中均能显著降低估计偏差，为跨群体测量提供了理论保障。",
+      "tags": "query:q5",
+      "abstract_en": "Estimating the prevalence of a category in a population using imperfect measurement devices (diagnostic tests, classifiers, or large language models) is fundamental to science, public health, and online trust and safety. Standard approaches correct for known device error rates but assume these rates remain stable across populations. We show this assumption fails under covariate shift and that multicalibration, which enforces calibration conditional on the input features rather than just on average, is sufficient for unbiased prevalence estimation under such shift. Standard calibration and quantification methods fail to provide this guarantee. Our work connects recent theoretical work on fairness to a longstanding measurement problem spanning nearly all academic disciplines. A simulation confirms that standard methods exhibit bias growing with shift magnitude, while a multicalibrated estimator maintains near-zero bias. While we focus the discussion mostly on LLMs, our theoretical results apply to any classification model. Two empirical applications -- estimating employment prevalence across U.S. states using the American Community Survey, and classifying political texts across four countries using an LLM -- demonstrate that multicalibration substantially reduces bias in practice, while highlighting that calibration data should cover the key feature dimensions along which target populations may differ.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/26/2604.18697v1-beyond-indistinguishability-measuring-extraction-risk-in-llm-apis",
+      "section": "quick",
+      "title_en": "Beyond Indistinguishability: Measuring Extraction Risk in LLM APIs",
+      "authors": "Ruixuan Liu, David Evans, Li Xiong",
+      "date": "2026-04-20",
+      "pdf": "https://arxiv.org/pdf/2604.18697v1",
+      "score": "6.0",
+      "evidence": "将不可提取性形式化为风险的定量指标",
+      "tldr": "本研究揭示了LLM API中不可区分性（如差分隐私）与数据提取风险之间的理论脱节，证明前者不足以评估后者。为此，作者提出了$(l, b)$-不可提取性定义，通过衡量攻击者提取特定子串所需的预期查询次数来量化风险，并开发了基于排名的风险上界估计器。该方法能有效评估多种解码配置下的提取风险，为LLM的安全部署提供了从训练到API访问的系统性缓解指南。",
+      "tags": "query:q4",
+      "abstract_en": "Indistinguishability properties such as differential privacy bounds or low empirically measured membership inference are widely treated as proxies to show a model is sufficiently protected against broader memorization risks. However, we show that indistinguishability properties are neither sufficient nor necessary for preventing data extraction in LLM APIs. We formalize a privacy-game separation between extraction and indistinguishability-based privacy, showing that indistinguishability and inextractability are incomparable: upper-bounding distinguishability does not upper-bound extractability. To address this gap, we introduce $(l, b)$-inextractability as a definition that requires at least $2^b$ expected queries for any black-box adversary to induce the LLM API to emit a protected $l$-gram substring. We instantiate this via a worst-case extraction game and derive a rank-based extraction risk upper bound for targeted exact extraction, as well as extensions to cover untargeted and approximate extraction. The resulting estimator captures the extraction risk over multiple attack trials and prefix adaptations. We show that it can provide a tight and efficient estimation for standard greedy extraction and an upper bound on the probabilistic extraction risk given any decoding configuration. We empirically evaluate extractability across different models, clarifying its connection to distinguishability, demonstrating its advantage over existing extraction risk estimators, and providing actionable mitigation guidelines across model training, API access, and decoding configurations in LLM API deployment. Our code is publicly available at: https://github.com/Emory-AIMS/Inextractability.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/26/2604.21308v1-ci-work-benchmarking-contextual-integrity-in-enterprise-llm-agents",
+      "section": "quick",
+      "title_en": "CI-Work: Benchmarking Contextual Integrity in Enterprise LLM Agents",
+      "authors": "Wenjie Fu, Xiaoting Qin, Jue Zhang, Qingwei Lin, Lukas Wutschitz, Robert Sim, Saravan Rajmohan, Dongmei Zhang",
+      "date": "2026-04-23",
+      "pdf": "https://arxiv.org/pdf/2604.21308v1",
+      "score": "6.0",
+      "evidence": "基准测试上下文完整性和隐私违规率",
+      "tldr": "企业级LLM智能体在提升效率的同时面临敏感信息泄露风险。本文提出CI-Work基准，基于语境完整性（CI）理论模拟五种信息流向的办公场景，评估智能体在密集检索中平衡任务执行与隐私保护的能力。研究发现，现有前沿模型普遍存在严重的隐私违规，且任务效用与隐私保护之间存在权衡，单纯增加模型规模无法解决该问题，呼吁转向以语境为中心的架构。",
+      "tags": "query:q4",
+      "abstract_en": "Enterprise LLM agents can dramatically improve workplace productivity, but their core capability, retrieving and using internal context to act on a user's behalf, also creates new risks for sensitive information leakage. We introduce CI-Work, a Contextual Integrity (CI)-grounded benchmark that simulates enterprise workflows across five information-flow directions and evaluates whether agents can convey essential content while withholding sensitive context in dense retrieval settings. Our evaluation of frontier models reveals that privacy failures are prevalent (violation rates range from 15.8%-50.9%, with leakage reaching up to 26.7%) and uncovers a counterintuitive trade-off critical for industrial deployment: higher task utility often correlates with increased privacy violations. Moreover, the massive scale of enterprise data and potential user behavior further amplify this vulnerability. Simply increasing model size or reasoning depth fails to address the problem. We conclude that safeguarding enterprise workflows requires a paradigm shift, moving beyond model-centric scaling toward context-centric architectures.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
