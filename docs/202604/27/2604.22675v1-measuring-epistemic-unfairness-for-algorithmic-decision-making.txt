@@ -1,0 +1,610 @@
+Title: Measuring Epistemic Unfairness for Algorithmic Decision-Making
+
+URL Source: https://arxiv.org/pdf/2604.22675v1
+
+Published Time: Mon, 27 Apr 2026 00:56:39 GMT
+
+Number of Pages: 19
+
+Markdown Content:
+# MEASURING EPISTEMIC UNFAIRNESS FOR ALGORITHMIC 
+
+# DECISION -M AKING 
+
+Camilla Quaresmini 
+
+Politecnico di Milano Milan, Italy 
+
+camilla.quaresmini@polimi.it 
+
+Lisa Piccinin 
+
+Politecnico di Milano Milan, Italy 
+
+lisa.piccinin@polimi.it 
+
+Valentina Breschi 
+
+Eindhoven University of Technology Eindhoven, The Netherlands 
+
+v.breschi@tue.nl 
+
+# ABSTRACT 
+
+Algorithmic systems increasingly function as epistemic infrastructures that govern the conditions of interpretative access and social belief. Yet, mainstream auditing strategies operationalize fairness primarily in predictive terms - error rates, calibration, or group-level parity - leaving epistemic harms under-theorized and under-measured. We propose a quantitative framework for evaluating forms of epistemic injustice in algorithmic environments. First, we introduce a deficit-based template that models epistemic injustices as gaps between ideal and realized conditions across features such as credibility, uptake, and epistemic agency. We map these deficits to concrete stages of algorithmic mediation, showing how epistemic injustice can persist even when standard fairness constraints are satisfied. Drawing on distributive fairness indices, we distinguish two evaluation stances: resource inequality, where indices are applied to distributions of epistemic goods directly, and capability/rights inequity, where indices are applied to output-induced epistemic opportunity. We provide an epis-temic translation of canonical indices, illustrating how they diagnose complementary signatures of unfairness - such as exclusionary tails and hierarchical concentration - and support longitudinal auditing under iterative deployment. We also provide a simulation study of a recommender-mediated opinion dynamics setting, showing how the proposed indices capture the evolution of epistemic unfairness under repeated platform interventions. The result is a measurement framework that makes the epistemic dimension of algorithmic harms explicit for system design and evaluation. 
+
+Keywords Epistemic Injustice, Epistemic Resources, Epistemic Failures, Algorithmic Fairness, Fairness Indices 
+
+# 1 Introduction 
+
+The architecture of the contemporary information ecosystem is deeply governed by algorithmic infrastructures. Search and recommendation rankings, content-moderation pipelines, automated labeling, and reputation scores shape which claims are heard and how they are interpreted [ Cobbe(2021) , Gillespie(2014) , Milano and Prunkl(2025) ,Gerrard(2020) ]. Contemporary platforms instantiate a “scored society” [ Benjamin(2019a) ], where pervasive eval-uation practices can reproduce existing inequalities and create new forms of marginalization. This scoring logic extends to the epistemic realm. Because algorithmic systems are intrinsically epistemic [ Alvarado(2023) ,Symons and Alvarado(2022) ] - they deal with the production, diffusion and organization of knowledge - they effectively assign users’ credibility and the legitimacy of their knowledge claims, while settling classificatory boundaries that shape interpretation. As large-scale infrastructures [ Weerts(2021) ], they can systematically re-shape trust relations, access to interpretative resources, and epistemic participation. When such systems privi-lege some groups’ knowledge claims while discounting others, they can amplify and automate epistemic injustice [ Stewart et al.(2022) , Coeckelbergh(2022) , Coeckelbergh(2025) ]. Social epistemology offers a vocabulary for these harms under the label epistemic injustice , that is, wrongs suffered by people as knowers [ Fricker(2007) ]. In particular, on Miranda Fricker’s foundational account, testimonial injustice occurs when prejudice leads hearers to assign a speaker less credibility than deserved. On the other hand, hermeneutical injustice arises when structural gaps in interpretative re-sources prevent agents from understanding experiences. Recent literature argues that algorithmic systems can reproduce and intensify these injustices, for example by systematically discounting marginalized users’ credibility, or entrenching 
+
+> arXiv:2604.22675v1 [cs.SI] 24 Apr 2026
+
+Running Title for Header hermeneutical gaps through classificatory schemes [ Medvecky(2018) , Edenberg and Wood(2023) , Nihei(2022) ]. How-ever, despite the crucial epistemic character of contemporary platforms, the dominant discourse on algorithmic fairness rarely treats epistemic injustice as a fairness problem. This is partly because the literature has largely operationalized harms in predictive and distributive terms, focusing on error rates, calibration, and parity relations across demographics [ Barocas et al.(2020) , Mehrabi et al.(2021) , Pessach and Shmueli(2022) ]. These metrics are essential for many tasks, but they are not designed to capture epistemic goods such as credibility, interpretative resources, or epistemic agency, nor do they directly model how epistemic deficits can persist in algorithmic platforms. While some recent work begins to op-erationalize aspects of testimonial injustice in algorithmic settings (e.g., [ Villa et al.(2025b) , Quaresmini et al.(2025) ]), the broader landscape of epistemic injustice documented in social epistemology remains under theorized and rarely measured in algorithmic fairness research. In this context, the paper aims to make epistemic injustice tractable for algorithmic system design and evaluation. Specifically, we do not seek to provide a comprehensive characterization of epistemic harms. Rather, we develop a diagnostic framework for characterizing certain aspects of epistemic injustice in algorithmic settings in distributive terms and measuring them over time. To do so, we proceed in two steps. First, we formalize epistemic injustice as a deficit in epistemic goods that algorithmic systems can induce or amplify, where the relevant “good” depends on the injustice type and application context. Second, we draw on a family of indices from economics, designed to measure uneven distributions of resources over time, to quantify the deficits. The deficit framework and distributive indices constitute two parts of the same diagnostic task. To investigate how they are patterned across individuals and groups, we adopt a dual evaluation stance. First, we measure inequality in the distribution of epistemic goods. Second, we measure inequity in the opportunities mediated by system outputs. Unlike standard Machine Learning (ML) fairness metrics, which typically focus on error rates at single time, these indices capture the distributional structure of epistemic disadvantages across individuals and groups. We thus translate philosophical accounts of epistemic injustice into index-based measures for evaluating epistemic unfairness in algorithmic systems. In this way, we frame epistemic fairness as a mechanism-level lens for identifying how algorithmic systems generate, sus-tain, or amplify epistemic injustice. We complement the framework with a simulation study, showing how interventions shape trajectories of epistemic inequality and output-level inequity over time. The paper is structured as follows. Section 2 introduces a deficit-based template for epistemic injustice. Section 3 maps the deficits to algorithmic systems, explaining why they may persist despite standard fairness constraints. Section 4 reviews classical fairness evaluations. Section 5 introduces the two facets of epistemic auditing. Section 6 presents and translates classical fairness indices in epistemic terms. Section 7 illustrates how fairness indices can be used to evaluate the evolution of epistemic quantities through a simulative example. Section 8 concludes with directions for future work. 
+
+# 2 A Deficit-based Formal Treatment of Epistemic Injustice 
+
+Epistemic injustice is not confined to interpersonal exchanges. In algorithmic environments, credibility, uptake, inter-pretative access, and epistemic participation are routinely mediated by ranking, moderation and labeling infrastructures. These mechanisms can systematically privilege some agents’ contributions while discounting others, or stabilize interpretative gaps by enforcing dominant classificatory schemes. Epistemic harms can thus arise as properties of algorithmic systems behavior at scale. To investigate these harms in ways that inform the design of fair algorithmic systems, we introduce a formal template that models epistemic injustice via deficits in epistemic goods. As illustrated in Figure 1, our approach treats algorithmic systems as mediating infrastructures that transforms epistemic ideals into realized outcomes. Specifically, let I be a set of epistemically relevant features (e.g., credibility, interpretative resources, epistemic agency). For an agent (or group) and context of interest, let I⋆ denote the ideal epistemic condition and I the corresponding actual condition. The associated epistemic deficit is 
+
+∆I = I⋆ − I ≥ 0. (1) Accordingly, ∆I is the magnitude of the gap between what is epistemically warranted and what is effectively realized. This deficit framing is familiar in algorithmic fairness literature. Metrics such as statistical parity, equality of opportunity, and equalized odds quantify deviations from an ideal constraint. When used as soft constraints (e.g., as regularizers or loss terms), they effectively act as costs of unfairness, increasing as the deficit between ideal and actual behavior grows. When epistemic deficits are systematic and structured by identity-based prejudices, they constitute epistemic injustice. Different forms of epistemic injustice correspond to different instantiations of I⋆ and I. For example, in testimonial injustice I⋆ can be taken as a subject’s reliability and I as the credibility attributed to them. In hermeneutical injustice, 
+
+I⋆ can be taken as the interpretive resources available in principle and I as those accessible in practice. 
+
+Remark 1. Our deficit schema above treats shortfalls relative to an epistemic ideal as the primary measurable harm. Testimonial injustice, however, is often discussed as having a deficit-excess structure, i.e., credibility deficits for some speakers can be mirrored by credibility excesses for others [ Fricker(2007) , Coady(2017) ]. In the context of algorithmic ranking and recommendation, this relationship is frequently causal rather than merely symmetrical. Because visibility 
+
+2Running Title for Header     
+
+> Epistemic Ideal ( I∗)
+> Credibility Hermeneutical Access Epistemic Agency
+> Algorithmic Mediation
+> Ranking Labeling Moderation
+> Realized Condition ( I)
+> Effective Visibility Uptake Interpretive Opportunity
+> THEORY
+> INFRASTRUCTURE
+> MEASUREMENT
+> ∆I=|I∗−I|
+> Resource Inequality
+> Capability Inequity
+
+Figure 1: The proposed framework for evaluating algorithmic epistemic injustice. The gap between the normative Epistemic Ideal ( I∗) and the Realized Condition ( I) is modeled as a measurable deficit ( ∆I ). 
+
+and attention are scarce and competitively allocated, an unearned credibility excess for dominant users can directly generate a credibility deficit for marginalized ones. While the current framework prioritizes measuring deficits as a main indicator of harm, explicitly modeling the relational dynamics of epistemic excesses is an important direction for future work. Modeling stance (distributive operationalization). Treating epistemic injustice as a deficit mechanism is a deliberate simplification adopted for measurement and evaluation in algorithmic settings. Indeed, our claim is not that epistemic injustice is exhaustively reducible to utility, welfare, or any distributive quantity. Rather, we identify aspects of epistemic injustice that admit formal representation through measurable proxies aligned with philosophical concepts.Testimonial and hermeneutical injustice are often characterized as discriminatory wrongs in epistemic relations, not merely as maldistributions of goods [ Fricker(2007) , Fricker(2013) ]. Our formalization does not claim to exhaust this normative structure. In particular, we acknowledge that epistemic injustice is first and foremost an epistemic wrong. This means that subjects are wronged in their capacity as knowers, via distortions governed by erroneous, non-epistemic reasons. As emphasized by [ Symons and Alvarado(2022) ], this epistemic wrong can be conceptually prior to, and come apart from, downstream distributive or socio-economic outcomes. But this does not mean it lacks a distributional manifestation within the epistemic domain. In algorithmically mediated settings, repeated discriminatory epistemic judgments (who is credible, who is intelligible) accumulate into stable patterns of epistemic standing, uptake, and interpretive access. We therefore treat epistemic injustice as an epistemic-distributive problem , that is, a case in which discriminatory epistemic mechanisms produce patterned maldistributions of epistemic resources. This distributive lens resonates with broader work on inequality and inequity aversion, according to which normative evaluations depend also on how advantages and disadvantages are distributed across agents. In particular, classic accounts emphasize sensitivity to interpersonal asym-metries and to relative standing within a distribution [ Fehr and Schmidt(1999) , Bolton and Ockenfels(2006) ], which supports our treatment of epistemic harms as distributionally structured deficits in epistemic goods and opportunities. To make this distributive operationalization concrete, we need to specify what counts as the relevant epistemic good in a given setting. Social epistemology offers useful distinctions here. In particular, even if not sharply bounded in existing literature, we distinguish: • Epistemic and hermeneutical resources (shared concepts, credibility, interpretative tools) [ Fricker(2007) ,Ferguson(2025) ]. These include shared concepts for making sense of experiences such as online harassment or algorithmic discrimination, or public credibility markers, e.g., verification badges on social networks; • Epistemological resources (individual-level reasoning strategies) [ Elby and Hammer(2010) ]. These contain epistemic competences such as assessing source reliability, interpreting conflicting evidence, or recognizing misleading content; • Epistemic capital (standing, authority, and credit) [ Alasuutari et al.(2016) , Davis(2018) ]. It involves socially recognized epistemic standing, such as reputation coming from citations, institutional affiliation, or visibility on a platform. Different forms of epistemic injustice can be understood as systematic distortions in the distribution or access to these resources [ Edidin(2025) , Dotson(2014) ]. Repeated credibility attributions, access decisions, and classificatory constraints accumulate into stable inequalities in credibility standing, uptake, and interpretative access. Modeling these patterns as deficits according to Eq. (1) yields measurable variables that can be tracked and compared across groups, time, and system configurations (as shown in Tables 1 and 2). This move is consistent with work that treats credibility and interpretative participation as distributable epistemic goods, arguing that epistemic injustices can be fruitfully analyzed in deficit-excess and allocation terms [Coady(2017)]. This leaves open the further normative question of what makes the underlying epistemic relations wrongful. We now deploy the deficit schema in Eq. (1) to give a unified treatment of epistemic injustices in algorithmic settings. The next tables articulate this treatment at two complementary levels. Tables 1 and 2 provide the quantitative operationalization of 3Running Title for Header Table 1: Technical representations of epistemic injustices with a direct ideal–actual shortfall formulation. Arrow orientation indicates the direction of epistemic movement. Injustice Ideal condition Non-ideal condition Deficit Contributory injustice [Dotson(2011)] All marginalized interpretative re-sources im→c are taken up in the collective resource ic: im→c = ic.Not all marginalized resources are in-corporated into ic by dominant hear-ers: im→c < i c.
+
+ic −
+
+im→c
+
+Formative epis-temic injustice [Nikolaidis(2021)] Each agent has access to collective educational resources ec: ea←c =
+
+ec.Agent a’s access to ec is limited by institution: ea←c < e c.
+
+ec −
+
+ea←c
+
+Hermeneutical injus-tice [Fricker(2007)] All agents can access collective in-terpretative resources ic: ia←c =
+
+ic.Agent a is denied access: ia←c < i c. ic −ia←c
+
+Prediscursive epistemic injury [Lobb(2018)] All agents enjoy an ideal level of epistemic agency ac: aa←c = ac.Agent a’s effective epistemic agency is reduced : aa←c < a c.
+
+ac −
+
+aa←c
+
+Testimonial injus-tice [Fricker(2007) ,Quaresmini et al.(2025) ]Speaker s’s assigned credibility matches reliability: ch←s = rs.Hearer h assigns reduced credibility to s: ch←s < r s.
+
+rs −
+
+ch←s
+
+Testimonial quieting [Dotson(2011)] Audience h fully takes up speaker 
+
+s’s potential contribution: uh←s =
+
+us.Audience h collapses uptake of s’s contribution to uh←s < u s.
+
+us −
+
+uh←s
+
+Testimonial smother-ing [Dotson(2011)] Speaker s can safely share epistemic content es to audience h: es→h =
+
+es.Speaker s self-censors fearing hostile conditions , sharing less es→h < e s.
+
+es −
+
+es→h
+
+Willful hermeneu-tical ignorance [Pohlhaus(2017)] Hearers h make full use of interpre-tative tools ic: ih←c = ic.Hearer h intentionally restricts their interpretative uptake ih: ih←c < i c.
+
+ic−ih←c
+
+Table 2: Technical representations of relational or flow-based epistemic injustices, recast in deficit form. Arrow orientation indicates the direction of epistemic movement. Injustice Ideal condition Non-ideal condition Deficit Epistemic exploitation [Berenstain(2016) ]Each agent contributes a fair share of epistemic labour ℓc: ℓa←c = ℓc.Agent a contributes ℓa←c > ℓ c due to oppressive demand. 
+
+ℓc − ℓa←c
+
+Epistemic ap-propriation [Davis(2018)] Agent a receives the appropriate epis-temic credit κa→c: κa→d = κa→c.Only κa→d is assigned to a, while remaining credit is diverted to domi-nant agents d: κa→d < κ a→c.
+
+κa→c −
+
+κa→d
+
+Epistemic ob-jectification [Haslanger(2017) ,McGlynn(2021)] Hearer h fully recognizes speaker s’s epistemic agency as: ah←s = as.Hearer h treats s as a source of in-formation, recognizing less agency: 
+
+ah←s < a s.
+
+as − ah←s
+
+Hermeneutical marginalization [Fricker(2007)] All agents have equal access to hermeneutical participation pc:
+
+pa←c = pc.Agent a’s actual hermeneutical par-ticipation is restricted: pa←c < p c.
+
+pc − pa←c
+
+the schema, while Tables 3 and 4 situate those formalizations in their corresponding epistemic mechanisms. Within the technical presentation, some injustices naturally appear as ideal–actual shortfalls, whereas others are more fundamentally relational, involving asymmetric flows or misallocations. Even in the latter cases, we recast the harm in deficit form in order to preserve a unified formal representation across contexts. The next section maps these deficits to concrete algorithmic mechanisms across digitally-mediated domains. 4Running Title for Header Table 3: Philosophical characterizations of epistemic injustices represented as direct ideal–actual shortfalls in Table 1. 
+
+Injustice Mechanism Contributory injustice [Dotson(2011)] Marginalized knowers’ interpretative contributions are dismissed/forced through dominant frameworks, so their situated knowledge fails to receive uptake. Formative epistemic injustice [Nikolaidis(2021)] Wrongs to a person’s development as a knower, produced by social structures or institutions that limit the formation of epistemic capacities. Hermeneutical injustice [Fricker(2007)] A person’s sense-making capacity is undermined by identity-based prejudice. Prediscursive epistemic injury [Lobb(2018)] Structural conditions undermine a person’s epistemic agency prior to participation in explicit testimonial exchanges (e.g., by undermining self-trust). Testimonial injus-tice [ Fricker(2007) ,Quaresmini et al.(2025)] A speaker’s credibility is downgraded by a hearer’s identity-based prejudice. Testimonial quieting [Dotson(2011)] The audience withholds uptake by failing to recognize the speaker as a knower. Testimonial smothering [Dotson(2011)] The speaker truncates or withholds testimony in anticipation of hostile uptake. Willful hermeneutical igno-rance [Pohlhaus(2017)] Powerful agents choose not to know marginalized perspectives despite available evidence and interpretative tools. Table 4: Philosophical characterizations of relational or flow-based epistemic injustices recast in deficit form in Table 2. 
+
+Injustice Mechanism Epistemic exploitation [Berenstain(2016)] Marginalized knowers are systematically overburdened with epistemic labour (e.g., educating privileged agents about oppression), under conditions where this labour is uncompensated and often unsafe. Epistemic appropriation [Davis(2018)] Dominant agents appropriate epistemic resources from marginalized communities, while credit and benefits bypass the original knowers. Epistemic objectifica-tion [ Haslanger(2017) ,McGlynn(2021)] A knower is treated as a mere source or object of information rather than as an epistemic subject with their own perspective, reasons, and standing. Hermeneutical marginalization [Fricker(2007)] Members of a social group are structurally excluded from participating in the collective hermeneutical practices that shape shared interpretative resources. 
+
+# 3 Algorithmic Instantiations of Epistemic Injustices 
+
+We map epistemic deficits to the socio-technical pipelines that can produce, stabilize or amplify them by tracing the lifecycle of algorithmic mediation. Epistemic deficits can be induced at multiple stages, that is, in representation and labeling (what categories exist, how content and users are described), ranking, recommendation and targeting (who is seen and by whom), moderation and enforcement (which speech is removed, down-ranked, or demonetized), scoring and reputation (who is treated as credible or risky by default). Across these stages, epistemic injustice can persist even when standard group-level fairness constraints are satisfied [ Quaresmini et al.(2023) , Quaresmini et al.(2025) ,Villa et al.(2025b) , Villa et al.(2025a) ], since they regulate parity in the quality of classification outputs. Here, the harms at issue concern system-mediated epistemic resources and participation. These mechanisms manifest in domain-specific forms, including: • Content-ranking and search engines may systematically down-rank, mislabel, or filter marginalized users’ interpretative contributions through dominant taxonomies [ Noble(2018) , Lau(2022) , Thach et al.(2024) ,Lee et al.(2024), Lin et al.(2023)] ( contributory injustice [Pozzi and De Proost(2024)]); • Adaptive learning platforms can present systematically less challenging curricula or fewer exploratory re-sources to students from marginalized groups [ O’neil(2017) , Chakraborty(2024) , Boateng and Boateng(2025) ,Baker and Hawn(2022) , Bird et al.(2025) ], thereby limiting opportunities for epistemic development and constraining the formation of epistemic capacities over time [ Räisä and Stocchetti(2024) , Babu et al.(2025) ,Hummel(2025), Tanchuk and Taylor(2025)] ( formative epistemic injustice ); 5Running Title for Header • Advertising and targeting systems may systematically exclude marginalized users from ads providing in-formation needed to make sense of own experiences (e.g., campaigns about legal remedies, healthcare ser-vices, or specific forms of discrimination) [ Baumann et al.(2024) , Datta et al.(2018) ] ( hermeneutical injustice 
+
+[Milano and Prunkl(2025)]); • Pervasive scoring systems can assign persistently low reliability to certain groups before any act of testi-mony (e.g., treating them as untrustworthy by default in fraud detection) [ Eubanks(2025) , Benjamin(2019b) ](prediscursive epistemic injury ); • Social networks and decision-support systems incorporating user reports may systematically down-rank marginalized users in recommendation, or decision pipelines [ Quaresmini et al.(2025) , Villa et al.(2025b) ,Williams(2025), Casu et al.(2025)] ( testimonial injustice ); • Platform moderation systems may systematically fail to recognize some users as knowers, for example by disproportionately labelling their posts as low-quality or spam, thereby reducing the visibility and uptake of their contributions as epistemically relevant [ Lee et al.(2024) , Davidson et al.(2019) , Thach et al.(2024) ,Habibi et al.(2024), Delmonaco et al.(2024), Tobi(2024)] ( testimonial quieting [Harb(2025)]); • Creators may self-censor to avoid demonetization or removal [ Dergacheva and Katzenbach(2023) , Are(2022) ,Zeng and Kaye(2022), Kingsley et al.(2022), Kumar(2019)] ( testimonial smothering [Harb(2025)]); • Designers who refuse to extend datasets, despite evidence of systematic misrepresentation [ Keyes(2018) ,Hamidi et al.(2018) , Barocas and Selbst(2016) , D’ignazio and Klein(2023) ] can produce systems that embody a selective blindness to marginalized standpoints ( willful hermeneutical ignorance ). Despite this, mainstream algorithmic fairness rarely treats epistemic injustice as a target of measurement and evaluation, and related discussions often remain highly abstract [ Edenberg and Wood(2023) , Nihei(2022) , Galasi´ nski et al.(2023) ,Hull(2023) , Hancox-Li and Kumar(2021) , Rafanelli(2022) , Symons and Alvarado(2022) , Sardelli(2022) , Kim(2022) ,Medvecky(2018) , Jalali et al.(2020) ]. To investigate these phenomena, we therefore need quantitative tools that can capture and compare epistemic deficits. 
+
+# 4 From Partial Constraints to a Global, Dynamic Evaluation 
+
+Much of the algorithmic fairness literature treats fairness primarily as a question about the quality of classifica-tion, i.e., how a (typically supervised) classifier allocates benefits across individuals or groups [ Elzayn et al.(2019) ,Quaresmini et al.(2023) , Kinchin(2024) , Hosseini et al.(2025) ]. In these settings, fairness is operationalized through constraints on predictions, labels, or error rates [Pessach and Shmueli(2022) , Barocas et al.(2020) ,Mehrabi et al.(2021) , Verma and Rubin(2018) , Narayanan(2018) ]. More specifically, standard group fairness met-rics are defined as relations among probabilities attached to model outputs. These metrics typically evaluate a fixed decision rule, that is, a static algorithm whose promotion rates are designed to satisfy a given parity condition across groups. For instance, equality of opportunity requires that the probability of receiving a positive decision be the same across groups among those individuals who qualify for the positive outcome. Standard fairness evaluations of this kind are therefore snapshot-oriented. Indeed, they assess whether, at a given step, a fixed prediction rule applied to a fixed population satisfies the relevant constraint [ Quaresmini et al.(2024) ]. These met-rics are highly useful for evaluating classifier performance and the fairness of decision rules [ Lum and Johndrow(2016) ,Quaresmini et al.(2024) , Scantamburlo et al.(2025) ], typically through equality- or equity-based criteria. However, these approaches are not sufficient for our purposes. Indeed, rather than evaluating predictive performance or one-shot decision tasks, we want to assess the epistemic impact of ongoing platform-user interaction. This continuative assess-ment is particularly important as ranking, moderation, and feedback mechanisms dynamically shape who is heard and rendered intelligible over time, generating cumulative effects beyond isolated outputs as exemplified next. 
+
+Toy example: equality of opportunity in a platform feedback loop . Consider a professional social platform such as LinkedIn, where posts are ranked in users’ feeds. Suppose the platform uses a predictive model to decide whether a post should receive high visibility. Let the promotion in the feed be the positive decision for posts qualified for high visibility. A standard fairness requirement is equality of opportunity across protected groups (e.g., men and women). Under this requirement, promotion rates should be equal among qualified posts. In a platform setting, however, promotion is rarely an isolated event. Visibility affects impressions and engagement, which in turn influence future rankings, creating a feedback loop. Equality of opportunity can still be assessed at any given round, but this does not exhaust the evaluation. It is also important to understand how repeated ranking and engagement updates reshape the distribution of an epistemic resource. In particular, here the epistemic resource is epistemic authority , i.e., the standing agents acquire as credible and influential contributors through repeated exposure and uptake in the feed. The question, then, is not only whether 6Running Title for Header     
+
+> ∆representation
+> Makes the gap visible, enabling quantification
+> Resource framing
+> Epistemic properties as epistemic resources
+> Distributive treatment
+> Quantities that appear as non-distributive are modeled as distributions
+> Distributive measures
+> Indices for distributive quantities are applied to epistemic resources
+> REPRESENTATION EPISTEMIC VIEW MODELING MOVE MEASUREMENT
+
+Figure 2: Conceptual pipeline underlying our framework. The figure summarizes the diagnostic structure of the paper. promotion satisfies parity at one step, but also whether the feedback loop concentrates epistemic authority, produces lower-tail deprivation, or generates diverging epistemic standing within and across groups. These aspects are however not assessed by mainstream fairness metrics, that are mostly partial constraints. Indeed, they test whether a relation holds across groups along a selected dimension, such as equal acceptance or false positive rates [ Pessach and Shmueli(2022) , Barocas et al.(2020) , Mehrabi et al.(2021) , Verma and Rubin(2018) , Narayanan(2018) ], but do not capture the full distribution across individuals. As a result, two systems may satisfy the same group-level parity constraint while differing in within-group dispersion, tail deprivation, or elite concentra-tion. These aspects are particularly important to assess epistemic injustice, as marginalization operates beyond average group disadvantage, but also through lower-tail deprivation, concentrated authority, and stratified ac-cess within and across groups. This motivates an explicit distributive perspective, connected to work on dis-tributive justice [ Hertweck et al.(2024) , Kuppler et al.(2022) , Lundgard(2020) , Baumann et al.(2022) ]. Building on [ Fabris et al.(2022) ], predictive outcomes can often be read as allocative decisions, by treating positive predictions as a resource that the system assigns . This highlights a broader point, namely, the content of a fairness analysis depends on how the relevant resource is specified in a given setting. In social and information platforms, for exam-ple, the resource may be information itself, and fairness concerns how that epistemic good flows through a network [Quaresmini et al.(2023) ]. Once predictions are treated as assignments, two evaluative questions arise. One concerns predictive quality, including error rates, calibration, and their parity across groups. The other concerns the distributive structure of the resulting allocations across individuals (e.g., whether they are top-heavy, stratified, or segregated). Standard predictive fairness metrics primarily track performance quantities. In our setting, evaluating epistemic injustice requires distribution-sensitive measures that can complement performance-oriented metrics and support longitudinal analysis. Fairness indices are useful here because they provide explicitly global summaries. They take as input the full distribution of a good or burden across agents and summarize its deviation from a benchmark, such as equality or a specified social weighting. This allows comparisons of distributional structure even when group-level constraints are sat-isfied. Because such indices are less common in ML-focused evaluations, their uptake as general-purpose fairness tools has remained limited. Existing connections include the Jain index in recommender systems [ Rampisela et al.(2024) ], ranking optimization with generalized Gini criteria [ Do and Usunier(2022) ], and unified perspectives on indices and fairness [ Speicher et al.(2018) ]. However, these approaches have not been systematically integrated into the mainstream debate. Introducing fairness indices into algorithmic fairness serves three purposes. First, it provides a common language for comparing distributional structure across systems, resources, and domains. Second, many indices are parameterized, which makes explicit how sensitive an evaluation is to the worst-off, the best off, or overall dispersion. Third, they yield scalar summaries that can be tracked over time and integrated into optimization, simulation, and ML pipelines. To apply these indices in the epistemic setting, we must specify the epistemic quantity νi whose distribution is being evaluated, either an epistemic resourcedirectly or an output-induced measure of epistemic opportunity. We now make this explicit by characterizing epistemic goodsand their operational proxies in algorithmic systems. 
+
+# 5 The Two Facets of Epistemic Auditing 
+
+Starting our deficit-based formalization of epistemic injustice, we now proceed providing a set of indices allowing us to quantify the deficit distribution across individuals and groups, toward completing the description of our diagnostic pipeline shown in Figure 2. Classical fairness and inequality indices were developed to summarize how unevenly a socially salient resource is distributed. In what follows, we introduce and repurpose them to measure the deficit terms associated with epistemic injustices. This yields a quantitative handle on epistemic harms that can persist even when conventional fairness constraints are satisfied. Distributive analyses summarize how unevenly a good (or burden) is distributed by mapping a distribution to a scalar deviation from a normative benchmark. In quantitative work, this is often captured by fairness indices , a family of measures with roots in welfare economics and broad uptake across policy and social science. In our framework, the same index supports two distinct forms of evaluation, depending on what quantity is being distributed. This distinction aligns with classic economic accounts on aversion to unequal outcomes 7Running Title for Header and relative disadvantage [ Fehr and Schmidt(1999) , Bolton and Ockenfels(2006) , Engelmann and Strobel(2004) ]. On this view, unequal allocations matter not only in absolute terms, but also because agents may be sensitive to interpersonal asymmetries and relative standing within a distribution. In our framework, this broader insight motivates a distinction between inequalities in epistemic resources themselves and inequities in the epistemic opportunities mediated by system outputs. In the resource inequality case, the quantity of interest is a direct proxy for an epistemic resource (or burden) for each agent i ∈ V :
+
+νi = ρi ≥ 0, (2) where ρi represents goods such as credibility standing, interpretative access, or epistemic authority. For example, on a professional platform such as LinkedIn, ρi may represent the epistemic authority an agent has accumulated through visibility or uptake of their contributions. Here, the analysis asks how unevenly the system distributes or concentrates epistemic resources across individuals or groups. In the capability/rights inequity case, by contrast, the quantity of interest is not the resource directly, but the epistemically relevant consequence induced by a system output. Let yi
+
+denote a system output for agent i in context C, and define: 
+
+νi = ϕ(yi, x i, C) ≥ 0, (3) where ϕ maps the output yi and agent features xi to an epistemically meaningful magnitude, such as the probability of being heard or expected epistemic opportunity. For example, if yi is the ranking position assigned to a post in a LinkedIn-style feed, ϕ(yi, x i, C) may represent the resulting probability that the post is seen, engaged with, and taken up as epistemically relevant. Here, the analysis asks how system decisions translate into unequal downstream opportunities, access conditions, or constraints. Once the meaning of νi is fixed, the value of νi can vary over time based on platform-user interactions and, hence, any fairness index has to be assessed over time. In providing the definition of the fairness indices considered in this work, we nonetheless neglect this time dependence for notational simplicity. Moreover, note that all the considered indices are agnostic to the nature of νi, and hence can be applied both when νi is intended in the sense of Eq. (2) or in that of Eq. (3). What counts as an epistemic resource is context-dependent. In our framework, the term does not refer to a single homogeneous good, but to any epistemically salient quantity whose allocation, access, or uptake is mediated by the system. Depending on the setting, this may include interpretative resources, credibility standing, epistemic authority, uptake, or epistemic labour. Accordingly, νi should be understood as a measurable proxy for that quantity in context, rather than as a direct measure of some epistemic value. Operationally, specifying νi involves a modeling choice that should be performed cautiously. The relevant aspect of the epistemic good has to be identified for the application, and an observable proxy has to be selected to track it. In input-oriented analyses, νi may represent a baseline resource or burden already possessed by the agent. In output-oriented analyses, νi may instead be constructed from system outputs as an induced opportunity or entitlement. Note that νi does not capture the full epistemic wrong, but a distribution-sensitive aspect that can be compared across agents, groups and system configurations. 
+
+Illustrative parametrizations . Let us first consider a case in which a platform, e.g., a recommender or advertising system, iteratively interact with users. Therefore, the platform serves a feed, the user interacts with it and, accordingly, their profile is updated, and future content adapts accordingly. In this case, in a resource-oriented analysis, νi may be proxied by the share of interpretative content shown to user i, or any binary indicator of whether user i is exposed to resources relevant to understand a given condition. Meanwhile, in an output-oriented analysis, νi can be represented by the credibility standing of the user subsequent to the interaction with a platform (and eventually other users), namely the degree to which a user is treated as reliable or trustworthy by the platform after such an interaction. As another example, consider a platform that suggests a user a set of possible rides, ranked by distance, location, traffic, or expected tip (e.g., Uber, Lyft, or autonomous taxi services). The user picks a ride and rates it, quantitatively assess the quality of the ride (e.g., in terms of comfort and punctuality). The driver is then given a score by the platform, that shapes how future suggestions and hence ride assignment will be made. In this case, in resource-oriented analysis, νi might be proxied by the rider score itself, here interpreted as a measure of epistemic standing. Meanwhile, in an output-oriented analysis, νi
+
+might be a consultative counter of high-value rides received by driver i.
+
+# 6 Classical Indices and Their Translation in an Epistemic Framework 
+
+We now introduce the indices proposed in this work to assess epistemic injustice and their translation into the epistemic framework. Note that they provide global summaries of the distribution of νi, but they can be applied at different scales, such as over individuals to measure dispersion (e.g., concentration of authority), or on group-aggregated quantities to measure disparity (e.g., identity-based marginalization). Let {νi}Ni=1 be nonnegative utilities with mean ¯ν = 1
+
+> N
+
+P 
+
+> i
+
+νi.
+
+Dispersion- and concentration-based indices. Dispersion indices summarize the uneven distribution of a nonnegative quantity across a population. The Jain index (J) [ Jain et al.(1984) ] measures the evenness of allocations νi across 8Running Title for Header individuals, ranging from 1/N (maximal inequality) to 1 (perfect evenness): 
+
+J =
+
+PNi=1 νi
+
+2
+
+N · PNi=1 ν2
+
+> i
+
+. (4) Because J depends on the ratio between the first and second moments of {νi}, it is sensitive to extreme values. A few very large νi can substantially lower J, even when most allocations are similar. The Epistemic Jain index (evenness of epistemic access and standing) captures whether epistemic standing or access is broadly shared across individuals, rather than concentrated among a few. In an input-oriented evaluation, low Jepi indicates an epistemic environment in which a substantial fraction of agents remain effectively excluded, even when standard group-level fairness is satisfied. In an output-oriented evaluation, Jepi measures evenness in effective epistemic opportunity induced by the system and flags uneven participation conditions. The Gini index (G) [ Gini(1912) ] measures concentration via average pairwise disparity: 
+
+G = 12N 2 ¯ν
+
+> N
+
+X
+
+> i=1
+> N
+
+X
+
+> j=1
+
+νi − νj . (5) Equivalently, G is the mean absolute difference between two randomly chosen individuals’ allocations, normalized by 2¯ ν.Thus G = 0 under perfect equality and increases as the quantity becomes more concentrated among fewer individuals. The Epistemic Gini index (epistemic hierarchy and concentration) captures how strongly an epistemic quantity is stratified across individuals. This matters for hierarchy-oriented harms. A small subset of agents may accumulate epistemic capital, hermeneutical access, or developmental opportunity, leaving others persistently disadvantaged. In an input-oriented evaluation, high Gepi indicates a stratified epistemic economy in which baseline standing or access is highly unequal. In an output-oriented view, high values indicate that the system concentrates epistemic opportunity. The Hoover or Robin Hood index (H) [ Hoover(1936) ] measures the share of the total amount that must be redistributed from individuals above the mean to those below it, to achieve equality: 
+
+H = 12N ¯ν
+
+> N
+
+X
+
+> i=1
+
+νi − ¯ν . (6) A value of H = 0 indicates perfect equality. The index increases with concentration and reaches its maximum value 
+
+H = 1 − 1 
+
+> N
+
+when a single individual holds all of the resources. The Epistemic Hoover index (distance to equal epistemic standing) measures how much epistemic standing, access, or opportunity has to be redistributed to remove inequality in epistemic participation. For inputs, high Hepi means that equal standing or access would require redistributing a substantial share of epistemic resources. For outputs, it indicates a large redistribution to equalize epistemic opportunities, even when mean opportunity is high. The Generalized entropy (GE ) family [ Cowell(2000) , Theil(1967) ]quantifies dispersion in nonnegative distributions. GE measures compare each allocation νi to the population mean ¯ν,yielding GE (α) = 0 under perfect equality and larger values as the distribution becomes more uneven. It is defined as: 
+
+GE (α) = 
+
+
+
+1
+
+α(α − 1) 
+
+1
+
+N
+
+> N
+
+X
+
+> i=1
+
+h νi
+
+¯ν
+
+α
+
+− 1
+
+i!
+
+, α̸ = 0 , 1,
+
+− 1
+
+N
+
+> N
+
+X
+
+> i=1
+
+ln 
+
+ νi
+
+¯ν
+
+
+
+, α = 0 (Theil L),
+
+1
+
+N
+
+> N
+
+X
+
+> i=1
+
+ νi
+
+¯ν ln 
+
+ νi
+
+¯ν
+
+ 
+
+, α = 1 (Theil T ).
+
+(7) The parameter α ∈ R tunes tail sensitivity. Smaller α places more weight on disparities among lower allocations (with 
+
+α < 0 being especially sensitive to the bottom tail), while larger α emphasizes disparities among higher allocations (notably for α > 1). Generalized epistemic entropy family (tail-sensitive epistemic inequality) distinguishes whether epistemic unfairness is driven by exclusionary lower tails (many agents with near-zero access or uptake) or by extreme top concentration (a small subset captures disproportionate advantage). For inputs, it summarizes tail-sensitive inequality in baseline epistemic resources. For outputs, it measures tail-sensitive inequality in epistemic opportunity. The Atkinson index (A) [ Atkinson et al.(1970) ] measures inequality in the distribution of a nonnegative resource across a population. It can be read as the share of mean allocation ¯ν society would forgo in order to achieve equality, given an inequality aversion parameter ε ≥ 0. Larger values of ε place greater weight on the well-being of individuals with lower allocations. 9Running Title for Header 
+
+A(ε) = 0 indicates perfect equality, and larger values greater inequality. 
+
+A(ε) = 
+
+
+
+1 − 1¯ν
+
+ 1
+
+N
+
+PNi=1 ν1−εi
+
+ 11−ε
+
+, ε̸ = 1 ,
+
+1 − 1¯ν
+
+ 1
+
+N
+
+QNi=1 νi
+
+ 1
+
+> N
+
+, ε = 1 .
+
+(8) The Epistemic Atkinson index (prioritarian sensitivity to low standing) implements a prioritarian view. Inequality counts more when it disadvantages agents with low epistemic standing or access. For inputs, high Aepi (ε) indicates a baseline distribution that is costly under priority to low-standing agents. For outputs, high Aepi indicates lower-tail disadvantages, even when total opportunity is high. 
+
+Separation-based indices. Separation indices capture how strongly two groups are unevenly distributed across categories or positions, that is, whether members of different groups tend to concentrate in distinct segments of a distribution rather than being proportionally represented within each unit. Let units be indexed by k ∈ 1, . . . , n . Denote by ak and bk the counts of group A and group B in unit k, and by A = P 
+
+> k
+
+ak and B = P 
+
+> k
+
+bk their total population. The Dissimilarity index (D) [White and Kim(2005)] measures the degree of separation between the two groups as 
+
+D = 12
+
+> n
+
+X
+
+> k=1
+
+ak
+
+A − bk
+
+B . (9) 
+
+D ranges from 0 (perfect mixing, where each unit mirrors the overall group proportions) to 1 (complete separation, where units are occupied exclusively by one group). It can be interpreted as the fraction of either group that would need to be reassigned across units in order to achieve an identical distribution. The Epistemic Dissimilarity index (separation into epistemic environments) targets structural harms in the allocation of epistemic resources and opportunities, since separation across environments can sustain unequal epistemic opportunity despite similar within-unit treatment. For inputs, Depi can be computed from participation patterns across environments (e.g., who appears in feeds). For outputs, from induced access or opportunity (e.g., who is sent to environments with greater epistemic opportunity). It thus captures marginalization through structured separation, not only individual-level disparity. 
+
+Percentile ratios and tail measures. The Palma ratio (P ) [ Palma(2011) ] is defined as the ratio of the income share held by the top 10% (the richest) to that held and bottom 40% (the poorest) of the population. 
+
+P =
+
+P  
+
+> i∈top 10%
+
+νi
+
+P  
+
+> i∈bottom 40%
+
+νi
+
+. (10) Higher values indicate highest concentration at the top. When P < 1 (P > 1), the bottom 40% holds a larger (smaller) share of total resources than the top 10% . The Epistemic Palma ratio (elite capture versus broad-base access) detects elite capture of epistemic resources. Indeed, a small epistemic elite may accrue visibility, uptake, or credibility. By contrast, the broad base collectively receives little. From an input-oriented view, P epi compares baseline epistemic capital in the top 10% to that in the bottom 40% . From an output-oriented perspective, it compares realized epistemic opportunity accrued by the top 10% to the one by the bottom 40% . It can reveal top accumulation even when group-level parity constraints are satisfied. The Quintile share ratio (S80 /S 20 ) [ Drezner et al.(2014) ], compares the total resources held by the top income quintile (the richest 20% ) to those held by the bottom income quintile (the poorest 20% ): 
+
+S80 /S 20 = 
+
+P  
+
+> i∈top 20%
+
+νi
+
+P  
+
+> i∈bottom 20%
+
+νi
+
+. (11) Higher values indicate stronger concentration at the top. The Epistemic Quintile share ratio (top–bottom epistemic opportunity) compares the total held by the top 20% to that held by the bottom one. It captures the top-bottom gap in epistemic standing or access. It compares top and bottom quintiles in epistemic resources (inputs) or opportunity (outputs), highlighting top-heavy participation and uptake even when within-group performance is similar. 
+
+Example (epistemic capital). Let vi ≥ 0 denote agent i’s epistemic capital (e.g., a proxy for credibility standing or authority). For an input-oriented evaluation, the epistemic Jain (Eq. (4) ) and Gini (Eq. (5) ) indices summarize inclusion and hierarchy in baseline epistemic capital. In the ride-assignment example introduced above, this corresponds to evaluating how evenly drivers’ platform scores (used as a proxy for epistemic standing within the system) are distributed, and whether such standing becomes concentrated among a limited subset of drivers. Low Jepi indicates that many agents have near-zero epistemic capital (exclusion, e.g., many drivers have very low platform scores and are therefore weakly recognized as reliable by the system), while high Gepi indicates stratification in standing (hierarchy, e.g., credibility is strongly concentrated among a smaller set of highly scored drivers), even if only a minority is fully 10 Running Title for Header          
+
+> (a) Network directed graph.
+> 00.20.40.60.81
+> 0
+> 1
+> 2
+> 3
+> Initial opinion x0
+> Probability Density Function
+> Group A Group B
+> (b) Probability Density Function of x0among groups.
+
+Figure 3: Simulation framework. Network structure and distribution of initial opinions for the two groups. Group A information is depicted in red, while Group B is indicated in blue. excluded. For an output-oriented analysis, let νi denote output-induced epistemic opportunity (e.g., expected uptake or exposure that contributes to realized epistemic capital over time). The same indices summarize how evenly the system distributes epistemic opportunity ( J) and how strongly that opportunity is concentrated ( G). In the ride-assignment setting, νi may instead capture downstream opportunities such as the number of high-value rides, premium assignments, or repeated access to profitable requests allocated to driver i. Similarly, when considering the epistemic translation of indices in Eqs. (6) - (7) and (8) , high Hepi indicates a large distance to equalize epistemic capital (repair cost, e.g., the extent of redistribution needed to equalize either driver scores or access to valuable rides). GE epi (α) makes inequality diagnosis tail-sensitive, with lower α emphasizing exclusion among low-capital agents (e.g., low-scored or rarely assigned drivers) and higher α emphazising concentration at the upper-tail, namely among drivers who repeatedly receive the most advantageous assignments. Aepi (ε) instead encodes a prioritarian sensitivity to low-capital agents that grows with ε, thus placing increasing normative weight on drivers who remain persistently at the bottom of the score or opportunity distribution. If the platform partitions interactions into units or environments k ∈ { 1, . . . , n } (e.g., feeds, communities, categories), we can compute an epistemic dissimilarity score Depi to assess whether protected groups are systematically separated into clusters with different epistemic affordances (e.g., routed away from high-uptake spaces), even when within-environment treatment does not differ by group. This could capture whether some groups of drivers are systematically routed toward less profitable zones, time slots, or ride categories, even if assignments are locally comparable within each environment. Finally P epi (Palma) and S80 /S 20 epi ratios provide coarse summaries of elite capture and top-bottom gaps in epistemic capital, indicating whether high platform scores or valuable ride opportunities are disproportionately concentrated among a small subset of drivers relative to the least advantaged ones. We remark that the same index can be used in both cases, but its normative interpretation differs. Resource-oriented analyses evaluate how epistemic goods or burdens are distributed, whereas output-oriented analyses diagnose how system decisions mediate access to epistemically relevant opportunities. The proposed indices offer a diagnostic account of how unfairness arises and evolves across resource and outcome dimensions. Beyond diagnosis, they can also support fairness-oriented intervention, by linking observed values to corrective actions and by enabling a dynamic assessment of whether those actions reduce unfairness over time. 
+
+# 7 Simulation Example 
+
+We now illustrate how the proposed fairness indices can be used to evaluate the evolution of epistemic quantities on a digital platform. The platform is modeled as a recommender system that reshapes interactions among agents by modifying users’ influence on each other. Operationally, this captures mechanisms such as visibility boosting or shadowbanning, through which the platform amplifies or reduces the exposure of specific users, therefore redistributing 
+
+epistemic resources . To analyze how these interventions propagate over time, we embed the recommendation mechanism within an opinion dynamics framework, following [ Kühne et al.(2025) ]. This allows us to evaluate fairness from two complementary perspectives, namely, resource inequality (Eq. (2) ) through the distribution of incoming attention, and outcome inequity (Eq. (3) ) through the distribution of realized opinions. The fairness indices introduced in Section 6 are then applied to quantify disparities in both dimensions over the considered time horizon of 50 instants. We model the social network as a directed, weighted graph in which nodes represent agents and edges capture influence relations. The weight associated with a directed edge measures the strength of influence and, as in [ Kühne et al.(2025) ], the recommender system acts by modifying these weights over time. The network reported in Fig. 3a is composed of 
+
+N = 100 agents divided into two same-size groups, generated using a stochastic block model with higher intra-group than inter-group connectivity. This allows to capture homophily, as initial opinions are polarized across groups following a skewed Beta distribution (Fig. 3b). We compare three kinds of interventions: (i) baseline (the weight matrix remains fixed), (ii) targeted boost (the platform periodically amplifies the outgoing weights of one group), (iii) random boost 
+
+11 Running Title for Header                         
+
+> 025 50
+> 0.6
+> 0.8
+> Time t
+> Jain
+> 025 50
+> 0.2
+> 0.4
+> 0.6
+> Time t
+> Gini
+> 025 50
+> 0.2
+> 0.4
+> Time t
+> Hoover
+> 025 50
+> 0.2
+> 0.4
+> 0.6
+> Time t
+> GE(2)
+> 025 50
+> 0.2
+> 0.5
+> 0.8
+> Time t
+> Atkinson(2)
+> 025 50
+> 5
+> 10
+> 15
+> Time t
+> Palma
+> 025 50
+> 20
+> 40
+> 60
+> Time t
+> S80/S20
+> 025 50
+> 0.2
+> 0.5
+> 0.8
+> Time t
+> Dissimilarity  Targeted Boost Random Boost Baseline
+
+(a) Inequality in epistemic resource allocation.                         
+
+> 025 50
+> 0.7
+> 0.8
+> 0.9
+> 1
+> Time t
+> Jain
+> 025 50
+> 0.2
+> 0.3
+> Time t
+> Gini
+> 025 50
+> 0.15
+> 0.2
+> 0.25
+> Time t
+> Hoover
+> 025 50
+> 0.05
+> 0.1
+> 0.15
+> Time t
+> GE(2)
+> 025 50
+> 0.2
+> 0.4
+> 0.6
+> Time t
+> Atkinson(2)
+> 025 50
+> 0.6
+> 0.8
+> 1
+> Time t
+> Palma
+> 025 50
+> 4
+> 7
+> 10
+> Time t
+> S80/S20
+> 025 50
+> 0.9
+> 1.1
+> Time t
+> Dissimilarity  Targeted Boost
+> Random Boost
+> Baseline
+
+(b) Inequality in opinion distribution. 
+
+Figure 4: Intervention effects on fairness indices . Analysis on input and output quantities comparing the three presented scenarios. (amplification is applied to a randomly selected subset of N/ 2 agents). At intervention times, the platform amplifies selected influence links and then renormalizes the network to preserve its structural properties (see Appendix A for simulation details). Fig. 4a shows that both interventions increase inequality in epistemic resources distribution relative to the baseline, for all indices but the Dissimilarity. In the targeted boost case, the increase in overall inequality is more moderate,largely because amplification interacts with subsequent row-normalization. Since agents are more densely connected within their own group, scaling one group’s columns mainly reallocates weight among already strongly connected nodes. After renormalization, attention redistribution remains relatively contained within the group’s internal structure, so global dispersion of epistemic resources increases only comparatively modestly. By contrast, random amplification spreads attention more broadly, producing a stronger increase in global inequality. However, group-based segregation follows a different pattern. The Dissimilarity index rises substantially under the targeted intervention, showing that epistemic advantage becomes aligned with group identity. Random amplification, while increasing overall dispersion, does not systematically reinforce group-level separation. This contrast between dispersion- and separation-based measures highlights the value of combining fairness metrics, since a policy may generate moderate global inequality while simultaneously intensifying identity-based epistemic segregation. Concerning the output (Fig. 4b), the targeted boost increases dispersion in opinions, indicating that repeated within-group amplification translates into greater polarization of beliefs, while the random boost generates dynamics that remain close to the baseline for all indices. For the Atkinson and S80 /S 20 indices, the trajectories appear visually close near the end of the horizon, but their values confirm the same underlying pattern. In particular, Atkinson reaches 
+
+0.112 under the targeted boost, compared with 0.092 under random amplification and 0.096 in the baseline. Similarly, 
+
+S80 /S 20 reaches 2.668 under the targeted intervention, versus 2.287 under random amplification and 2.330 in the baseline. Although random intervention alters structural resource allocation, its effects on opinions are attenuated during the updating process. However, the Dissimilarity index decreases under the targeted boost. Thus, although opinions become more dispersed overall, amplifying one group’s outgoing influence shifts both groups toward similar opinions, reducing inter-group separation. 
+
+# 8 Conclusions 
+
+Algorithmic systems increasingly mediate who is heard, believed, and understood. We argued that mainstream debates on algorithmic fairness largely treat fairness as predictive performance or outcome parity, and therefore lack an explicit epistemic account of what is at stake when systems govern credibility, uptake, and interpretative access. Yet many contemporary algorithmic infrastructures are intrinsically epistemic. Indeed, ranking, moderation, labeling and reputation systems not only allocate material benefits, but also shape the conditions under which agents participate as knowers. Epistemic harms, then, are not reducible to prediction errors or group-level parity constraints, but can emerge from system behavior at scale through the dynamics of algorithmic mediation. To make such harms measurable, we introduced a deficit-based formal template representing epistemic injustices as gaps between ideal and effective 12 Running Title for Header epistemic conditions, and mapped them to concrete stages of algorithmic mediation. Building on this, we proposed fairness and inequality indices as global, distribution-sensitive tools for tracking epistemic harms over time. A central contribution is the distinction between two evaluation stances we draw in Section 5, namely, resource inequality, where indices are applied directly to epistemic goods and burdens, and capability/rights inequity, where indices are applied to output-induced epistemic opportunities. This separation clarifies how the same family of indices can support evaluation both before and after algorithmic mediation, and why purely predictive notions of fairness can be satisfied while epistemic participation remains structurally distorted. We then provided an epistemic translation of canonical indices, showing how they capture complementary signatures of epistemic unfairness.The simulation study shows the practical value of the framework in a dynamic platform setting. Repeated interventions affect epistemic resource allocation and outcomes differently, supporting our broader claim that epistemic unfairness is a dynamic property of algorithmic mediation rather than a static parity condition. Applying these measures requires operational proxies for epistemic resources (e.g., credibility standing, uptake, interpretative access, epistemic labour) and principled mappings from system outputs to epistemically meaningful quantities. While these choices are necessarily domain-specific, making them explicit provides a disciplined way to connect social-epistemological theories to measurable system properties. More importantly, it enables a form of evaluation that is crucial for systems whose primary effects are epistemic. Without tracking how systems distribute epistemic standing and access, fairness assessments risk optimizing for parity in outputs while leaving intact, or even amplifying, epistemic marginalization. Several limitations and extensions are immediate. First, our deficit formalization is a measurement stance and does not fully capture the normative structure of epistemic wrongs. Future work should further articulate how deficit measures relate to the underlying wrongful epistemic relations, including deficit-excess dynamics and interactions across multiple epistemic goods. econd, the framework depends on context-sensitive proxies for epistemic goods, burdens, and opportunities. Proxy validity is therefore a central challenge. Indeed, if the chosen measure tracks the relevant epistemic quantity poorly, the resulting analysis may distort or obscure the very harm it is meant to diagnose. Third, the indices are global summaries. Integrating them with intervention design and mechanism-level diagnostics remains an important direction. Finally, extending the framework to multigroup and intersectional settings, and to explicitly dynamic models of feedback and learning, would strengthen its applicability to real-world platforms. Despite these limitations, our framework provides a formal bridge to include forms of epistemic injustice in algorithmic fairness evaluations. By treating epistemic harms as distributional distortions in epistemic goods and in epistemic opportunity, the framework complements partial fairness constraints and supports longitudinal auditing of epistemic participation, credibility, and interpretative access in contemporary algorithmic environments. 
+
+# References 
+
+[Alasuutari et al.(2016)] Pertti Alasuutari, Marjaana Rautalin, and Jukka Syväterä. 2016. Organisations as epistemic capital: The case of independent children’s rights institutions. International Journal of Politics, Culture, and Society 29, 1 (2016), 57–71. [Alvarado(2023)] Ramón Alvarado. 2023. AI as an epistemic technology. Science and Engineering Ethics 29, 5 (2023), 32. [Are(2022)] Carolina Are. 2022. The Shadowban Cycle: an autoethnography of pole dancing, nudity and censorship on Instagram. Feminist Media Studies 22, 8 (2022), 2002–2019. [Atkinson et al.(1970)] Anthony B Atkinson et al . 1970. On the measurement of inequality. Journal of economic theory 2, 3 (1970), 244–263. [Babu et al.(2025)] Yogendra Babu, Patanjali Mishra, Amit Kumar, Chandra Shekhar Pandey, and Shriram Pandey. 2025. Epistemic injustices and curriculum: Strategizing for justice. Social Sciences & Humanities Open 11 (2025), 101220. [Baker and Hawn(2022)] Ryan S Baker and Aaron Hawn. 2022. Algorithmic bias in education. International journal of artificial intelligence in education 32, 4 (2022), 1052–1092. [Barocas et al.(2020)] Solon Barocas, Moritz Hardt, and Arvind Narayanan. 2020. Fairness and machine learning. 
+
+Recommender systems handbook 1 (2020), 453–459. [Barocas and Selbst(2016)] Solon Barocas and Andrew D Selbst. 2016. Big data’s disparate impact. Calif. L. Rev. 104 (2016), 671. [Baumann et al.(2022)] Joachim Baumann, Corinna Hertweck, Michele Loi, and Christoph Heitz. 2022. Distributive justice as the foundational premise of fair ML: Unification, extension, and interpretation of group fairness metrics. 
+
+arXiv preprint arXiv:2206.02897 (2022). 13 Running Title for Header [Baumann et al.(2024)] Joachim Baumann, Piotr Sapiezynski, Christoph Heitz, and Aniko Hannak. 2024. Fairness in online ad delivery. In Proceedings of the 2024 ACM Conference on Fairness, Accountability, and Transparency .1418–1432. [Benjamin(2019a)] Ruha Benjamin. 2019a. Captivating technology: Race, carceral technoscience, and liberatory imagination in everyday life . Duke University Press. [Benjamin(2019b)] Ruha Benjamin. 2019b. Race after technology: Abolitionist tools for the new Jim code . Polity Press, Cambridge, UK ; Medford, MA. [Berenstain(2016)] Nora Berenstain. 2016. Epistemic exploitation. (2016). [Bird et al.(2025)] Kelli A Bird, Benjamin L Castleman, and Yifeng Song. 2025. Are algorithms biased in educa-tion? Exploring racial bias in predicting community college student success. Journal of Policy Analysis and Management 44, 2 (2025), 379–402. [Boateng and Boateng(2025)] Obed Boateng and Bright Boateng. 2025. Algorithmic bias in educational systems: Examining the impact of AI-driven decision making in modern education. World Journal of Advanced Research and Reviews 25, 1 (2025), 2012–2017. [Bolton and Ockenfels(2006)] Gary E Bolton and Axel Ockenfels. 2006. Inequality aversion, efficiency, and maximin preferences in simple distribution experiments: comment. American Economic Review 96, 5 (2006), 1906–1911. [Casu et al.(2025)] Alessandro Casu, Camilla Quaresmini, Robin Delabays, Lewis Mitchell, and Philip E Paré. 2025. Demographic Dependence of Vaccine Adoption under Opinion Persuasion. arXiv preprint arXiv:2512.06385 
+
+(2025). [Chakraborty(2024)] Partha Pratim Chakraborty. 2024. Ethical considerations in deploying AI and data-driven tech-nologies for adaptive education. (2024). [Coady(2017)] David Coady. 2017. Epistemic injustice as distributive injustice. In The Routledge handbook of epistemic injustice . Routledge, 61–68. [Cobbe(2021)] Jennifer Cobbe. 2021. Algorithmic censorship by social platforms: Power and resistance. Philosophy & Technology 34, 4 (2021), 739–766. [Coeckelbergh(2022)] Mark Coeckelbergh. 2022. The political philosophy of AI: an introduction . John Wiley & Sons. [Coeckelbergh(2025)] Mark Coeckelbergh. 2025. AI and Epistemic Agency: How AI Influences Belief Revision and Its Normative Implications. Social Epistemology (2025), 1–13. [Cowell(2000)] Frank Alan Cowell. 2000. Measurement of inequality. Handbook of income distribution 1 (2000), 87–166. [Datta et al.(2018)] Amit Datta, Anupam Datta, Jael Makagon, Deirdre K Mulligan, and Michael Carl Tschantz. 2018. Discrimination in online advertising: A multidisciplinary inquiry. In Conference on Fairness, Accountability and Transparency . PMLR, 20–34. [Davidson et al.(2019)] Thomas Davidson, Debasmita Bhattacharya, and Ingmar Weber. 2019. Racial bias in hate speech and abusive language detection datasets. arXiv preprint arXiv:1905.12516 (2019). [Davis(2018)] Emmalon Davis. 2018. On epistemic appropriation. Ethics 128, 4 (2018), 702–727. [Delmonaco et al.(2024)] Daniel Delmonaco, Samuel Mayworm, Hibby Thach, Josh Guberman, Aurelia Augusta, and Oliver L Haimson. 2024. " What are you doing, TikTok?": How Marginalized Social Media Users Perceive, Theorize, and" Prove" Shadowbanning. Proceedings of the ACM on Human-Computer Interaction 8, CSCW1 (2024), 1–39. [Dergacheva and Katzenbach(2023)] Daria Dergacheva and Christian Katzenbach. 2023. “We Learn Through Mis-takes”: Perspectives of Social Media Creators on Copyright Moderation in the European Union. Social Media+ Society 9, 4 (2023), 20563051231220329. [D’ignazio and Klein(2023)] Catherine D’ignazio and Lauren F Klein. 2023. Data feminism . MIT press. [Do and Usunier(2022)] Virginie Do and Nicolas Usunier. 2022. Optimizing generalized Gini indices for fairness in rankings. In Proceedings of the 45th International ACM SIGIR Conference on Research and Development in Information Retrieval . 737–747. [Dotson(2011)] Kristie Dotson. 2011. Tracking epistemic violence, tracking practices of silencing. Hypatia 26, 2 (2011), 236–257. [Dotson(2014)] Kristie Dotson. 2014. Conceptualizing epistemic oppression. Social epistemology 28, 2 (2014), 115–138. 14 Running Title for Header [Drezner et al.(2014)] Tammy Drezner, Zvi Drezner, and Beat Hulliger. 2014. The quintile share ratio in location analysis. European Journal of Operational Research 238, 1 (2014), 166–174. [Edenberg and Wood(2023)] Elizabeth Edenberg and Alexandra Wood. 2023. An epistemic lens on algorithmic fairness. In Proceedings of the 3rd ACM Conference on Equity and Access in Algorithms, Mechanisms, and Optimization . 1–10. [Edidin(2025)] Aron Edidin. 2025. Beyond testimony: Sharing epistemic resources. Episteme (2025), 1–11. [Elby and Hammer(2010)] Andrew Elby and David Hammer. 2010. Epistemological resources and framing: a cognitive framework for helping teachers interpret and respond to their students’ epistemologies. Personal epistemology in the classroom (2010), 409. [Elzayn et al.(2019)] Hadi Elzayn, Shahin Jabbari, Christopher Jung, Michael Kearns, Seth Neel, Aaron Roth, and Zachary Schutzman. 2019. Fair algorithms for learning in allocation problems. In Proceedings of the Conference on Fairness, Accountability, and Transparency . 170–179. [Engelmann and Strobel(2004)] Dirk Engelmann and Martin Strobel. 2004. Inequality aversion, efficiency, and maximin preferences in simple distribution experiments. American economic review 94, 4 (2004), 857–869. [Eubanks(2025)] Virginia Eubanks. 2025. Automating inequality: How high-tech tools profile, police, and punish the poor . Macmillan+ ORM. [Fabris et al.(2022)] Alessandro Fabris, Stefano Messina, Gianmaria Silvello, and Gian Antonio Susto. 2022. Tackling documentation debt: a survey on algorithmic fairness datasets. In Proceedings of the 2nd ACM Conference on Equity and Access in Algorithms, Mechanisms, and Optimization . 1–13. [Fehr and Schmidt(1999)] Ernst Fehr and Klaus M Schmidt. 1999. A theory of fairness, competition, and cooperation. 
+
+The quarterly journal of economics 114, 3 (1999), 817–868. [Ferguson(2025)] Magnus Ferguson. 2025. What are Hermeneutical Resources? Nondiscursive Self-Interpretation and Gendered Embodiment. Hypatia (2025), 1–16. [Fricker(2007)] Miranda Fricker. 2007. Epistemic injustice: Power and the ethics of knowing . Oxford university press. [Fricker(2013)] Miranda Fricker. 2013. Epistemic justice as a condition of political freedom? Synthese 190, 7 (2013), 1317–1332. [Friedkin and Johnsen(1990)] Noah E Friedkin and Eugene C Johnsen. 1990. Social influence and opinions. Journal of mathematical sociology 15, 3-4 (1990), 193–206. [Galasi´ nski et al.(2023)] Dariusz Galasi´ nski, Justyna Ziółkowska, and Glyn Elwyn. 2023. Epistemic justice is the basis of shared decision making. Patient education and counseling 111 (2023), 107681. [Gerrard(2020)] Ysabel Gerrard. 2020. Behind the screen: Content moderation in the shadows of social media. [Gillespie(2014)] Tarleton Gillespie. 2014. The relevance of algorithms. Media technologies: Essays on communication, materiality, and society 167, 2014 (2014), 167. [Gini(1912)] Corrado Gini. 1912. Variabilità e mutabilità: contributo allo studio delle distribuzioni e delle relazioni statistiche.[Fasc. I.] . Tipogr. di P. Cuppini. [Habibi et al.(2024)] Mahyar Habibi, Dirk Hovy, and Carlo Schwarz. 2024. The Content Moderator’s Dilemma: Removal of Toxic Content and Distortions to Online Discourse. arXiv preprint arXiv:2412.16114 (2024). [Hamidi et al.(2018)] Foad Hamidi, Morgan Klaus Scheuerman, and Stacy M Branham. 2018. Gender recognition or gender reductionism? The social implications of embedded gender recognition systems. In Proceedings of the 2018 chi conference on human factors in computing systems . 1–13. [Hancox-Li and Kumar(2021)] Leif Hancox-Li and I Elizabeth Kumar. 2021. Epistemic values in feature impor-tance methods: Lessons from feminist epistemology. In proceedings of the 2021 ACM conference on fairness, accountability, and transparency . 817–826. [Harb(2025)] M Harb. 2025. Testimonial Oppression in Palestine: Assessing Institutional Complicity and Practices of Silencing. Völkerrechtsblog (2025). [Haslanger(2017)] Sally Haslanger. 2017. Objectivity, Epistemic Objectification, and Oppression. In The Routledge handbook of epistemic injustice . Routledge, 279–290. [Hertweck et al.(2024)] Corinna Hertweck, Christoph Heitz, and Michele Loi. 2024. What’s distributive justice got to do with it? rethinking algorithmic fairness from a perspective of approximate justice. In Proceedings of the AAAI/ACM Conference on AI, Ethics, and Society , Vol. 7. 597–608. 15 Running Title for Header [Hoover(1936)] Edgar M Hoover. 1936. The measurement of industrial localization. The Review of Economic Statistics 
+
+(1936), 162–171. [Hosseini et al.(2025)] Hadi Hosseini, Joshua Kavner, Sujoy Sikdar, Rohit Vaish, and Lirong Xia. 2025. Epistemic vs. Counterfactual Fairness in Allocation of Resources. The fifth ACM Conference on Equity and Access in Algorithms, Mechanisms, and Optimization (EAAMO’25). [Hull(2023)] Gordon Hull. 2023. Dirty data labeled dirt cheap: Epistemic injustice in machine learning systems. Ethics and Information Technology 25, 3 (2023), 38. [Hummel(2025)] Sandra Hummel. 2025. Ethical and Responsible AI in Education: Situated Ethics for Democratic Learning. Education Sciences 15, 12 (2025), 1594. [Jain et al.(1984)] Rajendra K Jain, Dah-Ming W Chiu, William R Hawe, et al . 1984. A quantitative measure of fairness and discrimination. Eastern Research Laboratory, Digital Equipment Corporation, Hudson, MA 21, 1 (1984), 2022–2023. [Jalali et al.(2020)] Zeinab S Jalali, Weixiang Wang, Myunghwan Kim, Hema Raghavan, and Sucheta Soundarajan. 2020. On the information unfairness of social networks. In Proceedings of the 2020 SIAM International Conference on Data Mining . SIAM, 613–521. [Keyes(2018)] Os Keyes. 2018. The misgendering machines: Trans/HCI implications of automatic gender recognition. 
+
+Proceedings of the ACM on human-computer interaction 2, CSCW (2018), 1–22. [Kim(2022)] Junyeol Kim. 2022. Democracy and epistemic fairness: Testimonial justice as a founding principle of aggregative democracy. The Southern Journal of Philosophy 60, 2 (2022), 173–193. [Kinchin(2024)] Niamh Kinchin. 2024. “Voiceless”: the procedural gap in algorithmic justice. International Journal of Law and Information Technology 32 (2024), eaae024. [Kingsley et al.(2022)] Sara Kingsley, Proteeti Sinha, Clara Wang, Motahhare Eslami, and Jason I Hong. 2022. " Give Everybody [..] a Little Bit More Equity": Content Creator Perspectives and Responses to the Algorithmic Demonetization of Content Associated with Disadvantaged Groups. Proceedings of the ACM on Human-Computer Interaction 6, CSCW2 (2022), 1–37. [Kühne et al.(2025)] Marino Kühne, Panagiotis D Grontas, Giulia De Pasquale, Giuseppe Belgioioso, Florian Dörfler, and John Lygeros. 2025. Optimizing social network interventions via hypergradient-based recommender system design. arXiv preprint arXiv:2502.12973 (2025). [Kumar(2019)] Sangeet Kumar. 2019. The algorithmic dance: YouTube’s Adpocalypse and the gatekeeping of cultural content on digital platforms. Internet Policy Review 8, 2 (2019), 1–21. [Kuppler et al.(2022)] Matthias Kuppler, Christoph Kern, Ruben L Bach, and Frauke Kreuter. 2022. From fair predictions to just decisions? Conceptualizing algorithmic fairness and distributive justice in the context of data-driven decision-making. Frontiers in sociology 7 (2022), 883999. [Lau(2022)] Mandy Lau. 2022. Content moderation as language policy: Connecting commercial content moderation policies, regulations, and language policy. Working papers in Applied Linguistics and Linguistics at York 2(2022), 1–12. [Lee et al.(2024)] Cinoo Lee, Kristina Gligori´ c, Pratyusha Ria Kalluri, Maggie Harrington, Esin Durmus, Kiara L Sanchez, Nay San, Danny Tse, Xuan Zhao, MarYam G Hamedani, et al . 2024. People who share encounters with racism are silenced online by humans and machines, but a guideline-reframing intervention holds promise. 
+
+Proceedings of the National Academy of Sciences 121, 38 (2024), e2322764121. [Lin et al.(2023)] Cong Lin, Yuxin Gao, Na Ta, Kaiyu Li, and Hongyao Fu. 2023. Trapped in the search box: An examination of algorithmic bias in search engine autocomplete predictions. Telematics and Informatics 85 (2023), 102068. [Lobb(2018)] Andrea Lobb. 2018. “Prediscursive Epistemic Injury”: Recognizing Another Form of Epistemic Injustice? Feminist Philosophy Quarterly 4, 4 (2018). [Lum and Johndrow(2016)] Kristian Lum and James Johndrow. 2016. A statistical framework for fair predictive algorithms. arXiv preprint arXiv:1610.08077 (2016). [Lundgard(2020)] Alan Lundgard. 2020. Measuring justice in machine learning. arXiv preprint arXiv:2009.10050 
+
+(2020). [McGlynn(2021)] Aidan McGlynn. 2021. Epistemic objectification as the primary harm of testimonial injustice. 
+
+Episteme 18, 2 (2021), 160–176. [Medvecky(2018)] Fabien Medvecky. 2018. Fairness in knowing: Science communication and epistemic justice. 
+
+Science and engineering ethics 24, 5 (2018), 1393–1408. 16 Running Title for Header [Mehrabi et al.(2021)] Ninareh Mehrabi, Fred Morstatter, Nripsuta Saxena, Kristina Lerman, and Aram Galstyan. 2021. A survey on bias and fairness in machine learning. ACM computing surveys (CSUR) 54, 6 (2021), 1–35. [Milano and Prunkl(2025)] Silvia Milano and Carina Prunkl. 2025. Algorithmic profiling as a source of hermeneutical injustice. Philosophical Studies 182, 1 (2025), 185–203. [Narayanan(2018)] Arvind Narayanan. 2018. Translation tutorial: 21 fairness definitions and their politics. In Proc. conf. fairness accountability transp., new york, usa , Vol. 1170. 3. [Nihei(2022)] Mariko Nihei. 2022. Epistemic injustice as a philosophical conception for considering fairness and diversity in human-centered AI principles. Interdisciplinary Information Sciences 28, 1 (2022), 35–43. [Nikolaidis(2021)] Alexandros C Nikolaidis. 2021. A third conception of epistemic injustice. Studies in Philosophy and Education 40, 4 (2021), 381–398. [Noble(2018)] Safiya Umoja Noble. 2018. Algorithms of oppression: How search engines reinforce racism. In 
+
+Algorithms of oppression . New York university press. [O’neil(2017)] Cathy O’neil. 2017. Weapons of math destruction: How big data increases inequality and threatens democracy . Crown. [Palma(2011)] José Gabriel Palma. 2011. Homogeneous middles vs. heterogeneous tails, and the end of the “inverted-U”: It’s all about the share of the rich. Development and Change 42, 1 (2011), 87–153. [Pessach and Shmueli(2022)] Dana Pessach and Erez Shmueli. 2022. A review on fairness in machine learning. ACM Computing Surveys (CSUR) 55, 3 (2022), 1–44. [Pohlhaus(2017)] Gaile Pohlhaus. 2017. Varieties of epistemic injustice 1. In The Routledge handbook of epistemic injustice . Routledge, 13–26. [Pozzi and De Proost(2024)] Giorgia Pozzi and Michiel De Proost. 2024. Machine learning for mental health diagnosis: tackling contributory injustice and epistemic oppression. Journal of medical ethics 50, 9 (2024), 596–597. [Quaresmini et al.(2024)] C Quaresmini, G Primiero, et al . 2024. Data Quality Dimensions for Fair AI. In CEUR WORKSHOP PROCEEDINGS , Vol. 3808. 1–16. [Quaresmini et al.(2023)] Camilla Quaresmini, Eugenia Villa, Valentina Breschi, Viola Schiaffonati, and Mara Tanelli. 2023. Qualification and quantification of fairness for sustainable mobility policies. In 2nd European Workshop on Algorithmic Fairness, EWAF 2023 . CEUR-WS. org, 29. [Quaresmini et al.(2025)] Camilla Quaresmini, Eugenia Villa, Samira Maghool, Valentina Breschi, Viola Schaffonati, and Mara Tanelli. 2025. The Role of Epistemic Fairness in Dynamics Models to Support Sustainable Mobility Diffusion. In Engineering and Value Change . Springer, 179–198. [Rafanelli(2022)] Lucia M Rafanelli. 2022. Justice, injustice, and artificial intelligence: Lessons from political theory and philosophy. Big Data & Society 9, 1 (2022), 20539517221080676. [Räisä and Stocchetti(2024)] Tiina Räisä and Matteo Stocchetti. 2024. Epistemic injustice and education in the digital age. (2024). [Rampisela et al.(2024)] Theresia Veronika Rampisela, Maria Maistro, Tuukka Ruotsalo, and Christina Lioma. 2024. Evaluation measures of individual item fairness for recommender systems: A critical study. ACM Transactions on Recommender Systems 3, 2 (2024), 1–52. [Sardelli(2022)] Martina Sardelli. 2022. Epistemic Injustice in the Age of AI. Aporia 22 (2022), 44–53. [Scantamburlo et al.(2025)] Teresa Scantamburlo, Joachim Baumann, and Christoph Heitz. 2025. On prediction-modelers and decision-makers: why fairness requires more than a fair prediction model. Ai & Society 40, 2 (2025), 353–369. [Speicher et al.(2018)] Till Speicher, Hoda Heidari, Nina Grgic-Hlaca, Krishna P Gummadi, Adish Singla, Adrian Weller, and Muhammad Bilal Zafar. 2018. A unified approach to quantifying algorithmic unfairness: Measuring individual &group unfairness via inequality indices. In Proceedings of the 24th ACM SIGKDD international conference on knowledge discovery & data mining . 2239–2248. [Stewart et al.(2022)] Heather Stewart, Emily Cichocki, and Carolyn McLeod. 2022. A perfect storm for epistemic injustice: Algorithmic targeting and sorting on social media. Feminist Philosophy Quarterly 8, 3/4 (2022). [Symons and Alvarado(2022)] John Symons and Ramón Alvarado. 2022. Epistemic injustice and data science tech-nologies. Synthese 200, 2 (2022), 87. [Tanchuk and Taylor(2025)] Nicolas J Tanchuk and Rebecca M Taylor. 2025. Personalized Learning with AI Tutors: Assessing and Advancing Epistemic Trustworthiness. Educational Theory 75, 2 (2025), 327–353. 17 Running Title for Header [Thach et al.(2024)] Hibby Thach, Samuel Mayworm, Daniel Delmonaco, and Oliver Haimson. 2024. (In) visible moderation: A digital ethnography of marginalized users and content moderation on Twitch and Reddit. New Media & Society 26, 7 (2024), 4034–4055. [Theil(1967)] Henri Theil. 1967. Economics and information theory. (1967). [Tobi(2024)] Abraham Tobi. 2024. Towards an epistemic compass for online content moderation. Philosophy & Technology 37, 3 (2024), 109. [Verma and Rubin(2018)] Sahil Verma and Julia Rubin. 2018. Fairness definitions explained. In Proceedings of the international workshop on software fairness . 1–7. [Villa et al.(2025a)] Eugenia Villa, Camilla Quaresmini, Valentina Breschi, Viola Schiaffonati, and Mara Tanelli. 2025a. The epistemic dimension in innovation diffusion and fair policy making. IFAC-PapersOnLine 59, 26 (2025), 151–156. doi: 10.1016/j.ifacol.2025.12.026 7th IFAC Conference on Intelligent Control and Automation Sciences ICONS 2025. [Villa et al.(2025b)] Eugenia Villa, Camilla Quaresmini, Valentina Breschi, Viola Schiaffonati, and Mara Tanelli. 2025b. The epistemic dimension of algorithmic fairness: assessing its impact in innovation diffusion and fair policy making. arXiv preprint arXiv:2504.02856 (2025). [Weerts(2021)] Hilde JP Weerts. 2021. An introduction to algorithmic fairness. arXiv preprint arXiv:2105.05595 
+
+(2021). [White and Kim(2005)] Michael J. White and Ann H. Kim. 2005. Residential Segregation. In Encyclopedia of Social Measurement , Kimberly Kempf-Leonard (Ed.). Elsevier, New York, 403–409. doi: 10.1016/B0-12-369398-5/ 00107-9 
+
+[Williams(2025)] Max Williams. 2025. Social media democracy: How algorithms shape public discourse and marginalise voices. Journal of Media and Rights 3, 1 (2025), 20. [Zeng and Kaye(2022)] Jing Zeng and D Bondy Valdovinos Kaye. 2022. From content moderation to visibility moderation: A case study of platform governance on TikTok. Policy & Internet 14, 1 (2022), 79–95. 
+
+# A Simulation Details 
+
+Network structure The network structure is generated using a stochastic block model where agents are more likely to connect within their own group than across groups. Formally, we set that, for each ordered pair of agents (i, j ), i̸ = j,a directed edge from i to j is formed with probability 
+
+P(Aij = 1) = 
+
+pintra = 0 .18 if i and j belong to the same group ,pinter = 0 .04 otherwise ,
+
+where Aij denotes the (i, j )-th entry of the adjacency matrix A ∈ { 0, 1}N ×N . In particular, Aij = 1 if there exists a directed edge from agent, 0 otherwise. Let W (t) ∈ RN ×N denote the row-stochastic influence matrix at time t, where 
+
+wij (t) represents the weight (attention) that agent i assigns to agent j. The elements of the initial influence matrix W0
+
+are drawn independently from a uniform distribution on (0 .5, 1.5) . The resulting matrix is row-normalized to obtain a row-stochastic influence matrix W0. If an agent has no outgoing links, its row is replaced by a uniform distribution before normalization. 
+
+Initial opinions Each agent i holds an initial opinion x0,i ∈ [0 , 1] . Opinions are group-dependent and drawn from skewed Beta distributions to represent homophily (Fig. 3b): x0,i ∼ Beta(1 .4, 5.0) if i ∈ group A, and x0,i =1 − Zi, Z i ∼ Beta(1 .4, 5.0) if i ∈ group B. 
+
+Opinion dynamics model To model how opinions evolve over time, we employ the opinion dynamics theory. The considered opinion dynamics model captures the update of agents’ opinions as the average of neighbors’ opinions weighted by the influence matrix while retaining a fixed attachment to their initial belief. As in [ Kühne et al.(2025) ], we employ the Friedkin–Johnsen (FJ) model [ Friedkin and Johnsen(1990) ], according to which opinions (stacked in the vector state x(t)) evolve as 
+
+x(t + 1) = Λ x0 + ( I − Λ) W (t)x(t).
+
+Here, I is the identity matrix and Λ = diag( λ1, . . . , λ N ) represent the stubbornness matrix, where each agent i
+
+stubbornness λi is drawn independently from U(0 .2, 0.5) .18 Running Title for Header 
+
+Intervention mechanisms and measured quantities We consider three scenarios: • baseline: no intervention; W (t) = W0 for all t.• targeted boost: amplification of outgoing influence from all agents in Group A. • random boost: amplification of outgoing influence from a fixed random subset of N/ 2 agents. Interventions occur periodically over a horizon of T = 50 steps, every ⌊T / 10 ⌋ time instants. At intervention times, the columns corresponding to the targeted agents are scaled by a factor (1 + γ) with γ = 0 .5. The matrix is then renormalized to preserve row-stochasticity. At each time step, we compute the indices on: • Incoming attention: νin i (t) = PNj=1 wji (t), ∀i, which measures epistemic resources allocated to agent i;• Realized opinions νout i (t) = xi(t), ∀i, capturing the epistemic consequences of influence dynamics. The indices introduced in Section 6 are then used to quantify these evolving inequalities. The Generalized Entropy is computed for α = 2 , the Atkinson index for ε = 2 , and for the Dissimilarity index, the population is partitioned into 
+
+nbins = 10 quantile bins, so that ak and bk denote the number of Group A and Group B agents in bin k.19

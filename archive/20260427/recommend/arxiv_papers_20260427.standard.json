@@ -1,0 +1,158 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-27T20:48:21.447916+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2604.22417v1",
+      "title": "Trust as a Situated User State in Social LLM-Based Chatbots: A Longitudinal Study of Snapchat's My AI",
+      "abstract": "Social chatbots based on large language models are increasingly embedded in everyday platforms, yet how users develop trust in these systems over time remains unclear. We present a four-week longitudinal qualitative survey study (N = 27) of trust formation in Snapchat's My AI, a socially embedded conversational agent. Our findings show that trust is shaped by perceived ability, conversational behavior, human-likeness, transparency, privacy concerns, and trust in the host platform. Trust does not remain stable, but evolves through interaction as users adapt their expectations, refine their prompting strategies, and actively regulate how and when they rely on the system. These processes reflect a continuous negotiation of trust, not a one-time evaluation. While conversational fluency supports engagement, excessive anthropomorphism and limited transparency can undermine trust over time. We synthesize these findings into a conceptual model that frames trust as a dynamic user state shaped by interaction context and expectations, with implications for the design of human-centered and adaptive conversational agents.",
+      "authors": [
+        "Annie Landerberg",
+        "Kari Flatmo",
+        "Alan Said"
+      ],
+      "primary_category": "cs.CY",
+      "categories": [
+        "cs.CY"
+      ],
+      "published": "2026-04-24T10:22:41+00:00",
+      "link": "https://arxiv.org/pdf/2604.22417v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "longitudinal study of trust formation and evolution",
+      "llm_evidence_cn": "信任形成与演变的纵向研究",
+      "llm_evidence": "信任形成与演变的纵向研究",
+      "canonical_evidence": "信任形成与演变的纵向研究",
+      "llm_tldr_en": "Explores how users develop and adapt trust in social LLM chatbots through a four-week longitudinal study.",
+      "llm_tldr_cn": "通过为期四周的纵向研究，探索用户如何对社交大模型聊天机器人建立并调整信任。",
+      "llm_tldr": "通过为期四周的纵向研究，探索用户如何对社交大模型聊天机器人建立并调整信任。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.21188v1",
+      "title": "Physically Unclonable Functions for Secure IoT Authentication and Hardware-Anchored AI Model Integrity",
+      "abstract": "The rapid integration of artificial intelligence (AI) into Internet of Things (IoT) and edge computing systems has intensified the need for robust, hardware-rooted trust mechanisms capable of ensuring device authenticity and AI model integrity under strict resource and security constraints. This survey reviews and synthesizes existing literature on hardware-rooted trust mechanisms for AI-enabled IoT systems. It systematically examines and compares representative trust anchor mechanisms, including Trusted Platform Module (TPM)-based measurement and attestation, silicon and FPGA-based Physical Unclonable Functions (PUFs), hybrid container-aware hardware roots of trust, and software-only security approaches. The analysis highlights how hardware-rooted solutions generally provide stronger protection against physical tampering and device cloning compared to software-only approaches, particularly in adversarial and physically exposed environments, while hybrid designs extend hardware trust into runtime and containerized environments commonly used in modern edge deployments. By evaluating trade-offs among security strength, scalability, cost, and deployment complexity, the study shows that PUF-based and hybrid trust anchors offer a promising balance for large-scale, AI-enabled IoT systems, whereas software-only trust mechanisms remain insufficient in adversarial and physically exposed settings. The presented comparison aims to clarify current design challenges and guide future development of trustworthy AI-enabled IoT platforms.",
+      "authors": [
+        "Maryam Taghi Zadeh",
+        "Mohsen Ahmadi"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-04-23T01:06:42+00:00",
+      "link": "https://arxiv.org/pdf/2604.21188v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "hardware-rooted trust mechanisms and measurement",
+      "llm_evidence_cn": "硬件根信任机制与测量",
+      "llm_evidence": "硬件根信任机制与测量",
+      "canonical_evidence": "硬件根信任机制与测量",
+      "llm_tldr_en": "Reviews hardware-rooted trust mechanisms like TPM and PUFs for securing AI-enabled IoT systems.",
+      "llm_tldr_cn": "综述了用于保障AI物联网系统安全的TPM和PUF等硬件根信任机制。",
+      "llm_tldr": "综述了用于保障AI物联网系统安全的TPM和PUF等硬件根信任机制。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.19112v2",
+      "title": "Governed Auditable Decisioning Under Uncertainty: Synthesis and Agentic Extension",
+      "abstract": "When automated decision systems fail, organizations frequently discover that formally compliant governance infrastructure cannot reconstruct what happened or why. This paper synthesizes an operational governance evidence framework -- structural accountability collapse diagnostics, decision trace schemas, evidence sufficiency measurement, and label-free monitoring -- into an integrated chain and analytically assesses its transferability across four decision system architectures. The cross-architecture comparison reveals a governance coverage gradient: deterministic rule engines achieve full DES-property fillability, hybrid ML+rules systems achieve partial fillability, classical ML systems achieve only minimal fillability, and agentic AI systems encounter structural breaks. We introduce the cascade of uncertainty, showing how governance failures propagate through serial dependencies between framework layers. For agentic systems, we identify three structural breaks -- decision diffusion, evidence fragmentation, and responsibility ambiguity -- and propose corresponding analytical extensions. Four propositions formalize the gradient, cascade compounding, delegation-depth effects, and extension sufficiency, establishing boundary conditions for the framework's valid operating envelope.",
+      "authors": [
+        "Oleg Solozobov"
+      ],
+      "primary_category": "cs.CY",
+      "categories": [
+        "cs.CY"
+      ],
+      "published": "2026-04-21T05:45:04+00:00",
+      "link": "https://arxiv.org/pdf/2604.19112v2",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "evidence sufficiency measurement framework",
+      "llm_evidence_cn": "证据充分性测量框架",
+      "llm_evidence": "证据充分性测量框架",
+      "canonical_evidence": "证据充分性测量框架",
+      "llm_tldr_en": "Synthesizes a governance framework including evidence sufficiency measurement for automated decision systems.",
+      "llm_tldr_cn": "综合了一个包含证据充分性测量的自动化决策系统治理框架。",
+      "llm_tldr": "综合了一个包含证据充分性测量的自动化决策系统治理框架。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.22675v1",
+      "title": "Measuring Epistemic Unfairness for Algorithmic Decision-Making",
+      "abstract": "Algorithmic systems increasingly function as epistemic infrastructures that govern the conditions of interpretative access and social belief. Yet, mainstream auditing strategies operationalize fairness primarily in predictive terms - error rates, calibration, or group-level parity - leaving epistemic harms under-theorized and under-measured. We propose a quantitative framework for evaluating forms of epistemic injustice in algorithmic environments. First, we introduce a deficit-based template that models epistemic injustices as gaps between ideal and realized conditions across features such as credibility, uptake, and epistemic agency. We map these deficits to concrete stages of algorithmic mediation, showing how epistemic injustice can persist even when standard fairness constraints are satisfied. Drawing on distributive fairness indices, we distinguish two evaluation stances: resource inequality, where indices are applied to distributions of epistemic goods directly, and capability/rights inequity, where indices are applied to output-induced epistemic opportunity. We provide an epistemic translation of canonical indices, illustrating how they diagnose complementary signatures of unfairness - such as exclusionary tails and hierarchical concentration - and support longitudinal auditing under iterative deployment. We also provide a simulation study of a recommender-mediated opinion dynamics setting, showing how the proposed indices capture the evolution of epistemic unfairness under repeated platform interventions. The result is a measurement framework that makes the epistemic dimension of algorithmic harms explicit for system design and evaluation.",
+      "authors": [
+        "Camilla Quaresmini",
+        "Lisa Piccinin",
+        "Valentina Breschi"
+      ],
+      "primary_category": "cs.SI",
+      "categories": [
+        "cs.SI"
+      ],
+      "published": "2026-04-24T16:00:13+00:00",
+      "link": "https://arxiv.org/pdf/2604.22675v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Proposes a quantitative framework for evaluating epistemic injustice and credibility deficits",
+      "llm_evidence_cn": "提出了评估认知不公正和可信度缺陷的定量框架",
+      "llm_evidence": "提出了评估认知不公正和可信度缺陷的定量框架",
+      "canonical_evidence": "提出了评估认知不公正和可信度缺陷的定量框架",
+      "llm_tldr_en": "Proposes a quantitative framework to measure epistemic unfairness and credibility in algorithmic decision-making.",
+      "llm_tldr_cn": "提出了一个定量框架，用于衡量算法决策中的认知不公平、可信度和认知代理权。",
+      "llm_tldr": "提出了一个定量框架，用于衡量算法决策中的认知不公平、可信度和认知代理权。",
+      "llm_tags": [
+        "query:q4"
+      ],
+      "matched_query_tag": "query:q4",
+      "matched_query_text": "quantitative metrics used to assess trust",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

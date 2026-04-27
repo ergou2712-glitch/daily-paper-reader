@@ -1,0 +1,65 @@
+{
+  "label": "2026-04-27",
+  "date": "2026-04-27",
+  "generated_at": "2026-04-27T20:49:22",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202604/27/2604.22417v1-trust-as-a-situated-user-state-in-social-llm-based-chatbots-a-longitudinal-study-of-snapchats-my-ai",
+      "section": "deep",
+      "title_en": "Trust as a Situated User State in Social LLM-Based Chatbots: A Longitudinal Study of Snapchat's My AI",
+      "authors": "Annie Landerberg, Kari Flatmo, Alan Said",
+      "date": "2026-04-24",
+      "pdf": "https://arxiv.org/pdf/2604.22417v1",
+      "score": "8.0",
+      "evidence": "信任形成与演变的纵向研究",
+      "tldr": "本研究针对社交型大语言模型聊天机器人，通过对Snapchat的My AI进行为期四周的纵向定性调查（N=27），探讨了用户信任的形成与演变机制。研究发现信任并非静态评估，而是受感知能力、对话行为、拟人化及平台信任等因素影响的动态过程。本文提出了一个将信任视为情境化用户状态的理论模型，为设计以人为本、具备适应性的对话智能体提供了重要见解。",
+      "tags": "query:profile-1",
+      "abstract_en": "Social chatbots based on large language models are increasingly embedded in everyday platforms, yet how users develop trust in these systems over time remains unclear. We present a four-week longitudinal qualitative survey study (N = 27) of trust formation in Snapchat's My AI, a socially embedded conversational agent. Our findings show that trust is shaped by perceived ability, conversational behavior, human-likeness, transparency, privacy concerns, and trust in the host platform. Trust does not remain stable, but evolves through interaction as users adapt their expectations, refine their prompting strategies, and actively regulate how and when they rely on the system. These processes reflect a continuous negotiation of trust, not a one-time evaluation. While conversational fluency supports engagement, excessive anthropomorphism and limited transparency can undermine trust over time. We synthesize these findings into a conceptual model that frames trust as a dynamic user state shaped by interaction context and expectations, with implications for the design of human-centered and adaptive conversational agents.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/27/2604.21188v1-physically-unclonable-functions-for-secure-iot-authentication-and-hardware-anchored-ai-model-integrity",
+      "section": "quick",
+      "title_en": "Physically Unclonable Functions for Secure IoT Authentication and Hardware-Anchored AI Model Integrity",
+      "authors": "Maryam Taghi Zadeh, Mohsen Ahmadi",
+      "date": "2026-04-23",
+      "pdf": "https://arxiv.org/pdf/2604.21188v1",
+      "score": "7.0",
+      "evidence": "硬件根信任机制与测量",
+      "tldr": "随着AI在物联网和边缘计算中的普及，确保设备真实性和模型完整性至关重要。本文系统综述了基于硬件的信任根机制，对比了TPM、PUF、混合容器感知硬件信任根及纯软件方案。研究表明，PUF和混合设计在安全性、可扩展性和成本之间达到了良好平衡，能有效抵御物理篡改和克隆，为构建大规模可信AI物联网平台提供了重要指导。",
+      "tags": "query:profile-1",
+      "abstract_en": "The rapid integration of artificial intelligence (AI) into Internet of Things (IoT) and edge computing systems has intensified the need for robust, hardware-rooted trust mechanisms capable of ensuring device authenticity and AI model integrity under strict resource and security constraints. This survey reviews and synthesizes existing literature on hardware-rooted trust mechanisms for AI-enabled IoT systems. It systematically examines and compares representative trust anchor mechanisms, including Trusted Platform Module (TPM)-based measurement and attestation, silicon and FPGA-based Physical Unclonable Functions (PUFs), hybrid container-aware hardware roots of trust, and software-only security approaches. The analysis highlights how hardware-rooted solutions generally provide stronger protection against physical tampering and device cloning compared to software-only approaches, particularly in adversarial and physically exposed environments, while hybrid designs extend hardware trust into runtime and containerized environments commonly used in modern edge deployments. By evaluating trade-offs among security strength, scalability, cost, and deployment complexity, the study shows that PUF-based and hybrid trust anchors offer a promising balance for large-scale, AI-enabled IoT systems, whereas software-only trust mechanisms remain insufficient in adversarial and physically exposed settings. The presented comparison aims to clarify current design challenges and guide future development of trustworthy AI-enabled IoT platforms.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/27/2604.19112v2-governed-auditable-decisioning-under-uncertainty-synthesis-and-agentic-extension",
+      "section": "quick",
+      "title_en": "Governed Auditable Decisioning Under Uncertainty: Synthesis and Agentic Extension",
+      "authors": "Oleg Solozobov",
+      "date": "2026-04-21",
+      "pdf": "https://arxiv.org/pdf/2604.19112v2",
+      "score": "6.0",
+      "evidence": "证据充分性测量框架",
+      "tldr": "本研究针对自动化决策系统在失败时难以追溯的问题，整合了一套包含结构化问责诊断、决策追踪模式及证据充足性衡量的治理框架。通过对比确定性规则引擎、混合系统、传统机器学习及智能体AI四种架构，揭示了治理覆盖率递减的趋势，并针对智能体系统的决策扩散等结构性断裂提出了扩展方案，为不确定环境下的可审计决策提供了理论边界和操作指南。",
+      "tags": "query:q5",
+      "abstract_en": "When automated decision systems fail, organizations frequently discover that formally compliant governance infrastructure cannot reconstruct what happened or why. This paper synthesizes an operational governance evidence framework -- structural accountability collapse diagnostics, decision trace schemas, evidence sufficiency measurement, and label-free monitoring -- into an integrated chain and analytically assesses its transferability across four decision system architectures. The cross-architecture comparison reveals a governance coverage gradient: deterministic rule engines achieve full DES-property fillability, hybrid ML+rules systems achieve partial fillability, classical ML systems achieve only minimal fillability, and agentic AI systems encounter structural breaks. We introduce the cascade of uncertainty, showing how governance failures propagate through serial dependencies between framework layers. For agentic systems, we identify three structural breaks -- decision diffusion, evidence fragmentation, and responsibility ambiguity -- and propose corresponding analytical extensions. Four propositions formalize the gradient, cascade compounding, delegation-depth effects, and extension sufficiency, establishing boundary conditions for the framework's valid operating envelope.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/27/2604.22675v1-measuring-epistemic-unfairness-for-algorithmic-decision-making",
+      "section": "quick",
+      "title_en": "Measuring Epistemic Unfairness for Algorithmic Decision-Making",
+      "authors": "Camilla Quaresmini, Lisa Piccinin, Valentina Breschi",
+      "date": "2026-04-24",
+      "pdf": "https://arxiv.org/pdf/2604.22675v1",
+      "score": "6.0",
+      "evidence": "提出了评估认知不公正和可信度缺陷的定量框架",
+      "tldr": "本研究针对主流算法公平性审计忽视认识论损害的问题，提出了一个衡量算法决策中“认识论不公”的定量框架。该框架通过建立理想与现实条件在信誉、采纳和认识机构等维度的差距模型，并结合分配公平性指数，区分了资源不平等与能力/权利不公。通过推荐系统模拟实验，研究展示了该框架如何诊断算法干预下的不公平演变，为系统设计提供了显式的认识论损害评估工具。",
+      "tags": "query:q4",
+      "abstract_en": "Algorithmic systems increasingly function as epistemic infrastructures that govern the conditions of interpretative access and social belief. Yet, mainstream auditing strategies operationalize fairness primarily in predictive terms - error rates, calibration, or group-level parity - leaving epistemic harms under-theorized and under-measured. We propose a quantitative framework for evaluating forms of epistemic injustice in algorithmic environments. First, we introduce a deficit-based template that models epistemic injustices as gaps between ideal and realized conditions across features such as credibility, uptake, and epistemic agency. We map these deficits to concrete stages of algorithmic mediation, showing how epistemic injustice can persist even when standard fairness constraints are satisfied. Drawing on distributive fairness indices, we distinguish two evaluation stances: resource inequality, where indices are applied to distributions of epistemic goods directly, and capability/rights inequity, where indices are applied to output-induced epistemic opportunity. We provide an epistemic translation of canonical indices, illustrating how they diagnose complementary signatures of unfairness - such as exclusionary tails and hierarchical concentration - and support longitudinal auditing under iterative deployment. We also provide a simulation study of a recommender-mediated opinion dynamics setting, showing how the proposed indices capture the evolution of epistemic unfairness under repeated platform interventions. The result is a measurement framework that makes the epistemic dimension of algorithmic harms explicit for system design and evaluation.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
