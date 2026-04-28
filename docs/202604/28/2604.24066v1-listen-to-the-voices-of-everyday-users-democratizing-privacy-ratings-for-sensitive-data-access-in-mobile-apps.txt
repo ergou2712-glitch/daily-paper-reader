@@ -1,0 +1,753 @@
+Title: Listen to the Voices of Everyday Users: Democratizing Privacy Ratings for Sensitive Data Access in Mobile Apps
+
+URL Source: https://arxiv.org/pdf/2604.24066v1
+
+Published Time: Tue, 28 Apr 2026 01:30:13 GMT
+
+Number of Pages: 19
+
+Markdown Content:
+# Listen to the Voices of Everyday Users: Democratizing Privacy Ratings for Sensitive Data Access in Mobile Apps 
+
+# Liu Wang 
+
+Huazhong University of Science and Technology Wuhan, China 
+
+# Tianshu Zhou 
+
+Beijing University of Posts and Telecommunications Beijing, China 
+
+# Haoyu Wang 
+
+Huazhong University of Science and Technology Wuhan, China 
+
+# Yi Wang 
+
+Beijing University of Posts and Telecommunications Beijing, China 
+
+## Abstract 
+
+Mobile apps frequently request excessive data access, raising signifi-cant privacy concerns. While regulations like GDPR emphasize data minimization, they provide limited guidance on concretely defining and enforcing necessary data access. Existing regulatory mecha-nisms primarily rely on expert-driven audits that face challenges in scalability, neutrality, and alignment with user expectations. In this paper, we propose a novel paradigm–democratizing privacy assessment, inspired by prior work on user-centric privacy percep-tions–which repositions users as active evaluators in the privacy auditing process, recognizing that user perceptions of data usage play a crucial role in assessing the appropriateness and necessity of data access. To operationalize this paradigm, we introduce DePra , a prototype system developed through participatory design, featuring contextual explanation provision, category-based representative selection, an intuitive rating interface, and preference-based rat-ing adjustment. We evaluated DePra with 200 everyday mobile app users, analyzing how effectively it captures user opinions on sensitive data access, comparing their privacy ratings with expert assessments, and exploring risk preference-based score calibration. Our findings show the feasibility and promise of democratized pri-vacy assessment, highlighting its potential to complement expert auditing and support inclusive privacy evaluation. 
+
+## 1 Introduction 
+
+Mobile applications (apps) are deeply embedded in people’s ev-eryday life, providing users with seamless access to information, e-commerce, social interaction, and health data management. To enable these functions, apps often request access to personal data and device resources, such as contact lists, geolocation, cameras, and microphones. However, many apps exhibit permission-greedy, requesting access beyond what is necessary for their core func-tionalities [ 1–4 ]. For example, a Cybernews investigation [ 3 ] of 50 financial apps revealed that over half demanded permissions such as camera, precise geolocation, storage, and contacts, which are not always tightly coupled with the core functions of financial apps. Such practices raise concerns about overly broad access to sensitive data by mobile apps. To combat such overreach, privacy regulations such as the Gen-eral Data Protection Regulation (GDPR) [ 21 ], California Consumer Privacy Act (CCPA) [ 51 ], Personal Information Protection Law of the People’s Republic of China (PIPL) [ 23 ], introduce principles for governing app data handling. The data minimization principle, in particular, requires that data collection and processing be restricted to what is strictly necessary for a given purpose: “Personal data shall be adequate, relevant and limited to what is necessary in relation to the purposes for which they are processed [ 22 ].” However, this prin-ciple provides only a broad regulatory framework without concrete, context-specific guidelines for assessing permissible data access. This lack of specificity creates challenges in defining the boundary between “necessary” and “unnecessary” data access. In practice, developers, who often lack privacy expertise (a non-functional re-quirement), retain significant discretion in making such judgments, which may not always align with user expectations [ 66 ]. For exam-ple, a health app might claim that accessing users’ contact lists is “necessary” for enabling friend-based challenges or social features. Yet, users may perceive such access as excessive, given that these features are secondary to the app’s core functionality of health tracking. In theory, users could simply refuse such secondary per-missions if they consider them unnecessary. In reality, however, the situation is not always seamlessly operationalized: refusal may lead to degraded usability, repeated prompts, or restricted access to certain functions, which, combined with technical complexity and warning fatigue [ 12 , 17 ], often nudge users toward granting broader permissions than they might otherwise intend without fully considering the implications. Such situations create opportu-nities for apps to obtain overly broad access to sensitive data and permissions, thereby exacerbating risks to user privacy. To ensure the practical enforcement of data minimization, the current approach relies heavily on regulators (e.g., regulatory ex-perts, legal professionals, and privacy auditors) auditing app be-haviors and forming legal conclusions. While automated tools can assist this process, expert judgment remains indispensable due to the complexity of assessing whether data access is necessary, which typically requires balancing app functionality, regulatory compliance, risk management, and business needs. However, such an expert-driven evaluation model faces several key challenges: (1) 
+
+Scalability and timeliness : The scarcity of qualified experts and the high labor costs make this approach impractical at scale. With the ever-growing number of apps and their frequent updates, it is challenging for experts to keep pace, causing delays in identi-fying and addressing privacy issues. (2) Divergent perspectives :Expert assessments do not always align with end-users’ views. For example, studies [ 16 , 25 ] showed that experts and users can prior-itize different privacy attributes. When such discrepancies arise, expert-centered assessments may skew developers’ efforts toward satisfying expert criteria, potentially neglecting broader user con-cerns. (3) Neutrality concerns : Although experts hold authority  
+
+> arXiv:2604.24066v1 [cs.CR] 27 Apr 2026 Conference’17, July 2017, Washington, DC, USA Liu Wang, Tianshu Zhou, Haoyu Wang, and Yi Wang
+
+over privacy practice evaluations, there is no robust mechanism to guarantee their impartiality. The centralized power raises concerns about fairness and neutrality, especially given the lack of trans-parent procedures for external oversight. In summary, reliance on expert-driven evaluations alone is insufficient to establish accurate, equitable, and comprehensive privacy assessment standards. This paper explores the feasibility of incorporating everyday end-users in app privacy evaluations and considering their perceptions of data usage as a key factor for developers and regulators in assess-ing compliance with data minimization principles. Several consider-atons motivate this idea: (1) Scalability and responsiveness : The large and active user base of mobile apps provides opportunities for closer oversight and quicker feedback. Users can review app privacy behaviors in a distributed and parallel manner (e.g., each app has its own user community), prompting timely assessment of privacy practices. Crowdsourcing of user evaluations could alleviate the scalability and latency challenges of expert-driven assessment models. (2) Subjectivity in privacy perceptions : Privacy percep-tions are quite subjective; users can have different views on what constitutes necessary data access compared to developers and ex-perts (and even different users have different privacy preferences). Incorporating user feedback brings real-world perspectives that experts may overlook, highlighting areas where evaluations driven solely by theoretical or technical criteria may miss user concerns. (3) Empowering primary stakeholders : As stakeholders directly affected by privacy risks, users’ voices should be valued, and they should play a more active role in shaping privacy standards. This participatory model decentralizes the evaluation process, reducing the disproportionate influence of any single group–be it develop-ers, experts, or regulators. By empowering end-users, the system becomes more democratic and better reflects the full spectrum of privacy concerns. Thus, we propose a novel paradigm–democratizing privacy as-sessment–that decentralizes the power of privacy rating from mi-nority experts/regulators to the general population of everyday users. Inspired by user-centric views of privacy risks, this para-digm positions users as active evaluators who assess the neces-sity of app data access practices, making privacy assessment more user-relevant and fostering collective sensemaking around privacy issues. To realize our paradigm, we adopted a participatory design-informed approach and instantiated DePra [7], a prototype web-based platform that allows users to assess and rate app privacy behaviors. The system supports four features: (1) Contextual Expla-nation Provision , which presents clear, non-technical explanations of why specific data is accessed and by whom, to support informed user judgments; (2) Category-Based Representative Selection , which clusters apps into functional groups and surfaces representative samples to help inform evaluations of similar but unrated apps; (3) 
+
+Intuitive Rating Interface , an interface that presents privacy-related information in an intuitive and accessible manner, enabling users to provide ratings with minimal cognitive burden; and (4) Preference-Based Rating Adjustment , a post-processing that adjusts user rat-ings based on individual risk preferences to improve robustness. To evaluate the feasibility and capability of DePra , we conducted a user study involving 200 participants, who reviewed and rated the necessity of specific data access practices. We analyzed the distribu-tion of user rating scores, compared them with expert evaluations, and explored mechanisms for adjusting individual ratings based on privacy risk preferences. Our findings demonstrated that De-Pra effectively supported user-driven privacy ratings and captured how everyday users perceive the necessity of sensitive data access, enabled systematic comparison with expert evaluations, and cali-brated ratings based on individual preferences, offering a scalable and participatory framework that complements expert auditing and supports more inclusive privacy evaluation. In summary, we make the following research contributions: 
+
+• We propose the paradigm of democratizing privacy assess-ment, transitioning from an expert-centric evaluation model to a participatory framework that values user perspectives in evaluating app data practices. 
+
+• We design and implement DePra , a prototype web-based platform that operationalizes this democratizing privacy as-sessment paradigm to support everyday users to assess and rate privacy behaviors. 
+
+• We deploy DePra in a user study with real-world partici-pants, demonstrating its feasibility and effectiveness in sup-porting user-driven privacy assessments and highlighting the benefits of the proposed paradigm. 
+
+## 2 Background 2.1 Excessive Data Access by Mobile Apps 
+
+Mobile apps frequently require access to sensitive user data to enable various functionalities. To regulate such access, Android and iOS implement permission systems that inform users of in-tended data use and allow them to grant or deny access [ 13 , 28 ]. A major risk in this context is over-privilege, where apps request permissions beyond what is necessary for their core functional-ities. It increases the likelihood of sensitive data being collected, misused, or exposed in ways that are not essential for the app’s op-eration, raising significant privacy concerns. Moreover, the problem is compounded by the extensive use of third-party libraries, which developers integrate into apps for functions such as maintenance, analytics, social media, security, and advertising. These third-party libraries inherit the host app’s permissions, enabling them to access user data often exceeding what is needed for delivering the app’s advertised functionality [ 9, 15 ]. Users are often left unaware of how their sensitive data is being handled and shared by these embedded components [ 41 , 57 ], leaving them vulnerable to potential privacy risks of unintended data exposure. Consequently, over-privileged permission requests remain a pervasive and pressing issue in mobile ecosystems. 
+
+## 2.2 Expert-Driven Privacy Auditing 
+
+Traditional privacy auditing is largely conducted by expert teams, including legal scholars, regulatory bodies, and data protection officers. These professionals analyze privacy policies, inspect app codebases, and assess compliance based on legal and technical stan-dards. Although this approach delivers legal rigor, some structural limitations have become increasingly evident. For example: (i) Inspection bottlenecks and case backlogs : The Irish Council for Civil Liberties (ICCL) showed that 98% of major cross-border GDPR cases referred to Ireland in 2021 remained unresolved, largely due to the limited technical capacity of Data Protection Authorities (DPAs), Listen to the Voices of Everyday Users: Democratizing Privacy Ratings for Sensitive Data Access in Mobile Apps Conference’17, July 2017, Washington, DC, USA 
+
+with only 9.7% of their staff are tech specialists [ 33 ]. Additionally, many flagship complaints filed in May 2018 against Big Tech, such as Google and Meta, were still pending four years later, highlighting a persistent enforcement backlog [62]. (ii ) Sampling bias toward large providers : Recent GDPR enforce-ment reports indicated that monetary penalties are disproportion-ately concentrated on a handful of Big-Tech companies [ 44 ]. Pub-licly disclosed cases represent only “the tip of the iceberg,” while numerous smaller or “invisible” cases are never published by na-tional DPAs. These patterns suggest that enforcement resources and headline sanctions remain concentrated on large, high-profile controllers, leaving the “long tail” of smaller app developers with limited oversight. (iii ) Misalignment with user expectations : Expert-led evaluations may not always align with users’ real-world expectations or con-cerns. An obvious example is that expert audits often prioritize legal-text fidelity, e.g., policy-to-practice consistency and checklist conformance, yet users rarely read privacy policies or base deci-sions on them [ 26 , 38 , 56 ]. Instead, user are often more concerned with intuitive and contextual factors such as how, when, and why their data is accessed. This disconnect between formal assessments and user-centric perceptions can lead to inconsistent estimates of privacy risks. (iv ) Challenges to regulatory neutrality : Data protection enforce-ment could be shaped by bureaucratic conflicts and institutional power struggles, particularly when data use intersects with politi-cally or financially sensitive areas [ 65 ]. For example, Ireland’s DPA, the lead GDPR authority for Meta due to its EU headquarters in Dublin, has faced repeated criticism from German and French regu-lators for what they view as lenient or delayed sanctions [ 54 ]. Such disputes illustrate how national interests and institutional dynam-ics can influence regulatory outcomes, potentially undermining the consistency and impartiality of data oversight. 
+
+## 3 Democratized Privacy Rating Paradigm 
+
+Our goal is to develop a democratized privacy rating paradigm that empowers end-users to assess the appropriateness of mobile apps’ privacy-related behaviors. As an initial step, this study explores the design space and feasibility of such a paradigm by implementing a prototype as its infrastructure, DePra (de mocratizing p rivacy ra ting system), which enables users to review how apps access sensitive data and resources and make informed assessments about whether such access is justified from their perspective. We will begin by outlining our design process, then provide an overview of the system, followed by detailed descriptions of its core features. 
+
+## 3.1 Infrastructure Design 
+
+3.1.1 Participatory Design. To inform the design of DePra , we con-ducted a participatory design (PD) activity. PD is a well-established creative, collaborative design methodology that begins with users and their experiences and ends with solutions tailored to their specific needs [ 10 , 32 ]. In our context, PD allows us to better under-stand what types of interactive designs, features, and presentation mobile app users desire for future DePra .Participants were recruited through public advertisements on university mailing lists and local online communities. We asked willing-to-participate respondents to report their basic demograph-ics (gender, age, occupation) and app usage habits (top five fre-quently used mobile apps and app categories). We also asked sev-eral brief questions to gauge their privacy awareness, such as how concerned they were about apps collecting personal data, whether they had ever reviewed or modified app permission settings, and what types of personal data they considered sensitive. Respondents were considered in the order they enrolled; when new respondents differed from previous ones in demographics, app usage, or pri-vacy attitudes, they were included to enhance diversity. After three days of recruitment, we finalized a heterogeneous group of eight participants with diverse demographic backgrounds (4 female, 4 male; aged 20–40; undergraduates, graduates, and office workers), whose frequently used apps covered a broad spectrum including social networking, finance, health, productivity, and gaming. None of them had technical expertise in mobile app development or data privacy, which aligns with our target user group for DePra . Al-though the sample size was modest, we deemed it sufficient for our design aims, as participatory design prioritizes depth of insight and co-creation quality over statistical representativeness. The PD session lasted approximately 90 minutes and was con-ducted in a workshop-style format that emphasized open dialogue and mutual learning between participants and facilitators. The ac-tivity was guided by a semi-structured protocol that was developed based on piloting with two graduate volunteers (not included in the final sample), through which we refined timing, improved commu-nication clarity, and adjusted the order of some prompts to better support participants’ engagement and reflection during the session. Overall, the session consisted of three phases: 
+
+Phase 1: Introduction and Contextual Framing. We began by introducing the purpose of the activity and the goals of the privacy rating system. We presented participants with concrete examples of apps’ sensitive data access behaviors (e.g., “a weather app access-ing your location data”), and invited them to reflect on their own experiences. Participants were asked to discuss what information they would need to judge whether such access was appropriate, and how they typically make such judgments in real-world settings. This phase not only elicited user expectations regarding contextual information and privacy decision-making but also established a collaborative environment in which participants’ lived experiences defined the design problem space. 
+
+Phase 2: Individual Design and Sketching. Participants were asked to work individually to imagine and sketch their ideal version of a privacy rating interface, allowing them to express their own values and priorities free from group influence. To support ideation, we prompted them with open-ended questions such as: What rating mechanism would feel most natural to you? How much information should be shown, and in what format? How would you like explana-tions to be presented? We encouraged freehand sketches, annota-tion on low-fidelity prototypes, and note-taking to express ideas. Participants designed various interface elements, including data visualizations, contextual explanations, and rating widgets (e.g., sliders, Likert scales, emoji reactions). This phase foregrounded participants’ authorship in shaping potential design directions and encouraged them to externalize personal criteria for evaluating privacy practices. Conference’17, July 2017, Washington, DC, USA Liu Wang, Tianshu Zhou, Haoyu Wang, and Yi Wang 
+
+Phase 3: Sharing and Reflection. After sketching, each partic-ipant presented their design and rationale to the group. A mod-erated discussion followed to compare and contrast preferences, such as what contextual information was necessary to support judg-ments, what kinds of rating schemes felt intuitive, and how much detail could be provided without overwhelming users. The facili-tator guided collective sense-making by encouraging participants to comment on and build upon each other’s ideas. This reflective exchange fostered mutual learning: participants articulated their reasoning, discovered alternative perspectives, and collectively re-fined the understanding of which forms of contextual information and presentation approaches better support users in making pri-vacy judgments. The discussions revealed recurring themes that directly informed our design directions. Our approach to participatory design is informed by the Scandi-navian tradition that emphasizes democracy, empowerment, and mutual learning [ 30 ]. Rather than treating participants merely as informants, we regarded them as active co-designers whose lived experiences and privacy perspectives shaped the framing of design problems. Throughout the workshop, we facilitated opportunities for participants to articulate their values, pondering “appropriate” data practices, and reflect on how their own app usage shaped these judgments. This process fostered mutual learning: partici-pants gained greater awareness of privacy implications in everyday apps, while the research team gained a deeper understanding of user perceptions and concerns. We recognize that our PD activity represents an early-stage, time-bounded engagement rather than a long-term empowerment process, yet it embodies the core PD ethos of collaborative exploration and reflexivity in the design of privacy-assessment tools. 
+
+3.1.2 Findings from PD. The session was audio/video-recorded with consent and subsequently transcribed for analysis. Any per-sonally identifiable information was removed to protect participant anonymity during transcription. We conducted a reflexive thematic analysis [ 18 ] of the transcripts and artifacts (sketches and notes). Two authors independently performed open coding on an initial subset of the data, developed a shared codebook, and refined it iter-atively through constant comparison. Discrepancies were resolved through negotiated agreement. We then synthesized first-order codes into higher-level themes using affinity diagramming, which captured recurring design rationales and user expectations. Draw-ing from this analysis, we summarized four main themes that reveal how everyday users perceive and wish to interact with a democra-tized privacy rating platform. 
+
+• Contextual information as indispensable. Participants con-sistently expressed that they could not judge a data access request without knowing why the data was needed and who 
+
+was accessing it. Moreover, they often grounded their judg-ments in the core functionality of the app: for instance, lo-cation access was considered reasonable for a weather app but not for a flashlight app. At the same time, participants emphasized that while such contextual details are necessary, too much information at once could be overwhelming. 
+
+• Accessibility and lightweight rating metaphors. Participants indicated that most everyday app users come from diverse backgrounds and varying levels of privacy awareness, and they should not be assumed to have any technical expertise (e.g., how to interpret app code-level behavior). Thus, they expected a user-friendly interface free of technical jargon. Similarly, they preferred simple rating schemes that felt nat-ural and easy to use, such as Likert-style sliders, thumbs up/down, or emoji-based reactions. They emphasized that the rating process should be quick and minimally effortful, to encourage sustained engagement and scalability. 
+
+• Selective participation and the need for generalization. Several participants noted that they would likely provide ratings only for apps they personally use or care about. This raised concerns that many niche apps may attract little direct feed-back, making it unrealistic to expect sufficient user ratings for every single app. Thus, the system should ideally support strategies for addressing rating sparsity, so that privacy eval-uations do not depend on every app receiving equal attention from users. 
+
+• Diverse privacy attitudes and potential biases. Participants’ discussions revealed that privacy is inherently subjective: in-dividuals vary in their tolerance for data collection and trust in app practices. Some expressed concerns that user ratings may inevitably reflect personal biases or outlier opinions, po-tentially distorting aggregate outcomes if left unmoderated (particularly when the number of ratings is limited). Hence, mechanisms for normalizing or adjusting ratings in light of individual risk preferences are needed to ensure the overall results remain reliable and representative. 
+
+3.1.3 Design Goals. From our PD workshop, we distilled four de-sign goals: G1 The system should provide sufficient, context-rich informa-tion (but not information overload) regarding each privacy-sensitive behavior in an app to support users in performing informed decision-making. G2 The system should account for selective user participation by enabling representative ratings to be generalized to less-rated or niche apps, ensuring broader coverage despite un-even user engagement. G3 The system should be accessible to non-experts (require no specialized technical knowledge), and have an intuitive rating scheme that effectively captures user sentiments and makes users feel easy to use. G4 The system should be able to capture individual differences and unique conceptions of what constitutes appropriate data access in mobile apps. 
+
+## 3.2 Overview of DePra 
+
+Enlightened by the above insights, we implemented DePra as a web-based platform with a React frontend and a backend server that retrieves app-related information through a connected data-base. As illustrated in Figure 1, DePra involves four core features, each addressing one of the design goals (G1–G4) derived from the participatory design study: Listen to the Voices of Everyday Users: Democratizing Privacy Ratings for Sensitive Data Access in Mobile Apps Conference’17, July 2017, Washington, DC, USA A category   
+
+> of apps
+> Fine -grain
+> Clustering
+> Selection
+> Algorithm
+> Data Collection
+> Access Purpose
+> Data controller
+> F1 Contextual Information Provision
+> LLM
+> Sensitive API Calls
+> App Descriptions
+> Representative
+> apps
+> Finer
+> Categories
+> App
+> Descriptions
+> F2 Category -Based Representative Selection
+> F3 Interactive
+> Rating Interface
+> Web -based platform
+> Original
+> ratings
+> Backend
+> Database
+> Frontend
+> Crawler
+> Metadata
+> APK files
+> 3rd -party libs
+> App market
+> F4 Preference -Based Adjustment End -Users
+> Privacy
+> Rating
+> Modeling the
+> risk preference
+> of each user
+> Calibrated
+> ratings
+
+Figure 1: Overview of the DePra system. 
+
+F1 Contextual Explanation Provision : To address users’ de-mand for contextual information, this feature provides in-sights into apps’ sensitive data access behaviors by explain-ing why specific permissions are requested and who (first-party or third-party) controls the data, paired with the app’s core functionality to support grounded judgments. By situat-ing each data access behavior within its functional context, the feature helps users move beyond vague permission labels and form more informed, context-sensitive opinions. F2 Category-Based Representative Selection : To address the challenge of selective user participation, this feature adopts a category-based strategy for potential rating gen-eralization across functionally similar apps. It clusters apps into coherent categories using their descriptions, and within each category selects a minimal yet representative subset of apps that captures the diversity of data access behaviors while providing broad privacy insights that can be extended to other apps in the same category. F3 Intuitive Rating Interface : To reflect users’ preference for lightweight rating interactions, the interactive interface is designed to present app behaviors in a clear and accessible way, guiding users to focus on the necessity and acceptabil-ity of data access from their own perspective. It minimizes technical jargon, incorporates simple and familiar rating metaphors, and streamlines the evaluation process to en-hance usability and engagement. F4 Preference-Based Rating Adjustment : To account for di-verse privacy attitudes and individual biases, we assessed par-ticipants’ risk-taking tendencies through a survey grounded in prospect theory [ 35 ]. As an extended feature, this fea-ture operates as a post-processing step after collecting user ratings. The resulting risk profiles (e.g., risk-averse vs. risk-seeking) enabled calibrated adjustments to user ratings, help-ing to normalize outliers and produce more balanced aggre-gate results. 
+
+## 3.3 Contextual Explanation Provision 
+
+To support informed judgments, DePra presents the app’s core functionality (§3.3.1) and specific purpose explanation along with data controller information (§3.3.2). These elements inform what the app does, why the data is accessed, and who controls it, offering necessary context without causing information overload. We note that obtaining reliable, non-technical explanations of app data access behaviors is itself a non-trivial challenge, and a sub-stantial line of prior work has sought to address this through tech-niques such as static/dynamic analysis, privacy policy mining, and GUI-based inference [ 60 , 61 , 63 , 66 ]. The focus of this work is not on solving this data collection problem, but on demonstrating the value and feasibility of the democratized privacy assessment paradigm once such explanations are available. For this study, all deployed items were verified by the research team prior to deployment to ensure reliability. We also note that in real-world deployments, such explanations need not always be derived through external analysis. Developers themselves could possess knowledge of why their apps access specific data; they could supply these purpose descriptions to the platform, enabling users to evaluate the acceptability of the developer’s own stated data practices. This would represent a par-ticularly natural instantiation of the paradigm, where user ratings serve as a form of participatory validation of developer-declared data use rationale. 
+
+3.3.1 App Description. To understand an app’s functionality, we leveraged app descriptions, i.e., the natural language descriptions in app marketplaces serving as proxies for an app’s advertised functionality. Previous studies [ 29 , 66 ] have demonstrated that analyzing app descriptions effectively identifies core functionalities. We thus chose app descriptions as well as the provided screenshots from the official app market to help users understand the basic context of app usage. These materials were collected using the open-source web crawler [ 6 ], stored in our database, and integrated into DePra ’s interface, where they are displayed on demand to support user evaluations. 
+
+3.3.2 Purpose Description and Data Controller. Besides app descrip-tions, it is equally crucial to explain why sensitive data is accessed and who controls it. For purpose description, prior studies have demonstrated thatsensitive API call chains and app metadata can effectively support inference of the purpose behind app behav-iors [ 60 , 63 ]. Building on this line of work, we combine sensitive API call chains with app store descriptions and use large language models (LLMs) to generate purpose explanations, as shown in Fig-ure 2. Specifically, we implemented a sensitive-API tracker using static analysis on app binaries to extract sensitive API invocation traces and their corresponding call chains. Here we focused on high-impact sensitive resources (following prior research [ 46 ]), including 
+
+calendars, call logs, contacts, location, device IDs, body sensors, SMS, storage, camera, and microphone . The list of our concerned data and resources is presented in Appendix 7 Table 2. We retrieved the corresponding API call stack traces and employed LLM-powered reasoning to infer the most likely purpose of each data request. We designed structured prompts that guide the LLM (gpt-4o) in analyz-ing sensitive API call stacks in conjunction with app descriptions, providing contextual cues to determine the most probable purpose of each data request. Beyond explaining the purpose of data access, it is equally im-portant to convey who is responsible for it. The distinction between first-party (app-internal) and third-party (external service) data ac-cess is crucial, as it significantly influences user privacy perceptions Conference’17, July 2017, Washington, DC, USA Liu Wang, Tianshu Zhou, Haoyu Wang, and Yi Wang … Get insights on rain and snow    
+
+> forecasts, ‘feels like’ air quality…
+> Set up custom notifications to
+> receive alerts about high …
+> App Description Purpose
+> Explanations
+> Static Analysis
+> …: openCamera ()
+
+## …   
+
+> ... openadsdk ... : void m()
+> Sensitive API Call Chains
+> …
+> Here is an app “ {App Description} ”.
+> This app access “ {Data Type} ”,
+> based on the API call chains “ {API
+> Call Graph} ”. Your task is to infer the
+> purpose of the app accessing this
+> data. You can refer to app’s
+> functionality, as well as the class and
+> method names of the call chains, to
+> make an inference …
+> Camera is called by… “ openadsdk ”
+> suggests the camera is accessed
+> for advertising purposes …
+> First -party (App functionalities)
+> Third -party (Ads, Analytics, …)
+> Data Collection
+> Data Controller
+> Identification
+> App Binaries
+
+LLM -Powered Reasoning 
+
+> Responsible
+> Entity Package Name
+> Analysis
+
+Figure 2: Sensitive behavior and purpose inference for an app. 
+
+and risk assessments. To address this, we categorize data controllers based on whether access is initiated by the app itself (first-party) or by an embedded third-party service (e.g., advertisers, analytics providers). Following prior work [ 47 ], we group third-party ser-vices into ten distinct categories (as shown in Appendix 7 Table 3). Since API call chains trace the sequence of function calls leading to sensitive API invocations, we analyze package names within the call chain to determine the responsible data controller. Our classifi-cation strategy is straightforward: If the sensitive API invocation occurs within a third-party package, we classify the data access as third-party usage; otherwise, it is considered app-internal. We maintain a database of third-party library package names collected from open-source academic artifacts, which facilitates the classifica-tion 1. We acknowledge that this binary classification is a practical simplification: as noted in prior work [ 49 ], when a developer vol-untarily integrates an analytics or advertising SDK, the developer remains the data controller under GDPR, since it is the developer’s own decision to collect data via that SDK. Our classification, which marks such cases as third-party based on code origin, does not accu-rately capture this controller relationship. It is intended to convey an intuitive signal to users about whether external code is involved in data processing, rather than a precise legal determination of controller status. Overall, the automated pipeline described in this section serves as a proof-of-concept implementation; we do not claim it to be a production-ready or comprehensively evaluated technical solution. The current pipeline draws on a specific subset of available informa-tion sources, namely, static API analysis and app store descriptions. Other sources that could enrich contextual explanations include the Data Safety Section on Google Play, GUI-level rationale mes-sages that precede permission requests, privacy policy text, and 
+
+> 1The database is continually updated to include newly identified third-party services, aiming to provide as comprehensive coverage as possible.
+
+opt-in/opt-out dialogues provided by privacy-configurable SDKs. In-corporating these complementary sources would likely yield more complete and accurate purpose descriptions, and is an important direction for future work. 
+
+## 3.4 Category-Based Representative Selection 
+
+To address the potential imbalance of user-driven privacy ratings, 
+
+DePra adopts a category-based strategy that increases the utility of collected ratings. We first cluster apps into coherent functional groups (§3.4.1) and then select a small set of representative apps from each group (§3.4.2). This approach helps evaluations remain broadly informative and transferable within the same category. 
+
+3.4.1 App Functionality Clustering. We first leveraged app descrip-tions to cluster apps with similar functionality and privacy require-ments. Major app marketplaces such as Google Play and App Store already provide category labels like Business , Education , and En-tertainment to facilitate user searches and discovery. However, we cannot directly use these predefined labels as our categorization since they are often too broad for precise privacy assessments. For example, the Tools category in Google Play and the Utilities category in the App Store include vastly different apps, such as flashlight apps and calculator apps, which serve distinct purposes and have varying privacy implications. Nevertheless, these labels serve as a useful starting point for narrowing the search space and group-ing potentially related apps. Specifically, we introduced a refined categorization framework that subdivided marketplace categories into granular subgroups. Each subcategory consisted of apps that exhibit similar functionalities and privacy requirements, enabling more precise and meaningful privacy evaluations. Figure 3 illus-trates our three-step clustering methodology. First, we compiled a comprehensive dataset from Google Play, extracting app descrip-tions for input. Then we applied BERTopic [ 5], a state-of-the-art topic modeling technique, to generate semantic embeddings of app Listen to the Voices of Everyday Users: Democratizing Privacy Ratings for Sensitive Data Access in Mobile Apps Conference’17, July 2017, Washington, DC, USA 
+
+descriptions. The output clusters then underwent manual refine-ment, where we adjusted categories to ensure semantic coherence and privacy relevance. A set of representative keywords would be generated for each cluster, summarizing their functional themes. We elaborate on the steps in the following. 
+
+(1) Preparing App Data. 
+
+To collect apps, we relied on AndroZoo [ 11 ], a growing repos-itory of Android apps collected from various sources. From this dataset, we extracted a diverse collection of apps sourced from Google Play, ensuring broad coverage of different functionality types. For each app, we retrieved its detailed metadata using the web crawler [ 6], and then pre-processed the app descriptions by removing non-English entries and short ones (fewer than 30 words). The resulting corpus of descriptions served as the primary input for our clustering process. 
+
+(2) Topic Modeling and Clustering. Various topic modeling techniques have been explored in prior research [ 14 , 24 , 39 ], with BERTopic demonstrating strong performance. Empirical study [ 19 ]has shown that BERTopic is particularly effective for clustering the description texts of application software. As a state-of-the-art topic modeling approach, BERTopic utilizes pre-trained BERT models to generate contextual text embeddings, which transform textual descriptions into continuous vector representations. These repre-sentations are then clustered using HDBSCAN, while class-based term frequency-inverse document frequency (c-TF-IDF) is applied to enhance term representation within clusters. To further improve computational efficiency, Uniform Manifold Approximation and Projection (UMAP) is used to reduce the dimensionality of the embeddings before clustering. Since BERTopic operates in an un-supervised manner, it does not require predefined topic labels or training data, making it highly adaptable for large-scale text analy-sis. By leveraging BERTopic, we efficiently processed and analyzed large volumes of app descriptions, constructing a structured topic space that facilitates the categorization of apps based on function-ality. We applied BERTopic within individual major marketplace categories. The app descriptions from a specific category were in-put into BERTopic, which formed functionally coherent subgroups based on the density distribution of data points in the embed-ding space. To ensure a granular topic discovery, we set a small 
+
+min_topic_size parameter, defined as the total number of apps in a category divided by 20. This parameter assumes each category can be subdivided into at most 20 more specific subcategories, a deliberate over-segmentation of the data, aiming to minimize the risk of missing niche functionalities within a category and allow for a comprehensive and fine-grained clustering. 
+
+(3) Cluster Fine-Tuning and Representation Keywords. BERTopic offers multiple strategies for generating topic representations, pro-viding diverse perspectives on the extracted clusters. After con-ducting preliminary evaluations, we integrated KeyBERT and LLM-based models as primary representation models within BERTopic to enhance the interpretability of clusters. Specifically, we employed 
+
+KeyBERTInspired() and OpenAI’s GPT-based models to extract semantically meaningful keywords that effectively characterize each cluster’s functional theme. Following the clustering process, we conducted a manual review to further refine and validate the results. This involved analyzing the extracted keywords and visualizing topic distributions to iden-tify redundancies and potential overlaps. Our manual refinement process adhered to a key principle: we do not aim for excessive functional granularity; we differentiate categories only when distinct functionalities are likely to imply different privacy requirements–that is, the typical and justifiable data-access needs associated with an app’s core functionality . For instance, in the Events category, al-though there are multiple event types (e.g., conferences, concerts, sports events), they generally do not differ significantly in terms of privacy-related behaviors from a user perspective (e.g., they all involve event management functionalities). Therefore, we did not separate them into finer subcategories. In contrast, within the Tools category, different types of tools often have distinct privacy im-plications–for example, a flashlight app, a calculator, and a VPN service, each handles user data in fundamentally different ways. In such cases, we created finer distinctions to better capture the variations in privacy needs across apps. When multiple clusters ex-hibited similar topics with overlapping privacy requirements (e.g., conferences, concerts, etc.), we manually merged related clusters using BERTopic’s built-in merge_topics function. This consolida-tion enhanced the coherence and interpretability of the generated topics, ensuring that each final cluster represented a distinct and meaningful functional grouping. Finally, each finalized cluster was described by a set of representation keywords derived from repre-sentation models, providing a concise yet informative summary of its functional characteristics. 
+
+3.4.2 Representative App Selection. We developed a selection strat-egy aimed at identifying a set of representative apps within each functionality-based category. The selection criteria prioritized data access diversity, and we also considered the number of installa-tions, giving preference to widely used apps when their data access behaviors are comparable. However, it is computationally expen-sive and time-consuming to comprehensively identify data access behaviors for each app. To streamline the process, we leveraged the permission information disclosed on the Google Play page as alternatives. Google Play Store provides a standardized section within the “About this app” panel, where permissions required by an app (e.g., camera, location, storage) are explicitly listed. This section serves as a critical resource for users to evaluate privacy implications prior to app installation, and its standardized presenta-tion ensures consistent visibility across all apps. These permission requests serve as an explicit indicator of potential personal data access, making the permission list a useful proxy for assessing an app’s privacy behavior. While the permission list alone does not reveal how the data is actually used, it offers an initial reference point to mirror personal data access practices and aids in selecting representative apps. To determine the minimal set of representative apps, we em-ployed a greedy algorithm that prioritizes coverage of unique per-missions while considering install counts as a secondary factor. The algorithm operates as follows (Algorithm 1): It begins by construct-ing the universal set of permissions by aggregating all permissions across the given set of apps. A set of uncovered permissions is maintained and initialized as the full set of permissions that need to be covered. An initially empty set of selected apps is used to store the final representative apps. In each iteration, the algorithm selects Conference’17, July 2017, Washington, DC, USA Liu Wang, Tianshu Zhou, Haoyu Wang, and Yi Wang Data Preparation ❶ ❷ ❸Topic Modeling & Clustering 
+
+> …
+> HDBSCAN
+> all -MiniLM -
+> L6 -v2
+> Cluster 1
+> Cluster N
+> …
+
+Cluster Fine -Tuning & Representation Keywords   
+
+> Cluster 1 Cluster 2
+> Cluster 3 Cluster 4
+> Cluster 5
+> Manual Adjustment
+
+Representation Keywords      
+
+> Representation Models
+> KeyBERTInspired
+> Transformers …
+> Keyword Extraction
+> Grou p1
+> Grou p2
+> qr code scanner,
+> barcode scanner,
+> check product …
+> vpn service, fast
+> vpn , global proxy
+> servers, secure …
+> Grou p3
+> language translator,
+> text translator, voice
+> translator, foreign…
+
+Figure 3: App description-based clustering for each broad (Google Play Store provided) category. 
+
+the app that covers the largest number of uncovered permissions. If multiple apps cover the same number of permissions, the app with the highest install count is chosen to prioritize more widely used apps. Once an app is selected, it is added to the representative set, and the permissions it covers are removed from the uncovered set. This process repeats until all permissions in the universal set have been covered by the selected apps. The algorithm results in a minimal subset of apps that ensures comprehensive permission coverage. By employing this approach, the selected representative apps not only achieve comprehensive permission coverage but also favor commonly used apps, increasing their relevance in real-world scenarios. 
+
+## 3.5 Intuitive Rating Interface 
+
+To support user evaluations of app data access behaviors, we de-signed an interactive web interface that is structured to make rating tasks focused and streamlined (§3.5.1) and applies user-centered de-sign choices to make it accessible for a wide range of users (§3.5.2). These design decisions were directly informed by the PD findings: participants stressed that the system should require no specialized technical knowledge, and that the rating scheme should feel natural and minimally effortful to encourage sustained engagement. 
+
+3.5.1 System Interface and Rating Workflow. The user interaction is facilitated through a well-organized web interface that aims to streamline the evaluation process. As illustrated in Figure 4, the interface is organized by functional app categories (e.g., Weather, Tools-Transltor Tools). Within each category, a set of representative apps is featured. App-specific information, including screenshots and market descriptions, is presented on demand: users can expand it to understand an app’s core functionality before rating, but it does not clutter the primary rating view. This layered disclosure strat-egy responds directly to the PD finding that participants wanted sufficient context without being overwhelmed, keeping essential rating information in focus while making broader context acces-sible. We designed each Human Intelligence Task (HIT) as a set of focused questions regarding a specific data access request and its stated purpose. For each question, users are presented with a two-tier format: a concise header identifying the data type, pur-pose, and data controller at a glance (e.g., “Precise location for app features” or “Precise location for advertising related services”), fol-lowed by a brief natural language explanation beneath it offering additional context for those who wish to read further before rating. This two-tier structure balances immediacy with clarity: the header 
+
+Algorithm 1 Selecting Minimal Representative Apps 
+
+Require: A set of apps 𝐴 , where each app 𝑎 ∈ 𝐴 has: - a set of permissions 𝑃 𝑎 
+
+- a filename 𝑓 𝑎 
+
+Require: A dictionary 𝐼𝑛𝑠𝑡𝑎𝑙𝑙𝑠 mapping each filename 𝑓 𝑎 to its install count. 
+
+Ensure: A minimal set of representative apps 𝑆 ⊆ 𝐴 that covers all per-missions.  
+
+> 1:
+
+𝑎𝑙𝑙 _𝑝𝑒𝑟𝑚𝑖𝑠𝑠𝑖𝑜𝑛𝑠 ← Ð 𝑃 𝑎 for all 𝑎 ∈ 𝐴  
+
+> 2:
+
+𝑟𝑒𝑚𝑎𝑖𝑛𝑖𝑛𝑔 _𝑝𝑒𝑟𝑚𝑖𝑠𝑠𝑖𝑜𝑛𝑠 ← 𝑎𝑙𝑙 _𝑝𝑒𝑟𝑚𝑖𝑠𝑠𝑖𝑜𝑛𝑠  
+
+> 3:
+
+𝑆 ← ∅  
+
+> 4:
+
+while 𝑟𝑒𝑚𝑎𝑖𝑛𝑖𝑛𝑔 _𝑝𝑒𝑟𝑚𝑖𝑠𝑠𝑖𝑜𝑛𝑠 ≠ ∅ do  
+
+> 5:
+
+𝑏𝑒𝑠𝑡 _𝑎𝑝𝑝 ← None  
+
+> 6:
+
+𝑏𝑒𝑠𝑡 _𝑐𝑜𝑣𝑒𝑟𝑎𝑔𝑒 ← ∅  
+
+> 7:
+
+ℎ𝑖𝑔ℎ𝑒𝑠𝑡 _𝑖𝑛𝑠𝑡𝑎𝑙𝑙𝑠 ← − 1 
+
+> 8:
+
+for each app 𝑎 ∈ 𝐴 do  
+
+> 9:
+
+𝑐𝑜𝑣𝑒𝑟𝑎𝑔𝑒 ← 𝑃 𝑎 ∩ 𝑟𝑒𝑚𝑎𝑖𝑛𝑖𝑛𝑔 _𝑝𝑒𝑟𝑚𝑖𝑠𝑠𝑖𝑜𝑛𝑠  
+
+> 10:
+
+if |𝑐𝑜𝑣𝑒𝑟𝑎𝑔𝑒 | > |𝑏𝑒𝑠𝑡 _𝑐𝑜𝑣𝑒𝑟𝑎𝑔𝑒 | or (|𝑐𝑜𝑣𝑒𝑟𝑎𝑔𝑒 | =
+
+|𝑏𝑒𝑠𝑡 _𝑐𝑜𝑣𝑒𝑟𝑎𝑔𝑒 | and 𝐼𝑛𝑠𝑡𝑎𝑙𝑙𝑠 [ 𝑓 𝑎 ] > ℎ𝑖𝑔ℎ𝑒𝑠𝑡 _𝑖𝑛𝑠𝑡𝑎𝑙𝑙𝑠 ) then  
+
+> 11:
+
+𝑏𝑒𝑠𝑡 _𝑎𝑝𝑝 ← 𝑎  
+
+> 12:
+
+𝑏𝑒𝑠𝑡 _𝑐𝑜𝑣𝑒𝑟𝑎𝑔𝑒 ← 𝑐𝑜𝑣𝑒𝑟𝑎𝑔𝑒  
+
+> 13:
+
+ℎ𝑖𝑔ℎ𝑒𝑠𝑡 _𝑖𝑛𝑠𝑡𝑎𝑙𝑙𝑠 ← 𝐼𝑛𝑠𝑡𝑎𝑙𝑙𝑠 [ 𝑓 𝑎 ] 
+
+> 14:
+
+end if  
+
+> 15:
+
+end for  
+
+> 16:
+
+𝑆 ← 𝑆 ∪ { 𝑓 𝑏𝑒𝑠𝑡 _𝑎𝑝𝑝 } 
+
+> 17:
+
+𝑟𝑒𝑚𝑎𝑖𝑛𝑖𝑛𝑔 _𝑝𝑒𝑟𝑚𝑖𝑠𝑠𝑖𝑜𝑛𝑠 ← 𝑟𝑒𝑚𝑎𝑖𝑛𝑖𝑛𝑔 _𝑝𝑒𝑟𝑚𝑖𝑠𝑠𝑖𝑜𝑛𝑠 \
+
+𝑏𝑒𝑠𝑡 _𝑐𝑜𝑣𝑒𝑟𝑎𝑔𝑒  
+
+> 18:
+
+end while  
+
+> 19:
+
+return 𝑆 
+
+enables quick comprehension, while the explanation supports more informed judgment, reflecting the PD insight that users want to make quick judgments without being forced to read dense descrip-tions, yet still have access to richer context when needed. Users rate their comfort level with each behavior using a 5-point Likert scale ranging from very comfortable (+2) to very uncomfortable (-2). During the PD workshop, participants proposed various rating formats including thumbs up/down and emoji-based reactions. We opted for a symmetric numeric Likert scale because it captures the continuous gradient of acceptability more expressively than binary options, and the signed range naturally distinguishes two directions of user judgment: positive scores indicate acceptance, negative scores indicate privacy concern, with zero serving as a Listen to the Voices of Everyday Users: Democratizing Privacy Ratings for Sensitive Data Access in Mobile Apps Conference’17, July 2017, Washington, DC, USA Welcome     
+
+> DePra -Democratizing Mobile Privacy Ratings
+> Events ^
+> Social
+> Weather
+> Tools ^
+> Translator
+> Scanner
+> VPN proxy
+> …
+
+…       
+
+> Weather Category
+> Category
+> Description
+> App Description
+> &Screenshots
+> Organized by
+> functional
+> categories
+> http://privacyrating.cloud/categories/weather/app2
+> Representative Apps
+> Precise location for app features :
+> The app uses your precise location to deliver real -time climate risk alerts and weather forecasts for
+> your area. Examples include storm warnings and location -based risk notifications.
+> Assessment
+> Questions
+> Precise location for advertising related services:
+> A third -party advertising SDK embedded in the app accesses your precise location to deliver
+> targeted advertisements based on where you are.
+> ……
+
+Figure 4: The DePra user evaluation interface, comprising: (1) a category-based navigation panel on the left; (2) a cat-egory description and representative app selection at the top; (3) app description and screenshots in the middle; and (4) assessment questions at the bottom, each presenting a contextual explanation of a specific data access behavior fol-lowed by a comfort rating scale. 
+
+neutral baseline. This bidirectional structure makes the scale intu-itive for users to interpret and apply, without requiring them to reason about abstract numerical anchors. 
+
+3.5.2 User-Centered Design Considerations. To enhance accessi-bility and usability for a diverse audience, we prioritized mini-mizing cognitive load and avoiding technical jargon–principles well-established in the design of effective privacy notices [ 53 ]. Concretely, we used plain, user-friendly terminology to describe data types: instead of “coarse (Network) location,” users see “ap-proximate location”; instead of raw permission names, they see human-readable labels. For unavoidable technical terms (e.g., device-specific identifiers, IMEI), we added inline tooltips that surface a brief explanation on hover, allowing curious users to learn more without burdening those who do not need the detail. Together, these choices ensure that non-expert users can engage meaningfully with privacy assessments without requiring prior knowledge of Android permission semantics or privacy regulations. 
+
+## 3.6 Preference-Based Rating Adjustment 
+
+To mitigate the impact of individual differences in privacy atti-tudes and risk tolerance, we introduce a post-processing adjustment mechanism that models users’ privacy risk preferences (§3.6.1) and recalibrates their ratings accordingly (§3.6.2). As an extended fea-ture of DePra applied after collecting raw ratings, this mechanism aims to help aggregate results better reflect general user sentiment rather than being skewed by extreme or biased evaluations. 
+
+3.6.1 Theoretical Foundation. Our current approach builds on prospect theory [35 ], a well-established framework in behavioral economics that characterizes how individuals make decisions under conditions of risk and uncertainty. Prospect theory has been widely adopted in prior research on privacy decision-making [ 37 , 45 , 52 ], where it has been shown to capture users’ attitudes toward potential losses of personal data and their willingness to trade privacy for utility. Inspired by this line of work, we use prospect theory to guide the measurement and categorization of user risk attitudes in privacy ratings. Thus, we can design a set of scenarios to measure users’ risk-taking behavior in contexts involving both potential gains and losses. Such scenarios reflect diverse decision-making environ-ments, e.g., considering monetary incentives, penalties, or poten-tial utility trade-offs. Users’ responses provide insights into their general tendencies toward risk, offering a basis for interpreting their responses and identifying potential biases in their evaluations. Based on user responses for the scenarios, we can classify them into three basic groups: 1) Risk-averse : individuals who generally exhibit conservative tendencies, preferring to avoid potential losses and showing reluctance to accept privacy risks. 2) Risk-seeking : individ-uals who are more tolerant of uncertainty and willing to accept or even favor risky data practices. 3) Risk-neutral : individuals whose responses fall in between, showing no strong inclination toward ei-ther avoiding or embracing risk, and typically exhibiting moderate or balanced attitudes. This classification provides the foundation for calibrating privacy ratings in a manner that accounts for systematic differences in user attitudes toward risk. 
+
+3.6.2 Adjustment Mechanism. A core insight from prospect theory is that risk-averse individuals weigh potential losses more heavily than equivalent gains [ 35 ]. Prior work has found that individual risk aversion carries over into privacy decisions: more risk-averse individuals tend to be less willing to incur privacy risks and exhibit more cautious attitudes toward data disclosure [ 27 ]. Consistent with this, our underlying assumption is that risk-averse individ-uals tend to assign lower privacy ratings (i.e., greater discomfort with data access), while risk-seeking individuals are more inclined to assign higher ratings. Left unadjusted, these tendencies may skew aggregate results toward the extremes. To mitigate this ten-dency, we introduce a risk aversion factor 𝜆 (0 < 𝜆 < 1) and an 
+
+adjustment coefficient 𝛿 (𝛿 > 0), which together modulate ratings in proportion to participants’ risk orientations. Formally, let 𝑟 denote a participant’s original rating. The adjusted rating 𝑟 ′ is computed as: 
+
+• For risk-averse users, scores are increased proportionally to their aversion level: 
+
+𝑟 ′ = 𝑟 + 𝜆𝛿 (1) 
+
+• For risk-seeking users, scores are decreased accordingly: 
+
+𝑟 ′ = 𝑟 − ( 1 − 𝜆 )𝛿 (2) This adjustment increases scores from risk-averse individuals (who may otherwise systematically underrate) and decreases scores from risk-seeking individuals (who may otherwise overrate), re-sulting in a more balanced and representative aggregation. The parameters 𝜆 and 𝛿 should be informed by the distributional char-acteristics of the participant group, which helps ensure that adjust-ments reflect the overall user population and yield a context-aware correction rather than arbitrary normalization. Conference’17, July 2017, Washington, DC, USA Liu Wang, Tianshu Zhou, Haoyu Wang, and Yi Wang 
+
+## 4 Evaluation 
+
+In this section, we evaluate whether DePra supports effective user participation in privacy ratings and explore its broader usefulness for privacy assessment practices. Our evaluation is guided by the following research questions: 
+
+• RQ1: How effective is DePra in democratizing privacy rat-ings by capturing everyday users’ opinions on sensitive data access? 
+
+• RQ2: How do user-generated privacy ratings compare with expert assessments? 
+
+• RQ3: Can we account for individual user biases and different risk preferences to improve the robustness of user - driven privacy ratings? 
+
+## 4.1 Experimental Setup 
+
+4.1.1 Participants. We employed the Prolific [ 8 ] crowdsourcing platform to recruit end-user participants for our experiment. Prolific offers access to a large and internationally diverse participant pool with built-in quality-control and fair-compensation mechanisms, making it well-suited for behavioral and HCI studies requiring reli-able online data collection [ 43 , 55 , 59 ]. Our participant screening was designed to be diverse, without imposing specific demographic restrictions, in order to capture a wide range of user perspectives on privacy across different backgrounds. A total of 200 participants were recruited, with the demographic characteristics outlining in Table 1. The sample comprises a diverse mix of genders, ages, eth-nicities, and nationalities, with 118 females, 82 males, and represen-tation from 26 different countries. This diversity provides a broad perspective on privacy perceptions across different backgrounds. In addition to end-users, we also recruited four domain experts from the authors’ professional networks: two privacy researchers from academia and two compliance professionals from regulatory agencies, with an average of six years of experience in data privacy, mobile security, or regulatory compliance. Their ratings provide a reference point for comparing expert-driven assessments with user-generated ratings in later analyses. 
+
+Table 1: Demographics of the 200 participants.      
+
+> Gender Female / male: 118 / 82 Age Min / Median / Max / Mean: 18 / 32.8 / 60 / 30 Ethnicity simplified Asian / Black / Mixed / Other / White: 3 / 146 / 6 / 3 / 42 # of Nationality 26 (US, UK, South Africa, Zimbabwe, Spain, Poland, ...) Language English / Other: 169 / 31
+
+4.1.2 Privacy Rating Tasks. In this experiment, we asked partic-ipants to evaluate their perceived willingness to accept sensitive data access requests by mobile apps using DePra . We randomly selected six functional clusters for experiment: Weather , Social , and 
+
+Events , which are marketplace-defined categories that do not re-quire further subdivision 2, along with three subcategories from the 
+
+Tools category ( translator tools , scanner tools , and proxy VPN tools ). 
+
+> 2These categories exhibit sufficient functional specificity, meaning that their core functionalities and data access requirements are relatively consistent. For example, weather apps primarily provide forecasts and related services, social apps facilitate interactions and networking, and event apps manage event-related activities.
+
+We then identified 1-3 representative apps per category that collec-tively encompass the permission usage scenarios observed in their respective groups (totally 13 apps). For each selected app, the app description, every instance of sensitive data access behavior, and the corresponding purpose explanation were presented on the rating interface. In total, 78 privacy assessment questions were presented for these categories. A linear navigation flow was implemented to guide users to sequentially evaluate each app, ensuring structured and systematic feedback collection. Prior to deployment, all 78 items (including both the purpose explanations and the first/third-party controller classifications) were individually reviewed by members of the research team, who cross-checked each item against the app’s store description, privacy policy, and observed API behavior, with corrections applied where necessary. The validity of our findings therefore rests on the quality of these verified items rather than on the end-to-end accuracy of the automated pipeline. To ensure valid responses, we embedded several attention-check questions in the task. These questions, such as asking participants to identify the app category they were assessing, can detect inatten-tive or low-effort responses (e.g., random clicking without reading the questions). Participants who failed these checks were flagged as inattentive, and their responses were excluded from the final analysis. Note that, before launching the main experiment, we conducted a pilot test with three volunteers (two had participated in the earlier participatory design study, and one was new to the project) to oper-ationalize these privacy rating tasks. The pilot aimed to assess the clarity of task wording, confirm the appropriateness of questions, and estimate overall completion time. Based on pilot feedback, we rephrased several permission-purpose explanations to avoid ambi-guity, simplified the layout of a few longer app descriptions, and slightly adjusted the placement of attention checks to maintain en-gagement without interrupting task flow. The average completion time of pilot tests was 25 minutes, which informed our compensa-tion rate on Prolific to set at $3.8 per participant, slightly above the minimum hourly wage in the United States. These iterative refine-ments served as a formative evaluation of the interface and task design, ensuring accessibility and clarity prior to full deployment. We also note that ratings in this study are based solely on the contextual information presented by DePra ; participants may not have had prior first-hand experience with the rated apps. This mirrors the conditions under which users encounter privacy infor-mation in practice (e.g., at install time or when reviewing a privacy notice), and is consistent with prior usable privacy research that studies user responses to structured privacy disclosures [ 38 , 53 ]. The trade-off is that judgments may not fully reflect the nuanced understanding that comes from extended app interaction. 
+
+4.1.3 Participants’ Perception of Privacy. We also included a post-study survey (detailed in Appendix 7) to understand these partici-pants’ privacy awareness and attitudes. The survey was adminis-tered after the main rating tasks to avoid potential priming effects that might bias participants’ in-task judgments about app data access scenarios. Part of the survey asked about their sensitivity to different data types, their awareness of privacy policies, and their app behavior choices when confronted with potential pri-vacy risks, which could provide valuable context for understanding Listen to the Voices of Everyday Users: Democratizing Privacy Ratings for Sensitive Data Access in Mobile Apps Conference’17, July 2017, Washington, DC, USA 
+
+participants’ privacy sense. To ease completion and ensure compa-rability, the survey primarily consisted of single- or multiple-choice questions, with a few optional open-ended fields allowing partici-pants to elaborate if desired. Quantitative analysis, complemented by limited qualitative inspection, showed that participants over-all demonstrated a moderate level of privacy awareness among participants. Specifically, 104/70/26 of them reported that they of-ten/sometimes/rarely carefully read privacy policies when installing apps. 146/49/5 claimed they were very/somewhat/not familiar with setting app permissions. When asked to choose between free apps requiring extensive permissions and paid apps that do not collect personal data, responses were almost evenly split (105 vs. 95), high-lighting diverse privacy preferences among participants. These findings suggest that participants exhibit a broad spectrum of pri-vacy attitudes and behaviors, offering useful diversity for examining differences in privacy ratings, though not a demographically repre-sentative population sample. The other part of the survey focused on participants’ general attitudes toward risk in decision-making contexts, which were later used to contextualize their privacy risk preferences and to calibrate our risk preference–based adjustment model (§4.4). The survey also included an open-ended question asking partici-pants to share their general thoughts on mobile privacy protection. Responses were analyzed thematically [ 18 ], revealing several re-curring themes that further characterize the participant sample. The most prevalent theme was a strong recognition of privacy as important, with many participants expressing heightened concern about personal data exposure (e.g., “Mobile privacy protection is increasingly vital in today’s digital landscape, where personal data is frequently at risk” ). A second theme concerned skepticism toward existing protection mechanisms: several participants expressed uncertainty about whether current safeguards actually work in practice (e.g., “I don’t know if my privacy is really protected or not, I don’t usually trust them much”; “there’s no way of knowing if they keeping end of the bargain on the privacy policies” ). A third theme highlighted the cognitive burden of managing privacy: par-ticipants noted that complex policies and permission interfaces can be overwhelming and discouraging (e.g., “It can be intimidating to go through all the policies and would discourage a lot”; “its hard to keep up with the permissions apps have” ). Finally, a subset of participants described active permission-management behaviors, such as reviewing permissions before installation and revoking unnecessary ones (e.g., “I review app permissions carefully before in-stalling and revoke permissions for apps that don’t need them” ), while others acknowledged limited capacity to do so consistently. Taken together, these qualitative responses indicate that participants held genuine and varied privacy concerns, ranging from principled data minimization expectations to pragmatic acceptance of common industry practices, providing a meaningful basis for the privacy assessments that follow. 
+
+## 4.2 RQ1: Capability of DePra 
+
+4.2.1 Method. We evaluated the feasibility and effectiveness of 
+
+DePra in supporting the democratization of privacy ratings by inviting end-users to perform privacy assessments using DePra .We operationalize effectiveness as DePra ’s ability to enable ev-eryday users to produce informative privacy ratings, i.e., whether the collected ratings capture meaningful variation in user opinions across different apps and data access behaviors. We published this study on Prolific, where participants were provided with a brief overview of the study objectives, task requirements, and a direct link to the evaluation platform. Individuals who chose to partici-pate and gave consent would be redirected to the platform via the link. Upon accessing the platform, participants were greeted with a 
+
+Welcome page that provided step-by-step instructions on complet-ing the evaluation. The instructions covered key aspects such as platform navigation, evaluation criteria, and responding to privacy-related questions. After participants completed their evaluations and submitted responses, we conducted a review process to verify that all required questions were answered. Valid and complete sub-missions were approved, and participants received compensation accordingly. In our experiment, only one submission was excluded from approval due to incomplete responses to essential questions. To maintain the intended sample size, we subsequently reopened recruitment on Prolific to replace the excluded submission with a new participant. 
+
+4.2.2 Results. All participants completed the assessment tasks over the course of two days. After excluding three responses that failed quality control checks, we obtained a total of 15,366 valid responses from 197 participants. We next analyze their rating scores at each behavior level and app level. We use violin plots for visualization to illustrate the full distribution of ratings, highlighting where responses are concentrated and whether opinions are polarized. 
+
+Distribution of Behavior-level Scores. Each assessment ques-tion corresponds to a specific privacy-related behavior exhibited by a selected app, with participants assigning ratings on a scale from -2 to +2. Figure 5 presents a sample of the distribution of these ratings, where the width of each violin indicates the density of ratings at different score levels, with wider regions indicating higher concentrations of user responses. Each question is repre-sented by a triple ⟨𝑎𝑝𝑝, 𝑑𝑎𝑡𝑎, 𝑝𝑢𝑟𝑝𝑜𝑠𝑒 _𝑡𝑦𝑝𝑒 ⟩, where 𝑝𝑢𝑟𝑝𝑜𝑠𝑒 _𝑡𝑦𝑝𝑒 
+
+denotes either first-party use ( app , meaning data accessed by the app’s own code rather than an embedded third-party SDK) or a third-party SDK category (e.g., ads , analytics , develop for develop-ment aid SDKs; see Appendix 7 Table 3 for the full list). For example, 
+
+⟨𝑤𝑒𝑎𝑡ℎ𝑒𝑟, 𝑙𝑜𝑐, 𝑎𝑝𝑝 ⟩ signifies that a weather app’s own code accesses location data, with the purpose explanation clarifying that this is for delivering localized weather forecasts. We can observe that even when an app accesses the same type of data, the ratings can vary sig-nificantly depending on the purpose of use. Generally, participants demonstrate greater acceptance when data access is directly aligned with an app’s primary function, but they give more diverse and polarized responses when the same data is utilized for third-party purposes such as advertising, analytics, etc. A Mann-Whitney U test confirmed that first-party ratings were significantly higher than third-party ratings ( 𝑈 = 32 ,986 ,602 .5, 𝑝 < .001 , 𝑟 = 0.165 ), with a small-to-medium effect size indicating that while the difference is consistent and statistically robust, users do not categorically reject third-party data uses; rather, their responses become more varied Conference’17, July 2017, Washington, DC, USA Liu Wang, Tianshu Zhou, Haoyu Wang, and Yi Wang (weather,loc,app) 
+
+> (weather,loc,ad)
+> (weather,loc,analytic)
+> (social,camera,app)
+> (social,camera,ad)
+> (vpn,storage,app)
+> (vpn,storage,ad)
+> (vpn,storage,develop)
+> 2
+> 1
+> 0
+> 1
+> 2
+> Score
+> Mean
+
+Figure 5: Distribution of users’ privacy ratings per question. 
+
+and context-dependent, reflecting nuanced rather than blanket atti-tudes. This suggests that users care more about how and by whom data is used than about the raw data type itself. 
+
+Rating Scores for Each App. Since user ratings were collected at the level of individual privacy-related behaviors, we next computed an overall privacy rating for each app. The final score, denoted as 
+
+𝐴𝑝𝑝𝑆𝑐𝑜𝑟𝑒 , was computed based on the following rules: (1) If any negative ratings were present, the final score was determined as the sum of all negative ratings, formulated as 
+
+𝐴𝑝𝑝𝑆𝑐𝑜𝑟𝑒 =∑︁ 𝑠 𝑖 , 𝑠 𝑖 < 0. (3) This design reflects the asymmetric nature of privacy assessment: a single behavior perceived as seriously inappropriate should not be neutralized by a majority of acceptable ones, analogous to the principle in security evaluation that any critical violation warrants attention regardless of overall compliance. Summing negative rat-ings also allows differentiation between apps with multiple privacy concerns versus those with only minor issues. (2) If all ratings were non-negative, the final score was computed as the arithmetic mean of all scores for that app, expressed as 
+
+𝐴𝑝𝑝𝑆𝑐𝑜𝑟𝑒 = 1
+
+𝑛 
+
+> 𝑛
+
+∑︁ 
+
+> 𝑖 =1
+
+𝑠 𝑖 , 𝑠 𝑖 ≥ 0 (4) where 𝑛 represents the number of responses, maintaining a nor-malized representation when no negative scores are present. We acknowledge that this is one possible aggregation scheme among several alternatives (e.g., weighted sums), and that comparing scores across the two cases involves different scales; exploring alternative aggregation methods remains a direction for future work. 
+
+Distribution of App-level Scores. As shown in Figure 6, the visu-alization captures not only the central tendency of ratings but also the spread and variability of user opinions for each app. For example, the app social_2 exhibits a concentration of positive ratings, indi-cating that most users found its privacy practices acceptable. The co-presence of positive and negative scores for some apps reflects users’ diverse perceptions. These patterns can provide valuable insights for various stakeholders, helping them better understand user sentiment. Compared to a single-dimensional score for each app, this approach provides a higher-dimensional representation that captures the full distribution of user ratings. weather_1 
+
+> weather_2
+> weather_3
+> events_1
+> events_2
+> social_1
+> social_2
+> social_3
+> tools_translator_1
+> tools_translator_2
+> tools_vpn_1
+> tools_vpn_2
+> tools_scanner_1
+> 20
+> 15
+> 10
+> 5
+> 0
+> 5
+> Score
+> Mean
+
+Figure 6: Distribution of users’ privacy ratings for each app. Summary. These findings demonstrate that DePra is effective in enabling everyday users to produce informative privacy ratings. At the behavior level, ratings vary meaningfully across different data access scenarios and reflect sensitivity to contextual factors such as purpose of use and data controller–users do not respond uniformly, but differentiate between scenarios in ways that reveal genuine privacy attitudes. At the app level, behavior-level ratings are aggregated into overall app scores that reflect the collective weight of user concerns, giving stakeholders a holistic view of each app’s privacy standing from the user perspective. These results confirm the feasibility of the democratized privacy assessment par-adigm: ordinary users, when supported by DePra , can contribute meaningful and varied privacy evaluations at scale. 
+
+## 4.3 RQ2: User vs. Expert Ratings 
+
+4.3.1 Method. We asked a panel of four privacy experts to individ-ually evaluate the same set of privacy-related behaviors that had been rated by end-users (cf. RQ1). Each behavior was presented with the same contextual information as in the user study. Experts rated the necessity of the data access (-2 unnecessary ... +2 necessary) based on their expertise and compliance with data minimization principles. Each group rated from their natural perspective: users assessed perceived acceptability, while experts assessed regulatory necessity, reflecting how each group would naturally evaluate data access in practice. We acknowledge that four experts constitute a small panel; the goal of this comparison is not to establish a defini-tive expert benchmark, but to offer an illustrative contrast between regulatory-informed assessments and everyday user perspectives, thereby exploring where the two groups converge and where they diverge. 
+
+4.3.2 Results. We present the results in two parts: expert panel agreement, followed by a comparison between user and expert ratings including both alignments and divergences. Expert Panel Agreement. Krippendorff’s 𝛼 on a representative subset of behav-ior items was 0.727 (ordinal), indicating substantial inter-rater reli-ability and exceeding the threshold for tentative conclusions [ 42 ]. This level of agreement is consistent with the subjective nature of privacy necessity judgments and itself reveals a meaningful pattern: within the expert group, there was high agreement on clear cases but also divergence in borderline ones. For example, in third-party Listen to the Voices of Everyday Users: Democratizing Privacy Ratings for Sensitive Data Access in Mobile Apps Conference’17, July 2017, Washington, DC, USA 
+
+data usage, an expert contextualized analytics or embedded devel-opment integrations as industry norms, whereas others insisted on strict minimization principles. This shows that expert ratings are not absolute and can vary depending on individual interpretations of compliance standards and personal thresholds for acceptable risk. 
+
+User-Expert Alignment. Turning to the comparison between users and experts, a Spearman correlation between per-item mean user ratings and mean expert ratings yielded 𝜌 = 0.737 (𝑝 < .001 ), indicating strong rank-order agreement on the relative acceptability of different behaviors. Both groups, for instance, rated behaviors directly tied to core app functionality—such as weather apps using location for localized forecasts and translator apps accessing the microphone for speech input—as acceptable. However, users were systematically more lenient in absolute terms: the overall mean user rating was +0.63 compared to −0.28 for experts, a difference of nearly one full scale point. This gap was most pronounced for third-party data uses (user mean +0.37 vs. expert mean −1.57 ): experts rated advertising and analytics-related behaviors near the lowest end of the scale, reflecting strict data minimization standards, while users remained moderately accepting, possibly reflecting habituation to common industry practices. Conversely, for certain first-party sensitive behaviors such as microphone or camera access for core features, experts rated these as clearly necessary (mean 
+
++2.00 ), whereas users were more skeptical, assigning lower but still positive ratings. This suggests that users are less certain than experts about the necessity of sensitive hardware access even when it serves core functionality, highlighting a gap in user awareness that contextual explanations alone may not fully close. 
+
+Summary. Overall, these findings demonstrate the complemen-tary value of user-generated privacy ratings. The strong rank-order correlation shows that users and experts largely agree on which behaviors are more or less acceptable. At the same time, the di-vergences between the two groups reflect genuine differences in evaluative perspective rather than noise, and surfacing these dif-ferences is precisely what a democratized assessment approach is designed to contribute. 
+
+## 4.4 RQ3: Risk Preference Based Calibration 
+
+4.4.1 Method. We explored how our proposed risk preference-based adjustment method works in practice. We conducted a post-study survey consisting of four risk-taking scenarios designed to capture participants’ attitudes toward risk in diverse decision-making environments. Drawing from prospect theory, the sce-narios covered high-probability outcomes with large stakes, low-probability outcomes with small stakes, and equivalent conditions framed as potential losses. For example, participants were asked to choose between a guaranteed outcome and a probabilistic higher outcome in both reward and penalty contexts. Responses revealed participants’ general preferences in risk, allowing us to contextual-ize their privacy risk ratings and identify potential biases. Based on the responses, we classified participants into three groups: 92 (46%) risk-averse and 28 (14%) risk-seeking , and 80 (40%) risk-neutral .Given this distribution, we set the risk aversion factor to 𝜆 = 0.6,slightly above the midpoint to reflect the prevalence of risk-averse tendencies, and tried a moderate adjustment coefficient of 𝛿 = 0.5.weather_3 
+
+> events_1
+> social_2
+> tools_translator_2
+> tools_vpn_2
+> tools_scanner_1
+> 15
+> 10
+> 5
+> 0
+> 5
+> Score
+> Original
+> Calibrated
+> Mean (Original)
+> Mean (Calibrated)
+
+Figure 7: Distribution of users’ privacy ratings (original vs. calibrated). 
+
+4.4.2 Results. Figure 7 presents a comparison of original and cal-ibrated ratings across different apps (one per category for visual clarity). Overall, the calibration produced a net upward shift in aggregate scores, driven by the larger proportion of risk-averse participants in our sample, while leaving the relative ordering and overall direction of app assessments intact. We report the effects at three levels of granularity: the overall score distribution, the per-group adjustment patterns, and the per-app outcomes. 
+
+Overall Shift. The mean aggregate app score increased from −0.866 
+
+to −0.547 , a shift of +0.319 . Notably, 10 out of 13 apps retained neg-ative aggregate scores both before and after calibration, and no app changed its overall valence (i.e., from net-negative to net-positive or vice versa), indicating that calibration refines the magnitude of scores rather than overturning the substantive conclusions of the raw ratings. 
+
+Per-Group Effects. The asymmetry between risk groups is re-flected in the per-group adjustment magnitudes. The 92 risk-averse users, whose original mean score was −1.048 , had their ratings adjusted upward to −0.206 on average (change of +0.842 ). In con-trast, the 30 risk-seeking users, whose original mean was −0.409 ,had their ratings adjusted downward to −0.852 (change of −0.443 ). The larger upward adjustment for risk-averse users compared to the downward adjustment for risk-seeking users reflects both the higher proportion of risk-averse participants and the greater devia-tion of their scores from the neutral baseline. The 80 risk-neutral users remained unchanged. Together, these adjustments pull the aggregate distribution toward a more balanced representation of the overall user population. 
+
+Per-App Patterns. At the app level, the three apps that received positive aggregate scores before calibration ( social_2 , tools_translator_1 ,and tools_translator_2 ) remained positive after calibration, with scores increasing modestly (e.g., social_2 : +1.088 → + 1.404 ). Among the negatively-rated apps, tools_vpn_2 showed the most notable movement, approaching the neutral point ( −0.320 → − 0.004 ), while 
+
+social_3 and weather_1 remained the most negatively rated apps even after calibration ( −2.082 and −1.716 respectively), suggesting strong and robust user concern about these apps’ data practices regardless of risk-preference correction. Conference’17, July 2017, Washington, DC, USA Liu Wang, Tianshu Zhou, Haoyu Wang, and Yi Wang 
+
+Summary. These results demonstrate that individual risk prefer-ences systematically influence privacy ratings, and that the pro-posed adjustment mechanism can account for this variation. By identifying the risk profile of participants and calibrating their ratings accordingly, DePra produces aggregate scores that better reflect the general user population rather than being skewed by the disproportionate representation of risk-averse individuals. This shows the feasibility of incorporating behavioral science-informed adjustments into democratized privacy evaluation. 
+
+## 5 Discussion 5.1 Design Implications 
+
+Our study yields several actionable insights for designing user-grounded privacy assessment systems, as well as broader implica-tions for privacy research and HCI. 
+
+Contextual framing is the primary unit of privacy judgment. 
+
+Both the participatory design workshop and the large-scale rating study show that users rarely base their judgments on permissions alone; instead, they reason about whether specific data accesses are proportionate to an app’s core functionality and stated pur-pose. This pattern aligns with contextual integrity theory [ 50 ] and suggests that it operates not only as a theoretical framework but as a genuine cognitive heuristic that everyday users apply. For system designers, this reinforces that purpose explanations and functionality-based framing should be treated as primary inter-face elements rather than supplementary disclosures. For privacy researchers, it suggests that permission-centric studies may sys-tematically underestimate users’ capacity for nuanced judgment when appropriate context is provided. 
+
+Disclosure quality matters more than disclosure quantity. 
+
+Participants expressed a desire for clear explanations but also re-ported feeling overwhelmed by verbose details. This finding moves the conversation in usable privacy research [ 34 , 46 ] beyond the question of whether to disclose toward how much to disclose, and in what structure. Effective designs should prioritize the most decision-relevant cues upfront while keeping additional context accessible in a structured, navigable form. The two-tier format adopted in 
+
+DePra (concise header plus contextual explanation) operationalizes this principle; future work could evaluate whether layered disclo-sure formats consistently reduce cognitive load without sacrificing informed decision-making. 
+
+User-expert divergences reflect legitimate evaluative plural-ism, not measurement noise. A key finding is that user and expert ratings are meaningfully correlated ( 𝜌 = 0.737 , 𝑝 < .001 ) yet exhibit systematic divergences. These divergences are not random: they reflect structurally different evaluative frames–users reason primarily from perceived acceptability and contextual appropri-ateness, while experts apply regulatory necessity criteria. This challenges the implicit assumption in privacy auditing practice that expert assessments represent a singular ground truth against which user opinions should be calibrated. Our findings suggest instead that user and expert perspectives constitute complementary forms of evidence; privacy governance frameworks that incorporate both can capture a fuller picture of what constitutes appropriate data access in practice. 
+
+Aggregate privacy scores implicitly encode population as-sumptions. The risk-preference calibration analysis reveals that aggregate privacy scores are sensitive to the composition of the eval-uating population: a sample skewed toward risk-averse users will produce more negative aggregate scores than a balanced one, even when rating the same apps. This has methodological implications beyond DePra : any privacy metric derived from user judgments carries an implicit assumption about the underlying population’s risk distribution. Making this assumption explicit and designing scoring pipelines that account for it is a prerequisite for privacy assessments that are both representative and reproducible. Our calibration approach, which adjusts ratings based on measured risk preferences before aggregation, offers one concrete way to operationalize this principle. 
+
+## 5.2 Visions for Advancing the Paradigm 
+
+DePra is still in its infancy, but its underlying conceptualization and rationale have promising potentials. We acknowledge that re-cruiting 200 participants via Prolific constitutes a proof-of-concept demonstration rather than a fully realized democratization of pri-vacy evaluation. The term “democratizing” in this work refers to broadening the scope of privacy evaluation by actively incorpo-rating everyday user perspectives as a complement to expert as-sessments, and its full realization requires large-scale, real-world deployment. 
+
+Integration into App Ecosystems. A significant step forward would be embedding the system within major app ecosystems like Google Play and App Store. This integration would enable pri-vacy ratings to become as commonplace as user reviews, allowing consumers to make privacy-conscious choices while holding devel-opers accountable for their data practices. Prior work has shown that user privacy reviews can prompt developers to reduce their apps’ permission usage [ 48 ], and existing platform mechanisms (e.g., privacy nudges in the Google Play developer console) have demonstrated the effectiveness of feedback-driven interventions. 
+
+DePra could extend such mechanisms by incorporating structured, aggregated user privacy ratings, providing developers with richer and more actionable signals than unstructured reviews alone. 
+
+AI-Enhanced Privacy Evaluation. As user participation grows, AI models trained on aggregated user ratings could help automate the detection of privacy-problematic patterns at scale, extending coverage beyond what either manual expert audits or user rat-ings alone can sustain. A particularly promising direction is the development of personalized user-role agents that simulate diverse privacy preferences and risk attitudes, enabling privacy evaluations to be tailored to specific user populations rather than relying on a single aggregate standard. These directions point toward hybrid human-AI pipelines that preserve the human-grounded legitimacy of democratized evaluation while overcoming its scalability con-straints. 
+
+## 5.3 Limitations and Future Work 
+
+Participant Selection. The participant sample may not fully rep-resent the broader mobile user population. While we aimed for Listen to the Voices of Everyday Users: Democratizing Privacy Ratings for Sensitive Data Access in Mobile Apps Conference’17, July 2017, Washington, DC, USA 
+
+diversity in our participatory design and Prolific-based study, partic-ipants could still skew toward higher-than-average privacy aware-ness. Moreover, the expert panel comprised only four professionals, which limits the representativeness of the expert-side comparison in RQ2. A larger and more diverse panel spanning regulatory, legal, and technical backgrounds would be needed to establish a more robust expert baseline. 
+
+Response Biases. As with many survey-based studies, our de-sign may be subject to social desirability and fatigue effects. For example, the relatively high proportion of participants claiming to “often” read privacy policies may reflect socially desirable re-sponding rather than actual behavior. Question wording may also have contributed, as terms like “setting permissions” and “privacy policies” are open to broader interpretations that could inflate self-reported familiarity rates. Answering 78 assessment items in one session could also cause mild fatigue, potentially affecting attention or consistency. We mitigated these effects through attention checks and pilot testing; however, future work could further reduce them via shorter, adaptive tasks or behavioral validation. 
+
+Proof-of-Concept Technical Pipeline. The automated pipeline for purpose explanation generation and first/third-party classifica-tion is a prototype-level implementation, not a production-ready solution. The pipeline draws on a limited set of information sources (static API analysis and app store descriptions) omitting comple-mentary signals such as the Data Safety Section on Google Play, GUI-level permission rationale messages, privacy policy text, and SDK-level opt-in/opt-out disclosures. These limitations do not un-dermine the validity of our user study, as all 78 deployed items were individually verified by the research team prior to deployment to ensure accuracy. Improving controller classification and incorpo-rating richer information sources remain important directions for future work. 
+
+Simplified Modeling of User Preferences. Our current approach represents an initial attempt to account for user heterogeneity by applying prospect theory and collecting risk preference data through a simple survey. While it serves the purpose of the proof of concept well, it could be further enhanced. Future work could explore more sophisticated techniques, such as behavioral modeling, longitudinal profiling, or context-aware personalization, to capture users’ privacy preferences in a richer and more dynamic manner. 
+
+System Usability. The current evaluation focused on the quality of rating outputs rather than a formal assessment of DePra ’s usability. Although high task completion rates and low attention-check fail-ure rates suggest the system was accessible in practice, future work should include structured usability evaluations such as think-aloud protocols or standardized questionnaires to more rigorously as-sess whether specific design features (e.g., contextual explanations, the rating interface) effectively support users in making informed privacy judgments. 
+
+Concern on Potential Abuse. Some users from PD pointed out a potential concern for democratized privacy ratings: the risk of manipulation or abuse, similar to the “rating inflation” or “review bombing” observed in app stores. While not addressed in the current version of DePra (as it is better suited as a later-stage safeguard), it does not undermine the value of the paradigm itself. Rather, it calls for complementary safeguards of the paradigm, such as anomaly detection and user reputation mechanisms, to prevent potential abuse of the system in future work. 
+
+## 6 Related Work 
+
+Privacy Risk Assessments for Mobile Apps. Regulatory guide-lines have driven extensive research into automated privacy risk assessments for mobile apps [ 20 , 36 , 40 , 58 , 64 , 66 ]. For example, Chang et al. [ 20 ] developed an automated framework that estimates privacy risks by analyzing app permissions and privacy policies using probabilistic models. Kim et al. [ 40 ] proposed six key indica-tors (Ability, Benevolence, Integrity, Experience, Reputation, and Inclination) to quantify privacy scores in the context of handling personal data. Yang et al. [ 64 ] applied information flow analysis to construct a risk matrix, correlating permissions with potential severity levels to assign a privacy risk score to apps. These stud-ies present solid approaches to evaluating privacy risks, but they largely rely on professional knowledge and understanding. Our work complements them by incorporating end-users’ perspectives into the assessment, extending the scope of evaluation beyond expert-centric models. 
+
+User Perspectives on Mobile Privacy. Recent research [ 17 , 31 ,34 , 38 , 46 , 47 ] has highlighted the importance of user mental mod-els in shaping their privacy judgments and trust in mobile apps. Lin et al. [ 46 ] were among the first to use crowdsourcing to ana-lyze users’ mental models of mobile app behavior, demonstrating that users’ expectations regarding data access significantly influ-ence trust decisions. Ismail et al. [ 34 ] conducted a user study to determine the minimal set of permissions required for app usabil-ity across diverse users, paving the way for user-driven privacy evaluations. These studies enlighten that end-users can contribute valuable, context-aware insights that complement automated tools and regulatory audits. Building on this line of research, we take a step toward a democratizing privacy assessment paradigm that moves beyond eliciting user perceptions and operationalizes them within a structured, scalable, and actionable evaluation framework. This paradigm repositions users as active evaluators in the privacy auditing process and explores methods to actively engage users in assessing the appropriateness of apps’ privacy-related behav-iors, thereby bridging the gap between user-centric insights and systematic privacy evaluation practices. 
+
+## 7 Conclusion 
+
+This paper proposes a novel paradigm for the democratization of privacy assessment and introduces DePra , a prototype infrastruc-ture that empowers everyday users to evaluate mobile apps’ data access behaviors based on their perceived necessity and appropri-ateness. Grounded in participatory design with everyday users, 
+
+DePra incorporates four key features: contextual explanation pro-vision, category-based representative selection, an intuitive rating interface, and preference-based rating adjustment. Our evaluation with 200 participants demonstrates that everyday users can provide meaningful privacy ratings that both align with and diverge from expert assessments in informative ways. These divergences are not noise but signal: they reveal dimensions of privacy concern, partic-ularly around contextual appropriateness and data minimization, Conference’17, July 2017, Washington, DC, USA Liu Wang, Tianshu Zhou, Haoyu Wang, and Yi Wang 
+
+that complement the legal and technical focus of expert-driven eval-uations. Beyond the specific findings, this work offers the HCI com-munity a set of design implications grounded in both participatory design and large-scale user evaluation. These implications around surfacing contextual justifications, balancing transparency with cognitive load, and accounting for heterogeneous risk preferences provide actionable guidance for future privacy tools and assessment frameworks. We envision DePra as a foundation for more trans-parent, participatory, and user-oriented privacy governance that complements expert-driven oversight and fosters accountability among app developers at scale. 
+
+## Ethics considerations 
+
+This study encompasses two user-related studies: a participatory design activity and user/expert evaluations. In line with ethical research practices, informed consent was obtained from all par-ticipants at the time of recruitment. Prior to their participation, participants were fully informed about the study’s objectives, data handling procedures, time commitment, and compensation. They were assured that their responses would remain anonymous and that they could withdraw from the study at any point without con-sequence. For the participatory design activity, participants were recruited through community outreach and invited to attend a mod-erated design session. Each participant received a compensation of (≈)$10 as a token of appreciation for their time and contributions (which is above the local median hourly wage). For the end-user evaluations, only those who explicitly agreed to participate in the study were given access to the evaluation platform. Participants who completed the entire questionnaire were fully compensated, irrespective of their responses. The average completion time during the pilot test was 25 minutes, and the reward for participation was set at $3.8, which is above the minimum wage in the United States. As for expert evaluations, all experts were invited based on their background in mobile privacy and policy research. Participation was voluntary, and no monetary incentives were provided. These two user studies (PD and evaluations) have been reviewed and approved by the Academic Ethics Review Committee of the first author’s institution whose role is equivalent to the Institutional Review Board (IRB) in the United States. 
+
+## Data Availability 
+
+The DePra platform was developed using a React-based frontend, a Flask-based backend server, and a MySQL database for data storage and retrieval. We provide a replication package that contains the source code of DePra , the implementation of its key modules (e.g., contextual explanation generation, category-based representative selection), as well as the datasets used in our experiments. The repli-cation package is available at: https://anonymous.4open.science/r/ DemocratizePrivacyRating-B7C4/. 
+
+## References 
+
+[1] 2019. Permission-greedy apps delayed Android 6 upgrade so they could har-vest more user data. https://www.zdnet.com/article/permission-greedy-apps-delayed-android-6-upgrade-so-they-could-harvest-more-user-data/. [2] 2019. Protect Your Privacy From the Apps on Your Phone. https: //www.consumerreports.org/electronics-computers/privacy/protect-your-privacy-from-the-apps-on-your-phone-a1049648633/. [3] 2023. Android financial apps too greedy for permissions. https://cybernews.com/ security/android-financial-apps-greedy-for-permissions/. [4] 2023. Greedy apps collect more information than they should. https://betanews. com/2023/10/27/greedy-apps-collect-more-information-than-they-should/. [5] 2024. BERTopic. https://maartengr.github.io/BERTopic/index.html. [6] 2024. Google-Play-Scraper. https://github.com/JoMingyu/google-play-scraper. [7] 2025. Artifact Availability. https://anonymous.4open.science/r/ DemocratizePrivacyRating-17E2. [8] 2025. Prolific: Easily collect high-quality data from real people. https://www. prolific.com/. [9] 2025. Third-Party Library Permission Piggybacking in Android Apps. https://blog.appicaptor.com/2025/02/27/third-party-library-permission-piggybacking-in-android-apps/. [10] Sadiq Aliyu, Sushmita Khan, Aminata N Mbodj, Oluwafemi Osho, Lingyuan Li, Bart Knijnenburg, and Mauro Cherubini. 2024. Participatory Design to Ad-dress Disclosure-Based Cyberbullying. In Proceedings of the 2024 ACM Designing Interactive Systems Conference . 1547–1565. [11] Kevin Allix, Tegawendé F Bissyandé, Jacques Klein, and Yves Le Traon. 2016. Androzoo: Collecting millions of android apps for the research community. In 
+
+2016 IEEE/ACM 13th Working Conference on Mining Software Repositories (MSR) .IEEE, 468–471. [12] Hazim Almuhimedi, Florian Schaub, Norman Sadeh, Idris Adjerid, Alessandro Acquisti, Joshua Gluck, Lorrie Faith Cranor, and Yuvraj Agarwal. 2015. Your Loca-tion has been Shared 5,398 Times! A Field Study on Mobile App Privacy Nudging. In Proceedings of the 33rd Annual ACM Conference on Human Factors in Com-puting Systems (Seoul, Republic of Korea) (CHI ’15) . Association for Computing Machinery, New York, NY, USA, 787–796. doi:10.1145/2702123.2702210 [13] Apple. 2025. Privacy on iOS. https://developer.apple.com/design/human-interface-guidelines/privacy. [14] Henrik Axelborn and John Berggren. 2023. Topic Modeling for Customer Insights: A Comparative Analysis of LDA and BERTopic in Categorizing Customer Calls. [15] Michael Backes, Sven Bugiel, and Erik Derr. 2016. Reliable Third-Party Library Detection in Android and its Security Applications. In Proceedings of the 2016 ACM SIGSAC Conference on Computer and Communications Security (Vienna, Austria) (CCS ’16) . Association for Computing Machinery, New York, NY, USA, 356–367. doi:10.1145/2976749.2978333 [16] Susanne Barth, Dan Ionita, and Pieter Hartel. 2022. Understanding online pri-vacy—a systematic review of privacy visualizations and privacy by design guide-lines. ACM Computing Surveys (CSUR) 55, 3 (2022), 1–37. [17] Kerstin Bongard-Blanchy, Jean-Louis Sterckx, Arianna Rossi, Verena Distler, Salvador Rivas, and Vincent Koenig. 2022. An (Un) Necessary Evil-Users’(Un) Certainty about Smartphone App Permissions and Implications for Privacy Engi-neering. In 2022 IEEE European Symposium on Security and Privacy Workshops (EuroS&PW) . IEEE, 01–08. [18] Virginia Braun and Victoria Clarke. 2006. Using thematic analysis in psychology. 
+
+Qualitative Research in Psychology 3, 2 (2006), 77–101. [19] Wenjuan Bu, Hui Shu, Fei Kang, Qian Hu, and Yuntian Zhao. 2023. Software Subclassification Based on BERTopic-BERT-BiLSTM Model. Electronics 12, 18 (2023), 3798. [20] Kai Chih Chang, Razieh Nokhbeh Zaeem, and K Suzanne Barber. 2020. A frame-work for estimating privacy risk scores of mobile apps. In International Conference on Information Security . Springer, 217–233. [21] European Commission. 2022. General Data Protection Regulation. https:// commission.europa.eu/law/law-topic/data-protection_en. [22] European Commission. 2025. Art. 5 GDPR - Principles relating to processing of personal data. https://gdpr.eu/article-5-how-to-process-personal-data/. [23] DigiChina. 2021. Personal Information Protection Law of the People’s Republic of China. https://digichina.stanford.edu/work/translation-personal-information-protection-law-of-the-peoples-republic-of-china-effective-nov-1-2021/. [24] Roman Egger and Joanne Yu. 2022. A topic modeling comparison between lda, nmf, top2vec, and bertopic to demystify twitter posts. Frontiers in sociology 7(2022), 886498. [25] Houda Elmimouni, Eric P. S. Baumer, and Andrea Forte. 2024. On Being an Expert: Habitus as a Lens for Understanding Privacy Expertise. Proc. ACM Hum.-Comput. Interact. 8, CSCW1, Article 102 (April 2024), 25 pages. doi:10.1145/3637379 [26] Adrienne Porter Felt, Elizabeth Ha, Serge Egelman, Ariel Haney, Erika Chin, and David Wagner. 2012. Android permissions: user attention, comprehension, and behavior. In Proceedings of the Eighth Symposium on Usable Privacy and Security 
+
+(Washington, D.C.) (SOUPS ’12) . Association for Computing Machinery, New York, NY, USA, Article 3, 14 pages. doi:10.1145/2335356.2335360 [27] Alisa Frik and Alexia Gaudeul. 2020. A measure of the implicit value of privacy under risk. Journal of Consumer Marketing 37, 4 (2020), 457–472. [28] Google. 2025. Permissions on Android. https://developer.android.com/guide/ topics/permissions/overview. [29] Alessandra Gorla, Ilaria Tavecchia, Florian Gross, and Andreas Zeller. 2014. Checking app behavior against app descriptions. In Proceedings of the 36th inter-national conference on software engineering . 1025–1035. Listen to the Voices of Everyday Users: Democratizing Privacy Ratings for Sensitive Data Access in Mobile Apps Conference’17, July 2017, Washington, DC, USA 
+
+[30] Judith Gregory. 2003. Scandinavian Approaches to Participatory Design. https: //api.semanticscholar.org/CorpusID:14198877 [31] Asma Hamed and Hella Kaffel Ben Ayed. 2016. Privacy risk assessment and users’ awareness for mobile apps permissions. In 2016 IEEE/ACS 13th International Conference of Computer Systems and Applications (AICCSA) . IEEE, 1–8. [32] Kotaro Hara, Christine Chan, and Jon E Froehlich. 2016. The design of assistive location-based technologies for people with ambulatory disabilities: A formative study. In Proceedings of the 2016 CHI conference on human factors in computing systems . 1757–1768. [33] ICCL. 2021. Europe’s Enforcement Paralysis: 2021 GDPR Report. https://www.iccl.ie/wp-content/uploads/2021/09/Europes-enforcement-paralysis-2021-ICCL-report-on-GDPR-enforcement.pdf. [34] Qatrunnada Ismail, Tousif Ahmed, Apu Kapadia, and Michael K Reiter. 2015. Crowdsourced exploration of security configurations. In Proceedings of the 33rd Annual ACM Conference on Human Factors in Computing Systems . 467–476. [35] Daniel Kahneman and Amos Tversky. 2013. Prospect theory: An analysis of decision under risk. In Handbook of the fundamentals of financial decision making: Part I . World Scientific, 99–127. [36] Jina Kang, Hyoungshick Kim, Yun Gyung Cheong, and Jun Ho Huh. 2015. Visual-izing privacy risks of mobile applications through a privacy meter. In Information Security Practice and Experience: 11th International Conference, ISPEC 2015, Beijing, China, May 5-8, 2015, Proceedings . Springer, 548–558. [37] Mark J Keith, Jeffry S Babb, and Paul Benjamin Lowry. 2014. A longitudinal study of information privacy on mobile devices. In 2014 47th Hawaii International Conference on System Sciences . IEEE, 3149–3158. [38] Patrick Gage Kelley, Lorrie Faith Cranor, and Norman Sadeh. 2013. Privacy as part of the app decision-making process. In Proceedings of the SIGCHI Conference on Human Factors in Computing Systems (Paris, France) (CHI ’13) . Association for Computing Machinery, New York, NY, USA, 3393–3402. doi:10.1145/2470654. 2466466 [39] Nabila Khodeir and Fatma Elghannam. 2024. Efficient topic identification for urgent MOOC Forum posts using BERTopic and traditional topic modeling tech-niques. Education and Information Technologies (2024), 1–27. [40] Nakyoung Kim, Hyeontaek Oh, and Jun Kyun Choi. 2023. A privacy scoring framework: Automation of privacy compliance and risk evaluation with standard indicators. Journal of King Saud University-Computer and Information Sciences 
+
+35, 1 (2023), 514–525. [41] Konrad Kollnig, Reuben Binns, Pierre Dewitte, Max Van Kleek, Ge Wang, Daniel Omeiza, Helena Webb, and Nigel Shadbolt. 2021. A fait accompli? an empirical study into the absence of consent to third-party tracking in android apps. In 
+
+Proceedings of the Seventeenth USENIX Conference on Usable Privacy and Security (SOUPS’21) . USENIX Association, USA, Article 10, 15 pages. [42] Klaus Krippendorff. 2011. Computing Krippendorff’s alpha-reliability. (2011). [43] Jabari Kwesi, Jiaxun Cao, Riya Manchanda, and Pardis Emami-Naeini. 2025. Exploring User Security and Privacy Attitudes and Concerns Toward the Use of 
+
+{General-Purpose } { LLM } Chatbots for Mental Health. In 34th USENIX Security Symposium (USENIX Security 25) . 6007–6024. [44] CMS Law. 2023. GDPR Enforcement Tracker Report. https://cms.law/en/media/ international/files/publications/publications/gdpr-enforcement-tracker-report-may-2023. [45] Guocheng Liao, Xu Chen, and Jianwei Huang. 2019. Prospect theoretic analysis of privacy-preserving mechanism. IEEE/ACM Transactions on Networking 28, 1 (2019), 71–83. [46] Jialiu Lin, Shahriyar Amini, Jason I Hong, Norman Sadeh, Janne Lindqvist, and Joy Zhang. 2012. Expectation and purpose: understanding users’ mental models of mobile app privacy through crowdsourcing. In Proceedings of the 2012 ACM conference on ubiquitous computing . 501–510. [47] Jialiu Lin, Bin Liu, Norman Sadeh, and Jason I Hong. 2014. Modeling {Users’ }
+
+mobile app privacy preferences: restoring usability in a sea of permission settings. In 10th Symposium On Usable Privacy and Security (SOUPS 2014) . 199–212. [48] Duc Cuong Nguyen, Erik Derr, Michael Backes, and Sven Bugiel. 2019. Short Text, Large Effect: Measuring the Impact of User Reviews on Android App Security & Privacy. In 2019 IEEE Symposium on Security and Privacy (SP) . 555–569. doi:10. 1109/SP.2019.00012 [49] Trung Tin Nguyen, Michael Backes, Ninja Marnau, and Ben Stock. 2021. Share first, ask later (or never?) studying violations of {GDPR’s } explicit consent in android apps. In 30th USENIX Security Symposium (USENIX Security 21) . 3667– 3684. [50] Helen Nissenbaum. 2004. Privacy as contextual integrity. Wash. L. Rev. 79 (2004), 119. [51] OAG. 2022. California Consumer Privacy Act. https://oag.ca.gov/privacy/ccpa. [52] Leilei Qu, Cheng Wang, Ruojin Xiao, Jianwei Hou, Wenchang Shi, and Bin Liang. 2019. Towards better security decisions: applying prospect theory to cyberse-curity. In Extended Abstracts of the 2019 CHI Conference on Human Factors in Computing Systems . 1–6. [53] Florian Schaub, Rebecca Balebako, Adam L. Durity, and Lorrie Faith Cranor. 2015. A design space for effective privacy notices. In Proceedings of the Eleventh USENIX Conference on Usable Privacy and Security (Ottawa, Canada) (SOUPS ’15) . USENIX Association, USA, 1–17. [54] Simmons. 2021. Ireland’s balance between Big Tech and data privacy. https://www.simmons-simmons.com/en/publications/ ckucpnrme21dy0a42mwuhhhae/ireland-s-balance-between-big-tech-and-data-privacy. [55] Qiurong Song, Yanlai Wu, Rie Helene (Lindy) Hernandez, Yao Li, Yubo Kou, and Xinning Gui. 2025. Understanding Users’ Perception of Personally Identifiable Information. In Proceedings of the 2025 CHI Conference on Human Factors in Computing Systems (CHI ’25) . Association for Computing Machinery, New York, NY, USA, Article 240, 24 pages. doi:10.1145/3706598.3713783 [56] syrenis. 2024. Privacy policies: Is anyone reading them? https://syrenis.com/ resources/blog/privacy-policies-is-anyone-reading-them/. [57] Mohammad Tahaei, Ruba Abu-Salma, and Awais Rashid. 2023. Stuck in the Permissions With You: Developer & End-User Perspectives on App Permissions & Their Privacy Ramifications. In Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems (Hamburg, Germany) (CHI ’23) . Association for Computing Machinery, New York, NY, USA, Article 168, 24 pages. doi:10.1145/ 3544548.3581060 [58] Junwei Tang, Ruixuan Li, Hongmu Han, Heng Zhang, and Xiwu Gu. 2017. De-tecting permission over-claim of android applications with static and semantic analysis approach. In 2017 IEEE Trustcom/BigDataSE/ICESS . IEEE, 706–713. [59] Ehsan Ul Haque and Mohammad Maifi Hasan Khan. 2025. Investigating Users’ Decision-making for Data Privacy Controls in the Context of Internet of Things (IoT) Devices Using an Incentive-compatible Lottery Study. In Proceedings of the 2025 CHI Conference on Human Factors in Computing Systems (CHI ’25) . Asso-ciation for Computing Machinery, New York, NY, USA, Article 867, 22 pages. doi:10.1145/3706598.3713251 [60] Haoyu Wang, Yuanchun Li, Yao Guo, Yuvraj Agarwal, and Jason I Hong. 2017. Understanding the purpose of permission use in mobile apps. ACM Transactions on Information Systems (TOIS) 35, 4 (2017), 1–40. [61] Liu Wang, Dong Wang, Shidong Pan, Zheng Jiang, Haoyu Wang, and Yi Wang. 2025. A big step forward? a user-centric examination of ios app privacy report and enhancements. In 2025 IEEE Symposium on Security and Privacy (SP) . IEEE, 4210–4228. [62] WIRED. 2022. How GDPR Is Failing. https://www.wired.com/story/gdpr-2022/. [63] Shao Yang, Yuehan Wang, Yuan Yao, Haoyu Wang, Yanfang Ye, and Xusheng Xiao. 2022. Describectx: context-aware description synthesis for sensitive behaviors in mobile apps. In Proceedings of the 44th International Conference on Software Engineering . 685–697. [64] Yang Yang, Xuehui Du, and Zhi Yang. 2021. Pradroid: Privacy risk assessment for android applications. In 2021 IEEE 5th International Conference on Cryptography, Security and Privacy (CSP) . IEEE, 90–95. [65] Kutsal Yesilkagit. 2011. Institutional compliance, European networks of regulation and the bureaucratic autonomy of national regulatory authorities. Journal of European Public Policy 18, 7 (2011), 962–979. [66] Lu Zhou, Chengyongxiao Wei, Tong Zhu, Guoxing Chen, Xiaokuan Zhang, Suguo Du, Hui Cao, and Haojin Zhu. 2023. {POLICYCOMP }: Counterpart Comparison of Privacy Policies Uncovers Overbroad Personal Data Collection Practices. In 
+
+32nd USENIX Security Symposium (USENIX Security 23) . 1073–1090. Conference’17, July 2017, Washington, DC, USA Liu Wang, Tianshu Zhou, Haoyu Wang, and Yi Wang 
+
+## Supplementary Tables 
+
+Table 2 presents the set of high-impact data types and their associ-ated Android permissions considered in our study. These include core resources such as calendars, call logs, contacts, location, micro-phone, sensors, SMS, storage, and others, which represent sensitive access points frequently highlighted in privacy research and reg-ulatory discussions. By explicitly mapping each data type to its relevant permissions, the table provides a concrete scope of the privacy-sensitive behaviors under investigation, forming the foun-dation for both our system’s contextual explanations and the user evaluations of data access practices. 
+
+Table 2: The list of our concerned data/resource types and their corresponding permissions. Data Type Permissions 
+
+CALENDAR READ_CALENDAR WRITE_CALENDAR CALL_LOG READ_CALL_LOG WRITE_CALL_LOG CAMERA CAMERA CONTACTS READ_CONTACTS WRITE_CONTACTS GET_ACCOUNTS LOCATION ACCESS_FINE_LOCATION ACCESS_COARSE_LOCATION ACCESS_BACKGROUND_LOCATION MICROPHONE RECORD_AUDIO PHONE READ_PHONE_STATE READ_PHONE_NUMBERS SENSORS BODY_SENSORS BODY_SENSORS_BACKGROUND ACTIVITY_RECOGNITION ACTIVITY_RECOGNITION SMS SEND_SMS RECEIVE_SMS READ_SMS RECEIVE_WAP_PUSH RECEIVE_MMS READ_CELL_BROADCASTS STORAGE READ_EXTERNAL_STORAGE WRITE_EXTERNAL_STORAGE MANAGE_EXTERNAL_STORAGE ACCESS_MEDIA_LOCATION READ_MEDIA_IMAGES READ_MEDIA_VIDEO READ_MEDIA_AUDIO READ_MEDIA_VISUAL_USER_SELECTED 
+
+Table 3 presents ten categories of mobile third-party SDKs, grouped according to their primary functionalities. The categories cover a wide spectrum of services, including development utilities, adver-tising, analytics, mapping, payment processing, social networking, GUI components, game engines, digital identity, and app market-places. Each category reflects common forms of third-party in-tegrations in mobile apps, many of which involve sensitive data collection (e.g., advertising and analytics tracking user behavior, digital identity managing authentication data). By organizing third-party services into these functional groups, we provide a clearer view of how external SDKs contribute to app functionality while also shaping privacy risks, offering a systematic basis for analyzing third-party data access and informing user-facing privacy explana-tions. 
+
+Table 3: Types of mobile third-party SDKs SDK Type Description            
+
+> Development Aid Libraries that provide development utilities such as parsers, debugging tools, and code analysis utilities. Advertisement SDKs used for integrating in-app advertisements, enabling revenue generation through ad impressions and clicks. Mobile Analytics SDKs that collect and analyze user data, tracking user engagement, retention, and performance metrics. Map SDKs that provide mapping, navigation, and geolocation services to enhance location-based functionalities in applications. Payment SDKs that enable in-app payment processing, supporting various payment gateways and digital wallet integrations. Social Network SDKs that integrate social media functionalities, such as sharing, authentication, and social graph interactions. GUI Component Libraries providing reusable UI elements, such as widgets, animations, and design frameworks for applications. Game Engine SDKs that provide a framework for game development, including physics en-gines, rendering, and asset management. Digital Identity SDKs used for authentication and identity verification, supporting OAuth, biometric authentication, and SSO. App Market SDKs that facilitate app distribution, updates, and user acquisition through third-party app stores and marketplaces. Listen to the Voices of Everyday Users: Democratizing Privacy Ratings for Sensitive Data Access in Mobile Apps Conference’17, July 2017, Washington, DC, USA
+
+## Post-Study Survey 
+
+1. Background Information. 
+
+• Prolific ID: (Required) 
+
+• Daily time spent using mobile apps: (Required) Types of apps you frequently use: (Select at least one) 
+
+□ Social □ Shopping 
+
+□ Weather □ Business 
+
+□ Education □ Maps and Navigation 
+
+□ Music and Audio □ Health and Fitness 
+
+□ Others 
+
+2. Mobile Privacy Preferences. 
+
+A. Sensitivity of Data Types 
+
+Which of the following user data types do you consider sensitive? (Select at least one) 
+
+□ Name and Contact Information □ Geographic Location 
+
+□ Call Records □ App Usage Records 
+
+□ Biometric Data □ Health Data 
+
+□ Bank Transaction Data □ Photos Other sensitive data types (if any): 
+
+B. Awareness of Privacy Rights 
+
+Do you carefully read privacy policies when installing apps? (Re-quired) 
+
+⃝ Often ⃝ Sometimes ⃝ Rarely How familiar are you with setting app permissions? (Required) 
+
+⃝ Very Familiar ⃝ Somewhat Familiar ⃝ Not Familiar 
+
+C. App Behavior Choices 
+
+If you discover an app might leak privacy data, what actions would you take? (Select at least one) 
+
+□ Stop using the app 
+
+□ Look for alternative apps 
+
+□ Continue using but restrict permissions 
+
+□ Contact the developer or relevant authorities Other actions you might take (if any): 
+
+3. Risk Attitude Test. 
+
+1. You participated in a lottery. Which option would you choose? (Required) 
+
+⃝ A. Guaranteed $90 reward 
+
+⃝ B. 95% chance to win $100, 5% chance to win nothing 
+
+2. You participated in a lucky draw. Which option would you choose? (Required) 
+
+⃝ A. Guaranteed $5 reward 
+
+⃝ B. 5% chance to win $100, 95% chance to win nothing 
+
+3. You need to pay a fee to participate in a game. Which option would you choose? (Required) 
+
+⃝ A. Pay $90 for sure 
+
+⃝ B. 95% chance to pay $100, 5% chance to pay nothing 
+
+4. You were told you might need to pay a fine. Which option would you choose? (Required) 
+
+⃝ A. Pay $5 for sure 
+
+⃝ B. 5% chance to pay $100, 95% chance to pay nothing 
+
+4. User Preferences and Attitudes. Which type of app do you prefer? (Required) 
+
+⃝ Free apps with extensive permissions 
+
+⃝ Paid apps without personal data collection What are your thoughts on mobile privacy protection?

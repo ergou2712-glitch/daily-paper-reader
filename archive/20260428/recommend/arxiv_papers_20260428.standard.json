@@ -1,0 +1,237 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-28T20:08:18.961398+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2604.23896v1",
+      "title": "From Trust to Appropriate Reliance: Measurement Constructs in Human-AI Decision-Making",
+      "abstract": "While human-AI decision-making research has primarily used trust measurements to assess the practical usage of AI systems by their end-users, recent empirical evidence suggests that trust measurements do not inform users' appropriate reliance on AI systems. While examining the human-AI decision-making literature, in this work, we review empirical studies that assess people's appropriate reliance on AI advice, differentiating measurements and constructs of appropriate reliance from trust and mere reliance. Our analysis of literature shows that constructs for human-AI appropriate reliance are still fragmented in research. We present three views on appropriate reliance, namely Traditional, Appropriateness, and Dominance, as discussed in research. Using these views, we evaluate objective metrics reported in studies and argue for their consensus to facilitate the comparison across empirical research. We also discuss how studies employ objective metrics and examine their validity in application contexts. Our work contributes to the critical body of research on exploring objective metrics for assessing humans' appropriate reliance on AI advice.",
+      "authors": [
+        "Muhammad Raees",
+        "Konstantinos Papangelis"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC"
+      ],
+      "published": "2026-04-26T21:47:40+00:00",
+      "link": "https://arxiv.org/pdf/2604.23896v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "review of trust measurements and constructs",
+      "llm_evidence_cn": "信任测量与构念的综述",
+      "llm_evidence": "信任测量与构念的综述",
+      "canonical_evidence": "信任测量与构念的综述",
+      "llm_tldr_en": "Reviews and differentiates trust measurement constructs from appropriate reliance in human-AI decision-making.",
+      "llm_tldr_cn": "综述并区分了人机决策中信任测量的构念与适当依赖之间的关系。",
+      "llm_tldr": "综述并区分了人机决策中信任测量的构念与适当依赖之间的关系。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.23060v1",
+      "title": "Learning to Trust AI and Data-driven models in Data Assimilation through a Multifidelity Ensemble Gaussian Mixture Filter Framework",
+      "abstract": "AI and data-driven models have large potential for data assimilation applications by creating fast and accurate forecasts. Their tendency to produce spurious inaccurate, nonphysical results -- hallucination -- however, raises a serious question about their long-term use, and can be categorized as untrustworthy methods. Theory-driven methods on the other hand are slow, but are capable of staying physically realistic due to their mathematical underpinning, and can be categorized as trustworthy methods. We argue that by making use of these methods in tandem, it is possible to build a relative measure of trust between the theory-driven and data-driven methods that results in a combined trustworthy methodology. We argue, and then show, that the bandwidth scaling factors in the kernel density estimates can be used to represent our trust in the theory-driven and data-driven models. We provide for ways in which these measures of trust can be adaptively computed through an expectation-maximization approach. We combine all of these ideas to create the multifidelity ensemble Gaussian mixture filter and its adaptive trust version, which are particle filters capable of high-dimensional data assimilation. We validate our ideas on both a static banana problem and on a sequential filtering example with the Lorenz '96 equations, showing that it is possible to create a particle filter that is capable of high dimensional convergent inference in the undersampled regime -- when the number of theory-driven samples is less than the dimension of the system.",
+      "authors": [
+        "Andrey A. Popov"
+      ],
+      "primary_category": "cs.CE",
+      "categories": [
+        "cs.CE",
+        "math.OC"
+      ],
+      "published": "2026-04-24T23:11:34+00:00",
+      "link": "https://arxiv.org/pdf/2604.23060v1",
+      "tags": [
+        "keyword:信任测量"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "build a relative measure of trust between methods",
+      "llm_evidence_cn": "建立方法之间的相对信任度量",
+      "llm_evidence": "建立方法之间的相对信任度量",
+      "canonical_evidence": "建立方法之间的相对信任度量",
+      "llm_tldr_en": "Proposes a framework to build relative trust measures between theory-driven and data-driven models.",
+      "llm_tldr_cn": "提出了一个在理论驱动和数据驱动模型之间建立相对信任度量的框架。",
+      "llm_tldr": "提出了一个在理论驱动和数据驱动模型之间建立相对信任度量的框架。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "methods and metrics for measuring trust",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.22971v1",
+      "title": "Peer Identity Bias in Multi-Agent LLM Evaluation: An Empirical Study Using the TRUST Democratic Discourse Analysis Pipeline",
+      "abstract": "The TRUST democratic discourse analysis pipeline exposes its large language model (LLM) components to peer model identity through multiple structural channels -- a design feature whose bias implications have not previously been empirically tested. We provide the first systematic measurement of identity-dependent scoring bias across all active identity exposure channels in TRUST, crossing four model families with two anonymization scopes across 30 political statements. The central finding is that single-channel anonymization produces near-zero bias effects, because individual channels act in opposite directions and cancel each other out -- a result that would lead an evaluator to conclude that identity bias is absent when it is not. Only full-pipeline anonymization reveals the true pattern: homogeneous ensembles amplify identity-driven sycophancy when model identity is fully visible, while the heterogeneous production configuration shows the reverse. Model choice matters independently: one tested model exhibits baseline sycophancy two to three times higher than the others and near-zero deliberative conflict on ideological topics, making it structurally unsuitable for pipelines where genuine inter-role disagreement is the intended quality mechanism. Three practical conclusions follow. First, heterogeneous model ensembles are structurally more robust than homogeneous ones, achieving higher consensus rates and lower identity amplification. Second, full-pipeline anonymization is required for valid bias measurement -- partial anonymization is insufficient and actively misleading. Third, these findings have direct implications for the validation of multi-agent LLM systems in quality-critical applications: a system validated under partial anonymization or with a homogeneous ensemble may pass validation while retaining structural identity bias invisible to single-channel measurement.",
+      "authors": [
+        "Juergen Dietrich"
+      ],
+      "primary_category": "cs.CY",
+      "categories": [
+        "cs.CY",
+        "cs.AI",
+        "cs.MA"
+      ],
+      "published": "2026-04-24T19:32:01+00:00",
+      "link": "https://arxiv.org/pdf/2604.22971v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "systematic measurement of identity-dependent scoring bias",
+      "llm_evidence_cn": "身份依赖评分偏差的系统测量",
+      "llm_evidence": "身份依赖评分偏差的系统测量",
+      "canonical_evidence": "身份依赖评分偏差的系统测量",
+      "llm_tldr_en": "Empirically tests bias in the TRUST discourse analysis pipeline through systematic measurement of scoring channels.",
+      "llm_tldr_cn": "通过对评分渠道的系统测量，实证测试了TRUST话语分析流水线中的偏差。",
+      "llm_tldr": "通过对评分渠道的系统测量，实证测试了TRUST话语分析流水线中的偏差。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.23136v1",
+      "title": "How Researchers Navigate Accountability, Transparency, and Trust When Using AI Tools in Early-Stage Research: A Think-Aloud Study",
+      "abstract": "In the early stages of scientific research, researchers rely on core scholarly judgments to identify relevant literature, assess credible evidence, and determine which directions merit pursuit. As AI tools become increasingly integrated into these early-stage workflows, the scholarly judgments that were once transparent and attributable to individual researchers become obscured, raising critical Responsible AI (RAI) concerns around accountability, transparency, and trust. Yet how these three dimensions manifest in real-time, in-situ scholarly practice remains largely unexplored. To address this gap, we conducted a think-aloud study with 15 researchers to examine how they used AI tools powered by large language models (LLMs) across early-stage research tasks, including literature exploration, synthesis, and research ideation. Our key findings address the tripartite constructs of accountability, transparency, and trust. First, the confident tone of AI outputs misrepresents epistemic uncertainty, making it more difficult for researchers (who are ultimately accountable) to identify which outputs require the greatest scrutiny. Second, opaque retrieval and content construction make provenance difficult to establish for transparency. Third, trust in AI is fragile, context-dependent, and easily eroded. In response, participant researchers were seen to develop compensatory strategies to restore scholarly judgment under uncertainty. Overall, our findings serve to contextualize AI-mediated research as a RAI problem grounded in lived researcher experience and motivate attention to deliberate AI integration that preserves accountability, supports transparency, and fosters informed trust.",
+      "authors": [
+        "Sanjana Gautam",
+        "Houjiang Liu",
+        "Yujin Choi",
+        "Matthew Lease"
+      ],
+      "primary_category": "cs.CY",
+      "categories": [
+        "cs.CY",
+        "cs.HC"
+      ],
+      "published": "2026-04-25T04:35:48+00:00",
+      "link": "https://arxiv.org/pdf/2604.23136v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "examines how researchers navigate and assess trust in AI tools",
+      "llm_evidence_cn": "研究研究人员如何在使用AI工具时引导和评估信任",
+      "llm_evidence": "研究研究人员如何在使用AI工具时引导和评估信任",
+      "canonical_evidence": "研究研究人员如何在使用AI工具时引导和评估信任",
+      "llm_tldr_en": "A think-aloud study exploring how researchers navigate accountability and trust when using AI in scientific workflows.",
+      "llm_tldr_cn": "通过出声思考实验研究科研人员在科研工作流中使用AI时如何处理问责与信任。",
+      "llm_tldr": "通过出声思考实验研究科研人员在科研工作流中使用AI时如何处理问责与信任。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.23413v1",
+      "title": "Beyond Local vs. External: A Game-Theoretic Framework for Trustworthy Knowledge Acquisition",
+      "abstract": "Cloud-hosted Large Language Models (LLMs) offer unmatched reasoning capabilities and dynamic knowledge, yet submitting raw queries to these external services risks exposing sensitive user intent. Conversely, relying exclusively on trusted local models preserves privacy but often compromises answer quality due to limited parameter scale and knowledge. To resolve this dilemma, we propose Game-theoretic Trustworthy Knowledge Acquisition (GTKA), a framework that formulates the trade-off between knowledge utility and privacy as a strategic game. GTKA consists of three components: (i) a privacy-aware sub-query generator that decomposes sensitive intent into generalized, low-risk fragments; (ii) an adversarial reconstruction attacker that attempts to infer the original query from these fragments, providing adaptive leakage signals; and (iii) a trusted local integrator that synthesizes external responses within a secure boundary. By training the generator and attacker in an alternating adversarial manner, GTKA optimizes the sub-query generation policy to maximize knowledge acquisition accuracy while minimizing the reconstructability of the original sensitive intent. To validate our approach, we construct two sensitive-domain benchmarks in the biomedical and legal fields. Extensive experiments demonstrate that GTKA significantly reduces intent leakage compared to state-of-the-art baselines while maintaining high-fidelity answer quality.",
+      "authors": [
+        "Rujing Yao",
+        "Yufei Shi",
+        "Yang Wu",
+        "Ang Li",
+        "Zhuoren Jiang",
+        "XiaoFeng Wang",
+        "Haixu Tang",
+        "Xiaozhong Liu"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-04-25T19:08:51+00:00",
+      "link": "https://arxiv.org/pdf/2604.23413v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "framework for trustworthy knowledge acquisition",
+      "llm_evidence_cn": "可信知识获取框架",
+      "llm_evidence": "可信知识获取框架",
+      "canonical_evidence": "可信知识获取框架",
+      "llm_tldr_en": "Develops a game-theoretic framework to balance utility and privacy for trustworthy knowledge acquisition.",
+      "llm_tldr_cn": "开发了一个博弈论框架，以平衡可信知识获取中的效用与隐私。",
+      "llm_tldr": "开发了一个博弈论框架，以平衡可信知识获取中的效用与隐私。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.24066v1",
+      "title": "Listen to the Voices of Everyday Users: Democratizing Privacy Ratings for Sensitive Data Access in Mobile Apps",
+      "abstract": "Mobile apps frequently request excessive data access, raising significant privacy concerns. While regulations like GDPR emphasize data minimization, they provide limited guidance on concretely defining and enforcing necessary data access. Existing regulatory mechanisms primarily rely on expert-driven audits that face challenges in scalability, neutrality, and alignment with user expectations. In this paper, we propose a novel paradigm--democratizing privacy assessment, inspired by prior work on user-centric privacy perceptions--which repositions users as active evaluators in the privacy auditing process, recognizing that user perceptions of data usage play a crucial role in assessing the appropriateness and necessity of data access. To operationalize this paradigm, we introduce DePRa, a prototype system developed through participatory design, featuring contextual explanation provision, category-based representative selection, an intuitive rating interface, and preference-based rating adjustment. We evaluated DePRa with 200 everyday mobile app users, analyzing how effectively it captures user opinions on sensitive data access, comparing their privacy ratings with expert assessments, and exploring risk preference-based score calibration. Our findings show the feasibility and promise of democratized privacy assessment, highlighting its potential to complement expert auditing and support inclusive privacy evaluation.",
+      "authors": [
+        "Liu Wang",
+        "Tianshu Zhou",
+        "Haoyu Wang",
+        "Yi Wang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.HC"
+      ],
+      "published": "2026-04-27T05:47:58+00:00",
+      "link": "https://arxiv.org/pdf/2604.24066v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "proposes user-centric privacy ratings as a measurement paradigm",
+      "llm_evidence_cn": "提出以用户为中心的隐私评级作为一种测量范式",
+      "llm_evidence": "提出以用户为中心的隐私评级作为一种测量范式",
+      "canonical_evidence": "提出以用户为中心的隐私评级作为一种测量范式",
+      "llm_tldr_en": "Proposes democratizing privacy assessment by using user perceptions as a metric for data access appropriateness.",
+      "llm_tldr_cn": "提议通过将用户感知作为数据访问适当性的衡量指标，实现隐私评估的民主化。",
+      "llm_tldr": "提议通过将用户感知作为数据访问适当性的衡量指标，实现隐私评估的民主化。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
