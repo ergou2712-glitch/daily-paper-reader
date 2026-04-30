@@ -6,19 +6,23 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-29
-- 运行时间：2026-04-29 20:47:26 UTC
+- 最新运行日期：2026-04-30
+- 运行时间：2026-04-30 20:36:10 UTC
 - 运行状态：成功
-- 本次总论文数：0
-- 精读区：0
+- 本次总论文数：1
+- 精读区：1
 - 速读区：0
 
 ### 今日简报（AI）
-> 今日无新推荐，系统未产出可展示论文。
-- 详情：[/202604/29/README](/202604/29/README)
+今日深度复盘临床 AI 信任构建，探索从“黑盒置信度”向“可衡量信任”转型的关键路径。
+核心结论在于通过证据支撑、动态监督与分级自主权框架，确保 AI 在医疗决策中的透明度与安全性。
+推荐关注 AI 医疗应用中如何通过分阶段授权实现人机协作的风险闭环。
+- 详情：[/202604/30/README](/202604/30/README)
 
 ### 精读区论文标签
-- 本次无精读推荐。
+1. [From Black-Box Confidence to Measurable Trust in Clinical AI: A Framework for Evidence, Supervision, and Staged Autonomy](/202604/30/2604.26671v1-from-black-box-confidence-to-measurable-trust-in-clinical-ai-a-framework-for-evidence-supervision-and-staged-autonomy)  
+   标签：评分：9.0/10、query:q3
+   evidence：临床 AI 可测量信任框架
 
 ### 速读区论文标签
 - 本次无速读推荐。

@@ -1,0 +1,23 @@
+{
+  "label": "2026-04-30",
+  "date": "2026-04-30",
+  "generated_at": "2026-04-30T20:36:18",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202604/30/2604.26671v1-from-black-box-confidence-to-measurable-trust-in-clinical-ai-a-framework-for-evidence-supervision-and-staged-autonomy",
+      "section": "deep",
+      "title_en": "From Black-Box Confidence to Measurable Trust in Clinical AI: A Framework for Evidence, Supervision, and Staged Autonomy",
+      "authors": "Serhii Zabolotnii, Viktoriia Holinko, Olha Antonenko",
+      "date": "2026-04-29",
+      "pdf": "https://arxiv.org/pdf/2604.26671v1",
+      "score": "9.0",
+      "evidence": "临床 AI 可测量信任框架",
+      "tldr": "本研究针对临床AI信任度难以量化的问题，提出了一个基于证据、监督和分级自治的实用框架。该框架不依赖单一黑盒模型，而是结合确定性逻辑、AI辅助验证、多级模型升级及人类监督，通过模块化提示词和可度量的信任指标（如不确定性、校准度、溯源性），将信任转化为可工程化的系统属性，为临床AI的可靠部署提供了路径。",
+      "tags": "query:q3",
+      "abstract_en": "Trust in clinical artificial intelligence (AI) cannot be reduced to model accuracy, fluency of generation, or overall positive user impression. In medicine, trust must be engineered as a measurable system property grounded in evidence, supervision, and operational boundaries of AI autonomy. This article proposes a practical framework for trustworthy clinical AI built around three principles: evidence, supervision, and staged autonomy. Rather than replacing deterministic clinical logic wholesale with end-to-end black-box models, the proposed approach combines a deterministic core, a patient-specific AI assistant for contextual validation, a multi-tier model escalation mechanism, and a human supervision layer for verification, escalation, and risk control. We demonstrate that trust also depends on selective verification of clinically critical findings, bounded clinical context, disciplined prompt architecture, and careful evaluation on realistic cases. Classifier-driven modular prompting is examined as an incremental path to scaling clinical depth without sacrificing prompt performance and without waiting for complete rule-based coverage. To operationalize trust, a set of trust metrics is proposed, built on metrological principles -- measurement uncertainty, calibration, traceability -- enabling quantitative rather than subjective assessment of each architectural layer. In this perspective, trustworthy clinical AI emerges not as a property of an individual model, but as an architectural outcome of a system into which evidence trails, human oversight, tiered escalation, and graduated action rights are embedded from the outset.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

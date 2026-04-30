@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-04-30 <!--dpr-date:20260430-->
+    * 精读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202604/30/2604.26671v1-from-black-box-confidence-to-measurable-trust-in-clinical-ai-a-framework-for-evidence-supervision-and-staged-autonomy" data-sidebar-item="{&quot;title&quot;: &quot;From Black-Box Confidence to Measurable Trust in Clinical AI: A Framework for Evidence, Supervision, and Staged Autonomy&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2604.26671v1-from-black-box-confidence-to-measurable-trust-in-clinical-ai-a-framework-for-evidence-supervision-and-staged-autonomy&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;q3&quot;}], &quot;evidence&quot;: &quot;临床 AI 可测量信任框架&quot;}">From Black-Box Confidence to Measurable Trust in Clinical AI: A Framework for Evidence, Supervision, and Staged Autonomy</a>
   * 2026-04-28 <!--dpr-date:20260428-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202604/28/2604.23896v1-from-trust-to-appropriate-reliance-measurement-constructs-in-human-ai-decision-making" data-sidebar-item="{&quot;title&quot;: &quot;From Trust to Appropriate Reliance: Measurement Constructs in Human-AI Decision-Making&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2604.23896v1-from-trust-to-appropriate-reliance-measurement-constructs-in-human-ai-decision-making&quot;, &quot;score&quot;: &quot;10.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;q5&quot;}], &quot;evidence&quot;: &quot;信任测量与构念的综述&quot;}">From Trust to Appropriate Reliance: Measurement Constructs in Human-AI Decision-Making</a>
