@@ -1,0 +1,122 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-05-01T20:18:11.288150+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2604.28113v1",
+      "title": "I hope we don't do to trust what advertising has done to love",
+      "abstract": "Advertising uses love to sell stuff, like nylons. It also uses the word \"love\" in trivialising ways -- do you \"love\" your oven? When I hear about trust in the context of AI, especially agentic, I hope we don't do to trust what advertising has done to love.   But what is trust? Can we discuss it in actionable and measurable ways in the context of AI? Thus I suggest a number of \"trust pillars\", hoping to start a communal conversation, across computing and beyond, to civil society. I also suggest that agentic systems may be a blessing in disguise, as we may be able to turn their explicit interfaces into \"trust vectors\".",
+      "authors": [
+        "Jade Alglave"
+      ],
+      "primary_category": "cs.CY",
+      "categories": [
+        "cs.CY",
+        "cs.AR",
+        "cs.SE"
+      ],
+      "published": "2026-04-30T17:04:13+00:00",
+      "link": "https://arxiv.org/pdf/2604.28113v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "actionable and measurable trust pillars and vectors",
+      "llm_evidence_cn": "可操作且可衡量的信任支柱与向量",
+      "llm_evidence": "可操作且可衡量的信任支柱与向量",
+      "canonical_evidence": "可操作且可衡量的信任支柱与向量",
+      "llm_tldr_en": "Discusses actionable trust pillars and vectors for measuring trust in agentic AI systems.",
+      "llm_tldr_cn": "探讨了在智能体AI背景下，如何通过信任支柱和信任向量实现可衡量的信任。",
+      "llm_tldr": "探讨了在智能体AI背景下，如何通过信任支柱和信任向量实现可衡量的信任。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "methods and metrics for measuring trust",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.27228v1",
+      "title": "When Roles Fail: Epistemic Constraints on Advocate Role Fidelity in LLM-Based Political Statement Analysis",
+      "abstract": "Democratic discourse analysis systems increasingly rely on multi-agent LLM pipelines in which distinct evaluator models are assigned adversarial roles to generate structured, multi-perspective assessments of political statements. A core assumption is that models will reliably maintain their assigned roles. This paper provides the first systematic empirical test of that assumption using the TRUST pipeline. We develop an epistemic stance classifier that identifies advocate roles from reasoning text without relying on surface vocabulary, and measure role fidelity across 60 political statements (30 English, 30 German) using four metrics: Role Drift Index (RDI), Expected Drift Distance (EDD), Directional Drift Index (DDI), and Entropy-based Role Stability (ERS). We identify two failure modes - the Epistemic Floor Effect (fact-check results create an absolute lower bound below which the legitimizing role cannot be maintained) and Role-Prior Conflict (training-time knowledge overrides role instructions for factually unambiguous statements) - as manifestations of a single mechanism: Epistemic Role Override (ERO). Model choice significantly affects role fidelity: Mistral Large outperforms Claude Sonnet by 28pp (67% vs. 39%) and exhibits a qualitatively different failure mode - role abandonment without polarity reversal - compared to Claude's active switch to the opposing stance. Role fidelity is language-robust. Fact-check provider choice is not universally neutral: Perplexity significantly reduces Claude's role fidelity on German statements (Delta = -15pp, p = 0.007) while leaving Mistral unaffected. These findings have direct implications for multi-agent LLM validation: a system validated without role fidelity measurement may systematically misrepresent the epistemic diversity it was designed to provide.",
+      "authors": [
+        "Juergen Dietrich"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.CY",
+        "cs.MA"
+      ],
+      "published": "2026-04-29T21:50:28+00:00",
+      "link": "https://arxiv.org/pdf/2604.27228v1",
+      "tags": [
+        "keyword:信任测量"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "four metrics to measure role fidelity in TRUST pipeline",
+      "llm_evidence_cn": "TRUST流水线中衡量角色忠实度的四项指标",
+      "llm_evidence": "TRUST流水线中衡量角色忠实度的四项指标",
+      "canonical_evidence": "TRUST流水线中衡量角色忠实度的四项指标",
+      "llm_tldr_en": "Evaluates role fidelity in LLM pipelines using four quantitative metrics within the TRUST framework.",
+      "llm_tldr_cn": "在TRUST框架下，使用四种定量指标系统性地测试了LLM多智能体流水线的角色忠实度。",
+      "llm_tldr": "在TRUST框架下，使用四种定量指标系统性地测试了LLM多智能体流水线的角色忠实度。",
+      "llm_tags": [
+        "query:q4"
+      ],
+      "matched_query_tag": "query:q4",
+      "matched_query_text": "quantitative metrics used to assess trust",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.23795v1",
+      "title": "LLM-CEG: Extending the Classification Error Gauge Framework for Privacy Auditing of Large Language Models",
+      "abstract": "This paper extends the Classification Error Gauge (x-CEG) framework, originally developed for measuring the privacy-utility trade-off in tabular datasets, to privacy auditing of Large Language Models (LLMs). We propose LLM-CEG, a systematic framework that employs membership inference attack (MIA) success rates as an empirical privacy gauge and model perplexity as a utility gauge, iteratively adjusting differential privacy parameters until both thresholds are jointly satisfied. A proof-of-concept prototype fine-tunes DistilGPT-2 on a synthetic clinical PII dataset under four privacy regimes using DP-SGD. Results indicate that DP-SGD reduces MIA attacker advantage by 71.5% while simultaneously improving out-of-distribution utility by 47-50% relative to the overfitted baseline, suggesting that differential privacy may act as implicit regularization under narrow fine-tuning conditions. We further extend the SIED engineering framework to the LLM context as LLM-SIED, providing an auditable, regulator-aligned process for privacy-compliant LLM deployment.",
+      "authors": [
+        "Kato Mivule"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-04-26T16:39:37+00:00",
+      "link": "https://arxiv.org/pdf/2604.23795v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "framework for measuring privacy-utility trade-off",
+      "llm_evidence_cn": "衡量隐私与效用权衡的框架",
+      "llm_evidence": "衡量隐私与效用权衡的框架",
+      "canonical_evidence": "衡量隐私与效用权衡的框架",
+      "llm_tldr_en": "Extends the CEG framework to audit LLM privacy using quantitative attack success rates.",
+      "llm_tldr_cn": "扩展CEG框架，利用成员推理攻击成功率等定量指标对LLM进行隐私审计。",
+      "llm_tldr": "扩展CEG框架，利用成员推理攻击成功率等定量指标对LLM进行隐私审计。",
+      "llm_tags": [
+        "query:q4"
+      ],
+      "matched_query_tag": "query:q4",
+      "matched_query_text": "quantitative metrics used to assess trust",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
