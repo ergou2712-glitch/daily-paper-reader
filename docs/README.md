@@ -6,31 +6,26 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-05-01
-- 运行时间：2026-05-01 20:29:45 UTC
+- 最新运行日期：2026-05-02
+- 运行时间：2026-05-02 20:10:04 UTC
 - 运行状态：成功
-- 本次总论文数：3
-- 精读区：2
+- 本次总论文数：1
+- 精读区：0
 - 速读区：1
 
 ### 今日简报（AI）
-今日深度探讨 AI 时代的信任危机与大模型在政治立场分析中的认知局限。
-核心结论警示我们要防止信任被过度商业化，并揭示了 LLM 在扮演特定政治角色时难以逾越的保真度障碍。
-建议优先研读高分论文以重构对 AI 伦理的认知，并警惕模型在复杂社会任务中的“角色失效”。
-- 详情：[/202605/01/README](/202605/01/README)
+今日聚焦去中心化 AI 服务框架 TRUST v.0.1 的发布与初步探索。
+该框架旨在通过分布式技术构建更透明、可信的 AI 服务环境，探索去中心化治理下的协作新模式。
+推荐对 Web3 与 AI 交叉领域感兴趣的读者关注其早期架构设计，了解分布式算力与模型服务的结合趋势。
+- 详情：[/202605/02/README](/202605/02/README)
 
 ### 精读区论文标签
-1. [I hope we don't do to trust what advertising has done to love](/202605/01/2604.28113v1-i-hope-we-dont-do-to-trust-what-advertising-has-done-to-love)  
-   标签：评分：9.0/10、query:q3
-   evidence：可操作且可衡量的信任支柱与向量
-2. [When Roles Fail: Epistemic Constraints on Advocate Role Fidelity in LLM-Based Political Statement Analysis](/202605/01/2604.27228v1-when-roles-fail-epistemic-constraints-on-advocate-role-fidelity-in-llm-based-political-statement-analysis)  
-   标签：评分：8.0/10、query:q4
-   evidence：TRUST流水线中衡量角色忠实度的四项指标
+- 本次无精读推荐。
 
 ### 速读区论文标签
-1. [LLM-CEG: Extending the Classification Error Gauge Framework for Privacy Auditing of Large Language Models](/202605/01/2604.23795v1-llm-ceg-extending-the-classification-error-gauge-framework-for-privacy-auditing-of-large-language-models)  
-   标签：评分：6.0/10、query:q4
-   evidence：衡量隐私与效用权衡的框架
+1. [TRUST: A Framework for Decentralized AI Service v.0.1](/202605/02/2604.27132v1-trust-a-framework-for-decentralized-ai-service-v01)  
+   标签：评分：6.0/10、query:profile-1
+   evidence：用于可信AI和审计推理轨迹的去中心化框架
 
 
 <div class="dpr-home-promo-card">

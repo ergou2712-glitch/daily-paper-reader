@@ -1,0 +1,23 @@
+{
+  "label": "2026-05-02",
+  "date": "2026-05-02",
+  "generated_at": "2026-05-02T20:10:12",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202605/02/2604.27132v1-trust-a-framework-for-decentralized-ai-service-v01",
+      "section": "quick",
+      "title_en": "TRUST: A Framework for Decentralized AI Service v.0.1",
+      "authors": "Yu-Chao Huang, Zhen Tan, Mohan Zhang, Pingzhi Li, Zhuo Zhang, Tianlong Chen",
+      "date": "2026-04-29",
+      "pdf": "https://arxiv.org/pdf/2604.27132v1",
+      "score": "6.0",
+      "evidence": "用于可信AI和审计推理轨迹的去中心化框架",
+      "tldr": "针对大语言模型和多智能体系统在关键领域面临的验证难题，本文提出TRUST去中心化框架。该框架通过层级有向无环图（HDAG）分解推理链，利用DAAN协议进行根因归因，并结合多层级共识机制确保审计的正确性与隐私。TRUST有效解决了中心化审计的单点故障、不透明及隐私泄露问题，在提升准确率的同时显著降低了计算成本，为构建可信、安全的去中心化AI服务奠定了基础。",
+      "tags": "query:profile-1",
+      "abstract_en": "Large Reasoning Models (LRMs) and Multi-Agent Systems (MAS) in high-stakes domains demand reliable verification, yet centralized approaches suffer four limitations: (1) Robustness, with single points of failure vulnerable to attacks and bias; (2) Scalability, as reasoning complexity creates bottlenecks; (3) Opacity, as hidden auditing erodes trust; and (4) Privacy, as exposed reasoning traces risk model theft. We introduce TRUST (Transparent, Robust, and Unified Services for Trustworthy AI), a decentralized framework with three innovations: (i) Hierarchical Directed Acyclic Graphs (HDAGs) that decompose Chain-of-Thought reasoning into five abstraction levels for parallel distributed auditing; (ii) the DAAN protocol, which projects multi-agent interactions into Causal Interaction Graphs (CIGs) for deterministic root-cause attribution; and (iii) a multi-tier consensus mechanism among computational checkers, LLM evaluators, and human experts with stake-weighted voting that guarantees correctness under 30% adversarial participation. We prove a Safety-Profitability Theorem ensuring honest auditors profit while malicious actors incur losses. All decisions are recorded on-chain, while privacy-by-design segmentation prevents reconstruction of proprietary logic. Across multiple LLMs and benchmarks, TRUST attains 72.4% accuracy (4-18% above baselines) and remains resilient against 20% corruption. DAAN reaches 70% root-cause attribution (vs. 54-63% for standard methods) with 60% token savings. Human studies validate the design (F1 = 0.89, Brier = 0.074). The framework supports (A1) decentralized auditing, (A2) tamper-proof leaderboards, (A3) trustless data annotation, and (A4) governed autonomous agents, pioneering decentralized AI auditing for safe, accountable deployment of reasoning-capable systems.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

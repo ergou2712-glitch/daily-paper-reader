@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-05-02 <!--dpr-date:20260502-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202605/02/2604.27132v1-trust-a-framework-for-decentralized-ai-service-v01" data-sidebar-item="{&quot;title&quot;: &quot;TRUST: A Framework for Decentralized AI Service v.0.1&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2604.27132v1-trust-a-framework-for-decentralized-ai-service-v01&quot;, &quot;score&quot;: &quot;6.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;profile-1&quot;}], &quot;evidence&quot;: &quot;用于可信AI和审计推理轨迹的去中心化框架&quot;}">TRUST: A Framework for Decentralized AI Service v.0.1</a>
   * 2026-05-01 <!--dpr-date:20260501-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202605/01/2604.28113v1-i-hope-we-dont-do-to-trust-what-advertising-has-done-to-love" data-sidebar-item="{&quot;title&quot;: &quot;I hope we don&#x27;t do to trust what advertising has done to love&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2604.28113v1-i-hope-we-dont-do-to-trust-what-advertising-has-done-to-love&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;q3&quot;}], &quot;evidence&quot;: &quot;可操作且可衡量的信任支柱与向量&quot;}">I hope we don&#x27;t do to trust what advertising has done to love</a>
