@@ -1,0 +1,37 @@
+{
+  "label": "2026-05-04",
+  "date": "2026-05-04",
+  "generated_at": "2026-05-04T20:58:35",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202605/04/2605.00073v1-agentreputation-a-decentralized-agentic-ai-reputation-framework",
+      "section": "quick",
+      "title_en": "AgentReputation: A Decentralized Agentic AI Reputation Framework",
+      "authors": "Mohd Sameen Chishti, Damilare Peter Oyinloye, Jingyue Li",
+      "date": "2026-04-30",
+      "pdf": "https://arxiv.org/pdf/2605.00073v1",
+      "score": "7.0",
+      "evidence": "作为信任测量替代方案的声誉框架",
+      "tldr": "针对去中心化AI代理市场中缺乏监管、信誉评估易受操纵及跨领域能力难以验证等问题，本文提出了AgentReputation框架。该框架采用任务执行、信誉服务与持久化存储的三层解耦架构，引入了上下文相关的信誉卡和自适应验证机制。其主要贡献在于通过策略引擎实现了基于风险的资源分配与访问控制，为构建安全、透明的去中心化AI协作生态提供了理论支撑和技术路径。",
+      "tags": "query:q5",
+      "abstract_en": "Decentralized, agentic AI marketplaces are rapidly emerging to support software engineering tasks such as debugging, patch generation, and security auditing, often operating without centralized oversight. However, existing reputation mechanisms fail in this setting for three fundamental reasons: agents can strategically optimize against evaluation procedures; demonstrated competence does not reliably transfer across heterogeneous task contexts; and verification rigor varies widely, from lightweight automated checks to costly expert review. Current approaches to reputation drawing on federated learning, blockchain-based AI platforms, and large language model safety research are unable to address these challenges in combination. We therefore propose \\textbf{AgentReputation}, a decentralized, three-layer reputation framework for agentic AI systems. The framework separates task execution, reputation services, and tamper-proof persistence to both leverage their respective strengths and enable independent evolution. The framework introduces explicit verification regimes linked to agent reputation metadata, as well as context-conditioned reputation cards that prevent reputation conflation across domains and task types. In addition, AgentReputation provides a decision-facing policy engine that supports resource allocation, access control, and adaptive verification escalation based on risk and uncertainty. Building on this framework, we outline several future research directions, including the development of verification ontologies, methods for quantifying verification strength, privacy-preserving evidence mechanisms, cold-start reputation bootstrapping, and defenses against adversarial manipulation.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202605/04/2605.00420v1-foresight-arena-an-on-chain-benchmark-for-evaluating-ai-forecasting-agents",
+      "section": "quick",
+      "title_en": "Foresight Arena: An On-Chain Benchmark for Evaluating AI Forecasting Agents",
+      "authors": "Maksym Nechepurenko, Pavel Shuvalov",
+      "date": "2026-05-01",
+      "pdf": "https://arxiv.org/pdf/2605.00420v1",
+      "score": "7.0",
+      "evidence": "AI智能体的去中心化信任评估与激励相容评分",
+      "tldr": "Foresight Arena 是首个基于区块链的去中心化 AI 预测评估基准，旨在解决现有静态数据集易过拟合及中心化信任问题。它利用 Polymarket 真实预测市场，通过智能合约强制执行概率预测提交，并采用 Brier 分数和 Alpha 分数来衡量 AI 代理相对于市场共识的预测优势。该研究提供了严谨的统计分析框架，并通过对五个前沿大模型的实测，展示了其在区分模型校准度与分辨率方面的有效性。",
+      "tags": "query:profile-1",
+      "abstract_en": "Evaluating the true forecasting ability of AI agents requires environments resistant to overfitting, free from centralized trust, and grounded in incentive-compatible scoring. Existing benchmarks either rely on static datasets vulnerable to training-data contamination, or measure trading PnL -- a metric conflating predictive accuracy with timing, sizing, and risk appetite. We introduce Foresight Arena, the first permissionless, on-chain benchmark for evaluating AI forecasting agents on real-world prediction markets. Agents submit probabilistic forecasts on binary Polymarket markets via a commit-reveal protocol enforced by Solidity smart contracts on Polygon PoS; outcomes are resolved trustlessly through the Gnosis Conditional Token Framework. Performance is measured by the Brier Score and a novel Alpha Score -- proper scoring rules that incentivize honest probability reporting and isolate predictive edge over market consensus. We provide a formal analysis: closed-form variance for per-market Alpha, the connection to Murphy's classical Brier decomposition, and a power analysis characterizing the number of rounds required to reliably distinguish agents of different skill levels. We show that detecting a true edge of $α^* = 0.02$ at 80% power requires approximately 350 resolved binary predictions (50 rounds of 7 markets), while $α^* = 0.01$ requires four times more. We complement these analytical results with a 50-round live evaluation of five frontier LLM agents plus a random baseline. Murphy decomposition distinguishes well-calibrated agents from market-tracking agents that fail through reduced resolution. All smart contracts and evaluation infrastructure are open-source.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

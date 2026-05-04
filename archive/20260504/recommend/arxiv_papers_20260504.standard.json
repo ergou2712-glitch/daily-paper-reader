@@ -1,0 +1,90 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-05-04T20:57:52.137879+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2605.00073v1",
+      "title": "AgentReputation: A Decentralized Agentic AI Reputation Framework",
+      "abstract": "Decentralized, agentic AI marketplaces are rapidly emerging to support software engineering tasks such as debugging, patch generation, and security auditing, often operating without centralized oversight. However, existing reputation mechanisms fail in this setting for three fundamental reasons: agents can strategically optimize against evaluation procedures; demonstrated competence does not reliably transfer across heterogeneous task contexts; and verification rigor varies widely, from lightweight automated checks to costly expert review. Current approaches to reputation drawing on federated learning, blockchain-based AI platforms, and large language model safety research are unable to address these challenges in combination. We therefore propose \\textbf{AgentReputation}, a decentralized, three-layer reputation framework for agentic AI systems. The framework separates task execution, reputation services, and tamper-proof persistence to both leverage their respective strengths and enable independent evolution. The framework introduces explicit verification regimes linked to agent reputation metadata, as well as context-conditioned reputation cards that prevent reputation conflation across domains and task types. In addition, AgentReputation provides a decision-facing policy engine that supports resource allocation, access control, and adaptive verification escalation based on risk and uncertainty. Building on this framework, we outline several future research directions, including the development of verification ontologies, methods for quantifying verification strength, privacy-preserving evidence mechanisms, cold-start reputation bootstrapping, and defenses against adversarial manipulation.",
+      "authors": [
+        "Mohd Sameen Chishti",
+        "Damilare Peter Oyinloye",
+        "Jingyue Li"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-04-30T12:33:39+00:00",
+      "link": "https://arxiv.org/pdf/2605.00073v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "reputation framework as a proxy for trust measurement",
+      "llm_evidence_cn": "作为信任测量替代方案的声誉框架",
+      "llm_evidence": "作为信任测量替代方案的声誉框架",
+      "canonical_evidence": "作为信任测量替代方案的声誉框架",
+      "llm_tldr_en": "Proposes a decentralized reputation framework to evaluate agent competence and reliability in AI marketplaces.",
+      "llm_tldr_cn": "提出了一种去中心化的声誉框架，用于评估AI市场中代理的能力和可靠性。",
+      "llm_tldr": "提出了一种去中心化的声誉框架，用于评估AI市场中代理的能力和可靠性。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.00420v1",
+      "title": "Foresight Arena: An On-Chain Benchmark for Evaluating AI Forecasting Agents",
+      "abstract": "Evaluating the true forecasting ability of AI agents requires environments resistant to overfitting, free from centralized trust, and grounded in incentive-compatible scoring. Existing benchmarks either rely on static datasets vulnerable to training-data contamination, or measure trading PnL -- a metric conflating predictive accuracy with timing, sizing, and risk appetite. We introduce Foresight Arena, the first permissionless, on-chain benchmark for evaluating AI forecasting agents on real-world prediction markets. Agents submit probabilistic forecasts on binary Polymarket markets via a commit-reveal protocol enforced by Solidity smart contracts on Polygon PoS; outcomes are resolved trustlessly through the Gnosis Conditional Token Framework. Performance is measured by the Brier Score and a novel Alpha Score -- proper scoring rules that incentivize honest probability reporting and isolate predictive edge over market consensus. We provide a formal analysis: closed-form variance for per-market Alpha, the connection to Murphy's classical Brier decomposition, and a power analysis characterizing the number of rounds required to reliably distinguish agents of different skill levels. We show that detecting a true edge of $α^* = 0.02$ at 80% power requires approximately 350 resolved binary predictions (50 rounds of 7 markets), while $α^* = 0.01$ requires four times more. We complement these analytical results with a 50-round live evaluation of five frontier LLM agents plus a random baseline. Murphy decomposition distinguishes well-calibrated agents from market-tracking agents that fail through reduced resolution. All smart contracts and evaluation infrastructure are open-source.",
+      "authors": [
+        "Maksym Nechepurenko",
+        "Pavel Shuvalov"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.LG",
+        "q-fin.GN"
+      ],
+      "published": "2026-05-01T05:33:10+00:00",
+      "link": "https://arxiv.org/pdf/2605.00420v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "trustless resolution and incentive-compatible scoring for AI agents",
+      "llm_evidence_cn": "AI智能体的去中心化信任评估与激励相容评分",
+      "llm_evidence": "AI智能体的去中心化信任评估与激励相容评分",
+      "canonical_evidence": "AI智能体的去中心化信任评估与激励相容评分",
+      "llm_tldr_en": "Introduces an on-chain benchmark for trustless evaluation of AI forecasting agents using prediction markets.",
+      "llm_tldr_cn": "引入了一个链上基准，利用预测市场对AI预测智能体进行去中心化的信任评估。",
+      "llm_tldr": "引入了一个链上基准，利用预测市场对AI预测智能体进行去中心化的信任评估。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
