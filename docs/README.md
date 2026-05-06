@@ -6,34 +6,26 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-05-05
-- 运行时间：2026-05-05 20:37:02 UTC
+- 最新运行日期：2026-05-06
+- 运行时间：2026-05-06 20:43:27 UTC
 - 运行状态：成功
-- 本次总论文数：4
-- 精读区：2
-- 速读区：2
+- 本次总论文数：1
+- 精读区：1
+- 速读区：0
 
 ### 今日简报（AI）
-今日聚焦 AI 可信度突破，重点评估了具备“自知之明”的 RAG 系统与链上预测智能体。
-核心研究表明，让 RAG 识别不确定性并学会说“不知道”是建立信任的关键，而 Foresight Arena 为 AI 预判力提供了实战标尺。
-建议关注 AI 在执行指令时的“合规差距”，并尝试通过心理理论（ToM）优化多智能体交互中的信息管理。
-- 详情：[/202605/05/README](/202605/05/README)
+今日深度解析满分论文 TRACE 框架，为关键领域构建可信智能体 AI 系统提供了一套严谨的工程指南。
+该研究通过计量学基础确立了智能体在复杂任务中的可靠性标准，是实现工业级 AI 落地的重要技术突破。
+建议关注 AI 安全与工程化的读者重点研读，掌握将实验性 Agent 转化为高可靠生产力的核心方法。
+- 详情：[/202605/06/README](/202605/06/README)
 
 ### 精读区论文标签
-1. ["I Don't Know" -- Towards Appropriate Trust with Certainty-Aware Retrieval Augmented Generation](/202605/05/2605.00957v1-i-dont-know----towards-appropriate-trust-with-certainty-aware-retrieval-augmented-generation)  
-   标签：评分：9.0/10、query:q3
-   evidence：通过传达自我反思的确定性水平来建立适当的信任
-2. [Foresight Arena: An On-Chain Benchmark for Evaluating AI Forecasting Agents](/202605/05/2605.00420v2-foresight-arena-an-on-chain-benchmark-for-evaluating-ai-forecasting-agents)  
-   标签：评分：8.0/10、query:q4
-   evidence：基于激励相容评分的AI智能体评估基准
+1. [TRACE: A Metrologically-Grounded Engineering Framework for Trustworthy Agentic AI Systems in Operationally Critical Domains](/202605/06/2605.03838v1-trace-a-metrologically-grounded-engineering-framework-for-trustworthy-agentic-ai-systems-in-operationally-critical-domains)  
+   标签：评分：10.0/10、query:q4
+   evidence：基于计量学的信任度量指标套件
 
 ### 速读区论文标签
-1. [The Compliance Gap: Why AI Systems Promise to Follow Process Instructions but Don't](/202605/05/2605.01771v1-the-compliance-gap-why-ai-systems-promise-to-follow-process-instructions-but-dont)  
-   标签：评分：6.0/10、query:profile-1
-   evidence：测量AI的过程忠实度与诚实性
-2. [SOTOPIA-TOM: Evaluating Information Management in Multi-Agent Interaction with Theory of Mind](/202605/05/2605.02307v1-sotopia-tom-evaluating-information-management-in-multi-agent-interaction-with-theory-of-mind)  
-   标签：评分：6.0/10、query:q3
-   evidence：评估信息管理的基准框架
+- 本次无速读推荐。
 
 
 <div class="dpr-home-promo-card">

@@ -1,0 +1,23 @@
+{
+  "label": "2026-05-06",
+  "date": "2026-05-06",
+  "generated_at": "2026-05-06T20:43:48",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202605/06/2605.03838v1-trace-a-metrologically-grounded-engineering-framework-for-trustworthy-agentic-ai-systems-in-operationally-critical-domains",
+      "section": "deep",
+      "title_en": "TRACE: A Metrologically-Grounded Engineering Framework for Trustworthy Agentic AI Systems in Operationally Critical Domains",
+      "authors": "Serhii Zabolotnii",
+      "date": "2026-05-05",
+      "pdf": "https://arxiv.org/pdf/2605.03838v1",
+      "score": "10.0",
+      "evidence": "基于计量学的信任度量指标套件",
+      "tldr": "本研究提出了TRACE框架，旨在为关键任务领域构建可信的代理式AI系统。该框架采用四层参考架构，通过区分传统机器学习与大语言模型验证器，并结合状态化编排与人类监督，确保系统可靠性。TRACE引入了基于计量学标准的信任度量体系及计算简约比（CPR）原则，通过临床、工业和司法三个领域的应用，证明了其在不同治理背景下的通用性与有效性。",
+      "tags": "query:q4",
+      "abstract_en": "We introduce TRACE, a cross-domain engineering framework for trustworthy agentic AI in operationally critical domains. TRACE combines a four-layer reference architecture with an explicit classical-ML vs. LLM-validator split (L2a/L2b), a stateful orchestration-and-escalation policy (L3), and bounded human supervision (L4); a metrologically grounded trust-metric suite mapped to GUM/VIM/ISO 17025; and a Model-Parsimony principle quantified by the Computational Parsimony Ratio (CPR). Three instantiations--clinical decision support, industrial multi-domain operations, and a judicial AI assistant--transfer the samearchitecture and metrics across principally different governance contexts. The L2a/L2b separation makes the use of large language models a deliberate design decision rather than an architectural default, with parsimony quantified through CPR. TRACE introduces CPR as a first-class design principle in trustworthy-AI engineering.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

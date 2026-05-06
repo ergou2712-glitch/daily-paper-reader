@@ -1,0 +1,52 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-05-06T20:42:53.791628+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2605.03838v1",
+      "title": "TRACE: A Metrologically-Grounded Engineering Framework for Trustworthy Agentic AI Systems in Operationally Critical Domains",
+      "abstract": "We introduce TRACE, a cross-domain engineering framework for trustworthy agentic AI in operationally critical domains. TRACE combines a four-layer reference architecture with an explicit classical-ML vs. LLM-validator split (L2a/L2b), a stateful orchestration-and-escalation policy (L3), and bounded human supervision (L4); a metrologically grounded trust-metric suite mapped to GUM/VIM/ISO 17025; and a Model-Parsimony principle quantified by the Computational Parsimony Ratio (CPR). Three instantiations--clinical decision support, industrial multi-domain operations, and a judicial AI assistant--transfer the samearchitecture and metrics across principally different governance contexts. The L2a/L2b separation makes the use of large language models a deliberate design decision rather than an architectural default, with parsimony quantified through CPR. TRACE introduces CPR as a first-class design principle in trustworthy-AI engineering.",
+      "authors": [
+        "Serhii Zabolotnii"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI",
+        "cs.HC"
+      ],
+      "published": "2026-05-05T15:05:00+00:00",
+      "link": "https://arxiv.org/pdf/2605.03838v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "metrologically grounded trust-metric suite",
+      "llm_evidence_cn": "基于计量学的信任度量指标套件",
+      "llm_evidence": "基于计量学的信任度量指标套件",
+      "canonical_evidence": "基于计量学的信任度量指标套件",
+      "llm_tldr_en": "Introduces a metrologically-grounded framework and metric suite for evaluating trustworthy agentic AI.",
+      "llm_tldr_cn": "引入了一个基于计量学的框架和指标套件，用于评估可靠的代理人工智能。",
+      "llm_tldr": "引入了一个基于计量学的框架和指标套件，用于评估可靠的代理人工智能。",
+      "llm_tags": [
+        "query:q4"
+      ],
+      "matched_query_tag": "query:q4",
+      "matched_query_text": "quantitative metrics used to assess trust",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}
