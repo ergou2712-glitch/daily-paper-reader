@@ -1,0 +1,65 @@
+{
+  "label": "2026-05-07",
+  "date": "2026-05-07",
+  "generated_at": "2026-05-07T20:50:16",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202605/07/2605.05009v1-learned-neighbor-trust-for-collaborative-deployment-in-model-agnostic-decentralized-learning",
+      "section": "deep",
+      "title_en": "Learned Neighbor Trust for Collaborative Deployment in Model-Agnostic Decentralized Learning",
+      "authors": "Michael Lanier, Luise Ge, Sastry Kompella, Yevgeniy Vorobeychik",
+      "date": "2026-05-06",
+      "pdf": "https://arxiv.org/pdf/2605.05009v1",
+      "score": "9.0",
+      "evidence": "学习针对邻居节点的紧凑信任函数",
+      "tldr": "针对物联网等去中心化学习场景中节点异构且数据稀疏的问题，本文提出了一种名为LNTrust的协作部署方法。该方法允许每个节点通过本地验证学习对邻居的信任函数，在训练阶段引导蒸馏，并在推理阶段构建集成模型。这种模型无关的协议仅交换软预测，在提升部署准确率的同时显著降低了通信开销，实现了从训练到推理的有效协作迁移。",
+      "tags": "query:q5",
+      "abstract_en": "Many decentralized distillation methods are designed around training-time coordination, yet deploy each node in isolation even when more capable neighbors remain available at inference time. This is an incomplete objective for settings such as IoT, where devices are heterogeneous, data is scarce and skewed, and a node's strongest neighbors may far exceed its own local capacity. We study how nodes should train so that their predictions compose well at deployment, and how each node should learn whom to trust. Under a server-free, model-agnostic protocol where nodes exchange only queries and soft predictions, we propose Learned Neighbor Trust (LNTrust) wherein each node learns a compact trust function over its neighborhood from local validation evidence. This trust function gates auxiliary distillation during training and defines a deployment ensemble at inference, so that collaboration learned during training transfers directly to deployment. Across datasets and topologies, LNTrust improves deployed accuracy over the strongest output-only baseline by large margins while using significantly less communication than previous methods.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202605/07/2605.04671v1-itboost-information-theoretic-trust-for-robust-boosting",
+      "section": "deep",
+      "title_en": "ITBoost: Information-Theoretic Trust for Robust Boosting",
+      "authors": "Ye Su, Longlong Zhao, Diego Garcia-Gil, Jipeng Guo, Gangchun Zhang, Jinxin Chen, Jinsong Chen",
+      "date": "2026-05-06",
+      "pdf": "https://arxiv.org/pdf/2605.04671v1",
+      "score": "8.0",
+      "evidence": "通过测量残差轨迹的复杂度来评估信任度",
+      "tldr": "针对梯度提升算法在处理含噪声标签的表格数据时性能下降的问题，本文提出了 ITBoost。该方法不再仅依赖瞬时误差，而是通过最小描述长度（MDL）原则分析样本残差在迭代过程中的演化轨迹。通过识别并降低残差波动剧烈的不可信样本的权重，ITBoost 显著提升了模型的鲁棒性。实验证明，该方法在噪声环境下优于现有提升算法和深度学习模型，同时在干净数据上保持领先性能。",
+      "tags": "query:q3",
+      "abstract_en": "Gradient boosting remains a strong and widely used method for tabular data learning, but its performance often degrades when training labels are noisy. This behavior is largely related to the way boosting algorithms emphasize samples with large gradients, without explicitly accounting for whether such errors originate from informative hard cases or from unreliable labels. We address this issue by reconsidering how sample reliability is evaluated during boosting. Instead of relying on instantaneous error, we examine the evolution of each sample's residuals across iterations. Based on this insight, we propose Information-Theoretic Trust Boosting (ITBoost), which uses the Minimum Description Length principle to measure the complexity of residual trajectories. Samples whose residual patterns fluctuate in an irregular manner are treated as less trustworthy and are down-weighted during learning. Theoretically, we derive a tighter generalization bound for ITBoost under label noise. Empirical results on various tabular benchmarks indicate that ITBoost provides improved robustness in noisy environments over leading boosting and deep tabular models, while retaining best average performance on clean data.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202605/07/2605.04797v1-beyond-seeing-is-believing-on-crowdsourced-detection-of-audiovisual-deepfakes",
+      "section": "quick",
+      "title_en": "Beyond Seeing Is Believing: On Crowdsourced Detection of Audiovisual Deepfakes",
+      "authors": "Michael Soprano, Andrea Cioci, Stefano Mizzaro",
+      "date": "2026-05-06",
+      "pdf": "https://arxiv.org/pdf/2605.04797v1",
+      "score": "6.0",
+      "evidence": "测量深度伪造检测中人类判断的可靠性",
+      "tldr": "本研究探讨了众包在检测视听深度伪造（Deepfakes）中的有效性。通过在Prolific平台上对AV-Deepfake1M和TMC数据集的96个视频进行实验，研究了人类识别真伪、判断篡改类型（仅音频、仅视频或音视频）及标记时间戳的能力。结果表明，众包能有效筛选真实视频，但容易漏掉伪造内容，且在识别具体篡改模态方面表现较差，为利用人类智慧对抗深度伪造提供了实证依据。",
+      "tags": "query:profile-1",
+      "abstract_en": "Deepfakes are increasingly realistic and easy to produce, raising concerns about the reliability of human judgments in misinformation settings. We study audiovisual deepfake detection by measuring how consistently crowd workers distinguish authentic from manipulated videos and, when they flag a video as manipulated, how accurately they identify the manipulation type (audio-only, video-only, or audio-video) and how consistently they report manipulation timestamps. We run two matched crowdsourcing studies on Prolific using AV-Deepfake1M and the Trusted Media Challenge (TMC) dataset. We sample 48 videos per dataset (96 total) and collect 960 judgments (10 per video). Results show that crowd workers rarely misclassify authentic videos as manipulated, but they miss many manipulations, and agreement remains limited across videos. Aggregating multiple judgments per video stabilizes the authenticity signal, but it cannot recover manipulations that most workers consistently miss. Manipulation type identification is substantially noisier than authenticity detection even when workers detect a manipulation, with joint audio-video cases being particularly hard to recognize. Overall, these findings suggest that crowdsourcing can provide a scalable screening signal for audiovisual authenticity, while reliable modality attribution remains an open challenge.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202605/07/2605.05058v1-sok-robustness-in-large-language-models-against-jailbreak-attacks",
+      "section": "quick",
+      "title_en": "SoK: Robustness in Large Language Models against Jailbreak Attacks",
+      "authors": "Feiyue Xu, Hongsheng Hu, Chaoxiang He, Sheng Hang, Hanqing Hu, Xiuming Liu, Yubo Zhao, Zhengyan Zhou, Bin Benjamin Zhu, Shi-Feng Sun, Dawu Gu, Shuo Wang",
+      "date": "2026-05-06",
+      "pdf": "https://arxiv.org/pdf/2605.05058v1",
+      "score": "6.0",
+      "evidence": "全面评估安全与信任的多维框架",
+      "tldr": "本文针对大语言模型（LLM）易受越狱攻击的问题，系统性地梳理了攻击与防御的分类。针对现有评估指标单一的缺陷，提出了多维度评估框架 Security Cube。通过对13种攻击和5种防御方法的基准测试，揭示了当前LLM安全性的现状与挑战，为构建更鲁棒、可信的模型提供了研究方向。",
+      "tags": "query:profile-1",
+      "abstract_en": "Large Language Models (LLMs) have achieved remarkable success but remain highly susceptible to jailbreak attacks, in which adversarial prompts coerce models into generating harmful, unethical, or policy-violating outputs. Such attacks pose real-world risks, eroding safety, trust, and regulatory compliance in high-stakes applications. Although a variety of attack and defense methods have been proposed, existing evaluation practices are inadequate, often relying on narrow metrics like attack success rate that fail to capture the multidimensional nature of LLM security. In this paper, we present a systematic taxonomy of jailbreak attacks and defenses and introduce Security Cube, a unified, multi-dimensional framework for comprehensive evaluation of these techniques. We provide detailed comparison tables of existing attacks and defenses, highlighting key insights and open challenges across the literature. Leveraging Security Cube, we conduct benchmark studies on 13 representative attacks and 5 defenses, establishing a clear view of the current landscape encompassing jailbreak attacks, defenses, automated judges, and LLM vulnerabilities. Based on these evaluations, we distill critical findings, identify unresolved problems, and outline promising research directions for enhancing LLM robustness against jailbreak attacks. Our analysis aims to pave the way towards more robust, interpretable, and trustworthy LLM systems. Our code is available at Code.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

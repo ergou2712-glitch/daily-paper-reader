@@ -1,0 +1,173 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-05-07T20:49:10.073613+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2605.05009v1",
+      "title": "Learned Neighbor Trust for Collaborative Deployment in Model-Agnostic Decentralized Learning",
+      "abstract": "Many decentralized distillation methods are designed around training-time coordination, yet deploy each node in isolation even when more capable neighbors remain available at inference time. This is an incomplete objective for settings such as IoT, where devices are heterogeneous, data is scarce and skewed, and a node's strongest neighbors may far exceed its own local capacity. We study how nodes should train so that their predictions compose well at deployment, and how each node should learn whom to trust. Under a server-free, model-agnostic protocol where nodes exchange only queries and soft predictions, we propose Learned Neighbor Trust (LNTrust) wherein each node learns a compact trust function over its neighborhood from local validation evidence. This trust function gates auxiliary distillation during training and defines a deployment ensemble at inference, so that collaboration learned during training transfers directly to deployment. Across datasets and topologies, LNTrust improves deployed accuracy over the strongest output-only baseline by large margins while using significantly less communication than previous methods.",
+      "authors": [
+        "Michael Lanier",
+        "Luise Ge",
+        "Sastry Kompella",
+        "Yevgeniy Vorobeychik"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-05-06T15:07:40+00:00",
+      "link": "https://arxiv.org/pdf/2605.05009v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "learning a compact trust function over neighbors",
+      "llm_evidence_cn": "学习针对邻居节点的紧凑信任函数",
+      "llm_evidence": "学习针对邻居节点的紧凑信任函数",
+      "canonical_evidence": "学习针对邻居节点的紧凑信任函数",
+      "llm_tldr_en": "Proposes LNTrust for nodes to learn quantitative trust functions for collaborative decentralized learning.",
+      "llm_tldr_cn": "提出LNTrust，使节点能够学习用于协作去中心化学习的定量信任函数。",
+      "llm_tldr": "提出LNTrust，使节点能够学习用于协作去中心化学习的定量信任函数。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.04671v1",
+      "title": "ITBoost: Information-Theoretic Trust for Robust Boosting",
+      "abstract": "Gradient boosting remains a strong and widely used method for tabular data learning, but its performance often degrades when training labels are noisy. This behavior is largely related to the way boosting algorithms emphasize samples with large gradients, without explicitly accounting for whether such errors originate from informative hard cases or from unreliable labels. We address this issue by reconsidering how sample reliability is evaluated during boosting. Instead of relying on instantaneous error, we examine the evolution of each sample's residuals across iterations. Based on this insight, we propose Information-Theoretic Trust Boosting (ITBoost), which uses the Minimum Description Length principle to measure the complexity of residual trajectories. Samples whose residual patterns fluctuate in an irregular manner are treated as less trustworthy and are down-weighted during learning. Theoretically, we derive a tighter generalization bound for ITBoost under label noise. Empirical results on various tabular benchmarks indicate that ITBoost provides improved robustness in noisy environments over leading boosting and deep tabular models, while retaining best average performance on clean data.",
+      "authors": [
+        "Ye Su",
+        "Longlong Zhao",
+        "Diego Garcia-Gil",
+        "Jipeng Guo",
+        "Gangchun Zhang",
+        "Jinxin Chen",
+        "Jinsong Chen"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-05-06T09:21:43+00:00",
+      "link": "https://arxiv.org/pdf/2605.04671v1",
+      "tags": [
+        "keyword:信任测量"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "measure complexity of residual trajectories to evaluate trust",
+      "llm_evidence_cn": "通过测量残差轨迹的复杂度来评估信任度",
+      "llm_evidence": "通过测量残差轨迹的复杂度来评估信任度",
+      "canonical_evidence": "通过测量残差轨迹的复杂度来评估信任度",
+      "llm_tldr_en": "Uses information theory to measure sample reliability and trust during gradient boosting.",
+      "llm_tldr_cn": "利用信息论在梯度提升过程中测量样本的可靠性和信任度。",
+      "llm_tldr": "利用信息论在梯度提升过程中测量样本的可靠性和信任度。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "methods and metrics for measuring trust",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2605.04797v1",
+      "title": "Beyond Seeing Is Believing: On Crowdsourced Detection of Audiovisual Deepfakes",
+      "abstract": "Deepfakes are increasingly realistic and easy to produce, raising concerns about the reliability of human judgments in misinformation settings. We study audiovisual deepfake detection by measuring how consistently crowd workers distinguish authentic from manipulated videos and, when they flag a video as manipulated, how accurately they identify the manipulation type (audio-only, video-only, or audio-video) and how consistently they report manipulation timestamps. We run two matched crowdsourcing studies on Prolific using AV-Deepfake1M and the Trusted Media Challenge (TMC) dataset. We sample 48 videos per dataset (96 total) and collect 960 judgments (10 per video). Results show that crowd workers rarely misclassify authentic videos as manipulated, but they miss many manipulations, and agreement remains limited across videos. Aggregating multiple judgments per video stabilizes the authenticity signal, but it cannot recover manipulations that most workers consistently miss. Manipulation type identification is substantially noisier than authenticity detection even when workers detect a manipulation, with joint audio-video cases being particularly hard to recognize. Overall, these findings suggest that crowdsourcing can provide a scalable screening signal for audiovisual authenticity, while reliable modality attribution remains an open challenge.",
+      "authors": [
+        "Michael Soprano",
+        "Andrea Cioci",
+        "Stefano Mizzaro"
+      ],
+      "primary_category": "cs.IR",
+      "categories": [
+        "cs.IR",
+        "cs.AI"
+      ],
+      "published": "2026-05-06T11:48:04+00:00",
+      "link": "https://arxiv.org/pdf/2605.04797v1",
+      "tags": [
+        "keyword:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "measuring human judgment reliability in deepfake detection",
+      "llm_evidence_cn": "测量深度伪造检测中人类判断的可靠性",
+      "llm_evidence": "测量深度伪造检测中人类判断的可靠性",
+      "canonical_evidence": "测量深度伪造检测中人类判断的可靠性",
+      "llm_tldr_en": "Studies human ability to detect deepfakes by measuring judgment consistency and accuracy.",
+      "llm_tldr_cn": "通过测量判断的一致性和准确性，研究人类在深度伪造检测中的识别能力。",
+      "llm_tldr": "通过测量判断的一致性和准确性，研究人类在深度伪造检测中的识别能力。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.05058v1",
+      "title": "SoK: Robustness in Large Language Models against Jailbreak Attacks",
+      "abstract": "Large Language Models (LLMs) have achieved remarkable success but remain highly susceptible to jailbreak attacks, in which adversarial prompts coerce models into generating harmful, unethical, or policy-violating outputs. Such attacks pose real-world risks, eroding safety, trust, and regulatory compliance in high-stakes applications. Although a variety of attack and defense methods have been proposed, existing evaluation practices are inadequate, often relying on narrow metrics like attack success rate that fail to capture the multidimensional nature of LLM security. In this paper, we present a systematic taxonomy of jailbreak attacks and defenses and introduce Security Cube, a unified, multi-dimensional framework for comprehensive evaluation of these techniques. We provide detailed comparison tables of existing attacks and defenses, highlighting key insights and open challenges across the literature. Leveraging Security Cube, we conduct benchmark studies on 13 representative attacks and 5 defenses, establishing a clear view of the current landscape encompassing jailbreak attacks, defenses, automated judges, and LLM vulnerabilities. Based on these evaluations, we distill critical findings, identify unresolved problems, and outline promising research directions for enhancing LLM robustness against jailbreak attacks. Our analysis aims to pave the way towards more robust, interpretable, and trustworthy LLM systems. Our code is available at Code.",
+      "authors": [
+        "Feiyue Xu",
+        "Hongsheng Hu",
+        "Chaoxiang He",
+        "Sheng Hang",
+        "Hanqing Hu",
+        "Xiuming Liu",
+        "Yubo Zhao",
+        "Zhengyan Zhou",
+        "Bin Benjamin Zhu",
+        "Shi-Feng Sun",
+        "Dawu Gu",
+        "Shuo Wang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-05-06T15:53:17+00:00",
+      "link": "https://arxiv.org/pdf/2605.05058v1",
+      "tags": [
+        "keyword:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "multi-dimensional framework for comprehensive evaluation of security and trust",
+      "llm_evidence_cn": "全面评估安全与信任的多维框架",
+      "llm_evidence": "全面评估安全与信任的多维框架",
+      "canonical_evidence": "全面评估安全与信任的多维框架",
+      "llm_tldr_en": "Introduces a multi-dimensional framework to evaluate LLM security and trust against attacks.",
+      "llm_tldr_cn": "引入了一个多维框架来评估大语言模型针对攻击的安全性和信任度。",
+      "llm_tldr": "引入了一个多维框架来评估大语言模型针对攻击的安全性和信任度。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
