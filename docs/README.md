@@ -6,34 +6,38 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-05-07
-- 运行时间：2026-05-07 20:50:07 UTC
+- 最新运行日期：2026-05-08
+- 运行时间：2026-05-08 20:35:15 UTC
 - 运行状态：成功
-- 本次总论文数：4
+- 本次总论文数：5
 - 精读区：2
-- 速读区：2
+- 速读区：3
 
 ### 今日简报（AI）
-今日聚焦去中心化学习与模型安全，深度解析了构建“信任机制”以提升系统鲁棒性的前沿方案。
-重点推荐通过学习邻居信任度优化协作部署，以及利用信息论强化 Boosting 算法抗干扰能力的突破性研究。
-建议关注如何量化信任度，以应对日益严峻的大模型越狱攻击与音视频伪造挑战。
-- 详情：[/202605/07/README](/202605/07/README)
+- 今日共生成 5 篇推荐（精读 2 篇，速读 3 篇）
+- 精读：《FedeKD: Energy-Based Gating for Robust Federated Knowledge Distillation under Heterogeneous Settings》（8.0/10）, 《Cited but Not Verified: Parsing and Evaluating Source Attribution in LLM Deep Research Agents》（8.0/10）
+- 速读：《The Fragility of AI Companionship: Ontological, Structural, and Normative Uncertainty in Human-AI Relationships》（7.0/10）, 《Measuring Black-Box Confidence via Reasoning Trajectories: Geometry, Coverage, and Verbalization》（7.0/10）, 《Metric-Normalized Posterior Leakage (mPL): Attacker-Aligned Privacy for Joint Consumption》（6.0/10）
+- 这些结果覆盖了当下较热的方向，建议先看精读区论文的关键问题与方法。
+- 详情：[/202605/08/README](/202605/08/README)
 
 ### 精读区论文标签
-1. [Learned Neighbor Trust for Collaborative Deployment in Model-Agnostic Decentralized Learning](/202605/07/2605.05009v1-learned-neighbor-trust-for-collaborative-deployment-in-model-agnostic-decentralized-learning)  
-   标签：评分：9.0/10、query:q5
-   evidence：学习针对邻居节点的紧凑信任函数
-2. [ITBoost: Information-Theoretic Trust for Robust Boosting](/202605/07/2605.04671v1-itboost-information-theoretic-trust-for-robust-boosting)  
+1. [FedeKD: Energy-Based Gating for Robust Federated Knowledge Distillation under Heterogeneous Settings](/202605/08/2605.05553v1-fedekd-energy-based-gating-for-robust-federated-knowledge-distillation-under-heterogeneous-settings)  
    标签：评分：8.0/10、query:q3
-   evidence：通过测量残差轨迹的复杂度来评估信任度
+   evidence：将样本级信任评估作为显式组件
+2. [Cited but Not Verified: Parsing and Evaluating Source Attribution in LLM Deep Research Agents](/202605/08/2605.06635v1-cited-but-not-verified-parsing-and-evaluating-source-attribution-in-llm-deep-research-agents)  
+   标签：评分：8.0/10、query:profile-1
+   evidence：评估源归因和验证引用的框架
 
 ### 速读区论文标签
-1. [Beyond Seeing Is Believing: On Crowdsourced Detection of Audiovisual Deepfakes](/202605/07/2605.04797v1-beyond-seeing-is-believing-on-crowdsourced-detection-of-audiovisual-deepfakes)  
-   标签：评分：6.0/10、query:profile-1
-   evidence：测量深度伪造检测中人类判断的可靠性
-2. [SoK: Robustness in Large Language Models against Jailbreak Attacks](/202605/07/2605.05058v1-sok-robustness-in-large-language-models-against-jailbreak-attacks)  
-   标签：评分：6.0/10、query:profile-1
-   evidence：全面评估安全与信任的多维框架
+1. [The Fragility of AI Companionship: Ontological, Structural, and Normative Uncertainty in Human-AI Relationships](/202605/08/2605.03367v1-the-fragility-of-ai-companionship-ontological-structural-and-normative-uncertainty-in-human-ai-relationships)  
+   标签：评分：7.0/10、query:profile-1
+   evidence：关于 AI 关系中不确定性和真实性的定性研究
+2. [Measuring Black-Box Confidence via Reasoning Trajectories: Geometry, Coverage, and Verbalization](/202605/08/2605.06308v1-measuring-black-box-confidence-via-reasoning-trajectories-geometry-coverage-and-verbalization)  
+   标签：评分：7.0/10、query:q4
+   evidence：推理的黑盒轨迹置信度评分
+3. [Metric-Normalized Posterior Leakage (mPL): Attacker-Aligned Privacy for Joint Consumption](/202605/08/2605.01137v1-metric-normalized-posterior-leakage-mpl-attacker-aligned-privacy-for-joint-consumption)  
+   标签：评分：6.0/10、query:q4
+   evidence：距离校准的后验概率偏移度量
 
 
 <div class="dpr-home-promo-card">
