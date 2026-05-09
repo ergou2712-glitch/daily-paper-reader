@@ -1,0 +1,51 @@
+{
+  "label": "2026-05-09",
+  "date": "2026-05-09",
+  "generated_at": "2026-05-09T19:56:11",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202605/09/2605.06457v1-beyond-task-success-measuring-workflow-fidelity-in-llm-based-agentic-payment-systems",
+      "section": "quick",
+      "title_en": "Beyond Task Success: Measuring Workflow Fidelity in LLM-Based Agentic Payment Systems",
+      "authors": "Donghao Huang, Joon Kiat Chua, Zhaoxia Wang",
+      "date": "2026-05-07",
+      "pdf": "https://arxiv.org/pdf/2605.06457v1",
+      "score": "7.0",
+      "evidence": "衡量工作流忠实度与可靠性的量化指标",
+      "tldr": "本研究针对基于大语言模型的多智能体支付系统，指出传统指标（如任务成功率TSR）无法衡量工作流的合规性。为此，作者提出了“智能体成功率”（ASR）指标，通过对比实际与预期的执行序列来评估轨迹忠实度。在对18个模型的测试中，ASR揭示了模型在支付环节中存在的违规跳步行为。通过ASR引导的优化，模型性能显著提升，证明了在受监管领域进行轨迹级评估的必要性。",
+      "tags": "query:q4",
+      "abstract_en": "LLM-based multi-agent systems are increasingly deployed for payment workflows, yet prevailing metrics, Task Success Rate (TSR) and Agent Handoff F1-Score (HF1), capture only final outcomes or unordered routing decisions. We introduce the Agentic Success Rate (ASR), a trajectory-fidelity metric that compares observed and expected agent execution sequences at the transition level, decomposing performance into Transition Recall and Transition Precision. Applied to the Hierarchical Multi-Agent System for Payments (HMASP) across 18 LLMs and 90,000 task instances, ASR reveals that 10 of 18 models systematically skip a confirmation checkpoint during payment checkout, a deviation invisible to both TSR and HF1, while 8 models enforce the checkpoint perfectly. Notably, GPT-4.1 exhibits hidden workflow shortcuts despite achieving perfect TSR and HF1, while GPT-5.2 achieves perfect ASR. Prompt refinements and deterministic routing guards guided by ASR diagnostics yield substantial TSR improvements, with gains up to +93.8 percentage points for previously struggling models, demonstrating that trajectory-level evaluation is essential in regulated domains.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202605/09/2605.02640v1-trustworthy-ai-suffers-from-invariance-conflicts-and-causality-is-the-solution",
+      "section": "quick",
+      "title_en": "Trustworthy AI Suffers from Invariance Conflicts and Causality is The Solution",
+      "authors": "Ruta Binkyte, Ivaxi Sheth, Zhijing Jin, Mohammad Havaei, Bernhard Schölkopf, Mario Fritz",
+      "date": "2026-05-04",
+      "pdf": "https://arxiv.org/pdf/2605.02640v1",
+      "score": "6.0",
+      "evidence": "因果关系作为平衡可信 AI 目标的解决方案",
+      "tldr": "随着AI在关键领域广泛应用，确保其公平性、鲁棒性、隐私和可解释性等可信度目标至关重要，但这些目标常与性能产生冲突。本文提出因果关系是解决这些权衡的关键，通过将可信AI的冲突重新解释为数据生成过程中不兼容的不变性要求，利用因果框架实现选择性不变性，从而为构建更可靠的机器学习和基础模型提供理论支撑和实践指导。",
+      "tags": "query:profile-1",
+      "abstract_en": "As artificial intelligence (AI), including machine learning (ML) models and foundation models (FMs), is increasingly deployed in high-stakes domains, ensuring their trustworthiness has become a central challenge. However, the core trustworthy AI objectives, such as fairness, robustness, privacy, and explainability, are hard to achieve simultaneously, especially while preserving utility. This position paper argues that causality is necessary to understand and balance trade-offs in performance and multiple objectives of trustworthy AI. We ground our arguments in re-interpreting trustworthy AI trade-offs as incompatible invariance requirements under different changes to the data-generating process. We then illustrate that causality provides a unifying framework for understanding how trade-offs in trustworthy AI arise, and how they can be softened or resolved through selective invariance. This perspective applies to both classical ML models and large-scale FMs. Our paper discusses how causal assumptions may be applied explicitly or implicitly in modern large-scale systems. Finally, we outline open challenges and opportunities for using causality to build more trustworthy AI.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202605/09/2605.05508v1-rigorous-interpretation-is-a-form-of-evaluation",
+      "section": "quick",
+      "title_en": "Rigorous Interpretation Is a Form of Evaluation",
+      "authors": "Isabelle Lee, Emmy Liu, Cathy Jiao, Brihi Joshi, Dani Yogatama, Fazl Barez, Michael Saxon",
+      "date": "2026-05-06",
+      "pdf": "https://arxiv.org/pdf/2605.05508v1",
+      "score": "6.0",
+      "evidence": "将可解释性作为一种评估和信任形式",
+      "tldr": "本文探讨了将严谨的可解释性作为机器学习模型评估的一种新形式。作者认为，理解模型行为背后的原因与衡量其输出同样重要。通过识别根因、检测故障机制和预测潜在问题，可解释性可以超越传统的性能指标。文章强调，为了实现这一潜力，可解释性方法必须符合可证伪、可重复和可预测的科学标准，从而提供比表面指标更深层的评估。",
+      "tags": "query:profile-1",
+      "abstract_en": "Current machine learning models are evaluated through behavioral snapshots, with benchmark accuracies, win rates and outcome-based metrics. Model explanations and evaluations, however, are fundamentally intertwined: understanding why a model produces a behavior can be as important as measuring what it produces. If we trusted interpretability, we argue that it can serve not merely as diagnostics but as a richer and more principled form of model evaluation beyond surface-level performance metrics. We explore three ways interpretability can function evaluatively: (1) fixing problems by identifying the root causes of unwanted behavior, (2) detecting subtly faulty mechanisms that invalidate model outputs, and (3) predicting potential issues before they arise by fully understanding the model's weaknesses. To fulfill its evaluative potential, we argue that interpretability methods must generate claims that are falsifiable, reproducible, and predictive -- that is, interpretability must meet scientific standards.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
