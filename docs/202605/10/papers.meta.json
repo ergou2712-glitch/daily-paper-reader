@@ -1,0 +1,37 @@
+{
+  "label": "2026-05-10",
+  "date": "2026-05-10",
+  "generated_at": "2026-05-10T19:43:01",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202605/10/2605.02182v1-zero-trust-bilateral-edge-service-trading-with-deposit-refund-regulation-for-runtime-compliance",
+      "section": "quick",
+      "title_en": "Zero-Trust Bilateral Edge Service Trading with Deposit-Refund Regulation for Runtime Compliance",
+      "authors": "Houyi Qi, Minghui Liwang, Zhipeng Cheng, Xiaoyu Xia",
+      "date": "2026-05-04",
+      "pdf": "https://arxiv.org/pdf/2605.02182v1",
+      "score": "7.0",
+      "evidence": "用于可信供应和隐私风险评估的零信任框架",
+      "tldr": "针对隐私敏感的边缘服务，本文提出ZEBRIS框架，在零信任安全架构下优化资源调度。该框架通过双边交易模型整合了运行时合规性、事后结算和卖家信誉管理。ZEBRIS引入了押金退还机制来约束道德风险，并根据合规结果动态更新卖家安全态势。实验证明，该方法在提升社会福利和合规稳健性的同时，降低了延迟和隐私风险成本。",
+      "tags": "query:profile-1",
+      "abstract_en": "Privacy-sensitive edge services necessitate optimizing diverse-type resource scheduling to support trustworthy provisioning within a zero-trust security framework. However, existing studies rarely model how runtime compliance jointly affects bilateral clearing, ex-post settlement, and future seller eligibility in dynamic edge markets. To address this issue, we propose ZEBRIS, a zero-trust bilateral edge service trading framework with deposit-refund regulation for privacy-sensitive services. Specifically, edge provisioning is modeled as a trading form of zero-trust-compliant service packages, where the buyer-side effective valuation captures service value, delay penalty, and privacy risk, while the seller-side effective ask incorporates resource and compliance costs. This yields a resource-aware positive-margin bilateral clearing mechanism under shared resource and security constraints. To discipline post-clearing moral hazard, we further design a capped deposit-refund settlement rule based on measurable runtime compliance and update each seller's future security posture according to realized compliance outcomes. ZEBRIS satisfies bilateral individual rationality and no-subsidy weak budget balance. Experiments demonstrate that ZEBRIS improves social welfare and compliance robustness while reducing service delay and privacy-risk-weighted cost over representative baselines.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202605/10/2605.04249v1-towards-a-zero-trust-supply-chain-assurance-rubric-for-oran-ric-applications",
+      "section": "quick",
+      "title_en": "Towards a Zero-Trust Supply-Chain Assurance Rubric for ORAN RIC Applications",
+      "authors": "Chun Yin Chiu",
+      "date": "2026-05-05",
+      "pdf": "https://arxiv.org/pdf/2605.04249v1",
+      "score": "6.0",
+      "evidence": "零信任供应链保障细则与威胁控制映射",
+      "tldr": "针对Open RAN中第三方xApp和rApp带来的软件供应链安全风险，本文提出了一种零信任供应链保障准则。研究涵盖了从构建、签名到运行的全生命周期威胁模型，建立了威胁、控制与证据的映射关系，并制定了包含SBOM透明度和SLSA溯源的保障规范。通过案例分析展示了该准则如何辅助运营商在应用上架时做出接受、升级或拦截的决策。",
+      "tags": "query:q5",
+      "abstract_en": "Open RAN enables third-party xApps and rApps to be onboarded and updated at operational cadence, creating a software supply chain that spans developers, CI systems, registries, onboarding pipelines, and runtime enforcement points. This preprint proposes a zero-trust supply-chain assurance rubric for O-RAN RIC applications. It makes three contributions: first, an app-centric lifecycle threat model for RIC applications across build, signing, publication, onboarding, runtime, and update or rollback stages; second, a WG11-aligned threat-control-evidence mapping that relates lifecycle threats to O-RAN security baselines and complementary supply-chain evidence; and third, an operator-facing assurance profile that combines secure software development practices, SBOM transparency, and SLSA-style provenance into incremental onboarding levels. Analytical case-study walkthroughs and a minimal evidence-checking workflow illustrate how the rubric can support explicit Accept, Escalate, or Block decisions during RIC app onboarding. The evaluation is intended to assess applicability rather than deployment-scale performance; empirical measurements of operational overhead, decision consistency, and detection coverage are left for future work.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
