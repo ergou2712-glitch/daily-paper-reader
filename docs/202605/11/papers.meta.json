@@ -1,0 +1,51 @@
+{
+  "label": "2026-05-11",
+  "date": "2026-05-11",
+  "generated_at": "2026-05-11T20:22:56",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202605/11/2605.07658v1-spatiotemporal-trust-evaluation-for-collaborator-selection-via-customized-gnn-mamba",
+      "section": "deep",
+      "title_en": "Spatiotemporal Trust Evaluation for Collaborator Selection via Customized GNN-Mamba",
+      "authors": "Botao Zhu, Xianbin Wang",
+      "date": "2026-05-08",
+      "pdf": "https://arxiv.org/pdf/2605.07658v1",
+      "score": "10.0",
+      "evidence": "用于信任评估和合作者选择的GNN-Mamba模型",
+      "tldr": "本研究针对协作任务中的合作伙伴选择问题，提出了一种定制的GNN-Mamba (GM) 信任评估模型。该模型利用图神经网络（GNN）提取历史协作中的空间依赖性进行空间信任融合，并结合Mamba模型捕捉信任的短时波动与长期演化。此外，模型还整合了任务特定的资源信任以反映设备在不同环境下的实际能力。实验证明，该方法在信任评估的准确性和稳定性上显著优于现有基准。",
+      "tags": "query:q5",
+      "abstract_en": "The successful completion of collaborative tasks relies on the effective selection of trustworthy collaborators. To accurately evaluate the trustworthiness of potential collaborators, it is necessary to combine insights from their past collaborations with assessments of their resource capabilities under specific task contexts. However, the coexistence of diverse trust perspectives, along with complex spatiotemporal dependencies among devices, makes accurate trust evaluation particularly challenging. To address these challenges, we propose a customized Graph Neural Network (GNN)-Mamba (GM) model for trust evaluation and collaborator selection. In this model, the GNN model performs spatial trust fusion by leveraging inter-device spatial dependencies extracted from historical collaborations, while the Mamba-based temporal model captures both short-term fluctuations and long-term evolution of device trust. In addition, task-specific resource trust is incorporated to reflect the practical capabilities of devices under varying task conditions. Experimental results demonstrate that the proposed GM model outperforms baseline approaches in terms of the accuracy and stability of trust evaluation.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202605/11/2605.07646v1-maven-multi-agent-verification-elaboration-network-with-in-step-epistemic-auditing",
+      "section": "quick",
+      "title_en": "MAVEN: Multi-Agent Verification-Elaboration Network with In-Step Epistemic Auditing",
+      "authors": "Yinsheng Yao, Jiehao Tang, Zhaozhen Yang, Dawei Cheng",
+      "date": "2026-05-08",
+      "pdf": "https://arxiv.org/pdf/2605.07646v1",
+      "score": "7.0",
+      "evidence": "高风险应用中信任的认识论审计",
+      "tldr": "针对大语言模型在复杂推理中容易出现错误累积且缺乏中间验证的问题，本文提出了MAVEN框架。该框架借鉴黑板架构，通过“怀疑者-研究者-裁判”多智能体协作，将逻辑防御与事实依据分离，实现了步进式的认知审计。实验表明，MAVEN在多个基准测试中优于Gemini-3.1-Pro等模型，能生成显式、模块化且可验证的推理轨迹，是一种通用的推理增强方案。",
+      "tags": "query:profile-1",
+      "abstract_en": "While explicit reasoning trajectories enhance model interpretability, existing paradigms often rely on monolithic chains that lack intermediate verification, allowing early errors to cascade unchecked. This lack of modularity impedes granular auditing and compromises the epistemic trust required for high-stakes applications. We propose MAVEN (Multi-Agent Verification-Elaboration Network with In-Step Epistemic Auditing), a blackboard-inspired framework designed to transform LLMs into deliberate reasoners through explicit role-decoupling. At its core, MAVEN operationalizes an adversarial Skeptic-Researcher-Judge loop, simulating expert deliberation by functionally separating logical defense from factual grounding. Experiments on OpenBookQA, TruthfulQA, HALUEVAL and StrategyQA benchmarks demonstrate that MAVEN delivers superior reasoning quality across four fine-grained metrics. Notably, MAVEN consistently outperforms latent reasoning models such as GEMINI-3.1-Pro and consensus-based baselines (e.g., ReConcile) by generating explicitly structured, modular, and verifiable deliberation trajectories, rather than relying on implicit internal states or post-hoc consensus. Moreover, comprehensive evaluations confirm that MAVEN is fully model-agnostic, serving as a strong and transferable reasoning booster that yields substantial performance improvements across diverse backbone models.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202605/11/2605.07986v1-towards-apples-to-apples-for-ai-evaluations-from-real-world-use-cases-to-evaluation-scenarios",
+      "section": "quick",
+      "title_en": "Towards Apples to Apples for AI Evaluations: From Real-World Use Cases to Evaluation Scenarios",
+      "authors": "Yee-Yin Choong, Kristen Greene, Alice Qian, Meryem Marasli, Ziqi Yang, Sophia Chen, Laura Dabbish, Anand Rao, Hong Shen",
+      "date": "2026-05-08",
+      "pdf": "https://arxiv.org/pdf/2605.07986v1",
+      "score": "6.0",
+      "evidence": "比较人工智能系统和评估场景的方法论与测量手段",
+      "tldr": "本研究针对AI评估中缺乏一致性的问题，提出了一种将现实用例转化为详细评估场景的可重复流程。通过结构化的AI用例工作表，结合领域专家意见与LLM辅助的扩展流水线，在金融服务领域生成了107个评估场景。该方法强调以人为本的设计原则和操作落地，为实现AI系统的公平、一致性评估提供了方法论支持。",
+      "tags": "query:q5",
+      "abstract_en": "AI measurement science has a wide variety of methodologies and measurements for comparing AI systems, resulting in what often appear to be \"apples-to-oranges\" comparisons across AI evaluations. To move toward \"apples-to-apples\" comparisons in real-world AI evaluations, this work advocates for methodological transparency in evaluation scenarios, operational grounding, and human-centered design (HCD) principles. We propose a repeatable process for transforming high-level use cases to detailed scenarios by eliciting use cases from subject matter experts (SMEs) via a structured AI Use Case Worksheet with six key elements: use case, sector, user (direct and indirect), intended outcomes, expected impacts (positive and negative), and KPIs and metrics. We demonstrate utility of the worksheet and process in the U.S. financial services sector. This paper reports on example high-level AI use cases identified by financial services sector SMEs: cyber defense enablement, developer productivity, financial crime aggregation, suspicious activity report (SAR) filing, credit memo generation, and internal call center support. These AI use cases provided are illustrative of the process and not exhaustive. Central to our work is a three-stage expansion pipeline combining LLM prompting with human reviews to generate 107 scenarios from those use cases elicited from SMEs. This process integrates iterative human reviews at every juncture to ensure operational grounding: for scenario titles and descriptions; for core scenario elements like users, benefits and risks, and metrics; and for scenario narratives and evaluation objectives. Human checkpoints ensure scenarios remain reflective of real-world usage and human needs. We describe a validation rubric to assess scenario quality. By defining key scenario components, this work supports a more consistent and meaningful paradigm for human-centered AI evaluations.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,504 @@
+Title: Spatiotemporal Trust Evaluation for Collaborator Selection via Customized GNN-Mamba
+
+URL Source: https://arxiv.org/pdf/2605.07658v1
+
+Published Time: Mon, 11 May 2026 01:09:04 GMT
+
+Number of Pages: 6
+
+Markdown Content:
+# Spatiotemporal Trust Evaluation for Collaborator Selection via Customized GNN-Mamba 
+
+Botao Zhu and Xianbin Wang 
+
+Dept. of Electrical and Computer Engineering, Western University, London, Ontario N6A 3K7 CANADA 
+
+Abstract —The successful completion of collaborative tasks relies on the effective selection of trustworthy collaborators. To accu-rately evaluate the trustworthiness of potential collaborators, it is necessary to combine insights from their past collaborations with assessments of their resource capabilities under specific task contexts. However, the coexistence of diverse trust perspectives, along with complex spatiotemporal dependencies among devices, makes accurate trust evaluation particularly challenging. To address these challenges, we propose a customized Graph Neural Network (GNN)-Mamba (GM) model for trust evaluation and collaborator selection. In this model, the GNN model performs spatial trust fusion by leveraging inter-device spatial dependen-cies extracted from historical collaborations, while the Mamba-based temporal model captures both short-term fluctuations and long-term evolution of device trust. In addition, task-specific resource trust is incorporated to reflect the practical capabilities of devices under varying task conditions. Experimental results demonstrate that the proposed GM model outperforms baseline approaches in terms of the accuracy and stability of trust evaluation. 
+
+Index Terms —GNN, Mamba, task-specific, trust evaluation 
+
+I. I NTRODUCTION 
+
+Modern applications and interconnected systems often involve computation-heavy tasks that exceed the capabilities of indi-vidual devices, which are constrained by limited processing power and energy. Distributed resource scheduling provides a potential solution by enabling offloading of tasks to networked devices with higher computational capacity. For example, in UAV swarms, drones can offload real-time image processing or navigation computations to a leader drone or edge server to conserve onboard resources [1], whereas in healthcare IoT networks, wearable devices often offload patient data analysis to local hospital servers to maintain real-time monitoring [2]. These examples underscore the importance of choosing reli-able collaborators to guarantee task completion. Trust has emerged as a critical indicator of device reliability, reflecting confidence in a collaborator’s ability to perform spe-cific tasks [3]. Various methods have been proposed recently to evaluate the trustworthiness of collaborators. Some studies assess trust based on historical collaboration performance– utilizing metrics such as packet loss rate, response time, and task success rate to determine past reliability of devices. Oth-ers evaluate trust from the perspective of resource availability, employing indicators such as energy level, bandwidth, or CPU utilization to characterize a device’s trustworthiness [4]. However, these approaches face notable limitations. First, they rely on generic resource indicators to evaluate device resource trust, overlooking the fact that identical resources may ex-hibit different levels of trustworthiness across distinct task contexts. Second, they fail to capture the spatiotemporal trust dependencies embedded in historical collaborations. Devices involved in the same collaboration have spatial trust corre-lations, whereas a device’s trustworthiness evolves over time as it engages in collaborations with different entities. There-fore, accurate evaluation of device trustworthiness requires a customized trust evaluation model. Such a model should not only assess historical trust by capturing the spatiotemporal dependencies among devices from past collaborations, but also enable task-specific evaluation of device resources. However, capturing trust dependencies across both temporal and spatial dimensions remains challenging. In the spatial dimension, due to the complexity of inter-device collabora-tions, a device’s trustworthiness involves not only evaluations from its direct collaborators but also recommendations from indirect neighbours. Traditional approaches, such as simple weighting and rule-based assessments, are often inadequate for modeling such complex spatial relationships. Recently, Graph Neural Networks (GNNs) have been applied to model intricate spatial interactions in social IoT networks [5]. By rep-resenting participants as nodes and their interactions as edges, GNNs effectively encode spatial correlations among nodes. Through the iterative message-passing process of GNNs, each node aggregates information from both direct and multi-hop neighbours. Due to their ability to capture complex spatial relationships, GNNs are suitable for modeling spatial trust dependencies among devices in this study. In the temporal dimension, a device’s trustworthiness is influenced not only by recent collaborations but also by long-term collaborations, necessitating the integration of both short-term and long-term collaborations. Existing temporal fusion methods, such as Recurrent Neural Networks (RNNs), are largely limited to short-term dependencies, making them unsuitable for capturing long-range temporal dynamics [6]. Conversely, Transformer-based models offer powerful long-range dependency modeling, but their self-attention mech-anism incurs quadratic computational complexity. Mamba is a deep neural sequence model introduced in 2023 that builds on state-space modeling ideas to efficiently handle very long input sequences [7]. Unlike classical structured state space models with fixed dynamics, Mamba introduces input-dependent parameters that allow the model to adjust how much past information is propagated or suppressed at each 
+
+> arXiv:2605.07658v1 [eess.SY] 8 May 2026
+
+step, effectively behaving as a selective state space model (SSM). By making key transition and readout parameters functions of the current input, Mamba gains the ability to focus processing on the most contextually relevant parts of a sequence, similar in spirit to attention mechanisms but with-out the associated quadratic complexity in sequence length. Therefore, it serves as a promising tool for modeling trust dependencies along the temporal dimension in this study. Leveraging the significant advantages of GNNs and Mamba, we propose a novel spatiotemporal trust evaluation model, GNN-Mamba (GM), for collaborator selection. Historical col-laboration records are first converted into a series of graph snapshots, capturing relationships among devices at different time intervals. In the spatial domain, a GNN module aggre-gates trust information from each device’s direct neighbors as well as multi-hop connections, effectively modeling complex inter-device dependencies. For the temporal dimension, we employ a Mamba-based mechanism to integrate trust infor-mation across the sequence of historical snapshots. Finally, the framework incorporates task-specific resource evaluation to measure each candidate device’s suitability for the given task. The proposed GM model fully leverages spatiotemporal information and task-specific features, enabling precise and context-aware assessment of collaborator trustworthiness. The main contributions of this paper are summarized as follows.  
+
+> •
+
+We propose a customized spatiotemporal trust model that leverages the spatiotemporal dependencies among devices reflected in historical collaboration data and the task-specific characteristics of device resources, enabling accurate and context-aware evaluation of device trustworthiness for reli-able collaborator selection.  
+
+> •
+
+We develop a GNN-aided spatial trust fusion mechanism that effectively encodes and captures the complex, high-order spatial dependencies embedded in devices’ historical collaborations.  
+
+> •
+
+We innovatively leverage the Mamba architecture to design a temporal trust fusion mechanism to accurately capture the dynamic evolution of device trust. II. S YSTEM MODEL AND PROBLEM DESCRIPTION 
+
+We consider a collaborative system comprising a set of devices 
+
+A = {a1, . . . , a I }. Each device can act either as a task owner, generating tasks, or as a collaborator, executing tasks initiated by others. A monitoring device is deployed within the system to monitor collaborative interactions and collect performance metrics from collaborators. The collected col-laboration records over a long time period T are represented by a dataset F . Each record f(ai,a j ) ∈ F represents a collaboration event in which device aj assists device ai in completing a task. It includes performance metrics of device 
+
+aj , such as packet loss rate, task completion outcomes, and other relevant metrics. We assume that device ai generates a task β = ( βsize , β des , β time ), where βsize denotes the task size, βdes represents the processing density (cycles/bit), and 
+
+βtime indicates the maximum tolerable completion time. Due to limited computational resources, device ai offloads the task 
+
+β to a reliable collaborator for execution. Accurately evaluat-ing the trustworthiness of potential collaborators, considering both their historical collaboration performance and available resources, is therefore essential. Formally, the trustworthiness of device aj as assessed by device ai is defined as: 
+
+T(ai,a j ) = T his  
+
+> (ai,a j)
+
+(F )T res   
+
+> (ai,a j)
+
+(β), (1) where T his   
+
+> (ai,a j)
+
+∈ [0 , 1] quantifies the historical trustworthiness of device aj , and T res   
+
+> (ai,a j)
+
+∈ [0 , 1] measures the extent to which device aj ’s available resources meet the requirements of the task β. The resources of a device comprise both communication and computation capabilities, including CPU capacity, storage space, collaboration willingness, available time, and so on, which collectively determine its ability to participate in task execution. After evaluating all potential collaborators, device ai selects the one with the highest trust value as its final collaborator for task execution. To achieve accurate trust evaluation, a customized assessment approach is required, leveraging the characteristics of both historical collaboration data and device resources. Historical collaboration data inherently exhibit strong spatiotemporal properties. Temporally, a device’s trust can vary across dif-ferent time slots, performing reliably during certain periods while exhibiting instability at others. Spatially, trust can only be evaluated among devices that have previously collaborated. III. P RELIMINARY 
+
+In this section, we introduce the fundamental principles of GNNs and Mamba. 
+
+A. GNNs 
+
+In GNNs, the representation of each node is determined not only by its own features but also by the features of its neighbouring nodes. GNNs learn node embeddings through a message propagation and aggregation mechanism, allowing each node to capture relational dependencies within the graph structure. At the l-th layer, each neighbour of node a propa-gates its message to node a:
+
+m(l) 
+
+> n
+
+= fθ({h(l−1)  
+
+> n
+
+|n ∈ N (a)}), (2) where N (a) is the set of neighbors of node a. Then, node a
+
+updates its embedding by aggregating the received messages: 
+
+h(l) 
+
+> a
+
+= A(m(l) 
+
+> n
+
+|n ∈ N (a)}). (3) After L iterations of propagation and aggregation, each node’s representation incorporates both topological and attribute in-formation from its L-hop neighbours in the graph, thereby capturing spatial dependencies among nodes. 
+
+B. Mamba 
+
+The Mamba model is a recently proposed neural architecture designed to efficiently model long-range temporal depen-dencies while maintaining linear computational complexity, offering an alternative to attention-based mechanisms, such as Transformer. It is built upon the SSM framework, which models sequences as continuous-time dynamical systems. Mamba leverages the state-space representation and introduces a selective mechanism that dynamically controls information retention and forgetting at each time step. In the continuous-time SSM, the evolution of the hidden state z(t) and the output O(t) are defined as: 
+
+z′
+
+(t) = Bz(t) + CH(t), O(t) = Dz(t), (4) where H(t) is the input sequence, and B, C, D are learn-able parameter matrices. For discrete input sequences, the continuous-time SSM in Eq. (4) is discretized using the zero-order hold method [8], yielding the following discrete formulation: 
+
+z(t) = Bz(t − 1) + CH(t), O(t) = Dz(t), (5) where B = exp (∆ B), C = (∆ B)−1(exp (∆ B)−I)(∆ C), ∆
+
+is a specified sampling timescale for the discretization. Mamba combines the dynamical representation power of state-space models with adaptive selection mechanisms to learn complex temporal dependencies. IV. S PATIOTEMPORAL TRUST EVALUATION VIA 
+
+CUSTOMIZED GNN-M AMBA 
+
+Leveraging the strengths of GNNs and Mamba, we propose a customized spatiotemporal trust evaluation model, GM, for collaborator selection. It comprises five key steps: construc-tion of historical collaboration-based graph snapshots, GNN-aided spatial trust fusion, Mamba-aided temporal trust fusion, historical trust calculation, and task-specific resource trust evaluation. 
+
+A. Construction of Historical Collaboration-based Graph Snapshots 
+
+To infer device trust from historical collaborations, we adopt a trust-centric modeling approach that treats collaboration outcomes as evidence contributing to trust accumulation over time. Rather than directly aggregating all past collaborations, trust evidence is progressively collected within successive observation windows to reflect its temporal evolution. Let the observation period be divided into S consecutive intervals 
+
+{t1, . . . , t S }. Within each interval ts, only the collaboration records observed within this interval are considered when inferring trust. Then, a directed trust graph G(ts) is derived, where nodes correspond to devices involved in task execution during ts, and directed edges represent trust attribution rela-tionships induced by task assistance. Specifically, when device 
+
+aj participates in executing tasks delegated by device ai, an edge from ai to aj is introduced, indicating that ai assigns trust to aj based on the observed collaboration outcomes. The strength of this trust attribution is quantified by aggregating 
+
+N(ai,a j ) collaboration outcomes between device ai and device 
+
+aj during ts as: 
+
+T col   
+
+> (ai,a j)
+
+= 1
+
+N(ai,a j ) 
+
+> N(ai,a j)
+
+∑
+
+> n=1
+
+(α1(1 − ploss  
+
+> n
+
+) + α2pout 
+
+> n
+
+) , (6) where ploss  
+
+> n
+
+characterizes the communication reliability (packet loss rate) of the n-th collaboration, and pout  
+
+> n
+
+reflects its task ex-ecution outcome. The weighting coefficients α1 and α2 control the relative contributions of communication and computation performance, with α1 + α2 = 1 . Each snapshot graph G(ts)
+
+thus captures trust evidence accumulated within interval ts.Ordering the snapshots according to their temporal indices yields a time-evolving graph sequence {G(t1), . . . , G (tS )},which serves as the basis for subsequent spatiotemporal trust modeling. 
+
+B. GNN-Aided Trust Fusion in Spatial Dimension 
+
+In collaborative systems, trust is inherently role-dependent: a device evaluates others as a trustor while simultaneously being evaluated as a trustee . To explicitly capture this asym-metry, we model trust as a role-centric representation learning problem over historical collaboration graphs, where each device maintains distinct embeddings corresponding to its trustor and trustee roles. Given a historical collaboration graph 
+
+G(ts) at time slot ts, directed edges represent task-oriented collaborations between devices, naturally inducing asymmet-ric trust relationships. Rather than directly propagating trust values across the graph, we first construct role-specific latent representations that reflect how trust evidence is accumulated and interpreted under different roles. 
+
+1) Trust fusion under the trustee role: When device aj acts as a trustee, its trustworthiness is inferred from the collective feedback of devices that have previously relied on it for task execution. These devices correspond to device aj ’s one-hop in-degree neighbors Nin (aj ) in G(ts). For neighbor 
+
+ai ∈ N in (aj ), its associated trust evidence is mapped into a latent trust signal: 
+
+utr   
+
+> aj←ai
+
+= Ptr   
+
+> aj←ai
+
+ψaj ←ai , (7) where ψaj ←ai represents the binary-encoded trust value 
+
+T col  
+
+> (ai,a j)
+
+, and Ptr   
+
+> aj←ai
+
+∈ Rda×dT is a learnable projection matrix. A trainable temporal embedding τts ∈ Rda encodes the current time slot ts [9]. The influence of device ai on the trustworthiness of device aj is then captured by: 
+
+mtr   
+
+> aj←ai
+
+= fθ(hai , utr   
+
+> aj←ai
+
+, τts ), (8) where hai ∈ Rda represents the latent state of device ai,which is generated via node2vec, and fθ(·) is a learnable message function. The trustee representation of aj is obtained by aggregating these role-conditioned signals: 
+
+htr  
+
+> aj
+
+= A
+
+(
+
+{mtr   
+
+> aj←ai
+
+| ai ∈ N in (aj )}
+
+)
+
+. (9) 
+
+2) Trust fusion under the trustor role: When device aj acts as a trustor, it expresses trust toward selected collaborators. Let 
+
+Nout (aj ) represent the set of one-hop out-degree neighbors of device aj in G(ts). Device aj aggregates trust information propagated by its one-hop out-degree neighbours. This process is formulated as: 
+
+uto   
+
+> aj→ar
+
+= Pto   
+
+> aj→ar
+
+ψaj →ar , a r ∈ N out (aj ) (10) 
+
+mto   
+
+> aj→ar
+
+= fθ (har , uto   
+
+> aj→ar
+
+, τts ), (11) where Pto   
+
+> aj→ar
+
+is a learnable projection matrix, ψaj →ar
+
+denotes the encoded trust value T col   
+
+> (aj,a r)
+
+. Aggregating these signals from neighbours yields a trustor-specific representa-tion: 
+
+hto  
+
+> aj
+
+= A
+
+(
+
+{mto   
+
+> aj→ar
+
+| ar ∈ N out (aj )}
+
+)
+
+. (12) 
+
+3) Role fusion: The final trust state of device aj at time ts
+
+is obtained by fusing its role-specific representations: 
+
+haj (ts) = σ
+
+(
+
+Wfuse (htr  
+
+> aj
+
+‖ hto  
+
+> aj
+
+) + bfuse 
+
+)
+
+, (13) where σ(·) denotes a nonlinear activation. Stacking multiple such layers enables progressive refinement of trust represen-tations by incorporating multi-hop dependencies. Over a sequence of time slots T = {t1, . . . , t S }, the historical trust trajectory of device aj is represented as: 
+
+Haj = [ haj (t1); haj (t2); . . . ; haj (tS )] . (14) This role-centric, temporally-aware embedding encodes how device aj ’s trustworthiness evolves over time. The same procedure is applied to all devices to generate role-aware embeddings that reflect spatial trust dependencies. 
+
+C. Mamba-Aided Trust Fusion in Temporal Dimension 
+
+To effectively model the temporal evolution of trust for each device aj , we perform temporal fusion over its embedding 
+
+Haj . Since Haj captures trust information across multiple time slots, it is important to account for both short-term fluctuations and long-term trends. Additionally, considering dependencies from both previous and future time steps allows the model to extract more informative temporal features. To achieve this, we employ a Mamba-assisted temporal fu-sion approach, which consists of M stacked Mamba blocks. Each Mamba block combines a convolutional operation for capturing local temporal correlations with a discrete SSM module that models long-range dependencies. In each Mamba block, device aj ’s embedding Haj first passes through a convolutional layer, which is given by: 
+
+ˇHaj = Linear (Haj ), (15) 
+
+˜Haj = SiLU (Conv1D ( ˇHaj )) , (16) where Linear (·) is the linear layer, Conv1D (·) is the 1D convolution layer, and SiLU (·) is the activation function. Next, the processed embedding ˜Haj is input into the discrete SSM module: 
+
+OSSM = SSM (B, C,D )(˜Haj ), (17) which recursively integrates information across the sequence, ensuring that each state captures both current inputs and accu-mulated historical context. The detailed steps of the Mamba block are provided in Algorithm 1. To obtain a fixed-size representation suitable for downstream evaluation, we apply a max-pooling operation over the generated Oaj , producing the final embedding: ̂
+
+Oaj = maxpooling (Oaj ) ∈ Rda . (18) 
+
+Algorithm 1 Mamba block  
+
+> 1:
+
+Input : Haj 
+
+> 2:
+
+Output : Oaj 
+
+> 3:
+
+ˇHaj ← Linear (Haj ) 
+
+> 4:
+
+˜Haj ← SiLU (Conv1D ( ˇHaj ))  
+
+> 5:
+
+initialize B as a dialogue matrix  
+
+> 6:
+
+C ← Linear (˜Haj ) 
+
+> 7:
+
+D ← Linear (˜Haj ) 
+
+> 8:
+
+∆ ← Softplus (Linear (˜Haj ))  
+
+> 9:
+
+B ← Discrete (∆ , B ) 
+
+> 10:
+
+C ← Discrete (∆ , B, C, ) 
+
+> 11:
+
+OSSM ← SSM (B, C,D )(˜Haj ) 
+
+> 12:
+
+Oaj ← Linear (OSSM ⊙ SiLU (Linear (Haj ))) 
+
+D. Historical Trust Calculation 
+
+By fusing information across both spatial and temporal di-mensions, we obtain embeddings for all devices that are rich in trust-related information. Given any device pair, e.g., ai
+
+and aj , we concatenate the pooled embeddings ̂ Oai and ̂ Oaj
+
+and feed them into a Multi-Layer Perceptron (MLP). The MLP outputs a trust score vector T his  
+
+> (ai,a j)
+
+, from which the maximum value is selected to present the final trust assessment: 
+
+T his   
+
+> (ai,a j)
+
+= max( MLP (̂Oai ‖̂ Oaj )) , (19) To train the GNN and Mamba models, we define the objective function as the cross-entropy loss between the computed trust values and the ground-truth trust values: 
+
+L = cross entropy (T col , T his ), (20) where T his is the set of computed values, and T col is the set of ground-truth values. 
+
+E. Task-Specific Resource Trust Evaluation 
+
+After obtaining the historical trustworthiness of all potential collaborators, the task owner ai further evaluates the resource trustworthiness of each collaborator for the task β. The evaluation considers whether the task can be completed within TABLE I DEVICE AND NETWORK PARAMETERS               
+
+> Parameter Value
+> Number of devices 500 Transmission power 100 mW CPU frequency Randomly selected from {2,4,6}GHz Channel bandwidth 5 MHz Noise power -80 dBm Trust weights α1= 0 .6,α2= 0 .4
+
+the task owner’s maximum tolerable time. It is worth noting that the criteria for resource trustworthiness are extensible, allowing incorporation of additional metrics if necessary. The estimated task completion time for a potential collaborator in-cludes both the transmission time from the task owner and the computation time required by the collaborator. By collecting communication-related resources, the task transmission time from the task owner ai to collaborator aj is estimated as: 
+
+ttra   
+
+> (ai,a j)
+
+= βsize /r (ai,a j ), (21) where βsize is the task size, and r(ai ,a j ) represents the achiev-able transmission rate from ai to aj . r(ai ,a j ) can be calculated as W band log 2(1 + ( apow  
+
+> i
+
+g(ai,a j ))/N 0), where W band is the channel bandwidth, apow  
+
+> i
+
+is the transmission power of ai,
+
+g(ai,a j ) denotes the channel gain between devices ai and aj ,and N0 is the noise power. By collecting computation-related resources, the task computation time required by collaborator 
+
+aj is estimated as [3]: 
+
+tcom  
+
+> aj
+
+= ( βsize βdes )/a CPU  
+
+> j
+
+, (22) where aCPU  
+
+> j
+
+is the available CPU frequency of collaborator aj .If the sum of task transmission time and task computation time does not exceed the task owner’s maximum tolerable time, i.e., 
+
+ttra   
+
+> (ai,a j)
+
++ tcom  
+
+> aj
+
+≤ βtime , the resources of collaborator aj are considered trusted, T res   
+
+> (ai,a j)
+
+= 1 ; otherwise, its resources are deemed untrusted, T res   
+
+> (ai,a j)
+
+= 0 . Based on each collaborator 
+
+aj ’s historical trust T his   
+
+> (ai,a j)
+
+and task-specific resource trust 
+
+T res  
+
+> (ai,a j)
+
+, the task owner ai selects the collaborator with the highest trust value T(ai,a j ) as the final collaborator. V. E XPERIMENTAL ANALYSIS 
+
+A. Experimental Setup 1) System configuration: We implement the proposed GM model in a wireless system using the discrete-event network simulator NS-3 with Python bindings [10]. NS-3 allows ac-curate simulation of realistic network behavior and supports distributed computation modeling. Key device and network parameters are summarized in Table I. 
+
+2) Task modeling: Two types of tasks are modeled: face recognition and virus scanning. Task characteristics used in the experiments are summarized in Table II. A total of 8,000 tasks are executed sequentially, and each device’s performance is recorded. Ground-truth trust labels are generated from historical device performance following [11].                                                      
+
+> TABLE II TASK PARAMETERS
+> Face recognition Virus scanning
+> Task size (MB) 55Processing density (cycles/bit) 2,339 [12] 32,946 [12] Max tolerable time (s) 80 700
+> TABLE III MODEL AND TRAINING PARAMETERS
+> Parameter Value
+> Embedding dimension 128 GNN layers 3 (outputs: 32, 64, 32) Mamba layers 4Learning rate {10 −1,10 −2,10 −3,10 −4}
+> L2regularization {10 −5,10 −4}
+> Dropout rate {0,0.1,0.3,0.5,0.8}
+> TABLE IV COMPARATIVE ANALYSIS OF RMSE AND MAE
+> RMSE MAE
+> QS-Trust [4] 0.171 ±0.005 0.132 ±0.004
+> Medley (GNN) [5] 0.131 ±0.004 0.109 ±0.003
+> LSTM [6] 0.122 ±0.005 0.102 ±0.002
+> GM 0.104 ±0.004 0.083 ±0.002
+
+3) Model and training strategy: The GM model’s embedding, GNN, Mamba, and training hyperparameters are summa-rized in Table III. The dataset is split into 80% training and 20% testing subsets. Five-fold cross-validation and early stopping are applied to prevent overfitting. All experiments are performed on the Lambda Vector workstation. Without specification, the reported experiment results correspond to a learning rate of 10 −2, an L2 regularization coefficient of 10 −5,and a dropout rate of 0.
+
+B. Comparison of Historical Trust Evaluation 
+
+We first evaluate the performance of the proposed GM model in historical trust assessment. Two widely used met-rics–Root Mean Square Error (RMSE) and Mean Absolute Error (MAE)–are employed to evaluate the accuracy of trust assessment. Lower values of RMSE and MAE indicate higher accuracy. The comparison results with baseline methods are presented in Table IV. The proposed GM method achieves the lowest RMSE and MAE values, demonstrating high accuracy. This improvement arises from GM’s ability to capture and integrate trust information across both spatial and temporal dimensions. In contrast, LSTM captures only temporal de-pendencies, Medley considers only spatial dependencies, and the rule-based QS-Trust neglects both, resulting in the poorest performance. 
+
+C. Comparison of Task-Specific Resource Trust Evaluation 
+
+We further investigate the impact of task attributes on task-specific resource trustworthiness T res  
+
+> (ai,a j)
+
+. As shown in Fig. 1 (a), the GM model consistently identifies trustworthy devices with 100% accuracy across different sizes of the face Accuracy (%)  GM 
+
+> QS-Trust
+
+(a) 
+
+> Number of trusted devices
+> Face recognition
+> Virus scanning
+
+(b) Fig. 1. Comparative analysis of task-specific resource trust. (a) The proposed GM achieves 100% accuracy in task-specific resource trust evaluation across different task sizes. (b) As the task owner’s maximum tolerable time increases, more devices are deemed resource-trustworthy. The face recognition task includes more trusted devices than the virus scanning task, as it requires a shorter processing time. 
+
+Fig. 2. The RMSE comparison of T(ai,a j ) across different time slots demonstrates that the proposed GM model exhibits the smallest fluctuations. 
+
+recognition task. In contrast, QS-Trust achieves less than 50% accuracy, owing to its generic resource evaluation approach that ignores task-specific features. We set the size of both tasks to 10 MB and vary the maximum tolerable time ( βtime ) to observe the resulting number of resource-trustworthy devices. As shown in Fig. 1 (b), the number of resource-trusted devices gradually increases for both tasks as βtime increases. This trend is expected, as a longer tolerable time allows a larger pool of devices to meet the deadline constraint. In addition, the number of resource-trusted devices for the virus scanning task is significantly lower than that for the face recognition task. This is because the virus scanning task has a higher processing density, which consequently leads to longer task execution times, thereby disqualifying more devices from meeting the maximum tolerable time. The experimental results demonstrate that the proposed GM model can effectively identify devices that are trustworthy for specific tasks. 
+
+D. Trust Evaluation Comparison Across Time Slots 
+
+Fig. 2 compares the RMSE of the evaluated trust values 
+
+T(ai,a j ) produced by different methods as the number of time slots increases. The proposed GM consistently achieves the lowest RMSE across all time slots. Moreover, it exhibits the smallest fluctuations, demonstrating strong adaptability and robustness to dynamic data with spatiotemporal dependencies. VI. C ONCLUSION 
+
+This study has investigated the accurate evaluation of device trustworthiness by integrating multiple trust-related perspec-tives to enable efficient collaborator selection. The customized GM model is proposed, where the GNN model performs spatial fusion of trust information to capture inter-device trust dependencies, while the Mamba model realizes temporal fusion to characterize the evolution of trust over time. In addition, the GM model integrates task-specific resource trust evaluation to comprehensively reflect the trustworthiness of devices across different task scenarios. This work provides a new perspective for device trust modeling in complex spa-tiotemporal environments and lays a foundation for achieving more reliable and intelligent collaboration. REFERENCES [1] B. Zhu, E. Bedeer, H. H. Nguyen, R. Barton, and Z. Gao, “UAV trajectory planning for AoI-minimal data collection in UAV-aided IoT networks by transformer,” IEEE Trans. Wireless Commun. , vol. 22, no. 2, pp. 1343–1358, Feb. 2023. [2] A. Chaddad, Y. Wu, and C. Desrosiers, “Federated learning for health-care applications,” IEEE Internet Things J. , vol. 11, no. 5, pp. 7339– 7358, Mar. 2024. [3] B. Zhu and X. Wang, “Networked physical computing: A new paradigm for effective task completion via hypergraph aided trusted task-resource matching,” IEEE Trans. Netw. Sci. Eng. , vol. 13, pp. 1226–1242, Feb. 2026. [4] W. Najib, S. Sulistyo, and Widyawan, “QS-Trust: An IoT ecosystem security model incorporating quality of service and social factors for trust assessment,” Commun. Sci. Technol. , vol. 9, no. 1, pp. 153–160, Jun. 2024. [5] W. Lin and B. Li, “Medley: Predicting social trust in time-varying online social networks,” in Proc. IEEE Conf. Comput. Commun. (INFOCOM) ,2021, pp. 1–10. [6] Y. Alghofaili and M. A. Rassam, “A trust management model for IoT devices and services based on the multi-criteria decision-making approach and deep long short-term memory technique,” Sensors , vol. 22, no. 2, pp. 1–27, Jan. 2022. [7] A. Gu and T. Dao, “Mamba: Linear-time sequence modeling with selective state spaces,” 2023. [Online]. Available: https: //arxiv.org/abs/2312.00752 [8] Z. Ding et al. , “DyGMamba: Efficiently modeling long-term temporal dependency on continuous-time dynamic graphs with state space mod-els,” Trans. Mach. Learn. Res. , pp. 1–31, 2025. [9] L. Yu, L. Sun, B. Du, and W. Lv, “Towards better dynamic graph learning: New architecture and unified library,” in Proc. Adv. Neural Inf. Process. Syst. (NeurIPS) , 2023, pp. 1–26. [10] NS-3 network simulator. [Online]. Available: https://www.nsnam.org/ [11] A. A. Favour et al. Benchmarking dataset for machine learning-based trust evaluation in M2M networks. [Online]. Available: https://www. researchgate.net/publication/393441203 Benchmarking Dataset for 
+
+Machine Learning-Based Trust Evaluation in M2M Networks. [12] B. Zhu, X. Wang, and D. Niyato, “Task-specific trust evaluation for multi-hop collaborator selection via GNN-aided distributed agentic AI,” 
+
+IEEE J. Sel. Areas Commun. , pp. 1–16, Dec. 2025, Early Access.

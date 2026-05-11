@@ -1,0 +1,135 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-05-11T20:21:48.239237+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2605.07658v1",
+      "title": "Spatiotemporal Trust Evaluation for Collaborator Selection via Customized GNN-Mamba",
+      "abstract": "The successful completion of collaborative tasks relies on the effective selection of trustworthy collaborators. To accurately evaluate the trustworthiness of potential collaborators, it is necessary to combine insights from their past collaborations with assessments of their resource capabilities under specific task contexts. However, the coexistence of diverse trust perspectives, along with complex spatiotemporal dependencies among devices, makes accurate trust evaluation particularly challenging. To address these challenges, we propose a customized Graph Neural Network (GNN)-Mamba (GM) model for trust evaluation and collaborator selection. In this model, the GNN model performs spatial trust fusion by leveraging inter-device spatial dependencies extracted from historical collaborations, while the Mamba-based temporal model captures both short-term fluctuations and long-term evolution of device trust. In addition, task-specific resource trust is incorporated to reflect the practical capabilities of devices under varying task conditions. Experimental results demonstrate that the proposed GM model outperforms baseline approaches in terms of the accuracy and stability of trust evaluation.",
+      "authors": [
+        "Botao Zhu",
+        "Xianbin Wang"
+      ],
+      "primary_category": "eess.SY",
+      "categories": [
+        "eess.SY"
+      ],
+      "published": "2026-05-08T12:31:03+00:00",
+      "link": "https://arxiv.org/pdf/2605.07658v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "GNN-Mamba model for trust evaluation and collaborator selection",
+      "llm_evidence_cn": "用于信任评估和合作者选择的GNN-Mamba模型",
+      "llm_evidence": "用于信任评估和合作者选择的GNN-Mamba模型",
+      "canonical_evidence": "用于信任评估和合作者选择的GNN-Mamba模型",
+      "llm_tldr_en": "Proposes a spatiotemporal model to accurately evaluate the trustworthiness of potential collaborators.",
+      "llm_tldr_cn": "提出一种时空模型，用于准确评估潜在合作者的信任度。",
+      "llm_tldr": "提出一种时空模型，用于准确评估潜在合作者的信任度。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2605.07646v1",
+      "title": "MAVEN: Multi-Agent Verification-Elaboration Network with In-Step Epistemic Auditing",
+      "abstract": "While explicit reasoning trajectories enhance model interpretability, existing paradigms often rely on monolithic chains that lack intermediate verification, allowing early errors to cascade unchecked. This lack of modularity impedes granular auditing and compromises the epistemic trust required for high-stakes applications. We propose MAVEN (Multi-Agent Verification-Elaboration Network with In-Step Epistemic Auditing), a blackboard-inspired framework designed to transform LLMs into deliberate reasoners through explicit role-decoupling. At its core, MAVEN operationalizes an adversarial Skeptic-Researcher-Judge loop, simulating expert deliberation by functionally separating logical defense from factual grounding. Experiments on OpenBookQA, TruthfulQA, HALUEVAL and StrategyQA benchmarks demonstrate that MAVEN delivers superior reasoning quality across four fine-grained metrics. Notably, MAVEN consistently outperforms latent reasoning models such as GEMINI-3.1-Pro and consensus-based baselines (e.g., ReConcile) by generating explicitly structured, modular, and verifiable deliberation trajectories, rather than relying on implicit internal states or post-hoc consensus. Moreover, comprehensive evaluations confirm that MAVEN is fully model-agnostic, serving as a strong and transferable reasoning booster that yields substantial performance improvements across diverse backbone models.",
+      "authors": [
+        "Yinsheng Yao",
+        "Jiehao Tang",
+        "Zhaozhen Yang",
+        "Dawei Cheng"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-05-08T12:11:08+00:00",
+      "link": "https://arxiv.org/pdf/2605.07646v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "epistemic auditing for trust in high-stakes applications",
+      "llm_evidence_cn": "高风险应用中信任的认识论审计",
+      "llm_evidence": "高风险应用中信任的认识论审计",
+      "canonical_evidence": "高风险应用中信任的认识论审计",
+      "llm_tldr_en": "Proposes a multi-agent framework for intermediate verification to enhance epistemic trust in LLM reasoning.",
+      "llm_tldr_cn": "提出多智能体框架进行中间验证，以增强大语言模型推理中的认识论信任。",
+      "llm_tldr": "提出多智能体框架进行中间验证，以增强大语言模型推理中的认识论信任。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.07986v1",
+      "title": "Towards Apples to Apples for AI Evaluations: From Real-World Use Cases to Evaluation Scenarios",
+      "abstract": "AI measurement science has a wide variety of methodologies and measurements for comparing AI systems, resulting in what often appear to be \"apples-to-oranges\" comparisons across AI evaluations. To move toward \"apples-to-apples\" comparisons in real-world AI evaluations, this work advocates for methodological transparency in evaluation scenarios, operational grounding, and human-centered design (HCD) principles. We propose a repeatable process for transforming high-level use cases to detailed scenarios by eliciting use cases from subject matter experts (SMEs) via a structured AI Use Case Worksheet with six key elements: use case, sector, user (direct and indirect), intended outcomes, expected impacts (positive and negative), and KPIs and metrics. We demonstrate utility of the worksheet and process in the U.S. financial services sector. This paper reports on example high-level AI use cases identified by financial services sector SMEs: cyber defense enablement, developer productivity, financial crime aggregation, suspicious activity report (SAR) filing, credit memo generation, and internal call center support. These AI use cases provided are illustrative of the process and not exhaustive. Central to our work is a three-stage expansion pipeline combining LLM prompting with human reviews to generate 107 scenarios from those use cases elicited from SMEs. This process integrates iterative human reviews at every juncture to ensure operational grounding: for scenario titles and descriptions; for core scenario elements like users, benefits and risks, and metrics; and for scenario narratives and evaluation objectives. Human checkpoints ensure scenarios remain reflective of real-world usage and human needs. We describe a validation rubric to assess scenario quality. By defining key scenario components, this work supports a more consistent and meaningful paradigm for human-centered AI evaluations.",
+      "authors": [
+        "Yee-Yin Choong",
+        "Kristen Greene",
+        "Alice Qian",
+        "Meryem Marasli",
+        "Ziqi Yang",
+        "Sophia Chen",
+        "Laura Dabbish",
+        "Anand Rao",
+        "Hong Shen"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC",
+        "cs.AI",
+        "cs.CY"
+      ],
+      "published": "2026-05-08T16:44:55+00:00",
+      "link": "https://arxiv.org/pdf/2605.07986v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "methodologies and measurements for comparing AI systems and evaluation scenarios",
+      "llm_evidence_cn": "比较人工智能系统和评估场景的方法论与测量手段",
+      "llm_evidence": "比较人工智能系统和评估场景的方法论与测量手段",
+      "canonical_evidence": "比较人工智能系统和评估场景的方法论与测量手段",
+      "llm_tldr_en": "Advocates for methodological transparency and structured processes in AI measurement and evaluation science.",
+      "llm_tldr_cn": "倡导在人工智能测量和评估科学中采用方法论透明度和结构化流程。",
+      "llm_tldr": "倡导在人工智能测量和评估科学中采用方法论透明度和结构化流程。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
