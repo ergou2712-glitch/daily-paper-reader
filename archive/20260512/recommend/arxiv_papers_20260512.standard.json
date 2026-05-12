@@ -1,0 +1,205 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-05-12T20:42:34.325017+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2605.04671v2",
+      "title": "ITBoost: Information-Theoretic Trust for Robust Boosting",
+      "abstract": "Gradient boosting remains a strong and widely used method for tabular data learning, but its performance often degrades when training labels are noisy. This behavior is largely related to the way boosting algorithms emphasize samples with large gradients, without explicitly accounting for whether such errors originate from informative hard cases or from unreliable labels. We address this issue by reconsidering how sample reliability is evaluated during boosting. Instead of relying on instantaneous error, we examine the evolution of each sample's residuals across iterations. Based on this insight, we propose Information-Theoretic Trust Boosting (ITBoost), which uses the Minimum Description Length principle to measure the complexity of residual trajectories. Samples whose residual patterns fluctuate in an irregular manner are treated as less trustworthy and are down-weighted during learning. Theoretically, we derive a tighter generalization bound for ITBoost under label noise. Empirical results on various tabular benchmarks indicate that ITBoost provides improved robustness in noisy environments over leading boosting and deep tabular models, while retaining best average performance on clean data.",
+      "authors": [
+        "Ye Su",
+        "Longlong Zhao",
+        "Diego Garcia-Gil",
+        "Jipeng Guo",
+        "Gangchun Zhang",
+        "Jinxin Chen",
+        "Jinsong Chen"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-05-06T09:21:43+00:00",
+      "link": "https://arxiv.org/pdf/2605.04671v2",
+      "tags": [
+        "keyword:信任测量"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "uses Minimum Description Length to measure the complexity and trust of residual trajectories",
+      "llm_evidence_cn": "使用最小描述长度原则测量残差轨迹的复杂性和信任度",
+      "llm_evidence": "使用最小描述长度原则测量残差轨迹的复杂性和信任度",
+      "canonical_evidence": "使用最小描述长度原则测量残差轨迹的复杂性和信任度",
+      "llm_tldr_en": "Introduces ITBoost, which measures sample trust using information theory to improve boosting robustness.",
+      "llm_tldr_cn": "提出 ITBoost，利用信息论方法测量样本信任度，以提高梯度提升算法的鲁棒性。",
+      "llm_tldr": "提出 ITBoost，利用信息论方法测量样本信任度，以提高梯度提升算法的鲁棒性。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.08208v1",
+      "title": "Trustworthiness in Digital Twin Systems: Systematic Review and Research Horizons",
+      "abstract": "Digital Twins (DTs) are increasingly deployed across application domains, yet the treatment of trust-related issues remains unevenly addressed. To examine whether and how trust is discussed in the current landscape, we conducted a systematic review of existing DT review papers and a mapping of their abstracts. Seven trust-related challenges and seven trust-enhancing strategies were defined to guide the analysis, enabling the trust focus of each paper to be characterised.   By aggregating the challenges and strategies referenced across domains, distinct patterns of emphasis were observed. With certain domains consistently sharing similar spectrum of trust concerns, four integration types, including human-centred, safety-critical, context-specific, and technologically-driven, were identified as emergent categories reflecting how trust is prioritised in different deployment contexts. Drawing on the characteristics of these types, several preliminary directions for future research were proposed. These include the development of trust-by-design principles to inform early-stage decision-making, the inclusion of trust metadata in platform schemas to prompt systematic developer consideration of trust factors, and the exploration of how architectural choices, such as federated DTs, influence user trust.",
+      "authors": [
+        "Chi Fai David Lam",
+        "Aad van Moorsel",
+        "Zoya Pourmirza"
+      ],
+      "primary_category": "cs.CY",
+      "categories": [
+        "cs.CY",
+        "cs.DC",
+        "cs.SE",
+        "cs.SI"
+      ],
+      "published": "2026-05-06T09:04:00+00:00",
+      "link": "https://arxiv.org/pdf/2605.08208v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "systematic review of trust-related challenges and strategies",
+      "llm_evidence_cn": "对信任相关挑战与策略的系统性综述",
+      "llm_evidence": "对信任相关挑战与策略的系统性综述",
+      "canonical_evidence": "对信任相关挑战与策略的系统性综述",
+      "llm_tldr_en": "Provides a systematic review of trust challenges and enhancement strategies in Digital Twins.",
+      "llm_tldr_cn": "对数字孪生系统中的信任挑战和增强策略进行了系统性综述。",
+      "llm_tldr": "对数字孪生系统中的信任挑战和增强策略进行了系统性综述。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2605.08486v1",
+      "title": "Teachers' Perceived Benefits and Risks of AI Across Fifty-Five Countries: An Audit of LLM Alignment and Steerability",
+      "abstract": "Teachers' trust in artificial intelligence (AI) in education depends on how they balance its perceived benefits and risks. Yet global discussions about scaling AI in education rely on fragmented evidence, as most studies of teachers' perceptions focus on single countries or small samples. This lack of representative cross-national evidence limits both theory building and policy development. At the same time, large language models (LLMs) are increasingly used in research, policy, and teachers' professional workflows, despite limited validation in education. To address these gaps, we conduct a large-scale audit of LLM alignment with teachers' perceptions of AI by combining representative international survey data with systematic model evaluation. Using OECD TALIS data from 55 countries and territories, we measure cross-national variation in teachers' perceived benefits and risks of AI. We then benchmark responses from eight state-of-the-art LLMs across four providers under both general and country-specific prompting, comparing higher- and lower-reasoning models. Results reveal substantial cross-national variation in teacher perceptions that is not reliably reflected in LLM outputs. Models compress country differences, overestimate both benefits and risks, and show limited gains from identity prompting or enhanced reasoning. This misalignment matters because LLM-generated guidance and professional discourse increasingly shape how teachers learn about and discuss AI, potentially influencing trust and future adoption decisions. Our findings caution against treating LLM outputs as substitutes for direct engagement with teachers when informing global AI-in-education initiatives. At the same time, some models (e.g., Gemini 3 Fast) partially capture cross-national ranking patterns, suggesting a complementary role in hypothesis generation and exploratory comparative analysis.",
+      "authors": [
+        "Yan Tao",
+        "Olga Viberg",
+        "Deepak Varuvel Dennison",
+        "Zhikun Wu",
+        "René F. Kizilcec"
+      ],
+      "primary_category": "cs.CY",
+      "categories": [
+        "cs.CY"
+      ],
+      "published": "2026-05-08T21:03:25+00:00",
+      "link": "https://arxiv.org/pdf/2605.08486v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "audit of LLM alignment with teachers' perceptions of trust",
+      "llm_evidence_cn": "审计大语言模型与教师信任感知的对齐情况",
+      "llm_evidence": "审计大语言模型与教师信任感知的对齐情况",
+      "canonical_evidence": "审计大语言模型与教师信任感知的对齐情况",
+      "llm_tldr_en": "Audits LLM alignment with global teacher perceptions of AI benefits, risks, and trust.",
+      "llm_tldr_cn": "审计大语言模型与全球教师对AI利益、风险及信任感知的对齐情况。",
+      "llm_tldr": "审计大语言模型与全球教师对AI利益、风险及信任感知的对齐情况。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.05379v1",
+      "title": "Partial Evidence Bench: Benchmarking Authorization-Limited Evidence in Agentic Systems",
+      "abstract": "Enterprise agents increasingly operate inside scoped retrieval systems, delegated workflows, and policy-constrained evidence environments. In these settings, access control can be enforced correctly while the system still produces an answer that appears complete even though material evidence lies outside the caller's authorization boundary. This paper introduces Partial Evidence Bench, a deterministic benchmark for measuring that failure mode. The benchmark ships three scenario families -- due diligence, compliance audit, and security incident response -- with 72 tasks total, ACL-partitioned corpora, oracle complete answers, oracle authorized-view answers, oracle completeness judgments, and structured gap-report oracles. It evaluates systems along four surfaces: answer correctness, completeness awareness, gap-report quality, and unsafe completeness behavior. Checked-in baselines show that silent filtering is catastrophically unsafe across all shipped families, while explicit fail-and-report behavior eliminates unsafe completeness without collapsing the task into trivial abstention. Preliminary real-model runs show model-dependent and scenario-sensitive differences in whether systems overclaim completeness, conservatively underclaim, or report incompleteness in an enterprise-usable form. The benchmark's broader contribution is to make a governance-critical agent failure measurable without human judges or contamination-prone static corpora.",
+      "authors": [
+        "Krti Tallam"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CC",
+        "cs.ET"
+      ],
+      "published": "2026-05-06T19:01:29+00:00",
+      "link": "https://arxiv.org/pdf/2605.05379v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "benchmark for measuring failure modes in agentic systems",
+      "llm_evidence_cn": "衡量智能体系统失效模式的基准",
+      "llm_evidence": "衡量智能体系统失效模式的基准",
+      "canonical_evidence": "衡量智能体系统失效模式的基准",
+      "llm_tldr_en": "Introduces a benchmark to measure completeness and authorization failures in agentic retrieval systems.",
+      "llm_tldr_cn": "引入了一个基准，用于衡量智能体检索系统中的完整性和授权失败。",
+      "llm_tldr": "引入了一个基准，用于衡量智能体检索系统中的完整性和授权失败。",
+      "llm_tags": [
+        "query:q4"
+      ],
+      "matched_query_tag": "query:q4",
+      "matched_query_text": "quantitative metrics used to assess trust",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.08765v1",
+      "title": "Unlearners Can Lie: Evaluating and Improving Honesty in LLM Unlearning",
+      "abstract": "Unlearning in large language models (LLMs) aims to remove harmful training data while preserving overall utility. However, we find that existing methods often hallucinate, generate abnormal token sequences, or behave inconsistently, raising safety and trust concerns. According to prior literature on LLM honesty, such behaviors are often associated with dishonesty. This motivates us to investigate the notion of honesty in the context of model unlearning. We propose a formal definition of unlearning honesty, which includes: (1) preserving both utility and honesty on retained knowledge, and (2) ensuring effective forgetting while encouraging the model to acknowledge its limitations and respond consistently to questions related to forgotten knowledge. To systematically evaluate the honesty of unlearning, we introduce a suite of metrics that cover utility, honesty on the retained set, effectiveness of forgetting, rejection rate and refusal stability in Q&A and MCQ settings. Evaluating 9 methods across 3 mainstream families shows that all current methods fail to meet these standards. After experimental and theoretical analyses, we present ReVa, a representation-alignment procedure that fine-tunes feature-randomized unlearned models to better acknowledge forgotten knowledge. On Q&A tasks from the forget set, ReVa achieves the highest rejection rate after two rounds of interaction, nearly doubling the performance of the second-best method. Remarkably, It also improves honesty on the retained set. We release our data and code at https://github.com/renjiegu.",
+      "authors": [
+        "Renjie Gu",
+        "Jiazhen Du",
+        "Yihua Zhang",
+        "Sijia Liu"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-05-09T07:50:27+00:00",
+      "link": "https://arxiv.org/pdf/2605.08765v1",
+      "tags": [
+        "keyword:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "formal definition and evaluation of honesty in model unlearning",
+      "llm_evidence_cn": "模型遗忘中诚实性的正式定义与评估",
+      "llm_evidence": "模型遗忘中诚实性的正式定义与评估",
+      "canonical_evidence": "模型遗忘中诚实性的正式定义与评估",
+      "llm_tldr_en": "Defines and evaluates unlearning honesty to address safety and trust concerns in LLMs.",
+      "llm_tldr_cn": "定义并评估遗忘诚实性，以解决大语言模型中的安全与信任问题。",
+      "llm_tldr": "定义并评估遗忘诚实性，以解决大语言模型中的安全与信任问题。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "methods and metrics for measuring trust",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
