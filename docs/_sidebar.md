@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-05-13 <!--dpr-date:20260513-->
+    * 精读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202605/13/2605.11357v1-byzantine-resilient-consensus-via-active-reputation-learning" data-sidebar-item="{&quot;title&quot;: &quot;Byzantine-Resilient Consensus via Active Reputation Learning&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2605.11357v1-byzantine-resilient-consensus-via-active-reputation-learning&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;q4&quot;}], &quot;evidence&quot;: &quot;主动声誉学习与信任度信念向量&quot;}">Byzantine-Resilient Consensus via Active Reputation Learning</a>
   * 2026-05-12 <!--dpr-date:20260512-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202605/12/2605.04671v2-itboost-information-theoretic-trust-for-robust-boosting" data-sidebar-item="{&quot;title&quot;: &quot;ITBoost: Information-Theoretic Trust for Robust Boosting&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2605.04671v2-itboost-information-theoretic-trust-for-robust-boosting&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;q5&quot;}], &quot;evidence&quot;: &quot;使用最小描述长度原则测量残差轨迹的复杂性和信任度&quot;}">ITBoost: Information-Theoretic Trust for Robust Boosting</a>

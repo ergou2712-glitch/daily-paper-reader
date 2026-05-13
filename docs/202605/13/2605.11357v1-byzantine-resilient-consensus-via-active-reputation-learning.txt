@@ -1,0 +1,2697 @@
+Title: Byzantine-Resilient Consensus via Active Reputation Learning
+
+URL Source: https://arxiv.org/pdf/2605.11357v1
+
+Published Time: Wed, 13 May 2026 00:24:39 GMT
+
+Number of Pages: 16
+
+Markdown Content:
+# Byzantine-Resilient Consensus via Active Reputation Learning 
+
+# Rui Huang a, Changxin Liu b, Wen-Hua Chen a, Yang Shi c
+
+> a
+
+School of Aeronautical, Automotive, Chemical and Materials Engineering, Loughborough University, Loughborough, Leicestershire, LE11 3TU, UK 
+
+> b
+
+Key Laboratory of Smart Manufacturing in Energy Chemical Process, Ministry of Education, East China University of Science and Technology, Shanghai 200237, China 
+
+> c
+
+Department of Mechanical Engineering, University of Victoria, Victoria, BC V8W 3P6, Canada 
+
+Abstract 
+
+This paper proposes a Byzantine-resilient consensus framework that simultaneously pursues two tightly coupled objectives: actively identifying Byzantine agents and guaranteeing resilient consensus among normal agents. Unlike existing methods that treat adversary mitigation as a passive filtering process, our approach embeds an active reputation learning mechanism into the consensus loop. Agents evaluate neighbors’ behaviors using outlier-robust loss functions and historical information, and construct a reputation vector on a probability simplex via a mechanism that balances loss minimization with diversity-preserving exploration, representing dynamic beliefs over neighbor trustworthiness. These reputations are then used to form weighted local updates that suppress adversarial influence and improve agreement among normal agents, thereby reducing the bias in local loss evaluations and enabling more reliable subsequent reputation estimation. This learning-control co-design yields a closed-loop dual objective: improved consensus states enhance Byzantine identifiability, while refined reputations in turn improve consensus. A range of distributed systems experiments, benchmarking against classical resilient consensus methods, demonstrate superior Byzantine detection accuracy and significantly more reliable and scalable consensus. 
+
+Key words: Byzantine Fault Tolerance, Consensus Algorithms, Active Reputation Learning, Distributed Systems 
+
+1 Introduction 
+
+Over the past decade, advances in communication tech-nologies and low-cost embedded devices have driven a shift from centralized architectures to distributed, networked systems, where computation and decision-making are carried out through local interactions among agents [17]. A fundamental task in such systems is con-sensus, in which agents iteratively exchange information with neighbors to reach agreement on a common value, enabling scalability, reduced communication overhead, and robustness to failures in applications such as multi-robot coordination [8], sensor networks [25], and dis-tributed optimization [16]. However, in real-world cyber-physical systems, agents 
+
+Email addresses: r.huang@lboro.ac.uk (Rui Huang), 
+
+changxinl@ecust.edu.cn (Changxin Liu), 
+
+w.chen@lboro.ac.uk (Wen-Hua Chen), yshi@uvic.ca 
+
+(Yang Shi). 
+
+may be subject to faults, attacks, or malicious com-promises [11], where misbehaving nodes can manipu-late states or transmit deceptive information, potentially leading to unsafe system behavior in applications such as robotic swarms [1,18], distributed optimization [21,22] and learning [12]. This challenge has led to the study of resilient consensus, which seeks to guarantee that all normal agents asymptotically agree despite adversarial nodes with unknown identities, while preserving safety or validity, i.e., ensuring that their states remain within a region determined by the initial normal states (e.g., the convex hull or interval). A key difficulty in resilient con-sensus lies in the fact that normal agents cannot distin-guish adversarial neighbors from normal ones, making it nontrivial to design update rules that simultaneously ensure agreement and safety. Related work on resilient consensus spans trimming-based, geometric, and adaptive weighting approaches. Early approximate agreement algorithms for real-valued states relied on iteratively removing extreme values 
+
+Preprint submitted to Automatica 13 May 2026 
+
+> arXiv:2605.11357v1 [math.OC] 12 May 2026
+
+to guarantee convergence under Byzantine faults [5]. This idea was later extended to general directed net-works through the W-MSR algorithm, which introduced the notion of network robustness to characterize the topological conditions required for local, fault-tolerant consensus [10,23]. For vector-valued states, geometric safe-point constructions based on centerpoints were pro-posed to ensure that normal agents remain within the convex hull of their neighbors’ states despite adversarial influence [2]. More recently, reputation-based mecha-nisms have been explored to dynamically downweight suspicious neighbors and achieve resilience under both synchronous and asynchronous communications [20]. Although the analysis in [20] focuses on scalar-valued states, the underlying weighting mechanism can be ex-tended to vector-valued settings by mapping neighbor state deviations to scalar trust scores. Reinforcement learning based approaches have also been explored to adaptively learn neighbor weights from data, where re-wards are constructed from relative state differences and used to infer the credibility of neighbors over time [7,6]. Recent works in federated learning have also explored robust aggregation rules such as coordinate-wise median [3] to mitigate Byzantine effects in high-dimensional settings. These approaches commonly rely on central-ized or all-to-all communication architectures, where global aggregation is available at each iteration. Despite these advances, existing resilient consensus methods largely follow a passive adversary-mitigation paradigm, which leads to several fundamental limita-tions: (1) Scalability to high-dimensional states. 
+
+Many existing methods face challenges in high-dimensional state spaces. Classical trimming-based approaches, such as W-MSR, are mainly designed for scalar states, while naive coordinate-wise ex-tensions may lose geometric consistency and con-vergence guarantees. Centerpoint-based methods [2] offer a principled geometric alternative, but their computational cost and fault tolerance dete-riorate with dimension, limiting their use in high-dimensional applications such as machine learning and perception. (2) Dependence on strong structural or prior as-sumptions. Existing methods often rely on re-strictive assumptions on the network or adversary model. Trimming-based methods typically require strong graph conditions, such as r-robustness or sufficiently large node degrees, which may be hard to satisfy in sparse networks. Adaptive-weighting schemes [20] often require an upper bound on the number of Byzantine agents f , leading to conserva-tive behavior when this bound exceeds the actual number of adversaries. (3) Limited adaptivity and lack of feedback mechanisms. Existing methods usually rely on predefined filtering or weighting rules and make lim-ited use of historical feedback. Adaptive-weighting schemes [20], though avoiding hard trimming, can still be viewed as soft trimming mechanisms that assign scalar trust scores to neighbors and down-weight them accordingly. Such methods generally lack explicit mechanisms for exploiting interaction history or balancing exploration and exploitation, limiting their adaptability in dynamic or uncertain environments. These limitations motivate the need for a more adaptive and scalable framework that can simultaneously han-dle high-dimensional states, reduce reliance on strong assumptions, and actively learn to mitigate adversarial influence. To address these limitations, we propose a dual-objective resilient consensus framework that jointly integrates Byzantine identification and consensus control. Unlike passive trimming or prescribed weighting rules, the proposed method embeds an active reputation learning mechanism into the consensus loop. Each agent evalu-ates its neighbors using an outlier-robust discrepancy measure. Neighbor reputations are then updated by bal-ancing historical reliability with sufficient exploration for long-term learning. These reputations are used to construct convex combinations of local and neighbor states, attenuating unreliable influences while promot-ing consensus among honest agents. This creates a posi-tive feedback loop: improved consensus makes Byzantine neighbors easier to identify, while more accurate iden-tification of Byzantine neighbors further strengthens consensus. Overall, the method exhibits a dual-control-like behavior, where learning improves control and con-trol enhances learning, leading to improved robustness, scalability, and low per-agent computational cost. The main contributions of this paper are threefold: (1) Dual-objective learning–control framework. 
+
+We propose a resilient consensus framework that jointly learns Byzantine reputations and drives agreement among normal agents within a single closed-loop mechanism. The learned reputations explicitly quantify neighbor reliability, enabling not only resilient consensus but also higher-level actions such as isolating or removing Byzantine agents. (2) Reputation learning with exploration– exploitation trade-off. Neighbor reputations are learned through a simplex-constrained opti-mization that balances historical reliability, mea-sured by an outlier-robust discrepancy loss, with diversity-promoting exploration. This formulation avoids heuristic thresholding and does not re-quire prior knowledge of the maximum number of Byzantine neighbors for each agent. (3) Graph-preserving and dimension-robust de-sign with low complexity. The proposed method 2preserves graph connectivity by downweighting un-reliable neighbors rather than eliminating them. In-stead of relying on expensive high-dimensional geo-metric operations such as centerpoint computation, it refines trust through incremental reputation up-dates. This keeps the per-agent computational cost low and enables scalability to large networks and high-dimensional state spaces. The rest of the paper is organized as follows. Section 2 formalizes the problem of Byzantine-resilient consensus in distributed networks. Section 3 introduces the pro-posed algorithm, detailing its design and implementa-tion. Section 4 analyzes the convergence properties of the proposed algorithm under Byzantine attacks, lever-aging a geometric classification of neighbor states and their influence on honest nodes. Section 5 presents sev-eral extensions of the proposed method by highlight-ing its modular structure, where key components can be flexibly replaced with alternative designs. Section 6 presents a range of distributed systems experiments, demonstrating the superior performance of the proposed method over classical resilient consensus approaches. Fi-nally, Section 7 concludes the paper and discusses po-tential future research directions. 
+
+2 Preliminaries and Problem Formulation 
+
+2.1 Notation 
+
+We use R to denote the set of real numbers, Rd to denote the d-dimensional Euclidean space, and Rn×d to denote the set of n × d real matrices. For a vector x ∈ Rd, we denote its k-th entry by ( x)k. For a set S, we denote its cardinality by |S|. For a vector x ∈ Rd, we denote its ℓp-norm by ∥x∥p for p ≥ 1, and in particular ∥x∥ = ∥x∥2.For a matrix A ∈ Rn×d, we denote its Frobenius norm by ∥A∥F and its induced norms by ∥A∥p. Similar to the vector case, we denote ∥A∥ = ∥A∥2. For a set S and a point x, we denote the infinity distance from x to S by dist ∞(x, S ) = inf y∈S ∥x−y∥∞. We denote Id as the d×d
+
+identity matrix, and 1d as the d-dimensional vector of all ones. If the dimension is clear from the context, we simply write I and 1. The indicator function is denoted by I{·} , which equals 1 if the condition is true and 0 otherwise. 
+
+2.2 Consensus in the Presence of Malicious Nodes 
+
+We consider a network of n nodes represented by an undirected connected graph G = ( V, E), where V =
+
+{1, 2, . . . , n } and an edge ( i, j ) ∈ E indicates that nodes 
+
+i and j can directly exchange information. Each node i
+
+maintains a state x(t) 
+
+> i
+
+∈ Rd at discrete time t, and its neighbor set is denoted by Ni = {j ∈ V | (i, j ) ∈ E} .In the standard distributed consensus problem, the goal is to design a local update rule such that lim  
+
+> t→∞
+
+∥x(t) 
+
+> i
+
+− x(t) 
+
+> j
+
+∥ = 0 , ∀i, j ∈ V ,
+
+using only information from neighboring nodes. A typi-cal consensus update is given by [17] 
+
+x(t+1)  
+
+> i
+
+= (1 − α)x(t) 
+
+> i
+
++ α 1
+
+|N i|
+
+X
+
+> j∈N i
+
+x(t) 
+
+> j
+
+, (1) where α ∈ (0 , 1] controls the influence of neighboring states. This update forms a convex combination of node 
+
+i’s current state and the average state of its neighbors, and achieves average consensus under standard connec-tivity. However, such averaging is vulnerable to Byzantine be-havior. Malicious nodes may send arbitrary or inconsis-tent messages to their neighbors, thereby distorting local averages and preventing honest nodes from reaching con-sensus. We therefore partition the node set as V = H∪B ,where H and B denote the honest and malicious nodes, respectively. Honest nodes follow the prescribed proto-col, while malicious nodes may behave arbitrarily. The resilient consensus objective is to ensure lim  
+
+> t→∞
+
+∥x(t) 
+
+> i
+
+− x(t) 
+
+> j
+
+∥ = 0 , ∀i, j ∈ H .
+
+2.3 Attacker Model 
+
+We consider a Byzantine adversarial model on a fixed communication graph. Let B ⊆ V denote the set of Byzantine nodes and H = V \ B the set of honest nodes. Honest nodes follow the prescribed consensus protocol, whereas Byzantine nodes may arbitrarily update their internal states and send arbitrary, possibly inconsistent, values to different neighbors. We focus on value-based attacks and assume reliable communication links, so that each node receives one message from each neighbor at every iteration. We impose the following assumptions for resilience. 
+
+Assumption 1 Each honest node has a strict majority of honest neighbors: 
+
+|N i ∩ H| > |N i ∩ B| , ∀i ∈ H .
+
+Assumption 2 The subgraph induced by H is con-nected. 
+
+For later analysis, define the stacked honest and Byzan-tine states as 
+
+X(t) 
+
+> H
+
+= ( x(t) 
+
+> i
+
+)i∈H , X(t) 
+
+> B
+
+= ( x(t) 
+
+> j
+
+)j∈B .
+
+3Without loss of generality, order honest nodes before Byzantine nodes, so that 
+
+X(t) =
+
+"X(t)
+
+> H
+
+X(t)
+
+> B
+
+#
+
+.
+
+For any time-independent function f , we write f (t) := 
+
+f (X(t)). 
+
+3 Proposed Algorithm 
+
+In this section, we present the Active Reputation-based Consensus (A-RepC) algorithm, which jointly targets fault-tolerant consensus and long-term neighbor reputa-tion learning. Each node evaluates its neighbors using an outlier-robust discrepancy measure and updates their reputa-tions by balancing historical reliability (exploitation) with diversity for long-term learning (exploration). The resulting reputations define convex consensus weights that downweight unreliable influences and promote con-sensus among honest nodes. This forms a positive feed-back loop: better consensus makes Byzantine neighbors easier to identify, while more accurate identification further strengthens consensus. The full procedure is summarized in Algorithm 1. 
+
+Algorithm 1 A-RepC 
+
+Require: Initial state x(0)  
+
+> i
+
+, inverse temperature η, for-getting factor λ, step-size α, total iterations T .
+
+Ensure: Final state x(T ) 
+
+> i
+
+, reputations {p(T ) 
+
+> ij
+
+}j∈N i . 
+
+> 1:
+
+Initialize L(−1)  
+
+> ij
+
+← 0 for all i ∈ H and j ∈ N i 
+
+> 2:
+
+for t = 0 , 1, . . . , T − 1 do  
+
+> 3:
+
+for each honest node i in parallel do  
+
+> 4:
+
+Exchange states to obtain {x(t) 
+
+> j
+
+}j∈N i 
+
+> 5:
+
+for all j ∈ N i do  
+
+> 6:
+
+l(t) 
+
+> ij
+
+← ∥ x(t) 
+
+> j
+
+− cm (t) 
+
+> i
+
+∥∞ 
+
+> 7:
+
+L(t) 
+
+> ij
+
+← λL (t−1)  
+
+> ij
+
++ l(t) 
+
+> ij
+> 8:
+
+end for  
+
+> 9:
+
+{p(t) 
+
+> ij
+
+}j∈N i ← sparsemax 
+
+
+
+{− ηL (t) 
+
+> ij
+
+}j∈N i
+
+ 
+
+> 10:
+
+x(t+1)  
+
+> i
+
+← (1 − α)x(t) 
+
+> i
+
++ α P 
+
+> j∈N i
+
+p(t) 
+
+> ij
+
+x(t) 
+
+> j
+> 11:
+
+end for  
+
+> 12:
+
+end for 
+
+In Algorithm 1, the coordinate-wise median of neighbor states serves as an outlier-robust reference: (cm (t) 
+
+> i
+
+)k = median 
+
+
+
+{(x(t) 
+
+> j
+
+)k | j ∈ N i}
+
+
+
+, k = 1 , . . . , d. 
+
+The sparsemax operator [13] maps discrepancy-based scores to normalized neighbor weights on the probability simplex: sparsemax( z) = arg max 
+
+> p∈∆K−1
+
+p⊤z − 12 ∥p∥2,
+
+where ∆ K−1 = {p ∈ RK | p ≥ 0, PKi=1 pi = 1 }. This en-courages weights to align with the scores while avoiding excessive concentration. For implementation, we next re-call a closed-form characterization of sparsemax. 
+
+Proposition 1 ([13, Proposition 1]) For any z ∈
+
+RK , the sparsemax mapping admits the closed-form solution 
+
+(p)i = max {(z)i − τ (z), 0}, i = 1 , . . . , K, 
+
+where the threshold τ (z) is chosen such that 
+
+> K
+
+X
+
+> i=1
+
+max {(z)i − τ (z), 0} = 1 .
+
+Moreover, let (z)1 ≥ · · · ≥ (z)K denote the sorted entries of z, and define 
+
+k⋆ = max 
+
+k ∈ { 1, . . . , K } 1 + k (z)k >
+
+> k
+
+X
+
+> j=1
+
+(z)j
+
+ .
+
+Then the threshold τ (z) admits the explicit form 
+
+τ (z) = 
+
+Pk⋆
+
+> j=1
+
+(z)j − 1
+
+k⋆ .
+
+4 Analysis 
+
+In this section, we establish the convergence of A-RepC under Byzantine attacks. The key idea is that active reputation learning induces a state-dependent trunca-tion mechanism. Adversarial states that lie far from the honest-state cluster are assigned zero weight, while any retained adversarial states must remain within a bounded neighborhood of the honest states. As the honest-state diameter decreases, this neighborhood also shrinks. We show that the influence of retained Byzan-tine states is therefore uniformly controlled throughout the evolution, which leads to the convergence of A-RepC. To simplify the analysis, we focus on the case λ = 0, where the accumulated loss reduces to the instantaneous discrepancy: 
+
+L(t) 
+
+> ij
+
+= l(t) 
+
+> ij
+
+= ∥x(t) 
+
+> j
+
+− cm (t) 
+
+> i
+
+∥∞.
+
+The forgetting term mainly provides practical smooth-ing and does not change the geometric structure of the 4truncation rule. Thus, we present the main results for 
+
+λ = 0 and discuss the case 0 < λ < 1 in remarks when needed. For the analysis, define the honest-node diameter 
+
+D(t) 
+
+> H
+
+:= max  
+
+> i,j ∈H
+
+∥x(t) 
+
+> i
+
+− x(t) 
+
+> j
+
+∥∞.
+
+Lemma 1 Suppose that Assumption 1 holds. Then, for every honest node i ∈ H , every honest neighbor j ∈Ni ∩ H , and all t ≥ 0,
+
+∥x(t) 
+
+> j
+
+− cm (t) 
+
+> i
+
+∥∞ ≤ D (t) 
+
+> H
+
+.
+
+PROOF. By the definition of the coordinate-wise me-dian, for each coordinate ℓ = 1 , . . . , d ,min 
+
+> j∈N i∩H
+
+(x(t) 
+
+> j
+
+)ℓ ≤ (cm (t) 
+
+> i
+
+)ℓ ≤ max 
+
+> j∈N i∩H
+
+(x(t) 
+
+> j
+
+)ℓ.
+
+Therefore, we have 
+
+∥x(t) 
+
+> j
+
+− cm (t) 
+
+> i
+
+∥∞ ≤ max  
+
+> u,v ∈N i∩H
+
+∥x(t) 
+
+> u
+
+− x(t) 
+
+> v
+
+∥∞ ≤ D (t) 
+
+> H
+
+.
+
+Lemma 2 Suppose that Assumption 1 holds and that 
+
+λ = 0 in Algorithm 1. For every honest node i ∈ H and every neighbor j ∈ N i, if pij (t) > 0, we have 
+
+L(t) 
+
+> ij
+
+< D(t) 
+
+> H
+
++ 1
+
+η|N i ∩ H| .
+
+PROOF. Fixed an honest node i ∈ H . Denote the threshold of sparsemax at node i by τi(t). When all neighbors’ losses are less than or equal to the honest-state dispersion, i.e. 
+
+L(t) 
+
+> ij
+
+≤ D (t) 
+
+> H
+
+, ∀j ∈ N i,
+
+the lemma holds trivially. Thus, we only need to consider the case where there exists a neighbor j ∈ N i such that 
+
+L(t) 
+
+> ij
+
+> D(t) 
+
+> H
+
+.
+
+Assume that p(t) 
+
+> ij
+
+> 0 for some neighbor j ∈ N i satisfying 
+
+L(t) 
+
+> ij
+
+> D(t) 
+
+> H
+
+.
+
+By the definition of sparsemax, we have −ηL (t) 
+
+> ij
+
+> τ (t) 
+
+> i
+
+.For any honest neighbor k ∈ N i ∩ H , we have 
+
+−ηL (t) 
+
+> ik
+
+≥ − ηD(t) 
+
+> H
+
+> −ηL (t) 
+
+> ij
+
+> τ (t) 
+
+> i
+
+,
+
+which implies that p(t) 
+
+> ik
+
+> 0 for all honest neighbors 
+
+k ∈ N i ∩ H . This shows that as long as a neighbor whose loss exceeds the honest-state dispersion is assigned a pos-itive weight, all honest neighbors must also be assigned positive weights. By the definition of sparsemax, we have 1 = X
+
+> v∈N i
+
+piv (t) ≥ X
+
+> k∈N i∩H
+
+pik (t).
+
+For each honest neighbor k ∈ N i ∩ H , we have 
+
+p(t) 
+
+> ik
+
+= −ηL (t) 
+
+> ik
+
+− τ (t) 
+
+> i
+
+≥ − ηD(t) 
+
+> H
+
+− τ (t) 
+
+> i
+
+.
+
+Therefore, we have 1 ≥ X
+
+> k∈N i∩H
+
+p(t) 
+
+> ik
+
+≥ |N i ∩ H| · 
+
+
+
+−ηD(t) 
+
+> H
+
+− τ (t)
+
+> i
+
+
+
+.
+
+For any neighbor j ∈ N i with p(t) 
+
+> ij
+
+> 0, we have 
+
+−ηL (t) 
+
+> ij
+
+> τ (t) 
+
+> i
+
+.
+
+Combining the above two inequalities, we have 1 > |N i ∩ H| · 
+
+
+
+−ηD(t) 
+
+> H
+
++ ηL (t)
+
+> ij
+
+
+
+,
+
+which implies that 
+
+L(t) 
+
+> ij
+
+< D(t) 
+
+> H
+
++ 1
+
+η|N i ∩ H| .
+
+Remark 1 Lemma 2 shows that the truncation rule changes with the spread of honest neighbors. When hon-est states are spread out, the rule is looser and avoids removing useful neighbors too early. When honest states become closer, the rule becomes stricter and gives less weight to Byzantine nodes, helping honest nodes reach consensus. This captures the exploration–exploitation trade-off. The term 1/(η|N i ∩ H| ) provides a safety margin, so small noise does not immediately lead to truncation near consensus. 
+
+Proposition 2 Suppose that Assumptions 1 and 2 hold and that λ = 0 in Algorithm 1. Denote the average of honest nodes’ states at time t by 
+
+¯x(t) 
+
+> H
+
+= 1
+
+|H| 
+
+X
+
+> i∈H
+
+x(t) 
+
+> i
+
+.
+
+Assume that there exists T ≥ 0 such that, for all i, j ∈ H 
+
+and all k ∈ N i ∩ B ,
+
+x(T ) 
+
+> i
+
+= x(T ) 
+
+> j
+
+, ∥x(T ) 
+
+> k
+
+− ¯x(T ) 
+
+> H
+
+∥∞ ≥ 1
+
+ηδ min 
+
+,
+
+5where δmin := min i∈H |N i ∩ H| is the minimum number of honest neighbors across all honest nodes. Then, for every i ∈ H ,
+
+p(T ) 
+
+> ij
+
+=
+
+
+
+0, j ∈ N i ∩ B ,
+
+1
+
+|N i ∩ H| , j ∈ N i ∩ H .
+
+Moreover, if 
+
+∥x(t) 
+
+> k
+
+− ¯x(t) 
+
+> H
+
+∥∞ ≥ 1
+
+ηδ min 
+
+for all t ≥ T , i ∈ H , and k ∈ N i ∩ B , then the weights remain unchanged for all t ≥ T .
+
+PROOF. Following from Lemma 1, for each honest node i ∈ H we have cm (T ) 
+
+> i
+
+= x(T ) 
+
+> j
+
+= ¯ x(T ) 
+
+> H
+
+, ∀j ∈ N i ∩ H .
+
+The result then follows from Lemma 2 and the definition of sparsemax. 
+
+Remark 2 Proposition 2 shows the dual role of A-RepC: when Byzantine states remain sufficiently separated from the honest average, the algorithm achieves both consen-sus and exact identification through the learned weights. The required separation is quantified in terms of the in-verse temperature η and the minimum number of honest neighbors δmin .
+
+Lemma 2 shows that sufficiently extreme Byzantine de-viations are removed by the truncation rule at each it-eration. However, because the truncation region adapts to the current dispersion of honest states, this pointwise truncation property alone does not provide a uniform-in-time bound on all admissible Byzantine states. For the convergence analysis, we therefore impose the following boundedness assumption. 
+
+Assumption 3 (Bounded Byzantine states) There exists a constant MB > 0 such that 
+
+∥x(t) 
+
+> j
+
+∥ ≤ MB, ∀j ∈ B , ∀t ≥ 0.
+
+Under this assumption, Byzantine nodes may still re-ceive positive weights, but their influence is bounded, which facilitates the analysis of the consensus dynamics. For the analysis, define the projection onto the honest-node disagreement subspace and the corresponding dis-agreement vector: Π = 
+
+
+
+I|H| − 1
+
+|H| 11 ⊤
+
+
+
+⊗ Id, E(t) 
+
+> H
+
+= Π X(t) 
+
+> H
+
+.
+
+We partition the weight matrix as 
+
+P (t) =
+
+h
+
+P (t) 
+
+> H
+
+P (t)
+
+> B
+
+i
+
+,
+
+according to honest and Byzantine neighbors. 
+
+Lemma 3 For each i ∈ H , let 
+
+Li : Rnd → R|N i|
+
+denote the loss map induced by Algorithm 1 with λ = 0 ,i.e., the j-th entry of Li(X) is lij (X) for each j ∈ N i.Then Li is Lipschitz continuous. More precisely, for all 
+
+X, Y ∈ Rnd ,
+
+∥Li(X) − Li(Y )∥ ≤ 2p|N i| ∥ X − Y ∥.
+
+PROOF. By the reverse triangle inequality, 
+
+|Lij (X) − Lij (Y )|
+
+= |∥ xj − cm i(X)∥∞ − ∥ yj − cm i(Y )∥∞|≤ ∥ (xj − cm i(X)) − (yj − cm i(Y )) ∥∞
+
+≤ ∥ xj − yj ∥∞ + ∥ cm i(X) − cm i(Y )∥∞.
+
+We next bound the second term. Recall that cm i(·) is the coordinate-wise median of the states in the neighbor set of node i. Thus, we have 
+
+∥ cm i(X) − cm i(Y )∥∞ ≤ max 
+
+> ℓ∈N i
+
+∥xℓ − yℓ∥∞.
+
+Moreover, max 
+
+> ℓ∈N i
+
+∥xℓ − yℓ∥∞ ≤ max  
+
+> ℓ∈V
+
+∥xℓ − yℓ∥ ≤ ∥ X − Y ∥.
+
+Also, for each j ∈ N i,
+
+∥xj − yj ∥∞ ≤ ∥ xj − yj ∥ ≤ ∥ X − Y ∥.
+
+Substituting the above two bounds into the previous estimate gives 
+
+|Lij (X) − Lij (Y )| ≤ 2∥X − Y ∥, ∀j ∈ N i.
+
+Therefore, 
+
+∥Li(X) − Li(Y )∥2 = X
+
+> j∈N i
+
+|Lij (X) − Lij (Y )|2
+
+≤ X
+
+> j∈N i
+
+4∥X − Y ∥2 = 4 |N i| ∥ X − Y ∥2.
+
+Taking square roots on both sides gives the desired re-sult. 6Lemma 4 Let P : Rnd → R|H|× n denote the weight mapping induced by Algorithm 1 with λ = 0 , i.e., 
+
+P (X) = [ pij (X)] i∈H , j ∈V .
+
+Then P is Lipschitz continuous. More precisely, 
+
+∥P (X) − P (Y )∥F ≤ 2η
+
+sX
+
+> i∈H
+
+|N i| ∥ X − Y ∥.
+
+PROOF. For each i ∈ H , define the local weight vector 
+
+Pi(X) = sparsemax( −ηL i(X)) .
+
+By the nonexpansiveness of sparsemax, we have 
+
+∥Pi(X) − Pi(Y )∥ ≤ η∥Li(X) − Li(Y )∥.
+
+From Lemma 3, it follows that 
+
+∥Li(X) − Li(Y )∥ ≤ 2p|N i| ∥ X − Y ∥.
+
+Therefore, 
+
+∥Pi(X) − Pi(Y )∥ ≤ 2ηp|N i| ∥ X − Y ∥.
+
+Stacking all rows corresponding to i ∈ H yields 
+
+∥P (X) − P (Y )∥2 
+
+> F
+
+= X
+
+> i∈H
+
+∥Pi(X) − Pi(Y )∥2
+
+≤ 4η2 X
+
+> i∈H
+
+|N i| ∥ X − Y ∥2.
+
+Taking square roots gives the desired result. 
+
+Theorem 1 Suppose that Assumptions 1, 2 and 3 hold and that λ = 0 in Algorithm 1. Then, for a suitably chosen step size α ∈ (0 , 1) and sufficiently small η > 0,the disagreement vector E(t) 
+
+> H
+
+is input-to-state stable. In particular, there exist constants ρ ∈ (0 , 1) and c > 0 such that 
+
+∥E(t+1)  
+
+> H
+
+∥ ≤ ρ∥E(t) 
+
+> H
+
+∥ + c M, ∀t ≥ 0,
+
+where M = max {MH, M B}, and MH = max i∈H ∥x(0)  
+
+> i
+
+∥.Consequently, the honest nodes converge to a bounded neighborhood of consensus. 
+
+PROOF. Since the state update of each honest node is a convex combination of its neighbors’ states, it follows that ∥x(t) 
+
+> i
+
+∥ ≤ M for all i ∈ V and t ≥ 0. Define the desired weight matrix as 
+
+P ∗ =
+
+h
+
+P ∗H 0
+
+i
+
+∈ R|H|×|V| ,P ∗H = [ p∗ 
+
+> ij
+
+]i,j ∈H , p∗ 
+
+> ij
+
+= 1
+
+|N i ∩ H| I{j ∈ N i ∩ H} ,
+
+where I{·} denotes the indicator function. Then, the state update of honest nodes can be rewritten as 
+
+X(t+1)  
+
+> H
+
+= (1 − α)X(t) 
+
+> H
+
++ αP (t) 
+
+> H
+
+X(t) 
+
+> H
+
++ αP (t) 
+
+> B
+
+X(t)
+
+> B
+
+= ((1 − α)I + αP ∗H) X(t) 
+
+> H
+
++ α
+
+
+
+P (t) − P ∗
+
+X(t)
+
+= W ∗HX(t) 
+
+> H
+
++ α
+
+
+
+P (t) − P ∗
+
+X(t),
+
+where 
+
+W ∗H = (1 − α)I + αP ∗H.
+
+Then, we have 
+
+E(t+1)  
+
+> H
+
+= Π W ∗HX(t) 
+
+> H
+
++ αΠ
+
+
+
+P (t) − P ∗
+
+X(t)
+
+= W ∗HE(t) 
+
+> H
+
++ αΠ
+
+
+
+P (t) − P ∗
+
+X(t).
+
+From Proposition 2, the weight matrix becomes P ∗ when the state vector is given by 
+
+X∗(v) = 
+
+"1|H| ⊗ vVB(v)
+
+#
+
+,
+
+where v ∈ Rd, and VB(v) := ( vj )j∈B ∈ (Rd)|B| with each 
+
+vj satisfying 
+
+∥vj − v∥∞ ≥ 1
+
+ηδ min 
+
+, ∀j ∈ B .
+
+Since sparsemax is 1-Lipschitz, we have 
+
+∥P (t) − P ∗∥F ≤ 2η
+
+sX
+
+> i∈H
+
+|N i|∥ X(t) − X∗(¯ x(t))∥≤ 2η
+
+sX
+
+> i∈H
+
+|N i|
+
+
+
+∥E(t) 
+
+> H
+
+∥ + ∥X(t) 
+
+> B
+
+− VB(¯ x(t) 
+
+> H
+
+)∥
+
+
+
+,
+
+for all t ≥ 0, where ¯x(t) 
+
+> H
+
+= 1
+
+|H| 
+
+X
+
+> i∈H
+
+x(t) 
+
+> i
+
+.
+
+For each j ∈ B , we distinguish two cases: 7(1) If 
+
+∥x(t) 
+
+> j
+
+− ¯x(t) 
+
+> H
+
+∥∞ ≥ 1
+
+ηδ min 
+
+,
+
+choose vj = ¯ x(t) 
+
+> H
+
+, so that 
+
+∥x(t) 
+
+> j
+
+− vj ∥ = 0 .
+
+(2) Otherwise, if 
+
+∥x(t) 
+
+> j
+
+− ¯x(t) 
+
+> H
+
+∥∞ < 1
+
+ηδ min 
+
+,
+
+choose vj such that 
+
+∥x(t) 
+
+> j
+
+− vj ∥ = 1
+
+ηδ min 
+
+− ∥ x(t) 
+
+> j
+
+− ¯x(t) 
+
+> H
+
+∥∞ ≤ 1
+
+ηδ min 
+
+.
+
+Therefore, we have 
+
+∥x(t) 
+
+> j
+
+− vj ∥ ≤ 1
+
+ηδ min 
+
+, ∀j ∈ B ,
+
+which implies that 
+
+∥X(t) 
+
+> B
+
+− VB(¯ x(t) 
+
+> H
+
+)∥ ≤ 
+
+p|B| 
+
+ηδ min 
+
+.
+
+Thus, we obtain 
+
+∥P (t) − P ∗∥F ≤ 2η
+
+sX
+
+> i∈H
+
+|N i| ∥E(t) 
+
+> H
+
+∥ +
+
+p|B| 
+
+ηδ min 
+
+!
+
+.
+
+Summarizing the above estimates, we have 
+
+∥E(t+1)  
+
+> H
+
+∥ ≤ ∥ W ∗HE(t) 
+
+> H
+
+∥ + α∥Π∥ · ∥ P (t) − P ∗∥F · ∥ X(t)∥
+
+= (1 − αλ 2 + αηC ) ∥E(t) 
+
+> H
+
+∥ + αC p|B| 
+
+δmin 
+
+,
+
+where λ2 is the second smallest eigenvalue of the Lapla-cian matrix of the honest subgraph and 
+
+C = 2 M
+
+s
+
+n X
+
+> i∈H
+
+|N i|.
+
+Choose α such that 0 < 1 − αλ 2 < 1.
+
+Thus, by choosing η sufficiently small such that 1 − αλ 2 + αηC < 1,
+
+we have the input-to-state stability (ISS) property of the disagreement vector E(t) 
+
+> H
+
+, which implies that all honest nodes reach a bounded neighborhood around consensus. 
+
+Corollary 1 Suppose that Assumptions 1, 2 and 3 hold and that λ = 0 in Algorithm 1. Assume that, for all t ≥ 0
+
+and all j ∈ B ,
+
+∥x(t) 
+
+> j
+
+− ¯x(t) 
+
+> H
+
+∥∞ ≥ 1
+
+ηδ min 
+
+,
+
+where ¯x(t) 
+
+> H
+
+is the average state of honest nodes at time 
+
+t and δmin = min i∈H |N i ∩ H| is the minimum honest-degree. Then, for suitably chosen α and sufficiently small 
+
+η, the honest nodes asymptotically reach consensus with linear convergence, i.e., 
+
+∥E(t) 
+
+> H
+
+∥ ≤ ρt∥E(0)  
+
+> H
+
+∥,
+
+for some ρ ∈ (0 , 1) .
+
+PROOF. The proof follows the same argument as that of Theorem 1. Under the present condition, the case 
+
+∥x(t) 
+
+> j
+
+− ¯x(t) 
+
+> H
+
+∥∞ < 1
+
+ηδ min 
+
+does not occur for any j ∈ B . Hence, only the first case in the proof of Theorem 1 remains, so that for every j ∈ B 
+
+we may choose 
+
+vj = ¯ x(t) 
+
+> H
+
+,
+
+which yields 
+
+∥x(t) 
+
+> j
+
+− vj ∥ = 0 .
+
+The conclusion then follows immediately. 
+
+Remark 3 Proposition 2 characterizes the mini-mum separation needed for Byzantine neighbors to receive zero weight at a consensus configuration: 
+
+∥x(t) 
+
+> j
+
+− ¯x(t) 
+
+> H
+
+∥∞ ≥ 1/(ηδ min ). Corollary 1 extends this insight to the transient regime: even before honest nodes have reached consensus, if this separation condition persists over time, then A-RepC achieves asymptotic consensus with linear convergence. Since the threshold decreases with η, larger η makes the algorithm more sensitive to Byzantine perturbations. 
+
+Remark 4 (Extension to 0 < λ < 1) When 0 < λ < 
+
+1, the accumulated losses satisfy 
+
+L(t) 
+
+> ij
+
+= λL (t−1)  
+
+> ij
+
++ ∥x(t) 
+
+> j
+
+− cm i(X(t))∥∞.
+
+The analysis therefore involves the augmented state 
+
+(X(t), L (t)), where X(t) depends on weights from L(t),and L(t) depends on losses from X(t). This coupled sys-tem can be handled using a standard small-gain argument [9]. In particular, for sufficiently small η and suitable 
+
+λ ∈ [0 , 1) , the augmented system remains stable. We omit the explicit gain estimates, as they only add techni-cal constants without changing the main conclusion. 
+
+85 Extension of the Proposed Method 
+
+From the analysis in 4, the resilience of A-RepC against Byzantine attacks can be attributed to three tightly cou-pled components: (1) A robust central proxy for honest neighbors; (2) Finite-memory accumulation for enhanced stabil-ity; (3) A normalizer enabling exploration–exploitation balancing. Due to its modular structure, A-RepC can be readily ex-tended by replacing the central proxy–loss module, accu-mulation operator, and normalizer with alternatives that satisfy the same key properties. The overall framework remains unchanged, differing only in the specific forms of the loss , accumulation , and normalization operators. This modular view also covers existing weight learn-ing approaches. For example, the multiplicative scheme in [6] follows the same loss-accumulation-normalization structure, with different operator choices. We next intro-duce these operators and their concrete instantiations. 
+
+5.1 Loss Function 
+
+In an idealized scenario, one would measure each neigh-bor’s deviation from the mean state of the honest neigh-bors, since this directly reflects consensus within the trustworthy subset. However, the honest neighbors are unknown a priori , and inferring them would introduce circular reasoning, making such a loss infeasible in prac-tice. A weaker but still meaningful alternative is to use a cen-tral point in the convex hull of the honest neighbors, such as a centerpoint [14][Definition 1.4.1], which preserves robustness without requiring exact identification of hon-est nodes. However, centerpoint computation is notori-ously difficult, and its complexity grows rapidly with di-mension, making it impractical for high-dimensional or large-scale systems. At the other extreme, a particularly simple alternative is to use the local state as the reference, leading to pairwise deviations of the form ∥x(t) 
+
+> j
+
+− x(t) 
+
+> i
+
+∥, as adopted in [6]. While computationally efficient, such formulations rely solely on local comparisons and do not explicitly capture the collective neighborhood structure, which may reduce robustness under adversarial perturbations. These limitations motivate the use of tractable geomet-ric surrogates based only on observable neighborhood ge-ometry. Among them, the geometric median offers a fa-vorable balance between robustness and computational feasibility, providing a practical notion of central ten-dency that approximates the honest majority while re-maining insensitive to outliers. 
+
+5.1.1 Geometric median loss 
+
+We first define a loss function based on the geometric median of the neighboring states: 
+
+l(t) 
+
+> ij
+
+= x(t) 
+
+> j
+
+− gm (t) 
+
+> i
+
+,
+
+where gm (t) 
+
+> i
+
+= arg min 
+
+> x
+
+X
+
+> v∈N i
+
+x − x(t)
+
+> v
+
+is the geometric median of node i’s neighbors at itera-tion t.A drawback of this loss is that evaluating it requires solving an inner iterative optimization problem. In practice, the geometric median is typically computed by Weiszfeld’s algorithm [24], which has per-iteration complexity O(|N i| d). Thus, computing the loss to a prescribed accuracy requires O(K|N i| d) operations, where d is the state dimension and K is the number of iterations to convergence. 
+
+Lemma 5 For each honest node i ∈ H , define the geo-metric median of the states of its honest neighbors as 
+
+gm (t) 
+
+> i
+
+= arg min 
+
+> x
+
+X
+
+> v∈N i
+
+x − x(t) 
+
+> v
+
+.
+
+Then, for each honest neighbor j ∈ N i ∩H , the geometric median loss satisfies 
+
+∥x(t) 
+
+> j
+
+− gm (t) 
+
+> i
+
+∥ ≤ |N i|
+
+2|N i ∩ H| − |N i| D(t)
+
+> H,2
+
+,
+
+where 
+
+D(t) 
+
+> H,2
+
+= max  
+
+> k,m ∈H
+
+∥x(t) 
+
+> k
+
+− x(t) 
+
+> m
+
+∥.
+
+PROOF. We will discuss two cases based on the posi-tion of the geometric median gm (t) 
+
+> i
+
+.(1) If gm (t) 
+
+> i
+
+lies inside the convex hull of the states of honest neighbors, then for each honest neighbor j ∈Ni ∩ H , we have 
+
+∥x(t) 
+
+> j
+
+− gm (t) 
+
+> i
+
+∥ ≤ D (t)
+
+> H,2
+
+.
+
+Since 1 − |N i|
+
+2|N i ∩ H| − |N i| = 2|N i ∩ H| − 2|N i|
+
+2|N i ∩ H| − |N i| ≤ 0,
+
+we have 
+
+∥x(t) 
+
+> j
+
+− gm (t) 
+
+> i
+
+∥ ≤ |N i|
+
+2|N i ∩ H| − |N i| D(t)
+
+> H,2
+
+.
+
+9(2) If gm (t) 
+
+> i
+
+lies outside the convex hull of the states of honest neighbors, we define vj for all j ∈ N i as 
+
+vj =
+
+
+
+x(t) 
+
+> j
+
+− gm (t)
+
+> i
+
+∥x(t) 
+
+> j
+
+− gm (t) 
+
+> i
+
+∥ , x(t)
+
+> j
+
+̸ = gm (t) 
+
+> i
+
+,
+
+∥vj ∥ ≤ 1, x(t) 
+
+> j
+
+= gm (t) 
+
+> i
+
+.
+
+By construction, the vectors {vj }j∈N i satisfy 
+
+X
+
+> j∈N i
+
+vj = 0 .
+
+This definition is well justified because the geomet-ric median minimizes the sum of distances to all neighbors; therefore, zero belongs to the subgradi-ent of the corresponding objective function at gm (t) 
+
+> i
+
+.Next, denote by u the unit vector pointing from gm (t) 
+
+> i
+
+to x(t) 
+
+> j∗
+
+for any j∗ ∈ N i ∩ H , i.e., 
+
+u = x(t) 
+
+> j∗
+
+− gm (t)
+
+> i
+
+∥x(t) 
+
+> j∗
+
+− gm (t) 
+
+> i
+
+∥ .
+
+We make this choice because gm (t) 
+
+> i
+
+lies outside the convex hull of the honest neighbors, which implies that x(t)
+
+> j∗
+
+̸ = gm (t) 
+
+> i
+
+for all j∗ ∈ N i ∩ H . Hence, the above definition of u is always well defined. Then, we have 0 = u⊤ X
+
+> j∈N i
+
+vj = X
+
+> k∈N i∩H
+
+u⊤vk + X
+
+> v∈N i∩B
+
+u⊤vv .
+
+For each honest neighbor k ∈ N i ∩ H , we have 
+
+u⊤vk = u⊤(x(t) 
+
+> k
+
+− gm (t) 
+
+> i
+
+)
+
+∥x(t) 
+
+> k
+
+− gm (t) 
+
+> i
+
+∥
+
+= u⊤(x(t) 
+
+> j∗
+
+− gm (t) 
+
+> i
+
+) + u⊤(x(t) 
+
+> k
+
+− x(t) 
+
+> j∗
+
+)
+
+∥x(t) 
+
+> j∗
+
+− gm (t) 
+
+> i
+
+∥
+
+= ∥x(t) 
+
+> j∗
+
+− gm (t) 
+
+> i
+
+∥ + u⊤(x(t) 
+
+> k
+
+− x(t) 
+
+> j∗
+
+)
+
+∥x(t) 
+
+> j∗
+
+− gm (t) 
+
+> i
+
+∥≥ ∥x(t) 
+
+> j∗
+
+− gm (t) 
+
+> i
+
+∥ − ∥ x(t) 
+
+> k
+
+− x(t) 
+
+> j∗
+
+∥∥x(t) 
+
+> j∗
+
+− gm (t) 
+
+> i
+
+∥ + ∥x(t) 
+
+> k
+
+− x(t) 
+
+> j∗
+
+∥≥ ∥x(t) 
+
+> j∗
+
+− gm (t) 
+
+> i
+
+∥ − D (t)
+
+> H,2
+
+∥x(t) 
+
+> j∗
+
+− gm (t) 
+
+> i
+
+∥ + D(t)
+
+> H,2
+
+.
+
+For each Byzantine neighbor v ∈ N i ∩ B , we have 
+
+u⊤vv ≥ − 1.
+
+Therefore, we have 0 ≥ |N i ∩ H| ∥x(t) 
+
+> j∗
+
+− gm (t) 
+
+> i
+
+∥ − D (t)
+
+> H,2
+
+∥x(t) 
+
+> j∗
+
+− gm (t) 
+
+> i
+
+∥ + D(t)
+
+> H,2
+
+− |N i ∩ B| .
+
+Rearranging the above inequality yields 
+
+∥x(t) 
+
+> j∗
+
+− gm (t) 
+
+> i
+
+∥ ≤ |N i|
+
+2|N i ∩ H| − |N i| D(t)
+
+> H,2
+
+.
+
+Remark 5 Lemma 5 shows that the geometric median loss enjoys properties similar to those of the coordinate-wise median loss in Lemma 1. Hence, replacing the coordinate-wise median with the geometric median in A-RepC leads to analogous resilience guarantees by similar proof arguments. The main differences are that 1) the loss is now based on the Euclidean norm rather than the infinity norm, and 2) the honest-loss bound depends on 
+
+|N i|/(2 |N i ∩ H| − |N i|) instead of 1.5.1.2 Quasi-geometric median loss 
+
+To reduce this computational overhead, we introduce a surrogate loss with a closed-form expression: 
+
+l(t) 
+
+> ij
+
+= X
+
+> v∈N i
+
+∥x(t) 
+
+> j
+
+− x(t) 
+
+> v
+
+∥|N i| .
+
+This loss measures the local geometric inconsistency of neighbor j relative to the neighbors of node i.The quasi-geometric median loss preserves a similar ge-ometric intuition to the geometric median without ex-plicitly computing it. By relying on pairwise consistency among neighbors, it assigns smaller losses to neighbors aligned with the majority and larger losses to outliers or Byzantine neighbors. Its per-iteration complexity is O(|N i|2d) due to the re-quired pairwise distance computations. Thus, compared with the geometric median loss, it avoids inner iterative optimization but provides a less direct characterization of the geometric center. 
+
+5.1.3 Coordinate-wise median loss 
+
+This is the loss adopted in Algorithm 1, defined as 
+
+l(t) 
+
+> ij
+
+= x(t) 
+
+> j
+
+− cm (t) 
+
+> i∞
+
+,
+
+where cm (t) 
+
+> i
+
+= arg min 
+
+> x
+
+X
+
+> v∈N i
+
+x − x(t) 
+
+> v1
+
+is the coordinate-wise median of node i’s neighbors at iteration t.10 Because it is computed independently across coordi-nates, the coordinate-wise median is simple and efficient. However, it need not preserve the global neighborhood geometry and may lie outside the convex hull of the neighboring states. We therefore measure deviations in the infinity norm, consistent with its coordinate-wise construction. 
+
+5.2 Accumulation Operator 
+
+Using instantaneous loss values alone for weight assign-ment is insufficient in Byzantine-resilient settings, as it fails to capture the cumulative effect of persistent small-magnitude attacks. A Byzantine neighbor can in-ject carefully crafted deviations that remain below de-tection thresholds at each iteration yet gradually accu-mulate to induce a significant bias. Relying solely on in-stantaneous loss therefore leaves the system vulnerable to slow and systematic attacks. A natural extension is to aggregate loss values over time. A straightforward approach, adopted for example in [6], is to accumulate all past observations: 
+
+L(t) 
+
+> ij
+
+=
+
+> t
+
+X 
+
+> τ=0
+
+l(τ ) 
+
+> ij
+
+.
+
+While this formulation captures long-term behavioral consistency and can amplify persistent deviations, it is also susceptible to strategic manipulation: a malicious node may behave honestly for an extended period to accumulate trust and later exploit this memory to ex-ert disproportionate influence. Moreover, even when all neighbors are honest and converge to consensus, early-stage discrepancies and noise may lead to unequal cu-mulative losses, conflicting with the goal of treating all honest neighbors equally at steady state. These considerations motivate a finite-memory accumu-lation mechanism that aggregates evidence over time. We consider three representative finite-memory accumu-lation strategies. 
+
+5.2.1 Exponentially decayed accumulation 
+
+A natural approach is an exponentially decayed cumu-lative loss with forgetting factor λ ∈ (0 , 1]: 
+
+L(t) 
+
+> ij
+
+= λ L (t−1)  
+
+> ij
+
++ l(t) 
+
+> ij
+
+.
+
+This formulation emphasizes recent observations while progressively discounting older ones. By tuning λ, the effective memory length can be adjusted, interpolating between instantaneous and long-term accumulation. 
+
+5.2.2 Moving-horizon accumulation 
+
+Alternatively, a moving horizon of length H restricts accumulation to the most recent H observations: 
+
+L(t) 
+
+> ij
+
+=
+
+> t
+
+X 
+
+> τ=max(0 ,t −H+1)
+
+l(τ ) 
+
+> ij
+
+.
+
+For online implementation, this admits the recursion 
+
+L(t) 
+
+> ij
+
+= L(t−1)  
+
+> ij
+
++ l(t) 
+
+> ij
+
+− l(t−H) 
+
+> ij
+
+,
+
+where l(s) 
+
+> ij
+
+= 0 for s < 0. This moving-horizon formula-tion enforces a strict finite-memory constraint: it aggre-gates recent evidence to detect persistent low-magnitude attacks while ensuring that behavior outside the window has no influence on current weights, making it suitable for nonstationary or adversarial environments. 
+
+5.3 Normalization Operators 
+
+In consensus-based algorithms, the weight matrix is commonly required to be doubly stochastic , i.e., both its rows and columns sum to one. In many practical settings, however, it is sufficient to enforce row-stochasticity only, where each row consists of nonnegative entries summing to one. Under this requirement, each node must con-vert its unconstrained real-valued scores assigned to its neighbors into a valid probability distribution. In other words, the raw neighbor scores at each node need to be projected onto the probability simplex. Formally, let z ∈ RK denote the unnormalized score vector associated with a node and its |N i| neighbors. We seek a normalization (or projection) operator that maps 
+
+z onto the ( |N i| − 1)-dimensional probability simplex ∆|N i|− 1 =
+
+(
+
+p ∈ R|N i| | p ≥ 0,
+
+> |N i|
+
+X
+
+> i=1
+
+(p)i = 1 
+
+)
+
+.
+
+This produces a weight vector that satisfies the row-stochasticity constraint. 
+
+5.3.1 Softmax 
+
+Softmax is the most widely used normalization operator for mapping real-valued scores to a probability distribu-tion [6]. It assigns probabilities by exponentiating each component of the input vector and normalizing by their sum: (softmax( z)) i = exp (( z)i)
+
+P 
+
+> j
+
+exp (( z)j ) .
+
+The resulting distribution is dense, with all entries strictly positive. However, its dense nature prevents it 11 from producing exact zeros, which can lead to diffuse probability assignments and limited interpretability in settings where selectivity or sparsity is desirable. 
+
+Lemma 6 Suppose that Assumptions 1 and 2 hold and that λ = 0 in Algorithm 1. If the sparsemax operator in Algorithm 1 is replaced by softmax, then for every honest node i ∈ H and every t ≥ 0,
+
+X
+
+> j∈N i∩B
+
+p(t) 
+
+> ij
+
+∥x(t) 
+
+> j
+
+− cm (t) 
+
+> i
+
+∥∞ ≤ eηD(t)
+
+> H
+
+ηe .
+
+PROOF. For any j ∈ N i ∩ B , we have 
+
+p(t) 
+
+> ij
+
+∥x(t) 
+
+> j
+
+− cm (t) 
+
+> i
+
+∥∞ ≤ ∥x(t) 
+
+> j
+
+− cm (t) 
+
+> i
+
+∥∞e−ηL (t)
+
+> ij
+
+P 
+
+> k∈N i
+
+e−ηL (t)
+
+> ik
+
+≤ L(t) 
+
+> ij
+
+e−ηL (t)
+
+> ij
+
+P 
+
+> k∈N i
+
+e−ηL (t)
+
+> ik
+> ∗
+
+≤
+
+> 1
+> ηe
+
+P 
+
+> k∈N i
+
+e−ηL (t)
+
+> ik
+
+≤
+
+> 1
+> ηe
+
+|N i ∩ H| e−ηD(t)
+
+> H
+
+.
+
+In the above derivation, inequality ∗ follows from the fact that the function f (x) = xe −ηx for x ≥ 0 achieves its maximum value 1 
+
+> ηe
+
+at x = 1 
+
+> η
+
+. Therefore, we have 
+
+X
+
+> j∈N i∩B
+
+p(t) 
+
+> ij
+
+∥x(t) 
+
+> j
+
+− cm (t) 
+
+> i
+
+∥∞ ≤ X
+
+> j∈N i∩B
+> 1
+> ηe
+
+|N i ∩ H| e−ηD(t)
+
+> H
+
+!
+
+≤ |N i ∩ B| |N i ∩ H| 
+
+eηD(t)
+
+> H
+
+ηe ≤ eηD(t)
+
+> H
+
+ηe .
+
+Remark 6 Lemma 6 shows that, even without the hard truncation property of sparsemax, softmax still controls Byzantine influence through an explicit bound. In par-ticular, the total Byzantine contribution grows with the dispersion of honest nodes, as captured by D(t) 
+
+> H
+
+, and de-creases as honest nodes become more aligned. Thus, un-der softmax, robustness is achieved not by exact elimina-tion, but by making Byzantine influence small when the honest states are concentrated. 5.3.2 Sparsemax 
+
+This is the normalization operator adopted in Algo-rithm 1, which is defined as the Euclidean projection of the score vector onto the probability simplex [13]: sparsemax( z) = arg min 
+
+> p∈∆|N i|− 1
+
+∥p − z∥2. (2) Unlike softmax, sparsemax can produce sparse probabil-ity distributions with some components exactly equal to zero, improving interpretability and robustness to small score perturbations. 
+
+5.3.3 Entmax 
+
+Softmax, sparsemax, and their generalizations can be in-terpreted from a unified optimization perspective as bal-ancing exploitation and exploration: maximizing align-ment with the input scores while regularizing the out-put distribution toward varying degrees of smoothness or sparsity. Entmax [19] generalizes softmax and sparse-max through a family of normalization operators param-eterized by α:
+
+α-entmax( z) = arg max 
+
+> p∈∆|N i|− 1
+
+ p⊤z + Hα(p) ,
+
+where Hα(p) denotes the Tsallis α-entropy: 
+
+Hα(p) = 
+
+
+
+1
+
+α(α − 1) 1 − X
+
+> i
+
+(p)αi
+
+!
+
+, α̸ = 1 ,
+
+− X
+
+> i
+
+(p)i log (( p)i) , α = 1 .
+
+This formulation recovers softmax as a special case when 
+
+α = 1 and sparsemax when α = 2. Viewed through the exploitation–exploration lens, the linear term p⊤z con-sistently drives exploitation by favoring high-scoring el-ements, while the parameter α modulates the form and strength of the entropy regularization, thereby control-ling the degree and style of exploration. Smaller values of α encourage smoother, higher-entropy distributions (stronger exploration), whereas larger values promote sparser solutions with reduced mass on low-scoring ele-ments. 
+
+6 Experimental Evaluation 
+
+This section evaluates the proposed algorithm through two complementary experiments. The first experiment is designed for a comprehensive comparison across all con-sidered methods in a setting compatible with every base-line. The second experiment examines performance in a more challenging high-dimensional scenario with mixed Byzantine attacks, where only the applicable baselines are compared. 1
+
+Across both settings, consensus accuracy is quantified using Root Mean Square Error (RMSE) and Drift from the Initial Average (DIA), defined as RMSE (t) =
+
+s 1
+
+|H| 
+
+X
+
+> i∈H
+
+∥x(t) 
+
+> i
+
+− ¯x(t) 
+
+> H
+
+∥2,
+
+DIA (t) = ∥¯x(t) 
+
+> H
+
+− ¯x(0)  
+
+> H
+
+∥. 
+
+> 1
+
+The source code for all experiments is publicly available at https://github.com/rui-huang-opt/arepc.git .
+
+12 To facilitate the comparison of reputation dynamics across methods, we express the baseline methods under a unified iterative form: 
+
+x(t+1)  
+
+> i
+
+= (1 − α)x(t) 
+
+> i
+
++ αˆx(t) 
+
+> i
+
+,
+
+where ˆ x(t) 
+
+> i
+
+denotes the method-dependent update target for node i, constructed from its neighbors’ information, and α is the step size. This form is exactly equivalent to the original update for some methods, while for others it is obtained through a minor reformulation that preserves the essential update mechanism. 
+
+6.1 Comprehensive Comparison with Baselines 
+
+We benchmark A-RepC against W-MSR [10], ADRC [2], RepC [20], and WLA [6]. W-MSR is extended to vector states coordinate-wise and is included only as a heuris-tic baseline, since no theoretical guarantee is available in this case. Although RepC was originally proposed for scalar states, it extends naturally to vector states because inter-state discrepancies are mapped to scalar trust scores. We evaluate all methods in a multi-process environment with Unix domain socket communication. The network consists of 50 honest nodes and 10 Byzantine nodes (Fig. 1), with node states in R4. The initial states of the honest nodes are drawn uniformly from [ −100 , 100] 4,while each Byzantine node is initialized in the same way, and then keeps that value fixed over all iterations. Un-less otherwise specified, the baseline parameters follow their original formulations: f = 1 for W-MSR and RepC, 
+
+ϵ = 0 .001 for RepC, and θ = 0 .001 for WLA. For A-RepC, we set η = 0 .001 and λ = 0 .8. Figures 2 show that all methods converge at compara-ble rates and remain close to the initial average. These results indicate that A-RepC achieves consensus accu-racy comparable to the baselines in this large-scale, low-dimensional setting. Although the methods exhibit similar overall con-vergence behavior, their reputation dynamics differ markedly (Fig. 3). A-RepC explicitly identifies adver-sarial behavior by driving Byzantine reputations to zero while maintaining nearly uniform weights over honest neighbors. RepC also shows some identification capa-bility, but its reputation evolution is strongly affected by the preset parameter f . Consequently, RepC per-forms reasonably when the true number of adversaries matches f , but it may still distort reputations unnec-essarily even when no Byzantine neighbors are present, revealing its reliance on prior knowledge. WLA can also suppress Byzantine neighbors, but unlike A-RepC it does not assign nearly uniform weights to honest neigh-bors. Instead, its weights over honest neighbors remain uneven because WLA effectively has infinite memory, 51 
+
+> 52
+> 53
+> 54
+> 55
+> 56
+> 57
+> 58
+> 59
+> 60
+> Normal Nodes
+> Byzantine Nodes
+
+Fig. 1. Illustration of the benchmark network topology. 0 50 100 150 200        
+
+> Iteration
+> 10 3
+> 10 2
+> 10 1
+> 10 0
+> 10 1
+> 10 2
+> RMSE
+> A-RepC
+> RepC
+> WMSR
+> ADRC
+> WLA
+> 050 100 150 200
+> Iteration
+> 0
+> 2
+> 4
+> 6
+> 8
+> 10
+> DIA
+> A-RepC
+> RepC
+> WMSR
+> ADRC
+> WLA
+
+Fig. 2. RMSE and DIA evolutions of different methods under random Byzantine attacks in the large-scale low-dimensional benchmark. 
+
+so losses caused by initial state discrepancies continue to affect the weight evolution. In contrast, W-MSR and ADRC rely solely on robust aggregation and do not explicitly identify Byzantine nodes. 
+
+6.2 Robustness under High-Dimensional Mixed Attacks 
+
+We evaluate all methods on a physical Wi-Fi network consisting of 8 Raspberry Pi devices, one laptop, and one desktop, with node states in R20 . The network topology is shown in Fig. 4. Honest nodes initialize their states by sampling uniformly from [ −100 , 100] 20 , while Byzantine nodes transmit random vectors drawn from the same range. To evaluate robustness under mixed attacks, nodes 8 and 10 act as random Byzantine nodes and transmit vec-tors sampled uniformly from [ −100 , 100] 20 at every iter-ation. For the remaining Byzantine nodes, after receiv-ing neighbor states {x(t) 
+
+> j
+
+}j∈N i at iteration t, the message 13 0 25 50 75 100 125 150 175 200         
+
+> Iteration
+> 0.00
+> 0.05
+> 0.10
+> 0.15
+> 0.20
+> Node 1
+> Node 17
+> Node 10
+> Node 31
+> Node 37
+> Node 48
+> Node 25
+> Node 18
+> Node 20
+> Node 50
+> Node 22
+> Node 51
+> 025 50 75 100 125 150 175 200
+> Iteration
+> Node 11
+> Node 2
+> Node 21
+> Node 30
+> Node 23
+> Node 43
+> Node 38
+> Node 33
+> Node 26
+> Node 49
+> Node 42
+
+(a) A-RepC 0 25 50 75 100 125 150 175 200         
+
+> Iteration
+> 0.00
+> 0.05
+> 0.10
+> 0.15
+> 0.20
+> 0.25
+> Node 1
+> Node 17
+> Node 10
+> Node 31
+> Node 37
+> Node 48
+> Node 25
+> Node 18
+> Node 20
+> Node 50
+> Node 22
+> Node 51
+> 025 50 75 100 125 150 175 200
+> Iteration
+> Node 11
+> Node 2
+> Node 21
+> Node 30
+> Node 23
+> Node 43
+> Node 38
+> Node 33
+> Node 26
+> Node 49
+> Node 42
+
+(b) RepC 0 25 50 75 100 125 150 175 200         
+
+> Iteration
+> 0.000
+> 0.025
+> 0.050
+> 0.075
+> 0.100
+> 0.125
+> 0.150
+> 0.175
+> Node 1
+> Node 17
+> Node 10
+> Node 31
+> Node 37
+> Node 48
+> Node 25
+> Node 18
+> Node 20
+> Node 50
+> Node 22
+> Node 51
+> 025 50 75 100 125 150 175 200
+> Iteration
+> Node 11
+> Node 2
+> Node 21
+> Node 30
+> Node 23
+> Node 43
+> Node 38
+> Node 33
+> Node 26
+> Node 49
+> Node 42
+
+(c) WLA 
+
+Fig. 3. Reputation evolutions under A-RepC, RepC, and WLA in the large-scale low-dimensional benchmark with random Byzantine attacks. 
+
+sent to neighbor j at the next transmission is 
+
+x(t+1) 
+
+i→j =
+
+(
+
+x(t)
+
+j + 100 v, t mod 10 = 0 ,x(t)
+
+j , otherwise ,
+
+where v = (1 , 0, . . . , 0) ⊤ ∈ R20 .ADRC is excluded because centerpoint-based methods are impractical in high dimensions [2]. In particular, the two approximate high-dimensional centerpoint al-gorithms in [2] require prohibitively large neighborhood sizes: Iterated Tverberg [15] needs at least 1765 neigh-bors for a single iteration, and Iterated Radon [4] re-quires at least 22 neighbors. Since our network does not provide such connectivity, ADRC is infeasible in this set-ting. We set α = 0 .3, η = 0 .002, and λ = 29 /30 for A-RepC; 
+
+f = 1 for W-MSR and RepC; ϵ = 0 .001 for RepC; and 
+
+θ = 0 .001 for WLA. Figure 5 shows that A-RepC converges steadily to a value that remains close to the initial average. In con-1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+10 
+
+> Normal Nodes
+> Byzantine Nodes
+
+Fig. 4. Topology of the physical network used in the small--scale high-dimensional benchmark. 
+
+trast, W-MSR, RepC, and WLA all diverge. For W-MSR and RepC, this is because both methods rely on the pre-set bound f = 1, whereas node 1 has two Byzantine neighbors, violating this assumption. WLA fails for a different reason: because its loss function uses the node’s own state as the reference, an adversary can readily infer how to construct messages that achieve a high instanta-neous score after receiving that state. This makes WLA particularly vulnerable to periodic relay-based attacks. Moreover, since WLA leverages the full history of past information, the influence of such strategically crafted messages can accumulate over time, further amplifying the effect of intermittent perturbations and ultimately preventing effective defense against malicious informa-tion. 0 50 100 150 200          
+
+> Iteration
+> 10 13
+> 10 10
+> 10 7
+> 10 4
+> 10 1
+> 10 2
+> RMSE
+> A-RepC
+> RepC
+> WMSR
+> WLA
+> 050 100 150 200
+> Iteration
+> 20
+> 40
+> 60
+> 80
+> 100
+> 120
+> 140
+> DIA
+> A-RepC
+> RepC
+> WMSR
+> WLA
+
+Fig. 5. RMSE and DIA evolutions of different methods under mixed Byzantine attacks in the small-scale high-dimensional benchmark. 
+
+Figure 6 further shows that A-RepC successfully elim-inates Byzantine neighbors by assigning them zero weight, while distributing weights approximately uni-formly among honest neighbors. By contrast, RepC performs poorly even for nodes 2 and 4, although their numbers of Byzantine neighbors satisfy the assumed bound f = 1, because RepC is memoryless and thus cannot accumulate evidence across iterations, making it particularly vulnerable to intermittent attacks. The weight allocation of WLA is also consistent with the preceding analysis: the intermittently attacking Byzan-14 tine nodes 5, 6, 7, and 9 receive the largest weights during the initial stage, and these weights decrease only slowly afterward. 
+
+7 Conclusion 
+
+This paper proposed A-RepC, a Byzantine-resilient consensus framework that jointly addresses active Byzantine identification and resilient consensus among honest agents. By embedding a learning-inspired rep-utation mechanism into the consensus loop, A-RepC enables agents to infer neighbor trustworthiness from robust local losses and historical information, and to use the resulting reputations to suppress adversarial influence in subsequent updates. Theoretical analysis established rigorous resilience guarantees, and extensive distributed system experiments showed that A-RepC achieves more accurate Byzantine detection and more reliable consensus than existing baselines, especially in high-dimensional settings. Future work will further refine the theoretical guarantees and extend the analysis to time-varying and directed networks. 
+
+References 
+
+[1] Waseem Abbas, Aron Laszka, and Xenofon Koutsoukos. Improving network connectivity and robustness using trusted nodes with application to resilient consensus. IEEE Transactions on Control of Network Systems , 5(4):2036– 2048, 2017. [2] Waseem Abbas, Mudassir Shabbir, Jiani Li, and Xenofon Koutsoukos. Resilient distributed vector consensus using centerpoint. Automatica , 136:110046, 2022. [3] Melanie Cambus, Darya Melnyk, Tijana Milentijevic, and Stefan Schmid. Coordinate-wise median in byzantine federated learning. In Proceedings of the International Workshop on Secure and Efficient Federated Learning , pages 1–6, 2025. [4] Kenneth L Clarkson, David Eppstein, Gary L Miller, Carl Sturtivant, and Shang-Hua Teng. Approximating center points with iterated radon points. In Proceedings of the ninth annual symposium on Computational geometry , pages 91–98, 1993. [5] Danny Dolev, Nancy A Lynch, Shlomit S Pinter, Eugene W Stark, and William E Weihl. Reaching approximate agreement in the presence of faults. Journal of the ACM (JACM) , 33(3):499–516, 1986. [6] Jian Hou, Zhiyong Chen, Zhiyun Lin, Chunling Wei, Junzheng Zheng, Fangyuan Wang, Mengfan Xiang, and Yujie Xie. Resilient consensus via weight learning and its application in fault-tolerant clock synchronization. IEEE Transactions on Control of Network Systems , 10(4):2097– 2107, 2023. [7] Jian Hou, Fangyuan Wang, Lili Wang, and Zhiyong Chen. Reinforcement learning based multi-agent resilient control: From deep neural networks to an adaptive law. In Proceedings of the AAAI Conference on Artificial Intelligence , volume 35, pages 7737–7745, 2021. 0.0                 
+
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+> Node 1
+> Node 2
+> Node 4
+> Node 3
+> Node 6
+> Node 10
+> Node 2
+> Node 1
+> Node 3
+> Node 7
+> 025 50 75 100 125 150 175 200
+> Iteration
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+> Node 3
+> Node 2
+> Node 4
+> Node 1
+> Node 5
+> Node 8
+> 025 50 75 100 125 150 175 200
+> Iteration
+> Node 4
+> Node 3
+> Node 1
+> Node 9
+
+(a) A-RepC 0.0                 
+
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> Node 1
+> Node 2
+> Node 4
+> Node 3
+> Node 6
+> Node 10
+> Node 2
+> Node 1
+> Node 3
+> Node 7
+> 025 50 75 100 125 150 175 200
+> Iteration
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> Node 3
+> Node 2
+> Node 4
+> Node 1
+> Node 5
+> Node 8
+> 025 50 75 100 125 150 175 200
+> Iteration
+> Node 4
+> Node 3
+> Node 1
+> Node 9
+
+(b) RepC 0.0                 
+
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+> Node 1
+> Node 2
+> Node 4
+> Node 3
+> Node 6
+> Node 10
+> Node 2
+> Node 1
+> Node 3
+> Node 7
+> 025 50 75 100 125 150 175 200
+> Iteration
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+> Node 3
+> Node 2
+> Node 4
+> Node 1
+> Node 5
+> Node 8
+> 025 50 75 100 125 150 175 200
+> Iteration
+> Node 4
+> Node 3
+> Node 1
+> Node 9
+
+(c) WLA 
+
+Fig. 6. Reputation evolutions under A-RepC, RepC, and WLA in the small-scale high-dimensional benchmark with mixed Byzantine attacks. 
+
+[8] Ali Jadbabaie, Jie Lin, and A Stephen Morse. Coordination of 
+
+15 groups of mobile autonomous agents using nearest neighbor rules. IEEE Transactions on automatic control , 48(6):988– 1001, 2003. [9] Z-P Jiang, Andrew R Teel, and Laurent Praly. Small-gain theorem for iss systems and applications. Mathematics of Control, Signals and Systems , 7(2):95–120, 1994. [10] Heath J LeBlanc, Haotian Zhang, Xenofon Koutsoukos, and Shreyas Sundaram. Resilient asymptotic consensus in robust networks. IEEE Journal on Selected Areas in Communications , 31(4):766–781, 2013. [11] Changxin Liu, Nicola Bastianello, Wei Huo, Yang Shi, and Karl H Johansson. A survey on secure decentralized optimization and learning. arXiv preprint arXiv:2408.08628 ,2024. [12] Changxin Liu, Yanghao Li, Yuhao Yi, and Karl H Johansson. Byzantine-robust and communication-efficient distributed learning via compressed momentum filtering. IEEE Transactions on Neural Networks and Learning Systems ,2026. [13] Andre Martins and Ramon Astudillo. From softmax to sparsemax: A sparse model of attention and multi-label classification. In International conference on machine learning , pages 1614–1623. PMLR, 2016. [14] Jiri Matousek. Lectures on discrete geometry , volume 212. Springer Science & Business Media, 2013. [15] Gary L. Miller and Donald R. Sheehy. Approximate centerpoints with proofs. Computational Geometry ,43(8):647–654, 2010. Special Issue on the 25th Annual Symposium on Computational Geometry (SoCG’09). [16] Angelia Nedic and Asuman Ozdaglar. Distributed subgradient methods for multi-agent optimization. IEEE Transactions on automatic control , 54(1):48–61, 2009. [17] Reza Olfati-Saber, J Alex Fax, and Richard M Murray. Consensus and cooperation in networked multi-agent systems. Proceedings of the IEEE , 95(1):215–233, 2007. [18] Hyongju Park and Seth A Hutchinson. Fault-tolerant rendezvous of multirobot systems. IEEE transactions on robotics , 33(3):565–582, 2017. [19] Ben Peters, Vlad Niculae, and Andr´ e FT Martins. Sparse sequence-to-sequence models. arXiv preprint arXiv:1905.05702 , 2019. [20] Guilherme Ramos, Daniel Silvestre, and Carlos Silvestre. A discrete-time reputation-based resilient consensus algorithm for synchronous or asynchronous communications. IEEE Transactions on Automatic Control , 69(1):543–550, 2023. [21] Lili Su and Nitin Vaidya. Multi-agent optimization in the presence of byzantine adversaries: Fundamental limits. In 
+
+2016 American Control Conference (ACC) , pages 7183–7188. IEEE, 2016. [22] Shreyas Sundaram and Bahman Gharesifard. Consensus-based distributed optimization with malicious nodes. In 
+
+2015 53rd Annual Allerton Conference on Communication, Control, and Computing (Allerton) , pages 244–249. IEEE, 2015. [23] Lewis Tseng and Nitin Vaidya. Iterative approximate byzantine consensus under a generalized fault model. In 
+
+International conference on distributed computing and networking , pages 72–86. Springer, 2013. [24] Yehuda Vardi and Cun-Hui Zhang. The multivariate l1-median and associated data depth. Proceedings of the National Academy of Sciences , 97(4):1423–1426, 2000. [25] Wenwu Yu, Guanrong Chen, Zidong Wang, and Wen Yang. Distributed consensus filtering in sensor networks. IEEE Transactions on Systems, Man, and Cybernetics, Part B (Cybernetics) , 39(6):1568–1577, 2009. 
+
+16

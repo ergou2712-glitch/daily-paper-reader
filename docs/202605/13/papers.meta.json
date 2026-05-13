@@ -1,0 +1,23 @@
+{
+  "label": "2026-05-13",
+  "date": "2026-05-13",
+  "generated_at": "2026-05-13T20:37:24",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202605/13/2605.11357v1-byzantine-resilient-consensus-via-active-reputation-learning",
+      "section": "deep",
+      "title_en": "Byzantine-Resilient Consensus via Active Reputation Learning",
+      "authors": "Rui Huang, Changxin Liu, Wen-Hua Chen, Yang Shi",
+      "date": "2026-05-12",
+      "pdf": "https://arxiv.org/pdf/2605.11357v1",
+      "score": "9.0",
+      "evidence": "主动声誉学习与信任度信念向量",
+      "tldr": "针对分布式系统中的拜占庭容错共识问题，本文提出了一种主动信誉学习框架。该方法将对手识别与共识过程深度耦合，通过鲁棒损失函数和历史信息动态评估邻居信誉，并利用信誉权重抑制恶意影响。这种学习与控制的协同设计实现了共识状态与信誉估计的闭环优化，显著提升了拜占庭节点的检测精度和系统的共识可靠性与可扩展性。",
+      "tags": "query:q4",
+      "abstract_en": "This paper proposes a Byzantine-resilient consensus framework that simultaneously pursues two tightly coupled objectives: actively identifying Byzantine agents and guaranteeing resilient consensus among normal agents. Unlike existing methods that treat adversary mitigation as a passive filtering process, our approach embeds an active reputation learning mechanism into the consensus loop. Agents evaluate neighbors' behaviors using outlier-robust loss functions and historical information, and construct a reputation vector on a probability simplex via a mechanism that balances loss minimization with diversity-preserving exploration, representing dynamic beliefs over neighbor trustworthiness. These reputations are then used to form weighted local updates that suppress adversarial influence and improve agreement among normal agents, thereby reducing the bias in local loss evaluations and enabling more reliable subsequent reputation estimation. This learning-control co-design yields a closed-loop dual objective: improved consensus states enhance Byzantine identifiability, while refined reputations in turn improve consensus. A range of distributed systems experiments, benchmarking against classical resilient consensus methods, demonstrate superior Byzantine detection accuracy and significantly more reliable and scalable consensus.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

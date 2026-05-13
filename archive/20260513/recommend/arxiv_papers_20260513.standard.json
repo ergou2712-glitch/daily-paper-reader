@@ -1,0 +1,53 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-05-13T20:36:45.942807+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2605.11357v1",
+      "title": "Byzantine-Resilient Consensus via Active Reputation Learning",
+      "abstract": "This paper proposes a Byzantine-resilient consensus framework that simultaneously pursues two tightly coupled objectives: actively identifying Byzantine agents and guaranteeing resilient consensus among normal agents. Unlike existing methods that treat adversary mitigation as a passive filtering process, our approach embeds an active reputation learning mechanism into the consensus loop. Agents evaluate neighbors' behaviors using outlier-robust loss functions and historical information, and construct a reputation vector on a probability simplex via a mechanism that balances loss minimization with diversity-preserving exploration, representing dynamic beliefs over neighbor trustworthiness. These reputations are then used to form weighted local updates that suppress adversarial influence and improve agreement among normal agents, thereby reducing the bias in local loss evaluations and enabling more reliable subsequent reputation estimation. This learning-control co-design yields a closed-loop dual objective: improved consensus states enhance Byzantine identifiability, while refined reputations in turn improve consensus. A range of distributed systems experiments, benchmarking against classical resilient consensus methods, demonstrate superior Byzantine detection accuracy and significantly more reliable and scalable consensus.",
+      "authors": [
+        "Rui Huang",
+        "Changxin Liu",
+        "Wen-Hua Chen",
+        "Yang Shi"
+      ],
+      "primary_category": "math.OC",
+      "categories": [
+        "math.OC"
+      ],
+      "published": "2026-05-12T00:23:32+00:00",
+      "link": "https://arxiv.org/pdf/2605.11357v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "active reputation learning and belief vectors for trustworthiness",
+      "llm_evidence_cn": "主动声誉学习与信任度信念向量",
+      "llm_evidence": "主动声誉学习与信任度信念向量",
+      "canonical_evidence": "主动声誉学习与信任度信念向量",
+      "llm_tldr_en": "Proposes a consensus framework using active reputation learning to quantify and update neighbor trustworthiness.",
+      "llm_tldr_cn": "提出一种利用主动声誉学习来量化和更新邻居信任度的共识框架。",
+      "llm_tldr": "提出一种利用主动声誉学习来量化和更新邻居信任度的共识框架。",
+      "llm_tags": [
+        "query:q4"
+      ],
+      "matched_query_tag": "query:q4",
+      "matched_query_text": "quantitative metrics used to assess trust",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}
