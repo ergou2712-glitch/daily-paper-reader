@@ -1,0 +1,173 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-05-15T20:34:37.775655+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2605.13940v1",
+      "title": "AgentTrap: Measuring Runtime Trust Failures in Third-Party Agent Skills",
+      "abstract": "Third-party skills are becoming the package ecosystem for LLM agents. They package natural-language instructions, helper scripts, templates, documents, and service configuration into reusable workflows. This makes skills useful, but it also introduces a new security problem: a malicious skill does not need to ask the model to perform an obviously harmful action. Instead, it can disguise the harmful behavior as part of a routine workflow, relying on the agent to execute that workflow with high-value permissions and limited human supervision.   We introduce AgentTrap, a dynamic benchmark for evaluating whether LLM agents can use third-party skills while resisting malicious runtime behavior. AgentTrap contains 141 tasks: 91 malicious tasks and 50 benign utility tasks, covering 16 security-impact dimensions grounded in agent-skill supply-chain threats. In each task, the agent receives an ordinary user request, runs with installed skills that may contain malicious workflow elements, and is executed in a sandboxed environment. AgentTrap then judges complete trajectories for attack success, blocked or refused behavior, attack-not-triggered cases, and no-attack-evidence outcomes. Our central finding is that the most informative failures are not simple jailbreaks. Models often complete the visible user task while treating unsafe side effects introduced by the skill as part of the normal workflow. This motivates runtime evaluation of the concrete model--framework--workspace environment in which users actually delegate work. Code and data are available at https://github.com/zhmzm/AgentTrap and https://huggingface.co/datasets/zhmzm/AgentTrap.",
+      "authors": [
+        "Haomin Zhuang",
+        "Hanwen Xing",
+        "Yujun Zhou",
+        "Yuchen Ma",
+        "Yue Huang",
+        "Yili Shen",
+        "Yufei Han",
+        "Xiangliang Zhang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-05-13T17:04:17+00:00",
+      "link": "https://arxiv.org/pdf/2605.13940v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "benchmark for measuring runtime trust failures",
+      "llm_evidence_cn": "衡量运行时信任失效的基准测试",
+      "llm_evidence": "衡量运行时信任失效的基准测试",
+      "canonical_evidence": "衡量运行时信任失效的基准测试",
+      "llm_tldr_en": "Introduces AgentTrap, a benchmark to measure trust failures and malicious behavior in LLM agent skills.",
+      "llm_tldr_cn": "引入AgentTrap基准，用于衡量LLM智能体技能中的信任失效和恶意行为。",
+      "llm_tldr": "引入AgentTrap基准，用于衡量LLM智能体技能中的信任失效和恶意行为。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "methods and metrics for measuring trust",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2605.09297v1",
+      "title": "Enforcing Attestable Workflows across Untrusted Networks",
+      "abstract": "Confidential high-performance computing orchestrates workloads across federated domains, yet existing frameworks rely on high-overhead user-space library operating systems or assume single-host execution. We propose \\codename, an architecture federating Trusted Execution Environments via a split Trusted Computing Base (TCB) design. It couples a hardware-isolated Control Plane executing Mutually Attested Key Exchange (\\make) with a measured guest-resident extended Berkeley Packet Filter (eBPF) Data Plane. By anchoring cryptographic key release to hardware measurements and executing enforcement in the kernel, \\codename\\ achieves native-speed encrypted routing. Empirical evaluation demonstrates a steady-state enforcement cost of $6\\,μ$s per packet, imposing a $13$--$15\\,μ$s absolute latency overhead. On distributed pipelines, \\codename\\ incurs just a $6.1\\%$ execution penalty over plaintext baselines, bypassing the $62\\%$ penalty of user-space counterparts. The system initializes a 100-node cluster in under 1.5 seconds, providing an efficient confidential interconnect for long-running workflows.",
+      "authors": [
+        "Hung Dang",
+        "Tue Nguyen"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.DC"
+      ],
+      "published": "2026-05-10T03:45:22+00:00",
+      "link": "https://arxiv.org/pdf/2605.09297v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Enforcing workflows across untrusted networks via attestation",
+      "llm_evidence_cn": "通过远程度量在不可信网络中执行工作流",
+      "llm_evidence": "通过远程度量在不可信网络中执行工作流",
+      "canonical_evidence": "通过远程度量在不可信网络中执行工作流",
+      "llm_tldr_en": "Proposes an architecture for secure workload orchestration across untrusted federated domains using TEEs.",
+      "llm_tldr_cn": "提出一种利用可信执行环境在不可信联邦域之间进行安全工作负载编排的架构。",
+      "llm_tldr": "提出一种利用可信执行环境在不可信联邦域之间进行安全工作负载编排的架构。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.11039v1",
+      "title": "The Granularity Mismatch in Agent Security: Argument-Level Provenance Solves Enforcement and Isolates the LLM Reasoning Bottleneck",
+      "abstract": "Tool-using LLM agents must act on untrusted webpages, emails, files, and API outputs while issuing privileged tool calls. Existing defenses often mediate trust at the granularity of an entire tool invocation, forcing a brittle choice in mixed-trust workflows: allow external content to influence a call and risk hijacked destinations or commands, or quarantine the call and block benign retrieval-then-act behavior. The key observation behind this paper is that indirect prompt injection becomes dangerous not when untrusted content appears in context, but when it determines an authority-bearing argument. We present \\textsc{PACT} (\\emph{Provenance-Aware Capability Contracts}), a runtime monitor that assigns semantic roles to tool arguments, tracks value provenance across replanning steps, and checks whether each argument's origin satisfies its role-specific trust contract. Under oracle provenance, \\textsc{PACT} achieves 100\\% utility and 100\\% security on mixed-trust diagnostic suites, while flat invocation-level monitors incur false positives or false negatives. In full AgentDojo deployments across five models, \\textsc{PACT} reaches 100\\% security on the three strongest models while recovering 38.1--46.4\\% utility, 8--16 percentage points above CaMeL at the same security level. Ablations show that both semantic roles and cross-step provenance are necessary. \\textsc{PACT} reframes agent security as authority binding, and isolates the remaining deployment bottleneck to provenance inference and contract synthesis.",
+      "authors": [
+        "Linfeng Fan",
+        "Ziwei Li",
+        "Yuan Tian",
+        "Yichen Wang",
+        "Rongsheng Li",
+        "Xiong Wang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-05-11T04:09:11+00:00",
+      "link": "https://arxiv.org/pdf/2605.11039v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "mediates trust in agent workflows through argument-level provenance",
+      "llm_evidence_cn": "通过参数级溯源在代理工作流中调节信任",
+      "llm_evidence": "通过参数级溯源在代理工作流中调节信任",
+      "canonical_evidence": "通过参数级溯源在代理工作流中调节信任",
+      "llm_tldr_en": "Presents PACT to secure LLM agents by monitoring trust at the granularity of tool arguments.",
+      "llm_tldr_cn": "提出 PACT，通过在工具参数粒度上监控信任来保护大模型代理的安全。",
+      "llm_tldr": "提出 PACT，通过在工具参数粒度上监控信任来保护大模型代理的安全。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.14999v1",
+      "title": "Towards Gaze-Informed AI Disclosure Interfaces: Eye-Tracking Attentional and Cognitive Load While Reading AI-Assisted News",
+      "abstract": "As generative AI becomes increasingly integrated into journalism, designing effective AI-use disclosures that inform readers without imposing unnecessary burden is a key challenge. While prior research has primarily focused on trust and credibility, the impact of disclosures on readers' attentional and cognitive load remains underexplored. To address this gap, we conducted a $3\\times2\\times2$ mixed factorial study manipulating the level of AI-use disclosure detail (none, one-line, detailed), news type (politics, lifestyle), and role of AI (editing, partial content generation), measuring load via NASA-TLX and eye-tracking. Our results reveal a significant attentional cost: one-line disclosures resulted in significantly higher fixation durations and saccade counts, particularly for AI-edited content. Detailed disclosures did not impose additional burden. Drawing on Information-Gap Theory, we argue that brief labels may trigger increased visual scrutiny by alerting readers to AI use without providing enough information. NASA-TLX scores and pupil diameter showed no significant differences across conditions, suggesting that AI-use disclosures do not impose cognitive burden regardless of the detail level. Interview insights contextualize these findings and reveal a strong preference for detailed or ``detail-on-demand'' designs. Our findings inform the design of gaze-informed adaptive disclosure interfaces that dynamically adjust transparency levels based on readers' attentional patterns and news context.",
+      "authors": [
+        "Pooja Prajod",
+        "Hannes Cools",
+        "Thomas Röggla",
+        "Pablo Cesar",
+        "Abdallah El Ali"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC",
+        "cs.AI"
+      ],
+      "published": "2026-05-14T16:01:55+00:00",
+      "link": "https://arxiv.org/pdf/2605.14999v1",
+      "tags": [
+        "keyword:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "measures impact of AI disclosures on trust and cognitive load",
+      "llm_evidence_cn": "衡量 AI 披露对信任和认知负荷的影响",
+      "llm_evidence": "衡量 AI 披露对信任和认知负荷的影响",
+      "canonical_evidence": "衡量 AI 披露对信任和认知负荷的影响",
+      "llm_tldr_en": "Uses eye-tracking to study how AI-use disclosures affect reader attention and trust.",
+      "llm_tldr_cn": "利用眼动追踪研究 AI 使用披露如何影响读者的注意力和信任。",
+      "llm_tldr": "利用眼动追踪研究 AI 使用披露如何影响读者的注意力和信任。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

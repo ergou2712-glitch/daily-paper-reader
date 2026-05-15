@@ -1,0 +1,65 @@
+{
+  "label": "2026-05-15",
+  "date": "2026-05-15",
+  "generated_at": "2026-05-15T20:35:49",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202605/15/2605.13940v1-agenttrap-measuring-runtime-trust-failures-in-third-party-agent-skills",
+      "section": "deep",
+      "title_en": "AgentTrap: Measuring Runtime Trust Failures in Third-Party Agent Skills",
+      "authors": "Haomin Zhuang, Hanwen Xing, Yujun Zhou, Yuchen Ma, Yue Huang, Yili Shen, Yufei Han, Xiangliang Zhang",
+      "date": "2026-05-13",
+      "pdf": "https://arxiv.org/pdf/2605.13940v1",
+      "score": "9.0",
+      "evidence": "衡量运行时信任失效的基准测试",
+      "tldr": "本研究针对大语言模型智能体第三方技能生态中的安全风险，提出了动态基准测试框架 AgentTrap。该框架包含 141 个任务，涵盖 16 个安全维度，旨在评估智能体在执行看似正常的任务时，能否识别并抵御隐藏在第三方技能中的恶意运行时行为。研究发现，智能体往往会将恶意副作用视为正常工作流的一部分，而非触发传统的安全拒绝，这为智能体安全评估提供了新视角。",
+      "tags": "query:q3",
+      "abstract_en": "Third-party skills are becoming the package ecosystem for LLM agents. They package natural-language instructions, helper scripts, templates, documents, and service configuration into reusable workflows. This makes skills useful, but it also introduces a new security problem: a malicious skill does not need to ask the model to perform an obviously harmful action. Instead, it can disguise the harmful behavior as part of a routine workflow, relying on the agent to execute that workflow with high-value permissions and limited human supervision.   We introduce AgentTrap, a dynamic benchmark for evaluating whether LLM agents can use third-party skills while resisting malicious runtime behavior. AgentTrap contains 141 tasks: 91 malicious tasks and 50 benign utility tasks, covering 16 security-impact dimensions grounded in agent-skill supply-chain threats. In each task, the agent receives an ordinary user request, runs with installed skills that may contain malicious workflow elements, and is executed in a sandboxed environment. AgentTrap then judges complete trajectories for attack success, blocked or refused behavior, attack-not-triggered cases, and no-attack-evidence outcomes. Our central finding is that the most informative failures are not simple jailbreaks. Models often complete the visible user task while treating unsafe side effects introduced by the skill as part of the normal workflow. This motivates runtime evaluation of the concrete model--framework--workspace environment in which users actually delegate work. Code and data are available at https://github.com/zhmzm/AgentTrap and https://huggingface.co/datasets/zhmzm/AgentTrap.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202605/15/2605.09297v1-enforcing-attestable-workflows-across-untrusted-networks",
+      "section": "quick",
+      "title_en": "Enforcing Attestable Workflows across Untrusted Networks",
+      "authors": "Hung Dang, Tue Nguyen",
+      "date": "2026-05-10",
+      "pdf": "https://arxiv.org/pdf/2605.09297v1",
+      "score": "6.0",
+      "evidence": "通过远程度量在不可信网络中执行工作流",
+      "tldr": "针对机密高性能计算在跨域联邦环境下的性能瓶颈，本文提出了一种新型架构，通过分离可信计算基（TCB）设计，结合硬件隔离的控制面与基于 eBPF 的数据面，实现了硬件度量锚定的加密密钥分发与内核级流量拦截。实验表明，该系统在保持高安全性的同时，显著降低了网络延迟和执行开销，为大规模机密工作流提供了高效的互联方案。",
+      "tags": "query:profile-1",
+      "abstract_en": "Confidential high-performance computing orchestrates workloads across federated domains, yet existing frameworks rely on high-overhead user-space library operating systems or assume single-host execution. We propose \\codename, an architecture federating Trusted Execution Environments via a split Trusted Computing Base (TCB) design. It couples a hardware-isolated Control Plane executing Mutually Attested Key Exchange (\\make) with a measured guest-resident extended Berkeley Packet Filter (eBPF) Data Plane. By anchoring cryptographic key release to hardware measurements and executing enforcement in the kernel, \\codename\\ achieves native-speed encrypted routing. Empirical evaluation demonstrates a steady-state enforcement cost of $6\\,μ$s per packet, imposing a $13$--$15\\,μ$s absolute latency overhead. On distributed pipelines, \\codename\\ incurs just a $6.1\\%$ execution penalty over plaintext baselines, bypassing the $62\\%$ penalty of user-space counterparts. The system initializes a 100-node cluster in under 1.5 seconds, providing an efficient confidential interconnect for long-running workflows.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202605/15/2605.11039v1-the-granularity-mismatch-in-agent-security-argument-level-provenance-solves-enforcement-and-isolates-the-llm-reasoning-bottleneck",
+      "section": "quick",
+      "title_en": "The Granularity Mismatch in Agent Security: Argument-Level Provenance Solves Enforcement and Isolates the LLM Reasoning Bottleneck",
+      "authors": "Linfeng Fan, Ziwei Li, Yuan Tian, Yichen Wang, Rongsheng Li, Xiong Wang",
+      "date": "2026-05-11",
+      "pdf": "https://arxiv.org/pdf/2605.11039v1",
+      "score": "6.0",
+      "evidence": "通过参数级溯源在代理工作流中调节信任",
+      "tldr": "针对大模型智能体在处理不可信内容时面临的间接提示注入风险，本文指出传统工具级防御粒度过粗，导致安全性与实用性难以兼得。提出PACT框架，通过在参数级别追踪数据来源并实施语义角色契约，实现了细粒度的安全监控。实验表明，PACT在保持极高安全性的同时，显著提升了复杂任务的实用性，有效解决了混合信任工作流中的防御难题。",
+      "tags": "query:profile-1",
+      "abstract_en": "Tool-using LLM agents must act on untrusted webpages, emails, files, and API outputs while issuing privileged tool calls. Existing defenses often mediate trust at the granularity of an entire tool invocation, forcing a brittle choice in mixed-trust workflows: allow external content to influence a call and risk hijacked destinations or commands, or quarantine the call and block benign retrieval-then-act behavior. The key observation behind this paper is that indirect prompt injection becomes dangerous not when untrusted content appears in context, but when it determines an authority-bearing argument. We present \\textsc{PACT} (\\emph{Provenance-Aware Capability Contracts}), a runtime monitor that assigns semantic roles to tool arguments, tracks value provenance across replanning steps, and checks whether each argument's origin satisfies its role-specific trust contract. Under oracle provenance, \\textsc{PACT} achieves 100\\% utility and 100\\% security on mixed-trust diagnostic suites, while flat invocation-level monitors incur false positives or false negatives. In full AgentDojo deployments across five models, \\textsc{PACT} reaches 100\\% security on the three strongest models while recovering 38.1--46.4\\% utility, 8--16 percentage points above CaMeL at the same security level. Ablations show that both semantic roles and cross-step provenance are necessary. \\textsc{PACT} reframes agent security as authority binding, and isolates the remaining deployment bottleneck to provenance inference and contract synthesis.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202605/15/2605.14999v1-towards-gaze-informed-ai-disclosure-interfaces-eye-tracking-attentional-and-cognitive-load-while-reading-ai-assisted-news",
+      "section": "quick",
+      "title_en": "Towards Gaze-Informed AI Disclosure Interfaces: Eye-Tracking Attentional and Cognitive Load While Reading AI-Assisted News",
+      "authors": "Pooja Prajod, Hannes Cools, Thomas Röggla, Pablo Cesar, Abdallah El Ali",
+      "date": "2026-05-14",
+      "pdf": "https://arxiv.org/pdf/2605.14999v1",
+      "score": "6.0",
+      "evidence": "衡量 AI 披露对信任和认知负荷的影响",
+      "tldr": "随着生成式AI在新闻业的应用，如何设计有效的AI披露界面成为挑战。本研究通过眼动追踪和NASA-TLX量表，探讨了不同详细程度的AI披露对读者注意力和认知负荷的影响。研究发现，简短的单行披露会显著增加读者的注意力成本，而详细披露则不会增加额外负担。研究结果为设计基于注视感知的自适应AI披露界面提供了重要依据，强调了透明度设计的平衡点。",
+      "tags": "query:profile-1",
+      "abstract_en": "As generative AI becomes increasingly integrated into journalism, designing effective AI-use disclosures that inform readers without imposing unnecessary burden is a key challenge. While prior research has primarily focused on trust and credibility, the impact of disclosures on readers' attentional and cognitive load remains underexplored. To address this gap, we conducted a $3\\times2\\times2$ mixed factorial study manipulating the level of AI-use disclosure detail (none, one-line, detailed), news type (politics, lifestyle), and role of AI (editing, partial content generation), measuring load via NASA-TLX and eye-tracking. Our results reveal a significant attentional cost: one-line disclosures resulted in significantly higher fixation durations and saccade counts, particularly for AI-edited content. Detailed disclosures did not impose additional burden. Drawing on Information-Gap Theory, we argue that brief labels may trigger increased visual scrutiny by alerting readers to AI use without providing enough information. NASA-TLX scores and pupil diameter showed no significant differences across conditions, suggesting that AI-use disclosures do not impose cognitive burden regardless of the detail level. Interview insights contextualize these findings and reveal a strong preference for detailed or ``detail-on-demand'' designs. Our findings inform the design of gaze-informed adaptive disclosure interfaces that dynamically adjust transparency levels based on readers' attentional patterns and news context.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
