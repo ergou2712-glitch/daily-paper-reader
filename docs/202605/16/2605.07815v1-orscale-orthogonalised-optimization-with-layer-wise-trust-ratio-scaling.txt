@@ -1,0 +1,920 @@
+Title: OrScale: Orthogonalised Optimization with Layer-Wise Trust-Ratio Scaling
+
+URL Source: https://arxiv.org/pdf/2605.07815v1
+
+Published Time: Mon, 11 May 2026 01:20:53 GMT
+
+Number of Pages: 16
+
+Markdown Content:
+# OrScale: Orthogonalised Optimization with Layer-Wise Trust-Ratio Scaling 
+
+Yuxuan Lou 
+
+National University of Singapore 
+
+yuxuanlou@u.nus.edu 
+
+Yang You 
+
+National University of Singapore 
+
+yangyou@nus.edu.sg 
+
+## Abstract 
+
+Muon’s orthogonalised update fixes the direction of each matrix-valued step but leaves its magnitude controlled by an essentially global learning rate, even though attention, MLP, and projection layers see very different gradient scales. Moonlight’s static per-shape factor partially addresses this, but no Muon variant currently deliv-ers the time-varying, layer-wise magnitude control that LARS and LAMB brought to SGD and Adam—and the most natural ports of LAMB to Muon collapse for structural reasons we make precise. We propose OrScale , a trust-ratio extension of Muon built around one principle: the denominator of a layer-wise trust ratio should measure the Frobenius norm of the real update direction the optimizer will subtract from the parameter. The principle yields two variants of a single framework— 
+
+OrScale for general matrix-valued layers and OrScale-LM for language models, where a Moonlight-scaled update is combined with a one-time per-layer calibration that anchors every trust ratio at one. We map the Muon trust-ratio design space and explain why three natural Muon–LAMB hybrids fail through degenerate de-nominators, raw-momentum clip saturation, and decoupled-weight-decay runaway. Theoretically, OrScale satisfies a nuclear-norm O(1 /√T ) nonconvex convergence guarantee, admits a layer-adaptive descent constant κeff > 1 that strictly improves over Muon’s homogeneous constant under measurable layer heterogeneity, and OrScale-LM preserves μP-style learning-rate transfer at initialisation. Empirically, OrScale ranks first on CIFAR-10 / DavidNet across three seeds, improving Muon from 93 .70% ±0.14 to 94 .05% ±0.08 validation top-1; a failure-mode ablation matches each design-space row to its predicted symptom; and on FineWeb-Edu pre-training, OrScale-LM beats Muon+Moonlight at three of four scales (125M, 545M, 1.1B) and beats AdamW at every scale from 125M to 1.1B parameters. 
+
+## 1 Introduction 
+
+Muon has rapidly moved from a compact optimizer idea to a practical ingredient in large-scale training. Its core step takes a matrix-valued update, applies a few Newton–Schulz iterations to approximate the polar factor, and subtracts this spectrally flattened direction from the weights. The update can be interpreted as a form of operator-norm steepest descent [ 1 ], and recent practical systems—Moonlight [ 10 ], Kimi K2.5 [ 16 ], DeepSeek-V4 [ 2], and the modded-nanogpt training records [ 6, 5]—have made orthogonalised updates a fixture of the current LLM optimizer discussion. Standard Muon handles the direction of each update well but leaves its magnitude under-specified: after orthogonalisation, every matrix layer is rescaled by the same global learning rate, even though attention projections, MLP up- and down-projections, output projections, and embeddings see very different gradient distributions and effective curvature. Moonlight addresses one part of this with a static per-shape factor 0.2pmax( m, n ) that equalises the per-element RMS of the orthogonalised update [ 10 ], but a static correction cannot adapt as the relevant scale of a layer drifts during training— 
+
+> Preprint.
+> arXiv:2605.07815v1 [cs.LG] 8 May 2026
+
+which is precisely what layer-wise trust ratios were designed to handle. LARS [ 21 ] and LAMB [ 22 ]keep each layer’s update norm in proportion to its weight norm, decoupling per-layer step sizes from a single global learning rate, and in doing so underwrote the move to BERT-scale large-batch training [ 3, 4, 8]. A direct port to Muon is not automatic, however: orthogonalisation removes the amplitude information that LAMB-style denominators normally exploit, and the most obvious Muon–LAMB hybrids collapse in practice—through degenerate denominators, clip-saturated raw-momentum ratios, and runaway weight-norm growth (Section 4). The principle that makes the combination work is straightforward once the failure modes are isolated: 
+
+the denominator of the trust ratio must measure the Frobenius norm of the real parameter-space direction the optimizer is about to subtract from the weights. If that direction is λW ℓ + Qℓ the denominator should be ∥λW ℓ + Qℓ∥F ; if Moonlight’s shape factor is included so that the direction becomes λW ℓ + sℓQℓ, the denominator should measure precisely that expression, with a one-time per-layer calibration when width transfer matters (Section 3). This yields a single recipe with two natural specialisations: O RSCALE 1, the general / vision default with sℓ = 1 and no calibration, and ORSCALE -LM, the LLM default that adopts Moonlight’s sℓ = 0 .2pmax( mℓ, n ℓ) together with a per-layer denominator constant cdenom ,ℓ chosen so every layer’s trust ratio starts at exactly one. The LM-specific pieces are introduced for learning-rate transfer: Moonlight’s sℓ first equalises Muon’s per-element update RMS across matrix shapes and then matches it to AdamW’s, so an AdamW-tuned LR carries over to Muon directly [ 10 ]; the calibration constant cdenom ,ℓ propagates that property to OrScale-LM by anchoring the first parameter step to the Moonlight step, so OrScale-LM inherits Moonlight’s (and hence AdamW’s) tuned LR without an additional sweep. The same principle rules out three superficially attractive alternatives that we show fail both empirically and analytically. 
+
+Contributions. 
+
+• Algorithm. A unified, parameter-light recipe (Algorithm 1) that adds layer-wise trust-ratio scaling to Muon, with a 2×2 design space (denominator, shape factor) plus calibration and weight-decay coupling; we identify the unique workable corner. • Failure analysis. We map the design space (Table 1) and characterise three failure modes empiri-cally and analytically—degenerate denominator, raw-momentum clip saturation, and decoupled-WD runaway—each ruled out by the same principle. • Theory. A nuclear-norm O(1 /√T ) convergence guarantee (Theorem 1 and Proposition 1); a layer-adaptive descent constant κOrScale eff > 1 under measurable heterogeneity (Theorem 3); strict separation from MuTrust / MuScale via clip-saturation collapse (Theorem 4); calibration properties for OrScale-LM (Corollary 1). • Empirics. OrScale ranks first on CIFAR-10 / DavidNet across three seeds; a failure-mode ablation pairs each design-space row with its predicted symptom; OrScale-LM leads on FineWeb-Edu pre-training from 125M to 1.1B parameters. 
+
+## 2 Background and Related Work 
+
+Muon and orthogonalised updates. Let Wℓ ∈ Rmℓ×nℓ denote a matrix-valued parameter and 
+
+Gℓ,t = ∇Wℓ Lt the stochastic gradient. Muon [ 6 ] forms the Nesterov-lookahead momentum fMℓ,t 
+
+and applies k Newton–Schulz iterations to obtain an approximate polar factor Qℓ,t = NS k( fMℓ,t ) ≈
+
+Ortho( fMℓ,t ), then updates Wℓ,t +1 = Wℓ,t − ηtQℓ,t (with optional weight decay). The key algebraic property is that if QA = Ortho( A), then ⟨A, Q A⟩ = ∥A∥∗ and ∥QA∥F = prank( A); this makes orthogonalisation a nuclear-norm / spectral-geometry primitive rather than an entrywise adaptive update [ 1]. Recent practical work has extended Muon along several axes: Moonlight introduces the static shape factor 0.2pmax( m, n ) to match per-element update RMS across matrix shapes [ 10 ]; MuonClip stabilises attention logit growth [ 17 ]; AdaMuon explores adaptive variants [ 14 ]. OrScale is orthogonal to these efforts: it keeps the Muon direction and asks how to choose a layer’s scalar update magnitude over time . 
+
+> 1Code: https://github.com/NUS-HPC-AI-Lab/OrScale
+
+2OrScale: Orthogonalized Opimization with Layer-wise Trust Ratio Scaling AMuon front-end BNaive trust-ratio ports fail COrScale Newton-Schulz orthogonalization direction is matrix-aware, magnitude is global-LR controlled !degenerate : denominator is mostly shape flat !unit mismatch -> clip saturation !calibrated + decoupled WD runaway weight growth Real update direction Coupled WD update OrScale:OrScale-LM:with lazy per-layer calibration Trust-ratio denominator Calibration anchors Failure mode 1 Failure mode 2 Failure mode 3 Figure 1: OrScale at a glance. (A) The shared Muon front end produces a spectral direction Qℓ
+
+but leaves its magnitude under-specified. (B) Three superficially natural Muon trust-ratio ports fail in distinct ways: degenerate denominator ( ∥Qℓ∥F is mostly shape), unit mismatch leading to upper-clip saturation ( ∥ fMℓ∥F has gradient units), and runaway weight-norm growth (calibrated denominator with decoupled weight decay). (C) OrScale: the denominator measures the real update direction Dℓ = λW ℓ + sℓQℓ, calibration anchors rℓ(0) = 1 , and weight decay is coupled into the trust-ratio-scaled step. OrScale uses sℓ = 1 ; OrScale-LM uses sℓ = 0 .2pmax( mℓ, n ℓ) with lazy per-layer calibration. 
+
+Trust-ratio optimizers. LARS [ 21 ] uses ratios such as ∥Wℓ∥F /∥∇ ℓW + λW ℓ∥F to scale SGD updates layer by layer; LAMB [ 22 ] applies the same idea to Adam-normalised directions and enabled large-batch BERT training [ 3]. These methods work because the denominator is in the same units as the parameter-space update. For Muon, the immediate denominator ∥Qℓ∥F is almost a shape constant (Lemma 1) and the raw pre-orthogonalisation momentum norm ∥ fMℓ∥F has gradient units rather than update-direction units; this unit mismatch is the main reason naive hybrids fail (Section 4, Theorem 4). 
+
+Static layer-scale corrections and width transfer. Moonlight’s shape factor handles predictable shape effects, and μP-style parameterisation [ 19 , 20 ] preserves the optimal learning rate across model widths. A dynamic trust ratio is what handles training-time drift, layer-specific sensitivity, and relative weight-norm growth: OrScale-LM combines both, with Moonlight handling shape and calibration plus the real-update-direction denominator making the trust ratio width-invariant at initialisation (Corollary 1) and adaptive afterwards. Adjacent optimizer families—second-order or pre-conditioner-based methods such as Sophia [ 9 ] and SOAP [ 18 ], decoupled weight decay [ 11 ], and the classical AdamW / Adam baselines [ 7, 15 ]—are complementary to and largely independent of the trust-ratio mechanism studied here. 
+
+## 3 The OrScale Family 
+
+Notation. Throughout, Wℓ ∈ Rmℓ×nℓ is a matrix-valued parameter, pℓ = min( mℓ, n ℓ) is its spectral rank bound, ∥ · ∥ F and ∥ · ∥ ∗ are the Frobenius and nuclear norms, Ortho( ·) returns the polar factor (orthogonal U V ⊤ from the thin SVD), NS k(·) is its k-step Newton–Schulz approximation, 
+
+fMℓ,t is the Nesterov-lookahead momentum, ˆrℓ,t is the clipped trust ratio, clip( ·, r min , r max ) clamps to the interval, and ε is a small numerical floor. 33.1 Design principle 
+
+A trust ratio compares a parameter-space norm to an update norm. The numerator ∥Wℓ,t ∥F has units of weight magnitude, so the denominator must measure the parameter-space direction that will actually be subtracted from Wℓ,t (Figure 1). 
+
+Definition 1 (Real-update-direction trust ratio) . Let Dupd  
+
+> ℓ,t
+
+denote the parameter-space direction that the optimizer is about to subtract from Wℓ,t (before multiplication by the global learning rate and the trust-ratio scalar). The real-update-direction trust ratio is rℓ,t = ∥Wℓ,t ∥F /  ∥Dupd  
+
+> ℓ,t
+
+∥F + ε.
+
+Definition 1 is the LARS/LAMB design [ 21 , 22 ] translated into the parameter-space units of the post-orthogonalisation, post-Moonlight Muon update. It excludes two tempting alternatives that lack the right currency: the post-orthogonalised denominator ∥Qℓ∥F is too close to a shape constant to carry update-scale information (Lemma 1 (iii); Section C.1), and the raw-momentum denominator ∥ fMℓ∥F
+
+carries gradient amplitude rather than the direction being applied after Muon orthogonalisation and Moonlight shape scaling (Section C.2; Theorem 4). 
+
+3.2 Shared Muon front end 
+
+Both OrScale variants share the standard Muon front end: 
+
+Gℓ,t = ∇Wℓ Lt, (1) 
+
+Mℓ,t = μ M ℓ,t −1 + Gℓ,t , (2) 
+
+fMℓ,t = μ M ℓ,t + Gℓ,t , (3) 
+
+Qℓ,t = NS k( fMℓ,t ). (4) We retain the Nesterov-lookahead choice fM = μM + G because it is what every reported large-scale Muon training run uses in practice [ 10 , 6]; it consistently outperforms vanilla heavy-ball momentum in our preliminary sweeps and avoids divergence at the high-momentum settings μ ∈ [0 .95 , 0.99] 
+
+that Moonshot AI’s Moonlight reports. Non-matrix parameters (biases, LayerNorm gains, and embeddings when desired) are updated with an AdamW-style fallback [11]. 
+
+3.3 OrScale (general / vision default) 
+
+The OrScale variant takes sℓ = 1 and uses no calibration. The update direction and trust ratio are 
+
+Dupd  
+
+> ℓ,t
+
+= λW ℓ,t + Qℓ,t , rℓ,t = ∥Wℓ,t ∥F
+
+∥λW ℓ,t + Qℓ,t ∥F + ε , ˆrℓ,t = clip( rℓ,t , r min , r max ),
+
+and the update is 
+
+Wℓ,t +1 = Wℓ,t − ηt ˆrℓ,t 
+
+ λW ℓ,t + Qℓ,t 
+
+.
+
+This is exactly the LARS template [ 21 ] with the gradient-based denominator ∥G + λW ∥F replaced by the post-orthogonalisation update direction; the substitution G → Q is the geometric core of OrScale. Coupling weight decay into the trust-ratio-scaled update (rather than applying a separate 
+
+(1 − ηλ )W pull-back) is the design choice that rules out the runaway feedback loop of Section C.3: the asymptotic ceiling of rℓ,t becomes finite (Lemma 6). 
+
+3.4 OrScale-LM (LLM default) 
+
+For language-model training we additionally apply the Moonlight shape factor and a one-time per-layer calibration; both pieces are introduced to preserve learning-rate transfer rather than to change the geometry of the update. Set sℓ = 0.2 pmax( mℓ, n ℓ). The pmax( mℓ, n ℓ) factor cancels the shape-dependent per-element RMS of the polar factor (Lemma 1 of Liu et al. [10] gives 
+
+RMS( Qℓ) = 1 /pmax( mℓ, n ℓ) at full rank), so the per-element RMS of sℓQℓ becomes uniform across matrix shapes; the constant 0.2 then pins that uniform RMS to AdamW’s typical per-element update RMS of 0.2–0.4, which is what lets Moonlight’s Muon directly reuse the LR (and weight decay) tuned for AdamW [10]. 4Algorithm 1 Unified OrScale update for matrix-valued parameters. Both variants share lines 2–6 and 11–14; only the assignment of sℓ on line 7 and the lazy calibration on line 8 differ. 
+
+Require: Learning rate ηt, momentum μ ∈ [0 , 1) , weight decay λ ≥ 0, clip bounds rmin , r max 
+
+(defaults: 0.5, 1.5 for OrScale; 0.1, 5.0 for OrScale-LM), Newton–Schulz iterations k (default 5), 
+
+ε (default 10 −6), variant v ∈ { ORSCALE , ORSCALE -LM }. 
+
+> 1:
+
+for each matrix parameter Wℓ ∈ Rmℓ×nℓ do  
+
+> 2:
+
+Gℓ,t ← ∇ Wℓ Lt 
+
+> 3:
+
+Mℓ,t ← μ M ℓ,t −1 + Gℓ,t  
+
+> 4:
+
+fMℓ,t ← μ M ℓ,t + Gℓ,t ▷ Nesterov lookahead  
+
+> 5:
+
+Qℓ,t ← NS k( fMℓ,t ) ▷ Approximate polar factor  
+
+> 6:
+
+sℓ ←
+
+0.2pmax( mℓ, n ℓ) v = ORSCALE -LM 
+
+1 v = ORSCALE 7: if v = ORSCALE -LM and cdenom ,ℓ uninitialised then  
+
+> 8:
+
+cdenom ,ℓ ← ∥ Wℓ,t ∥F /(∥λW ℓ,t + sℓQℓ,t ∥F + ε) ▷ Lazy: only at t = 1  
+
+> 9:
+
+else if v = ORSCALE then  
+
+> 10:
+
+cdenom ,ℓ ← 1 
+
+> 11:
+
+end if  
+
+> 12:
+
+Dℓ,t ← λW ℓ,t + sℓQℓ,t  
+
+> 13:
+
+rℓ,t ← ∥ Wℓ,t ∥F /(cdenom ,ℓ ∥Dℓ,t ∥F + ε) ▷ fp32 cast around division  
+
+> 14:
+
+ˆrℓ,t ← clip( rℓ,t , r min , r max ) 
+
+> 15:
+
+Wℓ,t +1 ← Wℓ,t − ηt ˆrℓ,t Dℓ,t ▷ Coupled weight decay  
+
+> 16:
+
+end for  
+
+> 17:
+
+Update non-matrix parameters with the AdamW fallback [11]. 
+
+Definition 2 (Lazy per-layer calibration constant) . At the first optimizer step in which Wℓ receives a non-zero update, OrScale-LM stores one fp32 scalar 
+
+cdenom ,ℓ = ∥Wℓ, 0∥F
+
+∥λW ℓ, 0 + sℓ Qℓ, 0∥F + ε .
+
+This constant is computed once and re-used at every subsequent step. The calibrated trust ratio and update are 
+
+rLM  
+
+> ℓ,t
+
+= ∥Wℓ,t ∥F
+
+cdenom ,ℓ ∥λW ℓ,t + sℓQℓ,t ∥F + ε , ˆrLM  
+
+> ℓ,t
+
+= clip( rLM  
+
+> ℓ,t
+
+, r min , r max ), (5) 
+
+Wℓ,t +1 = Wℓ,t − ηt ˆrLM 
+
+> ℓ,t
+
+ λW ℓ,t + sℓQℓ,t 
+
+. (6) By construction rLM  
+
+> ℓ, 0
+
+= 1 exactly for every layer, shape, and initialisation. Beyond the geometric width-invariance reading, the anchor is what extends Moonlight’s LR-transfer property to the trust-ratio scaling: because ˆrLM  
+
+> ℓ, 0
+
+= 1 , OrScale-LM’s first parameter step coincides with the Moonlight step, so a learning rate (and weight decay) already tuned for Moonlight—and, by the previous paragraph, for AdamW—transfers to OrScale-LM without an additional per-variant sweep. With coupled weight decay this same denominator gives a finite asymptotic ceiling rLM  
+
+> ℓ,t
+
+→ 1/(cdenom ,ℓ λ) rather than a runaway loop (Corollary 1). 
+
+3.5 Unified algorithm Cost, state, implementation, and degenerate cases. OrScale-LM adds one fp32 scalar per matrix layer (zero for OrScale) and two Frobenius norms per step, both dominated by the existing Newton– Schulz iterations; wall-clock overhead vs. Muon is below 1% at every model size we tested. The two norms are cast to fp32 around the division on line 12 of Algorithm 1 so that ˆrLM  
+
+> ℓ, 0
+
+= 1 holds in bf16 training. Algorithm 1 contains the relevant baselines as limits: rmin = rmax = 1 with sℓ = 1 recovers Muon; rmin = rmax = 1 with sℓ = 0 .2pmax( m, n ) recovers Muon+Moonlight [ 10 ]; λ = 0 removes weight decay while preserving the trust-ratio scaling. 5Table 1: Muon trust-ratio design space. Verdicts are summarised in the right-most column; each failure mode is taken up in Sections C.1 to C.3 (Section C).                                      
+
+> Row Denominator Shape factor Calibration / WD Verdict A∥Qℓ∥Fnone no / decoupled Degenerate (shape constant) B∥fMℓ∥Fnone no / decoupled Saturated (upper clip) C∥fMℓ∥For RMS( fMℓ)Moonlight no / decoupled Saturated (upper clip) Dcℓ∥Qℓ∥FMoonlight yes / decoupled Runaway (positive feedback) E∥λW ℓ+sℓQℓ∥Foptional yes (LM) / coupled Recommended (OrScale, OrScale-LM)
+
+## 4 Design Space and Failure Analysis 
+
+The two recommended OrScale variants are best understood by contrast with three superficially natural alternatives that fail. Table 1 maps the design space along two axes (denominator type, shape factor) plus calibration and weight-decay coupling. The three failed corners exhibit qualitatively distinct symptoms— post-orthogonalisation degeneracy (row A: ∥Qℓ∥F is essentially a shape constant, Lemma 1), raw-momentum unit mismatch and clip saturation (rows B–C: ∥ fMℓ∥F has gradient units, so the clipped trust ratio sits at rmax on 99 .5% –100% of FineWeb-Edu small_125m steps), and 
+
+decoupled-WD runaway (row D: 10 –50 × weight-norm growth driven by a positive feedback loop). Only row E—the real-update-direction denominator ∥λW ℓ + sℓQℓ∥F with coupled weight decay—is robust: it recovers cross-layer LARS-style adaptation, has a finite asymptotic ceiling (Lemma 6), and is width-invariant at initialisation (Lemma 5); Theorem 3 converts these structural properties into a strict layer-adaptive descent gain. Full per-failure-mode analysis with FineWeb-Edu diagnostics is in Section C. 
+
+## 5 Convergence Theory 
+
+We summarise the headline theorems; full proofs are in Section A. 
+
+5.1 Setup and assumptions 
+
+Consider f (W ) = Es[ℓ(W, s )] over W = ( W1, . . . , W h), Wℓ ∈ Rmℓ×nℓ , with pℓ = min( mℓ, n ℓ)
+
+and P = P 
+
+> ℓ
+
+pℓ. (A1) Layerwise smoothness: ∥∇ ℓf (W ) − ∇ ℓf (W ′)∥F ≤ Lℓ∥Wℓ − W ′ 
+
+> ℓ
+
+∥F when 
+
+W, W ′ differ only in block ℓ; let L∞ = max ℓ Lℓ and ¯Lp = ( P 
+
+> ℓ
+
+Lℓpℓ)/P . (A2) Bounded variance: 
+
+E∥Gℓ,t − ∇ ℓf ∥2 
+
+> F
+
+≤ σ2 
+
+> ℓ
+
+/b . (A3) Bounded nuclear noise: E∥∇ ℓℓ(W, s ) − ∇ ℓf ∥∗ ≤ √pℓσℓ (which follows from (A2)). (A4) Headline simplifications: Theorems 1 and 3 take μ = 0 and Theorem 1 additionally takes λ = 0 ; Proposition 1 restores λ > 0 and the μ > 0 extension follows the LAMB analysis [ 22 ]. Criterion: Ψ( W ) = 1√P
+
+P 
+
+> ℓ
+
+∥∇ ℓf (W )∥∗, which strengthens the Frobenius criterion since ∥A∥∗ ≥ ∥ A∥F .
+
+5.2 Foundational lemmas 
+
+Two universal lemmas (full statements and proofs in Section A) underlie everything below; they depend only on Q being a polar factor. 
+
+Lemma 1 (Polar-factor algebra; Section A) . For A = U ΣV ⊤ of rank k ≤ min( m, n ) and 
+
+QA = Ortho( A) = U V ⊤: ⟨A, Q A⟩ = ∥A∥∗, |⟨ B, Q A⟩| ≤ ∥ B∥∗ for any B, ∥QA∥F = √k,and ∥QA∥op = 1 .
+
+Lemma 2 (Expected descent; Section A) . For Gℓ = ∇ℓf + ξℓ with E∥ξℓ∥2 
+
+> F
+
+≤ σ2 
+
+> ℓ
+
+/b and Qℓ =Ortho( Gℓ), E⟨∇ ℓf, Q ℓ⟩ ≥ ∥∇ ℓf ∥∗ − √pℓσℓ/√b.
+
+Basic convergence rate. The next theorem treats ˆrℓ,t as a black-box clipped multiplier in 
+
+[rmin , r max ], so it applies to OrScale, OrScale-LM, MuTrust, and MuScale equally; the OrScale-specific gain over Muon is in Theorem 3. 6Theorem 1 (Basic OrScale convergence) . Under (A1)–(A4) , with η =
+
+p2( f0 −f ∗)/(r2max T P 
+
+> ℓ
+
+Lℓpℓ) and Wa uniform on {W1, . . . , W T },  EΨ( Wa)2 ≤   
+
+> 4r2max (f0−f∗) ¯Lp
+> r2min T
+
++ 2
+
+ P
+
+> ℓ
+> √pℓσℓ
+
+2 
+
+> P b
+
+.
+
+Sketch. Layerwise smoothness with Wt+1 −Wt = −ηˆrtQt, second-order term bounded by ˆr ≤ rmax 
+
+and ∥Q∥2 
+
+> F
+
+≤ pℓ (Lemma 1), first-order term lower-bounded by ˆr ≥ rmin and Lemma 2; telescope and optimise η. Full proof in Section A. The r2max /r 2min factor is intentionally crude—the sharp comparison to Muon comes through Theorem 3, not Theorem 1. 
+
+Coupled weight-decay extension. For OrScale’s λ > 0 update, the descent inequality of Theorem 1 acquires a first-order term −ηˆrλ ⟨∇ ℓf, W ℓ⟩ and a second-order contribution bounded by the asymp-totic ceiling (Lemma 6); treating these as controlled O(λ) corrections preserves the O(1 /√T ) rate up to changed constants (Proposition 1, full statement in Section A). 
+
+Optimal layer-adaptive descent. Let aℓ = ∥∇ ℓf ∥∗, bℓ = Lℓpℓ, and Φ(ˆ r) =
+
+  P  
+
+> ℓ
+
+ˆrℓaℓ
+
+2/ P 
+
+> ℓ
+
+bℓ ˆr2 
+
+> ℓ
+
+. Muon corresponds to ˆr ≡ 1 with ΦMuon = ( P 
+
+> ℓ
+
+aℓ)2/ P 
+
+> ℓ
+
+bℓ; the optimum is 
+
+Φopt = P 
+
+> ℓ
+
+a2 
+
+> ℓ
+
+/b ℓ at ˆr∗ 
+
+> ℓ
+
+∝ aℓ/b ℓ; we write κlayer = Φ opt /ΦMuon and κeff (ˆ r) = Φ(ˆ r)/ΦMuon .
+
+Theorem 2 (Optimal layer-adaptive descent) . κlayer ≥ 1, with equality iff aℓ/b ℓ is constant across layers; the optimum is attained at ˆr∗ 
+
+> ℓ
+
+∝ aℓ/b ℓ. (Cauchy–Schwarz on √b and a/ √b.) For a two-layer toy ( p1 = p2, L2 = βL 1, ∥∇ 2f ∥∗ = α∥∇ 1f ∥∗), κlayer = (1+ β)(1+ α2/β )/(1+ α)2
+
+takes values 1.67 , 3.03 , 9.10 at (α, β ) ∈ { (0 .1, 1) , (1 , 10) , (0 .1, 10) }: heterogeneity gains grow quickly in mixed attention/MLP/projection architectures. 
+
+Lemma 3 (Geometric form of κeff ). With xℓ = aℓ/√bℓ and yℓ = ˆrℓ
+
+√bℓ, κeff (ˆ r) =cos 2 θxy / cos 2 θx, √b. (Direct from Φ(ˆ r) = ⟨x, y ⟩2/∥y∥2.) A trust-ratio optimizer beats Muon iff its weighted direction y is better aligned with the optimum x than Muon’s √b is. 
+
+OrScale’s specific gain. We need two conditions, both measurable on logged training diagnostics: 
+
+(S1) cross-layer heterogeneity νˆr := Var ℓ[ˆ rℓ
+
+√bℓ]/Eℓ[ˆ rℓ
+
+√bℓ]2 > 0, and (S2) positive correlation 
+
+ρ := corr ℓ(ˆ rℓ
+
+√bℓ, x ℓ) > 0.
+
+Theorem 3 (OrScale-specific lower bound on κeff ). Under (A1)–(A4) , (S1) , (S2) , κOrScale eff ≥
+
+1 + ρ2νˆr · (1 + ν√b)/(1 + ν√b/ρ 2) − δ(λ), where ν√b = Var ℓ[√bℓ]/Eℓ[√bℓ]2 and δ(λ) = 
+
+O(λ2∥W ∥2 
+
+> F
+
+/∥Q∥2 
+
+> F
+
+). Sketch. By Lemma 3, decompose y = α√b + β(x − π√b(x)) + ρ⊥; (S2) gives 
+
+β > 0, (S1) lower-bounds |β|, then substitute into the geometric identity. Full algebra in Section A. 
+
+With CIFAR-measured νˆr ≈ 0.3, ρ ≈ 0.5, ν√b ≈ 0.5, Theorem 3 gives κOrScale eff ∈ [1 .06 , 1.15] ,consistent with the +0 .35 -point gain over Muon on CIFAR-10 / DavidNet ( ∼ 5% residual-error reduction; Section 6.2). A strict separation from MuTrust / MuScale under clip saturation (Theorem 4) and the OrScale-LM calibration corollary (Corollary 1) are deferred to Section A. 
+
+## 6 Experiments 
+
+6.1 Setup Vision (CIFAR-10 / DavidNet): standard 24-epoch DavidNet, batch 512 , bf16, cosine decay with 
+
+500 -step warmup, three seeds per cell, val top-1 averaged over the last three epochs then over seeds ( ±1σ). The main table contrasts five optimizers (AdamW, LAMB, Muon, Muon+Moonlight, OrScale), each tuned over a per-family LR grid; four additional trust-ratio variants used to map the design space appear in the failure-mode ablation (Section 6.4). LLM (FineWeb-Edu): GPT-2-style transformers [ 13 ] on FineWeb-Edu [ 12 ] at four scales (125M, 399M, 545M, 1.1B), following the strict Moonlight Table-2 sweep recipe [ 10 ] with matched per-step token budgets and an AdamW fallback for non-matrix parameters; baselines AdamW [ 11 , 7 ] and Muon+Moonlight [ 10 ], per-cell best of a four-LR sweep. Full per-scale token counts, knob settings, and hardware in Sections D and E. 7Rank Optimizer LR Val top-1 (%) 1 OrScale (ours) 0.02 94 .05 ± 0.08                     
+
+> 2Muon + Moonlight 0.01 93 .75 ±0.17
+> 3Muon 0.04 93 .70 ±0.14
+> 4AdamW 0.01 93 .12 ±0.04
+> 5LAMB 0.01 92 .40 ±0.20
+
+Table 2: CIFAR-10 / DavidNet, best learn-ing rate per optimizer. Validation top-1 aver-aged over the last three of 24 epochs and then over three seeds; ±1σ across seeds. The com-plete nine-optimizer sweep including the failure-mode variants is reported in Table 4. Source: 
+
+reports/cifar10_davidnet/ .10 3 10 2 
+
+> Learning rate (log scale)
+> 86
+> 88
+> 90
+> 92
+> 94
+> Val top-1 (%)  mean last-3 epochs
+> LR sensitivity val_top1 vs learning rate
+> Muon
+> Muon+Moonlight
+> OrScale
+> AdamW
+> LAMB
+
+Figure 2: CIFAR-10 / DavidNet validation top-1 versus learning rate, five main-paper baselines. OrScale tracks the top of the sweep across the entire LR grid and provides a wider stable window than Muon, consistent with the layer-adaptive gain of Theorem 3. Table 3: FineWeb-Edu pre-training: final validation cross-entropy at four model scales. Bold per row indicates the best optimizer at that scale. Most cells are single-seed observed end-of-training values; the 125M Muon+Moonlight cell is a four-LR best-of from the FineWeb-Edu small post-fix sweep. Compute C = 6 N D in PFLOP-days (Kaplan estimate). Source: reports/scaling_law/ .
+
+Scale C (PFD) AdamW Muon + Moonlight OrScale-LM (ours) 125M (5.24B tok) 0.046 3.3721 3.2319 3.2120 
+
+399M (8.92B tok) 0.247 2.9966 2.9183 2.9247 
+
+545M (14.04B tok) 0.531 2.9235 2.8130 2.8049 
+
+1.1B (28.54B tok) 2.18 2.7304 2.6360 2.6251 
+
+6.2 CIFAR-10 / DavidNet 
+
+Table 2 reports the five-baseline leaderboard. OrScale ranks first at 94 .05% ±0.08 , improving Muon by +0 .35 points and Muon+Moonlight by +0 .30 points; AdamW and LAMB trail by 0.93 and 
+
+1.65 points, confirming that a direct LAMB-style port is not competitive with Muon on this task. Figure 2 shows that OrScale matches or exceeds every Muon-family baseline across the entire LR grid and offers a wider stable window than Muon, consistent with the layer-adaptive gain predicted by Theorem 3. 
+
+6.3 LLM scaling: 125M → 399M → 545M → 1.1B 
+
+Table 3 and Figure 3 report final validation cross-entropy and the fitted log–log scaling laws on FineWeb-Edu across four model scales spanning a 48 × compute range ( 0.046 → 2.18 PFLOP-days). OrScale-LM beats Muon+Moonlight at three of four scales ( +0 .020 , −0.006 , +0 .008 , +0 .011 nats from 125M to 1.1B; the 399M cell is a tie within single-seed noise) and beats AdamW at every scale by 
+
++0 .072 to +0 .160 nats. The fitted Kaplan-style exponents are AdamW α = −0.054 , Muon+Moonlight 
+
+α = −0.053 , OrScale-LM α = −0.052 ; the OrScale-LM advantage is approximately preserved (rather than growing or shrinking) across the swept range, and the 1.1B head-to-head is a clean win in the regime where compute matters most for the LLM framing of Corollary 1. 
+
+6.4 Ablations: design variants vs failure modes 
+
+Table 4 pairs each design-space row of Table 1 with its empirical signature on CIFAR-10 / DavidNet and FineWeb-Edu small_125m. FM1 (post-orthogonalisation degeneracy) matches OrScale within noise on CIFAR but has a structurally shape-only denominator (Section C.1) and is not portable to LLM scale at the post-fix sweep settings. FM2 (raw-momentum saturation; MuTrust and MuScale) trails OrScale by 0.21 –0.22 points on CIFAR and operates at rmax on 99 .5% –100% of FineWeb-Edu diagnostic steps, exactly as predicted by Theorem 4; its FineWeb losses match OrScale-LM only because the trust ratio is delivering no genuine cross-layer adaptation. FM3 (decoupled-WD 810 −1 10 0           
+
+> Compute C[PFLOP-days] (C= 6 ND )
+> 2.6 × 10 0
+> 2.7 × 10 0
+> 2.8 × 10 0
+> 2.9 × 10 0
+> 3 × 10 0
+> 3.1 × 10 0
+> 3.2 × 10 0
+> 3.3 × 10 0
+> 3.4 × 10 0
+> Final validation loss
+> (a) L(C), log--log
+> AdamW
+> Muon + Moonlight
+> OrScale-LM (ours)
+> 10 −1 10 0
+> Compute C[PFLOP-days]
+> −0.01
+> 0.00
+> 0.01
+> 0.02
+> 0.03
+> Δ val loss vs. OrScale-LM (nats)
+> OrScale-LM (baseline, Δ = 0 )
+> +0.020
+> −0.006
+> +0.008
+> +0.011
+> (b) Per-scale gap vs. OrScale-LM
+> Muon + Moonlight −OrScale-LM
+
+Figure 3: FineWeb-Edu pre-training, three optimizers. (a) Final validation cross-entropy ver-sus compute C = 6 N D in PFLOP-days; fitted log–log laws are AdamW L = 2 .826 C−0.054 ,Muon+Moonlight L = 2 .731 C−0.053 , OrScale-LM L = 2 .725 C−0.052 . (b) Per-scale gap (Muon+Moonlight − OrScale-LM); positive bars indicate OrScale-LM wins. OrScale-LM wins three of four cells (125M, 545M, 1.1B) and is tied at 399M within single-seed noise. Source: 
+
+reports/scaling_law/scaling_law_loss_vs_compute_full.pdf .Table 4: Failure-mode ablation on CIFAR-10 / DavidNet and FineWeb-Edu small_125m. The first four rows isolate the failure modes of Sections C.1 to C.3; the last two are the recommended variants. CIFAR column: val top-1 ( %) at the best LR over three seeds. FineWeb column: final validation cross-entropy at the best LR. 
+
+Variant Denominator Shape WD CIFAR-10 (%) FW-small_125m (CE) OrScale-FM1 ∥Qℓ∥F 1 decoupled 94 .06 ±0.09 3.231 
+
+MuTrust ∥ fMℓ∥F 1 decoupled 93 .84 ±0.15 3.252 
+
+MuScale RMS( fMℓ) Moonlight decoupled 93 .83 ±0.17 3.230 
+
+OrScale-FM3 cℓ∥λW +sℓQ∥F Moonlight decoupled 93 .55 ±0.12 3.305 
+
+OrScale ∥λW + Q∥F 1 coupled 94 .05 ±0.08 3.228 
+
+OrScale-LM cℓ∥λW +sℓQ∥F Moonlight coupled 94 .05 ±0.12 3.226 
+
+calibrated) trails OrScale on both axes ( 93 .55 ±0.12 on CIFAR; 3.305 CE on FineWeb) and produces 
+
+10 –50 × weight-norm runaway on FineWeb diagnostics (Section C.3). Only the recommended row E—real-update-direction denominator with coupled WD—is robust across both regimes. 
+
+## 7 Discussion and Conclusion 
+
+Muon’s spectral direction and LARS / LAMB-style magnitude control can be combined, but only when the trust-ratio denominator measures the parameter-space direction the optimizer actually applies: ∥Q∥F is almost a shape constant, raw momentum restores amplitude in the wrong units, and decoupled weight decay breaks calibrated dynamics. The recommended row E of Table 1 keeps the Muon direction, scales the real update direction, and—in the LM variant—makes the ratio width-invariant at initialisation through one fp32 scalar per layer. The theory mirrors the empirics: a non-worse worst-case rate (Theorem 1), a strict layer-adaptive gain under measurable heterogeneity (Theorem 3 and Corollary 1), and a strict separation from dynamic-denominator alternatives (Theorem 4 and Corollary 1). Natural extensions are attention stabilisers such as MuonClip [ 17 ], geometry-aware numerator norms, and very-large-batch regimes where layer-wise magnitude control should matter most. 
+
+## References 
+
+[1] Jeremy Bernstein and Laker Newhouse. Modular duality in deep learning, 2024. URL https: //arxiv.org/abs/2410.21265 .9[2] DeepSeek-AI. Deepseek-v4: Towards highly efficient million-token context intelligence. 2026. URL https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/main/ DeepSeek_V4.pdf .[3] Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. Bert: Pre-training of deep bidirectional transformers for language understanding, 2019. URL https://arxiv.org/ abs/1810.04805 .[4] Priya Goyal, Piotr Dollár, Ross Girshick, Pieter Noordhuis, Lukasz Wesolowski, Aapo Kyrola, Andrew Tulloch, Yangqing Jia, and Kaiming He. Accurate, large minibatch sgd: Training imagenet in 1 hour, 2018. URL https://arxiv.org/abs/1706.02677 .[5] Keller Jordan, Jeremy Bernstein, Brendan Rappazzo, @fernbear.bsky.social, Boza Vlado, You Jiacheng, Franz Cesista, Braden Koszarsky, and @Grad62304977. modded-nanogpt: Speedrunning the nanogpt baseline, 2024. URL https://github.com/KellerJordan/ modded-nanogpt .[6] Keller Jordan, Yuchen Jin, Vlado Boza, Jiacheng You, Franz Cesista, Laker Newhouse, and Jeremy Bernstein. Muon: An optimizer for hidden layers in neural networks, 2024. URL 
+
+https://kellerjordan.github.io/posts/muon/ .[7] Diederik P. Kingma and Jimmy Ba. Adam: A method for stochastic optimization, 2017. URL 
+
+https://arxiv.org/abs/1412.6980 .[8] Alex Krizhevsky. One weird trick for parallelizing convolutional neural networks, 2014. URL 
+
+https://arxiv.org/abs/1404.5997 .[9] Hong Liu, Zhiyuan Li, David Hall, Percy Liang, and Tengyu Ma. Sophia: A scalable stochastic second-order optimizer for language model pre-training, 2024. URL https://arxiv.org/ abs/2305.14342 .[10] Jingyuan Liu, Jianlin Su, Xingcheng Yao, Zhejun Jiang, Guokun Lai, Yulun Du, Yidao Qin, Weixin Xu, Enzhe Lu, Junjie Yan, Yanru Chen, Huabin Zheng, Yibo Liu, Shaowei Liu, Bohong Yin, Weiran He, Han Zhu, Yuzhi Wang, Jianzhou Wang, Mengnan Dong, Zheng Zhang, Yongsheng Kang, Hao Zhang, Xinran Xu, Yutao Zhang, Yuxin Wu, Xinyu Zhou, and Zhilin Yang. Muon is scalable for llm training, 2025. URL https://arxiv.org/abs/2502.16982 .[11] Ilya Loshchilov and Frank Hutter. Decoupled weight decay regularization, 2019. URL https: //arxiv.org/abs/1711.05101 .[12] Guilherme Penedo, Hynek Kydlíˇ cek, Loubna Ben allal, Anton Lozhkov, Margaret Mitchell, Colin Raffel, Leandro Von Werra, and Thomas Wolf. The fineweb datasets: Decanting the web for the finest text data at scale, 2024. URL https://arxiv.org/abs/2406.17557 .[13] Alec Radford, Jeffrey Wu, Rewon Child, David Luan, Dario Amodei, and Ilya Sutskever. Language models are unsupervised multitask learners. OpenAI , 2019. URL https://cdn.openai.com/better-language-models/language_models_are_ unsupervised_multitask_learners.pdf . Accessed: 2024-11-15. [14] Chongjie Si, Debing Zhang, and Wei Shen. Adamuon: Adaptive muon optimizer, 2025. URL 
+
+https://arxiv.org/abs/2507.11005 .[15] Ilya Sutskever, James Martens, George Dahl, and Geoffrey Hinton. On the importance of initialization and momentum in deep learning. In Sanjoy Dasgupta and David McAllester, editors, Proceedings of the 30th International Conference on Machine Learning , volume 28 of 
+
+Proceedings of Machine Learning Research , pages 1139–1147, Atlanta, Georgia, USA, 17–19 Jun 2013. PMLR. URL https://proceedings.mlr.press/v28/sutskever13.html .[16] Kimi Team, Tongtong Bai, Yifan Bai, Yiping Bao, S. H. Cai, Yuan Cao, Y. Charles, H. S. Che, Cheng Chen, Guanduo Chen, Huarong Chen, Jia Chen, Jiahao Chen, Jianlong Chen, Jun Chen, Kefan Chen, Liang Chen, Ruijue Chen, Xinhao Chen, Yanru Chen, Yanxu Chen, Yicun Chen, Yimin Chen, Yingjiang Chen, Yuankun Chen, Yujie Chen, Yutian Chen, Zhirong Chen, Ziwei Chen, Dazhi Cheng, Minghan Chu, Jialei Cui, Jiaqi Deng, Muxi Diao, Hao Ding, Mengfan 10 Dong, Mengnan Dong, Yuxin Dong, Yuhao Dong, Angang Du, Chenzhuang Du, Dikang Du, Lingxiao Du, Yulun Du, Yu Fan, Shengjun Fang, Qiulin Feng, Yichen Feng, Garimugai Fu, Kelin Fu, Hongcheng Gao, Tong Gao, Yuyao Ge, Shangyi Geng, Chengyang Gong, Xiaochen Gong, Zhuoma Gongque, Qizheng Gu, Xinran Gu, Yicheng Gu, Longyu Guan, Yuanying Guo, Xiaoru Hao, Weiran He, Wenyang He, Yunjia He, Chao Hong, Hao Hu, Jiaxi Hu, Yangyang Hu, Zhenxing Hu, Ke Huang, Ruiyuan Huang, Weixiao Huang, Zhiqi Huang, Tao Jiang, Zhejun Jiang, Xinyi Jin, Yu Jing, Guokun Lai, Aidi Li, C. Li, Cheng Li, Fang Li, Guanghe Li, Guanyu Li, Haitao Li, Haoyang Li, Jia Li, Jingwei Li, Junxiong Li, Lincan Li, Mo Li, Weihong Li, Wentao Li, Xinhang Li, Xinhao Li, Yang Li, Yanhao Li, Yiwei Li, Yuxiao Li, Zhaowei Li, Zheming Li, Weilong Liao, Jiawei Lin, Xiaohan Lin, Zhishan Lin, Zichao Lin, Cheng Liu, Chenyu Liu, Hongzhang Liu, Liang Liu, Shaowei Liu, Shudong Liu, Shuran Liu, Tianwei Liu, Tianyu Liu, Weizhou Liu, Xiangyan Liu, Yangyang Liu, Yanming Liu, Yibo Liu, Yuanxin Liu, Yue Liu, Zhengying Liu, Zhongnuo Liu, Enzhe Lu, Haoyu Lu, Zhiyuan Lu, Junyu Luo, Tongxu Luo, Yashuo Luo, Long Ma, Yingwei Ma, Shaoguang Mao, Yuan Mei, Xin Men, Fanqing Meng, Zhiyong Meng, Yibo Miao, Minqing Ni, Kun Ouyang, Siyuan Pan, Bo Pang, Yuchao Qian, Ruoyu Qin, Zeyu Qin, Jiezhong Qiu, Bowen Qu, Zeyu Shang, Youbo Shao, Tianxiao Shen, Zhennan Shen, Juanfeng Shi, Lidong Shi, Shengyuan Shi, Feifan Song, Pengwei Song, Tianhui Song, Xiaoxi Song, Hongjin Su, Jianlin Su, Zhaochen Su, Lin Sui, Jinsong Sun, Junyao Sun, Tongyu Sun, Flood Sung, Yunpeng Tai, Chuning Tang, Heyi Tang, Xiaojuan Tang, Zhengyang Tang, Jiawen Tao, Shiyuan Teng, Chaoran Tian, Pengfei Tian, Ao Wang, Bowen Wang, Chensi Wang, Chuang Wang, Congcong Wang, Dingkun Wang, Dinglu Wang, Dongliang Wang, Feng Wang, Hailong Wang, Haiming Wang, Hengzhi Wang, Huaqing Wang, Hui Wang, Jiahao Wang, Jinhong Wang, Jiuzheng Wang, Kaixin Wang, Linian Wang, Qibin Wang, Shengjie Wang, Shuyi Wang, Si Wang, Wei Wang, Xiaochen Wang, Xinyuan Wang, Yao Wang, Yejie Wang, Yipu Wang, Yiqin Wang, Yucheng Wang, Yuzhi Wang, Zhaoji Wang, Zhaowei Wang, Zhengtao Wang, Zhexu Wang, Zihan Wang, Zizhe Wang, Chu Wei, Ming Wei, Chuan Wen, Zichen Wen, Chengjie Wu, Haoning Wu, Junyan Wu, Rucong Wu, Wenhao Wu, Yuefeng Wu, Yuhao Wu, Yuxin Wu, Zijian Wu, Chenjun Xiao, Jin Xie, Xiaotong Xie, Yuchong Xie, Yifei Xin, Bowei Xing, Boyu Xu, Jianfan Xu, Jing Xu, Jinjing Xu, L. H. Xu, Lin Xu, Suting Xu, Weixin Xu, Xinbo Xu, Xinran Xu, Yangchuan Xu, Yichang Xu, Yuemeng Xu, Zelai Xu, Ziyao Xu, Junjie Yan, Yuzi Yan, Guangyao Yang, Hao Yang, Junwei Yang, Kai Yang, Ningyuan Yang, Ruihan Yang, Xiaofei Yang, Xinlong Yang, Ying Yang, Yi Yang, Yi Yang, Zhen Yang, Zhilin Yang, Zonghan Yang, Haotian Yao, Dan Ye, Wenjie Ye, Zhuorui Ye, Bohong Yin, Chengzhen Yu, Longhui Yu, Tao Yu, Tianxiang Yu, Enming Yuan, Mengjie Yuan, Xiaokun Yuan, Yang Yue, Weihao Zeng, Dunyuan Zha, Haobing Zhan, Dehao Zhang, Hao Zhang, Jin Zhang, Puqi Zhang, Qiao Zhang, Rui Zhang, Xiaobin Zhang, Y. Zhang, Yadong Zhang, Yangkun Zhang, Yichi Zhang, Yizhi Zhang, Yongting Zhang, Yu Zhang, Yushun Zhang, Yutao Zhang, Yutong Zhang, Zheng Zhang, Chenguang Zhao, Feifan Zhao, Jinxiang Zhao, Shuai Zhao, Xiangyu Zhao, Yikai Zhao, Zijia Zhao, Huabin Zheng, Ruihan Zheng, Shaojie Zheng, Tengyang Zheng, Junfeng Zhong, Longguang Zhong, Weiming Zhong, M. Zhou, Runjie Zhou, Xinyu Zhou, Zaida Zhou, Jinguo Zhu, Liya Zhu, Xinhao Zhu, Yuxuan Zhu, Zhen Zhu, Jingze Zhuang, Weiyu Zhuang, Ying Zou, and Xinxing Zu. Kimi k2.5: Visual agentic intelligence, 2026. URL 
+
+https://arxiv.org/abs/2602.02276 .[17] Kimi Team, Yifan Bai, Yiping Bao, Y. Charles, Cheng Chen, Guanduo Chen, Haiting Chen, Huarong Chen, Jiahao Chen, Ningxin Chen, Ruijue Chen, Yanru Chen, Yuankun Chen, Yutian Chen, Zhuofu Chen, Jialei Cui, Hao Ding, Mengnan Dong, Angang Du, Chenzhuang Du, Dikang Du, Yulun Du, Yu Fan, Yichen Feng, Kelin Fu, Bofei Gao, Chenxiao Gao, Hongcheng Gao, Peizhong Gao, Tong Gao, Yuyao Ge, Shangyi Geng, Qizheng Gu, Xinran Gu, Longyu Guan, Haiqing Guo, Jianhang Guo, Xiaoru Hao, Tianhong He, Weiran He, Wenyang He, Yunjia He, Chao Hong, Hao Hu, Yangyang Hu, Zhenxing Hu, Weixiao Huang, Zhiqi Huang, Zihao Huang, Tao Jiang, Zhejun Jiang, Xinyi Jin, Yongsheng Kang, Guokun Lai, Cheng Li, Fang Li, Haoyang Li, Ming Li, Wentao Li, Yang Li, Yanhao Li, Yiwei Li, Zhaowei Li, Zheming Li, Hongzhan Lin, Xiaohan Lin, Zongyu Lin, Chengyin Liu, Chenyu Liu, Hongzhang Liu, Jingyuan Liu, Junqi Liu, Liang Liu, Shaowei Liu, T. Y. Liu, Tianwei Liu, Weizhou Liu, Yangyang Liu, Yibo Liu, Yiping Liu, Yue Liu, Zhengying Liu, Enzhe Lu, Haoyu Lu, Lijun Lu, Yashuo Luo, Shengling Ma, Xinyu Ma, Yingwei Ma, Shaoguang Mao, Jie Mei, Xin Men, Yibo Miao, Siyuan Pan, Yebo Peng, Ruoyu Qin, Zeyu Qin, Bowen Qu, Zeyu Shang, Lidong Shi, Shengyuan Shi, Feifan Song, Jianlin Su, Zhengyuan Su, Lin Sui, Xinjie Sun, Flood Sung, Yunpeng Tai, 11 Heyi Tang, Jiawen Tao, Qifeng Teng, Chaoran Tian, Chensi Wang, Dinglu Wang, Feng Wang, Hailong Wang, Haiming Wang, Jianzhou Wang, Jiaxing Wang, Jinhong Wang, Shengjie Wang, Shuyi Wang, Si Wang, Xinyuan Wang, Yao Wang, Yejie Wang, Yiqin Wang, Yuxin Wang, Yuzhi Wang, Zhaoji Wang, Zhengtao Wang, Zhengtao Wang, Zhexu Wang, Chu Wei, Qianqian Wei, Haoning Wu, Wenhao Wu, Xingzhe Wu, Yuxin Wu, Chenjun Xiao, Jin Xie, Xiaotong Xie, Weimin Xiong, Boyu Xu, Jinjing Xu, L. H. Xu, Lin Xu, Suting Xu, Weixin Xu, Xinran Xu, Yangchuan Xu, Ziyao Xu, Jing Xu, Jing Xu, Junjie Yan, Yuzi Yan, Hao Yang, Xiaofei Yang, Yi Yang, Ying Yang, Zhen Yang, Zhilin Yang, Zonghan Yang, Haotian Yao, Xingcheng Yao, Wenjie Ye, Zhuorui Ye, Bohong Yin, Longhui Yu, Enming Yuan, Hongbang Yuan, Mengjie Yuan, Siyu Yuan, Haobing Zhan, Dehao Zhang, Hao Zhang, Wanlu Zhang, Xiaobin Zhang, Yadong Zhang, Yangkun Zhang, Yichi Zhang, Yizhi Zhang, Yongting Zhang, Yu Zhang, Yutao Zhang, Yutong Zhang, Zheng Zhang, Haotian Zhao, Yikai Zhao, Zijia Zhao, Huabin Zheng, Shaojie Zheng, Longguang Zhong, Jianren Zhou, Xinyu Zhou, Zaida Zhou, Jinguo Zhu, Zhen Zhu, Weiyu Zhuang, and Xinxing Zu. Kimi k2: Open agentic intelligence, 2026. URL 
+
+https://arxiv.org/abs/2507.20534 .[18] Nikhil Vyas, Depen Morwani, Rosie Zhao, Mujin Kwun, Itai Shapira, David Brandfonbrener, Lucas Janson, and Sham Kakade. Soap: Improving and stabilizing shampoo using adam, 2025. URL https://arxiv.org/abs/2409.11321 .[19] Greg Yang, Edward J. Hu, Igor Babuschkin, Szymon Sidor, Xiaodong Liu, David Farhi, Nick Ryder, Jakub Pachocki, Weizhu Chen, and Jianfeng Gao. Tensor programs v: Tuning large neural networks via zero-shot hyperparameter transfer, 2022. URL https://arxiv.org/ abs/2203.03466 .[20] Greg Yang, Dingli Yu, Chen Zhu, and Soufiane Hayou. Tensor programs vi: Feature learning in infinite-depth neural networks, 2023. URL https://arxiv.org/abs/2310.02244 .[21] Yang You, Igor Gitman, and Boris Ginsburg. Large batch training of convolutional networks, 2017. URL https://arxiv.org/abs/1708.03888 .[22] Yang You, Jing Li, Sashank Reddi, Jonathan Hseu, Sanjiv Kumar, Srinadh Bhojanapalli, Xiaodan Song, James Demmel, Kurt Keutzer, and Cho-Jui Hsieh. Large batch optimization for deep learning: Training bert in 76 minutes, 2020. URL https://arxiv.org/abs/1904.00962 .
+
+## A Proofs 
+
+This appendix contains the full proofs that the body sketches. 
+
+A.1 Proof of Lemma 1 (algebraic properties of the polar factor) 
+
+Let A = U ΣV ⊤ be the thin SVD with Σ = diag( σ1, . . . , σ k) and σi > 0 for i ≤ k = rank( A).Then QA = U V ⊤.
+
+(i) ⟨A, Q A⟩ = tr( V ΣU ⊤U V ⊤) = tr(Σ) = Pki=1 σi = ∥A∥∗.
+
+(ii) Apply von Neumann’s trace inequality to obtain |tr( B⊤QA)| ≤ P 
+
+> i
+
+σi(B)σi(QA). Since 
+
+σi(QA) = 1 for i ≤ k and 0 otherwise, the sum is bounded by Pki=1 σi(B) ≤ ∥ B∥∗.
+
+(iii) ∥QA∥2 
+
+> F
+
+= Pki=1 σi(QA)2 = k and ∥QA∥op = max i σi(QA) = 1 .
+
+(iv) Equality in (ii) holds when B = QA and the singular vectors of B are aligned with those of A.
+
+A.2 Proof of Lemma 2 
+
+Decompose ⟨∇ ℓf, Q ℓ⟩ = ⟨Gℓ − ξℓ, Q ℓ⟩ = ∥Gℓ∥∗ − ⟨ ξℓ, Q ℓ⟩ via Lemma 1 (i). Take expectations: by Jensen’s inequality on the convex norm ∥ · ∥ ∗, E∥Gℓ∥∗ ≥ ∥ EGℓ∥∗ = ∥∇ ℓf ∥∗; by Lemma 1 (ii) and 
+
+∥A∥∗ ≤ √p∥A∥F with Cauchy–Schwarz, |E⟨ξℓ, Q ℓ⟩| ≤ √pℓ
+
+pE∥ξℓ∥2 
+
+> F
+
+≤ √pℓσℓ/√b. Combining gives the claim. 12 A.3 Proof of Theorem 1 Step 1. Layerwise smoothness gives 
+
+f (Wt+1 ) ≤ f (Wt) + X
+
+> ℓ
+
+h
+
+⟨∇ ℓf, W ℓ,t +1 − Wℓ,t ⟩ + Lℓ 
+
+> 2
+
+∥Wℓ,t +1 − Wℓ,t ∥2
+
+> F
+
+i
+
+.
+
+Substituting the simplified update Wℓ,t +1 − Wℓ,t = −ηˆrℓ,t Qℓ,t : f (Wt+1 ) ≤ f (Wt) −
+
+η P 
+
+> ℓ
+
+ˆrℓ,t ⟨∇ ℓf, Q ℓ,t ⟩ + η2
+
+> 2
+
+P 
+
+> ℓ
+
+Lℓ ˆr2
+
+> ℓ,t
+
+∥Qℓ,t ∥2 
+
+> F
+
+.
+
+Step 2. By Lemma 1 (iii), ∥Qℓ,t ∥2 
+
+> F
+
+≤ pℓ, and ˆr ≤ rmax , so the second-order term is bounded by 
+
+> η2r2max
+> 2
+
+P 
+
+> ℓ
+
+Lℓpℓ.
+
+Step 3. Using ˆr ≥ rmin , the first-order term is at least η r min 
+
+P
+
+> ℓ
+
+⟨∇ ℓf, Q ℓ,t ⟩.
+
+Step 4. Take expectation and apply Lemma 2: E[⟨∇ ℓf, Q ℓ,t ⟩] ≥ ∥∇ ℓf ∥∗ − √pℓσℓ/√b, so 
+
+E[f (Wt+1 )] ≤ f (Wt) − ηr min 
+
+P
+
+> ℓ
+
+ ∥∇ ℓf ∥∗ − √pℓσℓ/√b + η2r2max 
+
+> 2
+
+P 
+
+> ℓ
+
+Lℓpℓ.
+
+Step 5. Telescoping over t = 1 , . . . , T and rearranging: 
+
+1
+
+T
+
+> T
+
+X
+
+> t=1
+
+X
+
+> ℓ
+
+E∥∇ ℓf (Wt)∥∗ ≤ f (W1) − f ∗
+
+ηr min T +
+
+P
+
+> ℓ
+
+√pℓσℓ
+
+√b + ηr 2max 
+
+2rmin 
+
+X
+
+> ℓ
+
+Lℓpℓ.
+
+The left side equals E[P 
+
+> ℓ
+
+∥∇ ℓf (Wa)∥∗] when Wa is uniform on {W1, . . . , W T }.
+
+Step 6. Set η = p2( f (W1) − f ∗)/(r2max T P 
+
+> ℓ
+
+Lℓpℓ) to balance the first and third terms; the resulting bound, divided by √P to convert to the Ψ criterion and squared, gives the boxed expression of Theorem 1. □
+
+A.4 Coupled weight-decay extension (Proposition 1) Proposition 1 (Coupled-WD descent) . Under (A1)–(A3) and the OrScale (or OrScale-LM) update with λ ≥ 0 but otherwise (A4), the descent inequality of Theorem 1’s proof holds with an additional first-order term −ηˆrℓ,t λ⟨∇ ℓf, W ℓ,t ⟩ and an additional second-order contribution λ2∥Wℓ,t ∥2 
+
+> F
+
++2λ⟨Wℓ,t , Q ℓ,t ⟩. These terms are controlled by λ, the clipped trust-ratio bounds, and the calibration ceiling (Lemma 6); when ⟨∇ ℓf, W ℓ,t ⟩ ≥ 0 the first-order correction is descent-improving, and otherwise it is absorbed into the constants. Consequently, the O(1 /√T ) rate of Theorem 1 is preserved up to a benign O(λ) correction in the constants. Proof sketch. Substitute Wℓ,t +1 − Wℓ,t = −ηˆrℓ,t (λW ℓ,t + Qℓ,t ) into the layerwise smoothness inequality and split the cross terms; the rest follows the LAMB extension [ 22 , Appendix B] with the nuclear-norm criterion replacing the ℓ1-norm. 
+
+A.5 Strict separation under clip saturation (Theorem 4) Empirical condition. (E1) Clip saturation. On FineWeb-Edu small_125m with rmin =0.5, r max = 1 .5, MuTrust’s clipped trust ratio equals rmax on 99 .75% –100% of diagnostic steps across the tested LR grid, and MuScale on 99 .5% –100% .
+
+Theorem 4 (Dynamic-denominator collapse under clip saturation) . Under (E1) , MuTrust’s effective trust ratio is ˆrℓ,t = rmax for every layer ℓ at almost every step t, so Φ( rmax 1) = Φ Muon and 
+
+κMuTrust eff = κMuScale eff = 1 . (Scalar uniform scaling cancels in Φ.) 
+
+Why rmax recalibration cannot save MuTrust. Even with a hypothetical rmax chosen so the raw ratio lands in-band, the cross-layer variance of ∥Wℓ∥F /∥ fMℓ∥F is dominated by across-time variance: at any step the ratio differs by < 2–3× across layers, so the heterogeneity Theorem 3 requires is washed out ( νMuTrust ˆr ≤ 0.05 , giving κeff ≤ 1.005 ). 13 A.6 Calibration corollary and end-to-end rate (Corollary 1) Corollary 1 (Calibration of OrScale-LM and end-to-end rate) . With rLM  
+
+> ℓ,t
+
+as in Section 3.4: (i) 
+
+rLM  
+
+> ℓ, 0
+
+= 1 exactly (Lemma 4); (ii) the optimal global LR is width-invariant in the Moonlight + μPsense (Lemma 5); (iii) rLM  
+
+> ℓ,t
+
+→ 1/(cdenom ,ℓ λ) as ∥Wℓ,t ∥F → ∞ (Lemma 6); (iv) early in training 
+
+rLM  
+
+> ℓ,t
+
+≈ ∥ Wℓ,t ∥F /∥Wℓ, 0∥F (Lemma 7). Combining (iv) with Theorem 3 yields the end-to-end rate 
+
+ E Ψ( Wa)2 = O (f0 − f ∗) ¯Lp/(κOrScale eff T ) + ( P
+
+> ℓ
+
+√pℓσℓ)2/(P b ) with κOrScale eff > 1, and Theo-rem 1 + Theorem 4 give the strict separation κOrScale eff /κ MuTrust eff > 1. On FineWeb-Edu small_125m the growth heterogeneity is νgrowth ≈ 0.4 > ν ˆr ≈ 0.3, predicting that OrScale-LM’s κeff at LLM scale is at least as large as OrScale’s at vision scale—a falsifiable prediction tested in Section 6. 
+
+What the theorems do and do not say. Do say: OrScale is non-worse than Muon (Theorem 1), strictly better than Muon under measurable heterogeneity (Theorem 3 + Corollary 1), and strictly better than MuTrust / MuScale under clip saturation (Theorem 4 + Corollary 1); the comparison with SGD / LARS / LAMB / Muon is summarised in Table 5 (Section B). Do not say: the lower bound of Theorem 3 is not claimed sharp, and (S1)–(S2)–(E1) are diagnostic-checkable rather than universal. 
+
+A.7 Proof of Theorem 3 (full algebra) 
+
+By Lemma 3, κeff (ˆ r) = cos 2 θxy / cos 2 θx, √b. Decompose y = α√b + β (x − π√b(x)) + ρ⊥,
+
+where π√b(x) is the orthogonal projection of x onto span( √b) and ρ⊥ is the component orthogonal to both √b and x. The Pearson correlation ρ = corr ℓ(y, x ) controls the magnitude of β via 
+
+β = ρ ∥y∥/∥x − π√b(x)∥ (after centering); (S2) guarantees ρ > 0, hence β > 0. Substituting the decomposition into cos 2 θxy and bounding ∥y∥ above and below using the variance identity 
+
+∥y∥2 = Eℓ[y2 
+
+> ℓ
+
+] h together with (S1) yields 
+
+cos 2 θxy ≥ cos 2 θx, √b ·
+
+
+
+1 + ρ2νˆr
+
+1 + ν√b
+
+1 + ν√b/ρ 2
+
+
+
+− δ(λ),
+
+where δ(λ) collects the second-order correction from including the λW term in the denominator (which slightly perturbs y from the leading-order static-denominator expression). Dividing by 
+
+cos 2 θx, √b gives the claim. □
+
+A.8 Calibration lemmas (Lemmas 4 to 7) Lemma 4 (Anchor) . rLM  
+
+> ℓ, 0
+
+= 1 exactly, modulo the O(ε) correction. Proof. By Definition 2, cdenom ,ℓ = ∥Wℓ, 0∥F /(∥λW ℓ, 0 + sℓQℓ, 0∥F + ε). Substitute into the expres-sion for rLM  
+
+> ℓ, 0
+
+.
+
+Lemma 5 (Width-invariance at initialisation) . For two architectures with hidden dimensions related by μP-style scaling d′ = κd , rLM  
+
+> ℓ, 0
+
+(d) = rLM  
+
+> ℓ, 0
+
+(d′) = 1 .Proof. Lemma 4 gives r(0) = 1 unconditionally on (mℓ, n ℓ), so width does not enter at initialisation. The Moonlight invariant sℓ RMS( Qℓ,t ) = 0 .2 then implies the per-element update RMS at step t is 
+
+0.2 ηt regardless of width. 
+
+Lemma 6 (Asymptotic ceiling) . As ∥Wℓ,t ∥F → ∞ , rLM  
+
+> ℓ,t
+
+→ 1/(cdenom ,ℓ λ).Proof. Expand ∥λW ℓ,t + sℓQℓ,t ∥2 
+
+> F
+
+≈ λ2∥Wℓ,t ∥2 
+
+> F
+
++ s2 
+
+> ℓ
+
+pℓ to leading order; for ∥Wℓ∥F ≫
+
+sℓ
+
+√pℓ/λ the first term dominates, giving denominator ≈ cdenom ,ℓ λ∥Wℓ∥F , and the ratio becomes 
+
+1/(cdenom ,ℓ λ).
+
+Lemma 7 (Early-training LARS-style adaptation) . When λ∥Wℓ,t ∥F ≪ sℓ
+
+√pℓ, the second term of the denominator dominates and rLM  
+
+> ℓ,t
+
+≈ ∥ Wℓ,t ∥F /∥Wℓ, 0∥F .Proof. Under the stated condition the denominator is ≈ cdenom ,ℓ sℓ
+
+√pℓ; substituting the leading-order cdenom ,ℓ = ∥Wℓ, 0∥F /(sℓ
+
+√pℓ) from Definition 2 gives the claim. 14 B Comparison with prior optimizers 
+
+Table 5 summarises how OrScale compares with SGD, LARS, LAMB, and Muon on the optimization-term constant; width-invariance refers to whether the leading factor of the bound is independent of 
+
+dmodel .Table 5: Comparison of nuclear-norm or Frobenius rates on the optimization term, under each method’s headline analysis. OrScale and OrScale-LM achieve a strict κeff > 1 separation from Muon and from MuTrust / MuScale.                                            
+
+> optimizer Smoothness factor Layer-adaptive gain Width-invariance SGD [15] L∞none yes LARS [21] Lavg (Frobenius criterion) implicit, no κeff separation yes LAMB [22] ∥L∥1/√himplicit, no κeff separation no ( ∝dmodel )Muon [6] ¯Lp(nuclear criterion) none ( ˆr≡1)yes MuTrust / MuScale ¯Lp1under (E1) (Theorem 4) yes
+> OrScale (ours) ¯Lp≥1 + ρ2νˆr(. . . )>1(Theorem 3) yes
+> OrScale-LM (ours) ¯Lp≥OrScale’s bound (Corollary 1) yes (Lemma 5)
+
+## C Failure mode details 
+
+This appendix contains the per-failure-mode analysis summarised in Section 4; the labels match the design-space rows of Table 1 and the cross-references throughout the main body. 
+
+C.1 Failure mode 1: post-orthogonalisation degeneracy 
+
+If Qℓ is the polar factor of fMℓ, then ∥Qℓ∥F = prank( Qℓ) ≈ pmin( mℓ, n ℓ) (Lemma 1). The ratio 
+
+∥Wℓ∥F /∥Qℓ∥F therefore depends almost entirely on weight norm and shape, not on the current gradient or momentum magnitude. This is not useless—weight RMS still varies across layers and the resulting per-layer signal is what makes OrScale itself work—but it is no longer the LAMB-style denominator it appears to be, and any adaptive interpretation is misleading. 
+
+C.2 Failure mode 2: raw-momentum unit mismatch and clip saturation 
+
+The natural response is to replace ∥Qℓ∥F with the pre-orthogonalisation norm ∥ fMℓ∥F . This restores a dynamic signal in principle, but the units are wrong in practice. The numerator carries weight-magnitude units, while ∥ fMℓ∥F carries gradient-magnitude units and is typically orders of magnitude smaller. On FineWeb-Edu small_125m, with rmin = 0 .5 and rmax = 1 .5, the row-B variant we call 
+
+MuTrust has raw cross-layer mean ∥W ∥F /∥ fM ∥F ranging from 24 .5 to 19 ,128 across learning rates, and the clipped mean equals rmax on 99 .75% –100% of diagnostic steps. MuScale (row C, with the Moonlight shape factor and an RMS-style denominator) shows the same pattern, with 99 .5% –100% 
+
+upper saturation. Theorem 4 formalises why this implies κeff = 1 , i.e. no improvement over Muon. 
+
+C.3 Failure mode 3: decoupled weight-decay runaway 
+
+An earlier calibrated variant (row D) used a denominator proportional to cℓ∥Qℓ∥F with the standard decoupled-WD pull-back W ← (1 −ηλ )W . On FineWeb-Edu small_125m diagnostics, this produced 
+
+10 –50 × growth in ∥Wℓ∥F on mlp.down , mlp.up , and attn.out_proj until the trust ratio hit rmax .The mechanism is a positive feedback loop: larger ∥Wℓ∥F raises rℓ, the larger rℓ amplifies the orthogonalised step, and decoupled weight decay applies a constant pull-back 1 − ηλ that does not scale with rℓ and so cannot damp the loop. Putting λW ℓ inside the denominator and coupling weight decay into the trust-ratio-scaled update creates a finite asymptotic ceiling rℓ → 1/(cdenom ,ℓ λ)
+
+(Lemma 6); both fixes follow from Definition 1. 15 C.4 Why the recommended corner works 
+
+The calibrated denominator cdenom ,ℓ ∥λW ℓ + sℓQℓ∥F recovers cross-layer LARS-style adaptation (residual RMS( Wℓ) dependence after the shape factor cancels with one width factor in ∥Wℓ∥F ), is width-invariant at initialisation by construction (Lemma 5), has a finite asymptotic ceiling under coupled WD (Lemma 6), and recovers the LARS-style relative-growth signal rℓ ≈ ∥ Wt∥F /∥W0∥F in early training (Lemma 7). Theorem 3 converts these structural properties into a strict layer-adaptive descent gain. 
+
+## D Hyper-parameters 
+
+LLM scales and per-step token budgets. The four FineWeb-Edu scales used in Section 6.3 are 125M (5.24B tok), 399M (8.92B tok), 545M (14.04B tok), and 1.1B (28.54B tok), following the strict Moonlight Table-2 sweep recipe with matched per-step token budgets across scales. Compute 
+
+C = 6 N D in PFLOP-days as reported in Table 3. 
+
+OrScale-LM defaults. rmin = 0 .1, rmax = 5 , μ = 0 .95 , λ = 0 .1, ε = 10 −6, k = 5 ; non-matrix parameters use the AdamW fallback [11]. Full hyper-parameter tables for CIFAR-10 / DavidNet and the four LLM scales—including dropout, gradient clipping, warm-up steps, scheduler form, batch and micro-batch sizes, sequence length, gradient accumulation, and optimizer state precision—are provided in the supplementary code release: the CIFAR configuration is configs/cifar10_davidnet.yaml (the standard 24-epoch DavidNet recipe) and the LLM configuration is configs/scaling_law_moonlight_strict.yaml .
+
+## E Compute resources 
+
+CIFAR-10 / DavidNet runs use one consumer GPU (RTX-class) for ∼2 minutes per run; the full nine-optimizer × four-LR × three-seed sweep uses approximately 8 GPU-hours. FineWeb-Edu LLM runs use H100 / H20-3E GPUs in the strict Moonlight Table-2 setup; per-run wall-clock scales with model size from ∼3 hours at 125M to ∼3–5 days at 1.1B. Total project compute (including preliminary and failed sweeps that do not appear in the paper) is approximately 1,500 H100-hours. 
+
+## F Limitations and broader impact 
+
+(i) Single-seed LLM scaling. The FineWeb-Edu scaling cells are mostly single-seed by compute necessity, and the OrScale-LM advantage at 1.1B ( +0 .011 nats over Muon+Moonlight) is comparable to single-seed noise at smaller scales; these results should be read as directional rather than tight statistical comparisons. (ii) Secondary signals. LLM results are validation cross-entropy; the CIFAR-10 / DavidNet experiment is a cross-validation of the design principle, not a primary claim. (iii) Broader impact. As a drop-in pre-training-efficiency modification, OrScale’s direct positive impact is the potential to reduce compute and energy per unit of pre-training progress. Its negative impacts are indirect: cheaper pre-training can lower the cost of systems with the same downstream misuse, bias, privacy, and environmental concerns as the LLM systems we cite [ 10 ]. OrScale introduces no new dataset, human-subject, surveillance, or model-release pathway beyond the optimizer implementation. 16

@@ -1,0 +1,94 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-05-16T19:52:00.758708+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2605.08323v1",
+      "title": "The Reciprocity Gradient",
+      "abstract": "Communication is fundamental to sustaining reciprocity and cooperation in strategic interactions. We identify and formulate the influence attribution problem as the central optimization difficulty inherent in such dynamics for a learning agent: any action or signal the agent emits reshapes the reputations of many third parties along combinatorially branching paths before feeding back into its own future rewards, forcing the agent to account for all of these indirect channels at once when choosing every action. To address this, we introduce the reciprocity gradient, which explicitly backpropagates reward gradients through private estimators of opponents' policies trained from public observations. The gradient flows through the reputation chain itself analytically, rather than being estimated from sampled returns. It jointly optimizes actions and evaluative signals without intrinsic rewards or reward shaping. Empirically, the method recovers near-optimal context-sensitive policies, while sample-based baselines collapse into constant-output policies.",
+      "authors": [
+        "Yue Lin",
+        "Pascal Poupart",
+        "Shuhui Zhu",
+        "Dan Qiao",
+        "Wenhao Li",
+        "Yuan Liu",
+        "Hongyuan Zha",
+        "Baoxiang Wang"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-05-08T16:29:52+00:00",
+      "link": "https://arxiv.org/pdf/2605.08323v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "reciprocity gradient backpropagates through reputation chains to optimize cooperation",
+      "llm_evidence_cn": "互惠梯度通过声誉链反向传播以优化合作",
+      "llm_evidence": "互惠梯度通过声誉链反向传播以优化合作",
+      "canonical_evidence": "互惠梯度通过声誉链反向传播以优化合作",
+      "llm_tldr_en": "Develops a reciprocity gradient to manage reputation and cooperation in strategic multi-agent interactions.",
+      "llm_tldr_cn": "开发了一种互惠梯度，用于在战略性多智能体交互中管理声誉和合作。",
+      "llm_tldr": "开发了一种互惠梯度，用于在战略性多智能体交互中管理声誉和合作。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.07815v1",
+      "title": "OrScale: Orthogonalised Optimization with Layer-Wise Trust-Ratio Scaling",
+      "abstract": "Muon improves neural-network training by orthogonalizing matrix-valued updates, but it leaves each layer's update magnitude controlled mostly by a global learning rate. We introduce OrScale, a trust-ratio extension of Muon built on a simple rule: the denominator of a layer-wise ratio should measure the Frobenius norm of the actual parameter-space direction that will be applied. This yields OrScale for general matrix layers and OrScale-LM for language models, where Moonlight shape scaling is combined with one-time per-layer calibration so every trust ratio starts at one. We analyze why three natural Muon-LAMB hybrids fail through shape-degenerate denominators, raw-momentum clip saturation, and decoupled weight-decay runaway, and show that the real-update-direction denominator with coupled weight decay avoids these failures. Theoretically, OrScale admits an O(1/sqrt(T)) nonconvex convergence guarantee in a nuclear-norm criterion, a strict layer-adaptive descent gain under measurable layer heterogeneity, and calibration properties that preserve muP-style learning-rate transfer at initialization. Empirically, OrScale ranks first on CIFAR-10/DavidNet across three seeds, improving Muon from 93.70% to 94.05% validation top-1, and OrScale-LM improves FineWeb-Edu pre-training versus Muon+Moonlight at three of four scales from 125M to 1.1B parameters while outperforming AdamW at every scale.",
+      "authors": [
+        "Yuxuan Lou",
+        "Yang You"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.CL"
+      ],
+      "published": "2026-05-08T14:47:56+00:00",
+      "link": "https://arxiv.org/pdf/2605.07815v1",
+      "tags": [
+        "keyword:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "layer-wise trust-ratio scaling metric for optimization",
+      "llm_evidence_cn": "用于优化的逐层信任比缩放指标",
+      "llm_evidence": "用于优化的逐层信任比缩放指标",
+      "canonical_evidence": "用于优化的逐层信任比缩放指标",
+      "llm_tldr_en": "Introduces OrScale, an optimization method using a trust-ratio metric to scale neural network updates.",
+      "llm_tldr_cn": "引入了OrScale，一种使用信任比指标来缩放神经网络更新的优化方法。",
+      "llm_tldr": "引入了OrScale，一种使用信任比指标来缩放神经网络更新的优化方法。",
+      "llm_tags": [
+        "query:q4"
+      ],
+      "matched_query_tag": "query:q4",
+      "matched_query_text": "quantitative metrics used to assess trust",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

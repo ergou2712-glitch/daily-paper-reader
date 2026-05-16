@@ -6,34 +6,29 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-05-15
-- 运行时间：2026-05-15 20:35:40 UTC
+- 最新运行日期：2026-05-16
+- 运行时间：2026-05-16 19:52:22 UTC
 - 运行状态：成功
-- 本次总论文数：4
-- 精读区：1
-- 速读区：3
+- 本次总论文数：2
+- 精读区：0
+- 速读区：2
 
 ### 今日简报（AI）
-今日聚焦 AI 智能体安全防线，深度测评了第三方插件在运行时的信任失效风险。
-重点推荐 AgentTrap 对技能陷阱的量化分析，并探讨了通过参数级溯源解决 LLM 安全隔离的新方案。
-建议开发者警惕第三方技能的潜在威胁，普通用户可关注 AI 辅助阅读界面如何通过眼动追踪优化信息披露。
-- 详情：[/202605/15/README](/202605/15/README)
+今日聚焦深度学习优化前沿，深入剖析了互惠梯度理论与层级正交化缩放技术。
+重点关注《The Reciprocity Gradient》对梯度动态的新见解，以及 OrScale 如何通过信任比例缩放提升大模型训练的稳定性。
+建议追求训练效率的开发者优先研读 OrScale 的层级优化思路，以改进复杂网络的收敛表现。
+- 详情：[/202605/16/README](/202605/16/README)
 
 ### 精读区论文标签
-1. [AgentTrap: Measuring Runtime Trust Failures in Third-Party Agent Skills](/202605/15/2605.13940v1-agenttrap-measuring-runtime-trust-failures-in-third-party-agent-skills)  
-   标签：评分：9.0/10、query:q3
-   evidence：衡量运行时信任失效的基准测试
+- 本次无精读推荐。
 
 ### 速读区论文标签
-1. [Enforcing Attestable Workflows across Untrusted Networks](/202605/15/2605.09297v1-enforcing-attestable-workflows-across-untrusted-networks)  
-   标签：评分：6.0/10、query:profile-1
-   evidence：通过远程度量在不可信网络中执行工作流
-2. [The Granularity Mismatch in Agent Security: Argument-Level Provenance Solves Enforcement and Isolates the LLM Reasoning Bottleneck](/202605/15/2605.11039v1-the-granularity-mismatch-in-agent-security-argument-level-provenance-solves-enforcement-and-isolates-the-llm-reasoning-bottleneck)  
-   标签：评分：6.0/10、query:profile-1
-   evidence：通过参数级溯源在代理工作流中调节信任
-3. [Towards Gaze-Informed AI Disclosure Interfaces: Eye-Tracking Attentional and Cognitive Load While Reading AI-Assisted News](/202605/15/2605.14999v1-towards-gaze-informed-ai-disclosure-interfaces-eye-tracking-attentional-and-cognitive-load-while-reading-ai-assisted-news)  
-   标签：评分：6.0/10、query:profile-1
-   evidence：衡量 AI 披露对信任和认知负荷的影响
+1. [The Reciprocity Gradient](/202605/16/2605.08323v1-the-reciprocity-gradient)  
+   标签：评分：7.0/10、query:profile-1
+   evidence：互惠梯度通过声誉链反向传播以优化合作
+2. [OrScale: Orthogonalised Optimization with Layer-Wise Trust-Ratio Scaling](/202605/16/2605.07815v1-orscale-orthogonalised-optimization-with-layer-wise-trust-ratio-scaling)  
+   标签：评分：6.0/10、query:q4
+   evidence：用于优化的逐层信任比缩放指标
 
 
 <div class="dpr-home-promo-card">
