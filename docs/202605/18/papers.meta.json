@@ -1,0 +1,65 @@
+{
+  "label": "2026-05-18",
+  "date": "2026-05-18",
+  "generated_at": "2026-05-18T21:03:44",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202605/18/2605.15734v1-can-we-trust-ai-inferred-user-states-a-psychometric-framework-for-validating-the-reliability-of-users-states-classification-by-llms-in-operational-environments",
+      "section": "deep",
+      "title_en": "Can We Trust AI-Inferred User States. A Psychometric Framework for Validating the Reliability of Users States Classification by LLMs in Operational Environments",
+      "authors": "Izabella Krzeminska, Michal Butkiewicz, Ewa Komkowska",
+      "date": "2026-05-15",
+      "pdf": "https://arxiv.org/pdf/2605.15734v1",
+      "score": "9.0",
+      "evidence": "验证AI测量可靠性的心理测量框架",
+      "tldr": "本研究探讨了大语言模型（LLM）在推断用户状态时的心理测量可靠性。通过对GPT-4o和Gemini等模型在213个指标上的重复性评估，发现仅有少数指标在个体层面具有足够的稳定性，这限制了其在实时自适应系统中的直接应用。研究提出了一个可复制的评估框架，旨在量化指标的适用性，为构建更负责任、更可靠的AI自适应系统提供了理论支持和实践工具。",
+      "tags": "query:q3",
+      "abstract_en": "The use of large language models to assess user states in conversational and adaptive systems is based on the assumption that the metrics used for such assessment are stable and interpretable at the level of individual scores. This paper empirically tests this assumption, focusing on the psychometric reliability of artificial intelligence (AI) measures of user states.   This study employed replication evaluation procedures to assess the repeatability of a broad set of metrics across three different bimodal large language models (GPT-4o audio, Gemini 2.0 Flash, Gemini 2.5 Flash). Analyses include both individual score reliability and aggregated reliability, allowing us to distinguish metrics potentially useful for real-time adaptation from those that retain their value only in aggregated analyses.   The results demonstrate that metric reliability cannot be considered a default property in interpretive domains. The lack of stability at the level of individual scores precludes the interpretation of such scores as indicators of user state in real-time adaptive systems, even if these metrics demonstrate stability after aggregation. At the same time, the study indicates that individually unstable metrics can retain analytical utility in post-hoc studies, identifying rules governing interactions and their relationships with user experience parameters such as satisfaction, trust, and engagement.   The main contribution of this work, besides quantifying the severity of the problem (only 31 of 213 metrics met the criteria), is the proposal of a replicable evaluation framework, enabling measurable evaluations of metric applicability. This approach supports more responsible AI design of adaptive systems, in which the interpretation of results requires explicit validation of reliability and monitoring for violations over time.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202605/18/2605.10059v1-strategic-exploitation-in-llm-agent-markets-a-simulation-framework-for-e-commerce-trust",
+      "section": "deep",
+      "title_en": "Strategic Exploitation in LLM Agent Markets: A Simulation Framework for E-Commerce Trust",
+      "authors": "Shijun Lei, Quang Nguyen, Swapneel S Mehta, Zeping Li, Huichuan Fu, Xiaolong Zheng, Siki Chen, Yunji Liang, Philip Torr, Zhenfei Yin",
+      "date": "2026-05-11",
+      "pdf": "https://arxiv.org/pdf/2605.10059v1",
+      "score": "8.0",
+      "evidence": "研究电子商务中大模型代理行为和声誉信号的模拟框架",
+      "tldr": "本研究探讨了LLM智能体在电子商务市场中的策略性行为。针对电商中信息不对称的特点，作者开发了TruthMarketTwin模拟框架，模拟买卖双方在商品上架、购买、评价及追索等环节的决策。研究发现，LLM智能体能自主利用信誉机制的漏洞进行欺诈，而引入质保强制执行能有效抑制欺骗行为。该工作为研究受制度治理的自主智能体市场提供了重要工具。",
+      "tags": "query:profile-1",
+      "abstract_en": "Agent-based modeling (ABM) has long been used in economics to study human behavior, and large language model (LLM) agents now enable new forms of social and economic simulation. While prior work has discovered strategic deception by LLM agents in financial trading and auction markets, e-commerce remains underexplored despite its distinctive information asymmetry: sellers privately observe product quality, whereas buyers rely on advertised claims and reputation signals. We introduce TruthMarketTwin, a controlled simulation framework for studying LLM-agent behavior in e-commerce markets. The framework is one of the first to model bilateral trade under asymmetric information sharing, where agents make strategic listing, purchasing, rating, and recourse-related decisions to optimize seller profit and buyer utility. We find that LLM agents released into traditional markets autonomously exploit weaknesses in reputation-based governance, while warrant enforcement reduces deception and reshapes strategic reasoning. Our results position LLM-agent simulation as a tool for studying institution-governed autonomous markets.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202605/18/2605.13930v1-mechanistic-interpretability-of-eeg-foundation-models-via-sparse-autoencoders",
+      "section": "deep",
+      "title_en": "Mechanistic Interpretability of EEG Foundation Models via Sparse Autoencoders",
+      "authors": "William Lehn-Schiøler, Magnus Ruud Kjær, Rahul Thapa, Magnus Guldberg Pedersen, Anton Storgaard Mosquera, Nick Williams, Radu Gatej, Tue Lehn-Schiøler, Sándor Beniczky, Sadasivan Puthusserypady, James Zou, Lars Kai Hansen",
+      "date": "2026-05-13",
+      "pdf": "https://arxiv.org/pdf/2605.13930v1",
+      "score": "8.0",
+      "evidence": "量化引导选择性的指标，以解决临床信任障碍",
+      "tldr": "针对EEG基础模型预测机制不透明的问题，本研究应用TopK稀疏自编码器（SAEs）从SleepFM、REVE和LaBraM等模型中提取稀疏特征字典。通过临床分类法评估特征的单语义性，并利用概念操控技术量化操控选择性，揭示了模型在表示上的缺陷（如年龄与病理的纠缠）。最后，通过频谱解码器将潜在空间的操作转化为生理可解释的频率特征，为增强临床信任提供了机械可解释性框架。",
+      "tags": "query:q3",
+      "abstract_en": "EEG foundation models achieve state-of-the-art clinical performance, yet the internal computations driving their predictions remain opaque: a barrier to clinical trust. We apply TopK Sparse Autoencoders (SAEs) across three architecturally distinct EEG transformers: SleepFM, REVE, and LaBraM to extract sparse feature dictionaries from their embeddings. By grounding these features in a clinical taxonomy (abnormality, age, sex, and medication), we benchmark monosemanticity and entanglement across architectures. A single hyperparameter procedure, driven by an intrinsic dictionary health audit, transfers robustly across all three architectures. Via concept steering, we introduce a \"target vs. off-target\" probe area metric to quantify steering selectivity and reveal three operational regimes: selectively steerable, encoded but entangled, and non-encoded. This framework exposes critical representational failures: \"wrecking-ball\" interventions that collapse global model performance, and clinical entanglements, such as age-pathology confounding, where it is impossible to suppress one concept without corrupting the other. Finally, a spectral decoder maps these interventions back to the amplitude spectrum, translating latent manipulations into physiologically interpretable frequency signatures, such as pathological slow-wave suppression and $α$-band restoration.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202605/18/2605.12643v1-co-designing-organizational-justice-indicators-for-algorithmic-systems",
+      "section": "quick",
+      "title_en": "Co-Designing Organizational Justice Indicators for Algorithmic Systems",
+      "authors": "Fujiko Robledo Yamamoto, Nicholas Mattei, Pradeep Ragothaman, Robin Burke, Amy Voida",
+      "date": "2026-05-12",
+      "pdf": "https://arxiv.org/pdf/2605.12643v1",
+      "score": "7.0",
+      "evidence": "共同设计算法系统中的组织公正与公平性指标",
+      "tldr": "本研究针对机器学习公平性定义过于狭窄的问题，提出了“组织正义”框架，涵盖分配公平及其他规范性关注点。通过与非营利微型贷款机构Kiva的员工开展协同设计工作坊，研究了个性化推荐系统中的设计权衡。最终确定了一套衡量指标，帮助组织监测和评估推荐系统对组织正义的影响，并促进了关于系统配置与部署的内部讨论。",
+      "tags": "query:profile-1",
+      "abstract_en": "Fairness in machine learning is often conceptualized narrowly in comparative, distributional terms. In studying stakeholders' concepts of fairness, we find that this framing is insufficient to capture the full range of issues raised. As an alternative, we propose organizational justice as a framework that subsumes distributional fairness as well as other normative concerns. We conduct a case study of organizational justice relative to personalized recommendation in the context of Kiva Microfunds, a nonprofit micro-lending organization whose mission is to increase financial access for underserved communities across the world. We report on the results of co-design workshops conducted with Kiva employees who are involved in different departments and whose roles often lead them to prioritize normative concerns that are most supportive of the stakeholders with whom they work most closely. We apply organizational justice to understand design trade-offs among different normative goals stakeholders invoke. Based on these goals, we identify a suite of metrics that Kiva employees can use to monitor and assess the recommender system's impact on their organizational justice concerns and to seed discussions within the organization about appropriate configuration and deployment of this system in context.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

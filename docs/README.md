@@ -6,29 +6,34 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-05-16
-- 运行时间：2026-05-16 19:52:22 UTC
+- 最新运行日期：2026-05-18
+- 运行时间：2026-05-18 21:03:37 UTC
 - 运行状态：成功
-- 本次总论文数：2
-- 精读区：0
-- 速读区：2
+- 本次总论文数：4
+- 精读区：3
+- 速读区：1
 
 ### 今日简报（AI）
-今日聚焦深度学习优化前沿，深入剖析了互惠梯度理论与层级正交化缩放技术。
-重点关注《The Reciprocity Gradient》对梯度动态的新见解，以及 OrScale 如何通过信任比例缩放提升大模型训练的稳定性。
-建议追求训练效率的开发者优先研读 OrScale 的层级优化思路，以改进复杂网络的收敛表现。
-- 详情：[/202605/16/README](/202605/16/README)
+今日深度复盘 AI 代理在复杂环境下的信任机制，涵盖用户状态识别的可靠性验证与电商市场的策略剥削。
+核心结论指出 LLM 识别用户状态需引入心理测量框架，并揭示了智能体市场中潜在的信任危机。
+建议普通用户在与 AI 交互时，不仅要关注效率，更应警惕算法背后的公正性与潜在的利益博弈。
+- 详情：[/202605/18/README](/202605/18/README)
 
 ### 精读区论文标签
-- 本次无精读推荐。
+1. [Can We Trust AI-Inferred User States. A Psychometric Framework for Validating the Reliability of Users States Classification by LLMs in Operational Environments](/202605/18/2605.15734v1-can-we-trust-ai-inferred-user-states-a-psychometric-framework-for-validating-the-reliability-of-users-states-classification-by-llms-in-operational-environments)  
+   标签：评分：9.0/10、query:q3
+   evidence：验证AI测量可靠性的心理测量框架
+2. [Strategic Exploitation in LLM Agent Markets: A Simulation Framework for E-Commerce Trust](/202605/18/2605.10059v1-strategic-exploitation-in-llm-agent-markets-a-simulation-framework-for-e-commerce-trust)  
+   标签：评分：8.0/10、query:profile-1
+   evidence：研究电子商务中大模型代理行为和声誉信号的模拟框架
+3. [Mechanistic Interpretability of EEG Foundation Models via Sparse Autoencoders](/202605/18/2605.13930v1-mechanistic-interpretability-of-eeg-foundation-models-via-sparse-autoencoders)  
+   标签：评分：8.0/10、query:q3
+   evidence：量化引导选择性的指标，以解决临床信任障碍
 
 ### 速读区论文标签
-1. [The Reciprocity Gradient](/202605/16/2605.08323v1-the-reciprocity-gradient)  
+1. [Co-Designing Organizational Justice Indicators for Algorithmic Systems](/202605/18/2605.12643v1-co-designing-organizational-justice-indicators-for-algorithmic-systems)  
    标签：评分：7.0/10、query:profile-1
-   evidence：互惠梯度通过声誉链反向传播以优化合作
-2. [OrScale: Orthogonalised Optimization with Layer-Wise Trust-Ratio Scaling](/202605/16/2605.07815v1-orscale-orthogonalised-optimization-with-layer-wise-trust-ratio-scaling)  
-   标签：评分：6.0/10、query:q4
-   evidence：用于优化的逐层信任比缩放指标
+   evidence：共同设计算法系统中的组织公正与公平性指标
 
 
 <div class="dpr-home-promo-card">

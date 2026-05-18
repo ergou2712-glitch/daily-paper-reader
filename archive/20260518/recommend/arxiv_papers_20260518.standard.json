@@ -1,0 +1,178 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-05-18T21:02:48.518681+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2605.15734v1",
+      "title": "Can We Trust AI-Inferred User States. A Psychometric Framework for Validating the Reliability of Users States Classification by LLMs in Operational Environments",
+      "abstract": "The use of large language models to assess user states in conversational and adaptive systems is based on the assumption that the metrics used for such assessment are stable and interpretable at the level of individual scores. This paper empirically tests this assumption, focusing on the psychometric reliability of artificial intelligence (AI) measures of user states.   This study employed replication evaluation procedures to assess the repeatability of a broad set of metrics across three different bimodal large language models (GPT-4o audio, Gemini 2.0 Flash, Gemini 2.5 Flash). Analyses include both individual score reliability and aggregated reliability, allowing us to distinguish metrics potentially useful for real-time adaptation from those that retain their value only in aggregated analyses.   The results demonstrate that metric reliability cannot be considered a default property in interpretive domains. The lack of stability at the level of individual scores precludes the interpretation of such scores as indicators of user state in real-time adaptive systems, even if these metrics demonstrate stability after aggregation. At the same time, the study indicates that individually unstable metrics can retain analytical utility in post-hoc studies, identifying rules governing interactions and their relationships with user experience parameters such as satisfaction, trust, and engagement.   The main contribution of this work, besides quantifying the severity of the problem (only 31 of 213 metrics met the criteria), is the proposal of a replicable evaluation framework, enabling measurable evaluations of metric applicability. This approach supports more responsible AI design of adaptive systems, in which the interpretation of results requires explicit validation of reliability and monitoring for violations over time.",
+      "authors": [
+        "Izabella Krzeminska",
+        "Michal Butkiewicz",
+        "Ewa Komkowska"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-05-15T08:43:26+00:00",
+      "link": "https://arxiv.org/pdf/2605.15734v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "psychometric framework for validating reliability of AI measures",
+      "llm_evidence_cn": "验证AI测量可靠性的心理测量框架",
+      "llm_evidence": "验证AI测量可靠性的心理测量框架",
+      "canonical_evidence": "验证AI测量可靠性的心理测量框架",
+      "llm_tldr_en": "Evaluates the psychometric reliability of LLM-based user state assessments in operational environments.",
+      "llm_tldr_cn": "评估大语言模型在实际运行环境中对用户状态评估的心理测量可靠性。",
+      "llm_tldr": "评估大语言模型在实际运行环境中对用户状态评估的心理测量可靠性。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "methods and metrics for measuring trust",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.10059v1",
+      "title": "Strategic Exploitation in LLM Agent Markets: A Simulation Framework for E-Commerce Trust",
+      "abstract": "Agent-based modeling (ABM) has long been used in economics to study human behavior, and large language model (LLM) agents now enable new forms of social and economic simulation. While prior work has discovered strategic deception by LLM agents in financial trading and auction markets, e-commerce remains underexplored despite its distinctive information asymmetry: sellers privately observe product quality, whereas buyers rely on advertised claims and reputation signals. We introduce TruthMarketTwin, a controlled simulation framework for studying LLM-agent behavior in e-commerce markets. The framework is one of the first to model bilateral trade under asymmetric information sharing, where agents make strategic listing, purchasing, rating, and recourse-related decisions to optimize seller profit and buyer utility. We find that LLM agents released into traditional markets autonomously exploit weaknesses in reputation-based governance, while warrant enforcement reduces deception and reshapes strategic reasoning. Our results position LLM-agent simulation as a tool for studying institution-governed autonomous markets.",
+      "authors": [
+        "Shijun Lei",
+        "Quang Nguyen",
+        "Swapneel S Mehta",
+        "Zeping Li",
+        "Huichuan Fu",
+        "Xiaolong Zheng",
+        "Siki Chen",
+        "Yunji Liang",
+        "Philip Torr",
+        "Zhenfei Yin"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-05-11T06:36:19+00:00",
+      "link": "https://arxiv.org/pdf/2605.10059v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "simulation framework for studying LLM-agent behavior and reputation signals in e-commerce",
+      "llm_evidence_cn": "研究电子商务中大模型代理行为和声誉信号的模拟框架",
+      "llm_evidence": "研究电子商务中大模型代理行为和声誉信号的模拟框架",
+      "canonical_evidence": "研究电子商务中大模型代理行为和声誉信号的模拟框架",
+      "llm_tldr_en": "Introduces TruthMarketTwin to study strategic deception and trust signals in LLM-agent e-commerce markets.",
+      "llm_tldr_cn": "引入 TruthMarketTwin 框架，研究大模型代理在电商市场中的策略性欺骗与信任信号。",
+      "llm_tldr": "引入 TruthMarketTwin 框架，研究大模型代理在电商市场中的策略性欺骗与信任信号。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.13930v1",
+      "title": "Mechanistic Interpretability of EEG Foundation Models via Sparse Autoencoders",
+      "abstract": "EEG foundation models achieve state-of-the-art clinical performance, yet the internal computations driving their predictions remain opaque: a barrier to clinical trust. We apply TopK Sparse Autoencoders (SAEs) across three architecturally distinct EEG transformers: SleepFM, REVE, and LaBraM to extract sparse feature dictionaries from their embeddings. By grounding these features in a clinical taxonomy (abnormality, age, sex, and medication), we benchmark monosemanticity and entanglement across architectures. A single hyperparameter procedure, driven by an intrinsic dictionary health audit, transfers robustly across all three architectures. Via concept steering, we introduce a \"target vs. off-target\" probe area metric to quantify steering selectivity and reveal three operational regimes: selectively steerable, encoded but entangled, and non-encoded. This framework exposes critical representational failures: \"wrecking-ball\" interventions that collapse global model performance, and clinical entanglements, such as age-pathology confounding, where it is impossible to suppress one concept without corrupting the other. Finally, a spectral decoder maps these interventions back to the amplitude spectrum, translating latent manipulations into physiologically interpretable frequency signatures, such as pathological slow-wave suppression and $α$-band restoration.",
+      "authors": [
+        "William Lehn-Schiøler",
+        "Magnus Ruud Kjær",
+        "Rahul Thapa",
+        "Magnus Guldberg Pedersen",
+        "Anton Storgaard Mosquera",
+        "Nick Williams",
+        "Radu Gatej",
+        "Tue Lehn-Schiøler",
+        "Sándor Beniczky",
+        "Sadasivan Puthusserypady",
+        "James Zou",
+        "Lars Kai Hansen"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.HC",
+        "cs.NE"
+      ],
+      "published": "2026-05-13T16:02:56+00:00",
+      "link": "https://arxiv.org/pdf/2605.13930v1",
+      "tags": [
+        "keyword:信任测量"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Metric to quantify steering selectivity to address barriers to clinical trust",
+      "llm_evidence_cn": "量化引导选择性的指标，以解决临床信任障碍",
+      "llm_evidence": "量化引导选择性的指标，以解决临床信任障碍",
+      "canonical_evidence": "量化引导选择性的指标，以解决临床信任障碍",
+      "llm_tldr_en": "Uses sparse autoencoders and a new probe area metric to improve interpretability and clinical trust in EEG models.",
+      "llm_tldr_cn": "利用稀疏自编码器和新的探测区域指标，提高EEG模型的解释性和临床信任度。",
+      "llm_tldr": "利用稀疏自编码器和新的探测区域指标，提高EEG模型的解释性和临床信任度。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "methods and metrics for measuring trust",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2605.12643v1",
+      "title": "Co-Designing Organizational Justice Indicators for Algorithmic Systems",
+      "abstract": "Fairness in machine learning is often conceptualized narrowly in comparative, distributional terms. In studying stakeholders' concepts of fairness, we find that this framing is insufficient to capture the full range of issues raised. As an alternative, we propose organizational justice as a framework that subsumes distributional fairness as well as other normative concerns. We conduct a case study of organizational justice relative to personalized recommendation in the context of Kiva Microfunds, a nonprofit micro-lending organization whose mission is to increase financial access for underserved communities across the world. We report on the results of co-design workshops conducted with Kiva employees who are involved in different departments and whose roles often lead them to prioritize normative concerns that are most supportive of the stakeholders with whom they work most closely. We apply organizational justice to understand design trade-offs among different normative goals stakeholders invoke. Based on these goals, we identify a suite of metrics that Kiva employees can use to monitor and assess the recommender system's impact on their organizational justice concerns and to seed discussions within the organization about appropriate configuration and deployment of this system in context.",
+      "authors": [
+        "Fujiko Robledo Yamamoto",
+        "Nicholas Mattei",
+        "Pradeep Ragothaman",
+        "Robin Burke",
+        "Amy Voida"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC"
+      ],
+      "published": "2026-05-12T18:32:04+00:00",
+      "link": "https://arxiv.org/pdf/2605.12643v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Co-designing indicators for organizational justice and fairness in algorithmic systems",
+      "llm_evidence_cn": "共同设计算法系统中的组织公正与公平性指标",
+      "llm_evidence": "共同设计算法系统中的组织公正与公平性指标",
+      "canonical_evidence": "共同设计算法系统中的组织公正与公平性指标",
+      "llm_tldr_en": "Proposes a framework and indicators for organizational justice to evaluate fairness in algorithmic systems.",
+      "llm_tldr_cn": "提出了一种组织公正框架和指标，用于评估算法系统中的公平性。",
+      "llm_tldr": "提出了一种组织公正框架和指标，用于评估算法系统中的公平性。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
