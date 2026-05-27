@@ -1,0 +1,79 @@
+{
+  "label": "2026-05-27",
+  "date": "2026-05-27",
+  "generated_at": "2026-05-27T21:10:20",
+  "count": 5,
+  "papers": [
+    {
+      "paper_id": "202605/27/2605.23566v1-multi-factor-trust-driven-secure-communication-model-for-cloud-based-digital-twins",
+      "section": "deep",
+      "title_en": "Multi-Factor Trust-Driven Secure Communication Model for Cloud-Based Digital Twins",
+      "authors": "Deepika Saxena, Ashutosh Kumar Singh",
+      "date": "2026-05-22",
+      "pdf": "https://arxiv.org/pdf/2605.23566v1",
+      "score": "10.0",
+      "evidence": "多因子信任监测与自适应评估",
+      "tldr": "提出了数字孪生中多因子信任监测和自适应评估的框架。",
+      "tags": "query:q5",
+      "abstract_en": "Cloud-based Digital Twin (DT) platforms enable real-time monitoring, simulation, and collaborative decision-making across distributed clients. However, ensuring secure and trustworthy communication remains a critical challenge due to heterogeneous client behavior, resource contention, and evolving adversarial threats. This paper proposes the Multi-Factor Trust-Driven Secure Communication (MT-SeCom) framework to enforce resilient and intelligent collaboration in DT-enabled cloud environments. MT-SeCom operates through four coordinated phases: (i) Multi-Factor Trust Monitoring, capturing temporal, contextual, and federated trust signals; (ii) Adaptive Trust Evaluation, adjusting trust weights based on network dynamics and threat intensity; (iii) Transformer-Based Trusted Client Classification, combining anomaly detection with supervised learning to accurately identify malicious or unreliable nodes; and (iv) Resilient Communication Management, optimizing routing, isolating compromised clients, and ensuring service continuity. A real-world testbed and comprehensive experiments demonstrate that MT-SeCom significantly enhances secure communication, mitigates cascading adversarial effects, and maintains high resilience under fluctuating attack conditions. MT-SeCom achieves an average 18.7% improvement in threat detection accuracy and a 24.3% reduction in anomaly occurrences compared to existing methods, confirming its robustness, scalability, and practical suitability for heterogeneous cloud-based DT ecosystems.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202605/27/2605.19151v1-progressive-autonomy-as-preference-learning-a-formalization-of-trust-calibration-for-agentic-tool-use",
+      "section": "deep",
+      "title_en": "Progressive Autonomy as Preference Learning: A Formalization of Trust Calibration for Agentic Tool Use",
+      "authors": "Changkun Ou",
+      "date": "2026-05-18",
+      "pdf": "https://arxiv.org/pdf/2605.19151v1",
+      "score": "9.0",
+      "evidence": "代理工具使用的信任校准形式化",
+      "tldr": "将信任校准形式化为偏好学习问题，以决定智能体何时需要人工批准。",
+      "tags": "query:q3",
+      "abstract_en": "We formalize trust calibration for agentic tool use (deciding when an automated agent's proposed action may execute autonomously versus require human approval) as a preference-learning problem. A policy gateway maintains a Gaussian-process posterior over a latent human risk-tolerance function, observed through a probit likelihood on binary approve/deny feedback, and escalates to the human exactly where the approval outcome is most uncertain. We show this is structurally an instance of Preferential Bayesian Optimization, inheriting its inference machinery (approximate Gaussian-process classification) and its sample-efficiency argument (uncertainty-targeted querying), while differing in objective: classifying an action space into allow/block/ask regions rather than optimizing a design.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202605/27/2605.25052v1-faithfulness-metrics-dont-measure-faithfulness-a-meta-evaluation-with-ground-truth",
+      "section": "quick",
+      "title_en": "Faithfulness Metrics Don't Measure Faithfulness: A Meta-Evaluation with Ground Truth",
+      "authors": "Yoav Gur-Arieh, Ana Marasović, Mor Geva",
+      "date": "2026-05-24",
+      "pdf": "https://arxiv.org/pdf/2605.25052v1",
+      "score": "7.0",
+      "evidence": "忠实度指标的元评估",
+      "tldr": "批判性地评估了现有的思维链忠实度指标是否真的能衡量其声称的内容。",
+      "tags": "query:q5",
+      "abstract_en": "Chains of thought (CoTs) have become central in interpreting and auditing behaviors of large language models. Yet growing evidence suggests that these traces often fail to faithfully represent the computations behind a model's predictions. Several faithfulness metrics have been proposed, but whether they indeed measure faithfulness remains unknown. Answering this requires ground-truth labels, which are hard to obtain since internal computations are not directly observable. Consequently, most works proposing metrics report only absolute scores or comparisons to prior metrics, and the few existing benchmarks rely on proxies like plausibility or importance, properties orthogonal to faithfulness that can mislead about whether a CoT can be trusted. We address this challenge by constructing tasks whose outputs reveal which intermediate computations must have produced them, and developing an automated labeling pipeline that yields ground-truth faithfulness labels at both the step and CoT level. Building on this methodology, we present BonaFide, a benchmark of 3,066 labeled CoTs across 13 tasks and 10 models, and use it to conduct the first systematic evaluation of prominent faithfulness metrics. Our experiments show that most metrics perform near chance, exhibit strong prediction biases and degrade on longer CoTs. The best metric reaches only 0.70 AUROC at the CoT level while another reaches 0.59 at the step level, with neither transferring across settings, while entailing prohibitively high computational cost. Our results expose fundamental gaps in current faithfulness evaluation and call for the development of more reliable and efficient metrics.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202605/27/2605.19344v1-retrieval-augmented-linguistic-calibration",
+      "section": "quick",
+      "title_en": "Retrieval-Augmented Linguistic Calibration",
+      "authors": "Yi-Fan Yeh, Linwei Tao, Minjing Dong, Tao Huang, Jialin Yu, Philip Torr, Chang Xu",
+      "date": "2026-05-19",
+      "pdf": "https://arxiv.org/pdf/2605.19344v1",
+      "score": "6.0",
+      "evidence": "量化受众信念中惊讶程度的指标",
+      "tldr": "引入了忠实度散度（FD），一种用于校准语言置信度和受众理解的指标。",
+      "tags": "query:q3",
+      "abstract_en": "Linguistic cues such as \"I believe\" and \"probably\" offer an intuitive interface for communicating confidence, yet a generalisable, principled calibration framework for linguistic confidence expressions remains underexplored. In particular, co-occurring linguistic cues, contextual variation, and subjective audience interpretation pose unique challenges. We therefore model linguistic confidence as a distribution over plausible perceived probability values that a statement is correct, capturing interpretation variability that scalar representations discard. Within this distributional framework, we introduce faithfulness as a complementary evaluation dimension and present Faithfulness Divergence (FD), an information-theoretic metric quantifying the surprise induced in audience beliefs upon truth revelation. Building on these foundations, we present Retrieval-Augmented Linguistic Calibration (RALC), a lightweight post-hoc pipeline that propagates calibrated confidence signals back into natural language via retrieval-augmented rewriting. Across three QA benchmarks and five LLM families, RALC improves in-domain faithfulness and calibration up to 66% and 58%, respectively, outperforming black-box and grey-box calibration baselines.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202605/27/2605.23297v1-ontological-knowledge-blocks-executable-compliance-and-profile-based-validation-for-trustworthy-ai-systems",
+      "section": "quick",
+      "title_en": "Ontological Knowledge Blocks: Executable Compliance and Profile-Based Validation for Trustworthy AI Systems",
+      "authors": "Aasish Kumar Sharma, Julian M. Kunkel",
+      "date": "2026-05-22",
+      "pdf": "https://arxiv.org/pdf/2605.23297v1",
+      "score": "6.0",
+      "evidence": "可信AI系统的机器可校验约束",
+      "tldr": "针对关键数字基础设施中AI服务合规性检查依赖手动文档、难以扩展的问题，本文提出本体知识块（OKB）这一可编程治理基础设施。OKB将监管义务编译为结构化证据图上的机器可检查约束，结合RDF/OWL、SHACL规则和PROV-O溯源。该方法实现了基于配置文件的治理重构，无需修改服务代码。实验证明其具备低延迟验证能力和高度的组合灵活性，为构建可信AI系统提供了自动化合规验证的新路径。",
+      "tags": "query:profile-1",
+      "abstract_en": "AI-enabled services deployed in critical digital infrastructure are subject to governance obligations spanning transparency, accountability, fairness, and traceability. Compliance today remains documentation-centric: obligations are described in prose, audits rely on static checklists, and verification depends on manual review. Such approaches do not scale to automated AI systems. This paper introduces Ontological Knowledge Blocks (OKBs), a programmable governance infrastructure that compiles regulatory obligations into machine-checkable constraints over structured evidence graphs. We formalize an OKB as a 5-tuple that binds normative obligations to an RDF/OWL concept schema, executable SHACL validation rules, explicit evidence requirements, and PROV-O provenance links. A deterministic regulatory compiler translates structured Intermediate Representation (IR) records into composable KB modules, enabling profile-based governance reconfiguration without modifying service code. We implement two prototypes and evaluate them in an AI-assisted HPC resource allocation scenario across 24 validation runs and four governance profiles. Results demonstrate profile-sensitive validation, strictly additive violation accumulation, SHACL validation latency between 12.6 ms and 100.3 ms, and profile equivalence testing confirming Combined as the strictly most comprehensive profile. All artefacts are released as open source.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
