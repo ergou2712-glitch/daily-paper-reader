@@ -1,0 +1,681 @@
+Title: Can temporal article-level credibility signals improve domain-level credibility prediction?
+
+URL Source: https://arxiv.org/pdf/2607.04560v1
+
+Published Time: Tue, 07 Jul 2026 03:17:32 GMT
+
+Number of Pages: 21
+
+Markdown Content:
+## Can temporal article-level credibility signals improve domain-level credibility prediction? 
+
+Islam Eldifrawi and Shengrui Wang and Amine Trabelsi 
+
+@usherbrooke.ca 
+
+Abstract 
+
+Web domain credibility evaluation is vital for combating misinformation. It is conducted by examining factors such as domain type, trans-parency, and overall reputation. However, as-sessing the credibility of newly emerging web domains remains challenging since they have no reputation yet. Expert fact-checkers eval-uate the credibility of domains by analyzing the content of their articles, including the pres-ence of misinformation, bias, or propaganda. Yet, the ease of large-scale content generation enabled by LLMs has accelerated the creation of new content, rendering manual assessment insufficient and underscoring the need for auto-mated approaches to domain credibility evalu-ation. In this paper, we introduce our Domain 
+
+Credibility Evaluation Framework (DCEF), a temporal framework for domain credibility evaluation grounded in expert ratings. DCEF enables us to investigate whether the credibility of web domains can be assessed from their pub-lished articles following the workflow of expert fact-checkers, without any prior knowledge of the source domains themselves. 
+
+1 Introduction 
+
+Assessing the credibility of the information source is vital in fact-checking (Eldifrawi et al., 2024; Guo et al., 2022). Due to recent advances in con-tent generation, new domains are being created at an unprecedented pace , and most of them don’t disclose their content generation methods. Manual evaluation of these domains credibility is infeasible. Automating the credibility assessment of these do-mains based on their content has become essential since they have no reputation yet. GNNs and pure graph-based approaches struggle to evaluate newly emerging domains with no histor-ical data, or activity due to the “cold-start problem.” Since GNNs depend on connections between nodes, an isolated domain lacks the relational information needed for evaluation (Frej et al., 2024). Area Open Gap     
+
+> Generalization Contextual adaptation Bias & Fairness Political/ ideological bias mitigation Dynamics Temporal credibility evaluation Insight Presence of model justification
+
+Table 1: Gaps in domain credibility evaluation models (Srba et al., 2024). 
+
+Credibility (Believability) is assessed from con-tent through a variety of heuristics known as credi-bility signals, which help evaluate the overall trust-worthiness of information sources (Leite et al., 2025). These signals include the presence of bias, propaganda, misinformation, or misalignment between in article titles and their content. 
+
+Credibility signals can be categorized as subjec-tive or objective indicators(Srba et al., 2024). Sub-jective indicators include aspects such as the design of a webpage, and domain popularity. While these features may influence user perception of credibil-ity, they are not necessarily reliable measures of content quality. In contrast, objective indicators provide stronger evidence of quality and include the presence of bias, propaganda, misleading infor-mation, and the number of backlinks. Recent deep learning models, like BERT-style transformers, when fine-tuned on misinformation corpora, often achieve high in-domain accuracy but tend to generalize poorly across different domains. For instance, a model trained on political news may perform poorly when applied to health misinfor-mation (Srba et al., 2024). In addition, they lack justifications for their classification. LLMs have shown superior cross-domain per-formance compared to supervised baselines (Srba et al., 2024). However, LLMs also have notable lim-itations. Their credibility judgments only moder-ately align with expert assessments (Spearman cor-relation nearly 0.50) (Yang and Menczer, 2025a). In addition, they tend to assign higher credibility 
+
+> arXiv:2607.04560v1 [cs.CL] 6 Jul 2026
+
+ratings to left-biased domains, as their pre-training data reflects a political bias leaning toward the left (Yang and Menczer, 2025b). However, when they rate political bias, they are on par with the cur-rent Pre-trained Language Models (PLMs) SOTA models (Sar and Roy, 2025). Furthermore, the limitations extend beyond the models to the currently available datasets. Most existing datasets provide only domain URLs with credibility ratings, while only a limited number include links to domain articles. Moreover, a lot of these article links are no longer accessible. Unlike professional credibility evaluators, most existing approaches do not take into account the temporal dynamics of domain credibility. A do-main may initially publish highly credible arti-cles but experience a decline in quality over time, or conversely, it may improve its standards after a period of low credibility. Therefore, credibility ratings should place greater emphasis on recent articles . To sum up, the credibility evaluation gaps are in Table 1. In this paper, we investigate if do-mains credibility evaluation is improved through the incorporation of temporal article-level credibil-ity signals. Our contribution is as follows: 
+
+C1. We construct a dataset that contains article content, addressing the issue of broken links in the current datasets. The dataset includes more than 300 domains and 25,141 articles spanning 14 fields. 
+
+C2. We introduce the DCEF framework. The input for DCEF is the time-stamped articles for a domain and the final output will be the credibility rating of the domain. The framework will have no knowledge of the domain name it is evaluating, as the input will consist solely of a set of arti-cles and their publication dates . This addresses the ’Bias and Fairness’ gap in Table 1. DCEF is composed of zero-shot CoT LLM modules (to ad-dress the ’Generalization’ gap in Table 1). The novelty here lies in the proposed architecture and its modular design , providing justifications that address the ’Insight’ Gap in Table 1. 
+
+C3. We propose a novel methodology for in-corporating temporal article-level features that are aggregated into the domain credibility classifica-tion process to address the ’Dynamics’ gap in Table 1. Furthermore, we evaluate their impact in Experi-ments 5.1, 5.2, and 5.3. 
+
+C4. We study the influence of objective and sub-jective credibility indicators on domain credibility ratings in Experiment 5.3. 
+
+2 Related Work 
+
+Most recent work relies either on LLMs for tex-tual credibility assessment or on graph-based ap-proaches. Since GNNs and other graph-based meth-ods cannot effectively assess the credibility of new domains with no historical footprint, our work fo-cuses on LLM-based approaches. Yang and Menczer (2025a) audit zero-shot ap-proach by prompting nine LLMs. They evaluate their accuracy to assess the credibility of domains based on their prior knowledge. The input is the domain name and the output is the credibility rat-ing. They use the dataset from (Lin et al., 2023). They found out that larger models tend to refuse to rate lesser-known sources due to lack of informa-tion; smaller models are more likely to make errors; and LLMs show high agreement among themselves (Spearman’s = 0.79). However, they moderately align with human experts (0.50). Other works like Mujahid et al. (2025) tried two approaches. Firstly, they tested zero-shot prompting multiple LLMs (GPT-3.5, Mistral-7B and LLama3-70B) to predict domain factuality and political bias by judging 5 recent articles per do-main relying heavily on the LLMs prior knowledge. Then majority vote is applied on these 5 articles to produce the final domain factuality and bias clas-sifications. Secondly, they try prompting gpt-3.5 per domain with 18 questions to collect some do-main data guided by MBFC criteria, then use the generated LLM responses for downstream classi-fication of bias with BERT and for factuality with SVM. Their second approach proved to be SOTA. However, their method doesn’t address credibility classification, lacks temporal dynamics, and their data set of articles was not publicly released. Our approach evaluates domain credibility us-ing the content and publication dates of articles within each domain without heavily relying on LLMs prior knowledge. 
+
+3 Methodology 
+
+DCEF is composed of two stages: the preparation stage and the evaluation stage. In the preparation stage, domain articles and metadata are scraped to ensure that all information is available for the subsequent evaluation stage (see Figure 1). The evaluation stage then processes this information to produce the final domain credibility ratings—low, medium, or high credibility— using a decision tree as it’s known for its inherent interpretability as shown in Figure 2. Each stage contains distinct modules, highlighted in green in both figures. 
+
+3.1 The Preparation Stage The input to the preparation stage consists of multiple articles URLs from a given domain, 
+
+with their publication dates , however, the do-main name is never given. The articles are then processed through a series of modules highlighted in green in Figure 1, and described in detail below. 
+
+Article Extractor (AE): We use Trafilatura (Barbaresi, 2021) to extract the online important and relevant content from a given URL. 
+
+Temporal Weight (TW): Each article’s credi-bility features should be weighted by its publica-tion date. The overall credibility of a domain is then computed as the temporally weighted sum of the credibility scores of its articles. For example, features of articles published in 2026 should carry more weight than those published in 2025. This weight is inversely proportional to the difference between an article’s publication year and that of the most recent article for the same domain. The temporal weight (TW) of an article is calculated using the following equation: 
+
+(T W )i = 1
+
+yr − yi + 1 (1) where T W i is the temporal weight of the article credibility, yr is the year of the most recent arti-cle published in the domain, and yi is the year of publication of the target article. Note that adding 1 in the denominator prevents division by zero and maximizes the weights at 1. We considered using a neural network to learn the required weights or exponential decay with learnable parameters; how-ever, this would introduce additional complexity to DCEF and the weights might learn MBFC spe-cific rating patterns decreasing its generalization capacity. Therefore, we opted to retain the cur-rent formula. Each article is associated with its temporal weight as shown in Figure 1. 
+
+Web page Design scorer (WD): For every arti-cle, a range of features are evaluated including the text-to-HTML ratio, image-to-text ratio, hierarchy of headings, responsive design, average sentence length, font readability, and use of whitespace. 
+
+Domain Ranker (DR): We extracted the num-ber of backlinks and its rank for each domain from openlinkprofiler(an open source profiler) to provide an indication of the domain’s popularity. The ranks are "A+", "A", "B+", and "A-". 
+
+3.2 The Evaluation Stage 
+
+In this stage, the articles text obtained during the preparation stage is passed into four LLM modules (highlighted in green in Figure 2) to generate the features required for domain credibility classifica-tion. These features are then aggregated, normal-ized and fed into a decision tree, which produces the final credibility rating. 
+
+Factuality Evaluation Module (FEM): Fact-checking is the systematic process of verifying the factual accuracy of information, such as reports, public statements, or social media content. We scrape google search for retrieving evidence (infor-mation that will be our reference on judging the ar-ticle veracity), then it is used to verify if the article is true, mixed (the article contains a combination of accurate and inaccurate/unverifiable information) or false based on the alignment with the evidence, and produce justification. The prompts are in the Appendix A.5 in Figures 8 and 10. 
+
+Propaganda Detector (PD): Propaganda detec-tion is the process of identifying information, or communication deliberately designed to influence opinions, beliefs, or actions toward a specific, pre-determined goal, often through manipulation, and selective or distorted information. For propaganda detection, the module produces one of two output classes—neutral or propaganda—along with a tex-tual justification (see Appendix A.5 Figure 11 for the prompt detecting propaganda techniques). 
+
+Deceptive Title Detector (DTD): The DTD as-sesses if the title accurately reflects the article’s content. The prompt shown in Appendix A.5 in Figure 7 is used to evaluate the alignment between an article’s title and its body text. The model is instructed to classify titles as honest or deceptive and to provide a brief justification. 
+
+Bias Detector (BD): Bias is considered an in-dicator of reduced credibility. To detect political bias, Llama-3.3-70B is prompted to classify the text as either neutral or biased, accompanied by a justification. The full prompts are provided in the Appendix A.5 Figure 6. Various LLMs are tested as the backbone of the DCEF modules in Appendix A.3, and Llama3.3-70B showed the best performance. After we get the classification from each module per article for the targeted domain, their temporal weights are grouped by their class to produce the temporal fea-tures. An example of the process done to produce the temporal features from the FEM is shown in Article URL 3 
+
+Article URL 1 
+
+Article URL 2 
+
+Article Extractor (AE) 
+
+Article Text 1
+
+Article Text 2
+
+Article Text 3
+
+> Concatenate
+
+Publication Date 3 (2022) 
+
+Temporal Weight (TW) 
+
+TW3 (0.25) 
+
+TW2 (0.5) 
+
+TW1 (1) 
+
+Publication Date 1 (2025) 
+
+Publication Date 2 (2024) 
+
+[Article Text 1, TW1 
+
+(1)] 
+
+[Article Text 2, TW2 
+
+(0.5)] 
+
+[Article Text 3, TW3 
+
+(0.25)] 
+
+Web page 1 design score (WD1) 
+
+Web page 3 design score (WD3) 
+
+Web page 2 design score (WD2) 
+
+Domain backlink scraper 
+
+Temporal weighting of webpages scores 
+
+URL 
+
+Web page1 
+
+Publication date 
+
+URL 
+
+Web page2 
+
+Publication date 
+
+URL 
+
+Web page3 
+
+Publication date 
+
+Domain 
+
+WD3*TW3+WD2*TW2+WD1*TW1 
+
+domain rank: A 
+
+Web page design scorer 
+
+Domain web pages temporal scores sum Figure 1: Stage 1 (The Preparation Stage): Prior to the evaluation stage, DCEF is inputted with the domain rank, articles URLs and their publication dates. DCEF scrapes the articles text. DECF also produces temporal weights using the publication date for each article and Equation 1. The result is a list of articles content and another list of their respective temporal weights generated from the corresponding article date of publication. Then each article is associated with its temporal weight. Examples of temporal weights based on publication dates are shown in red. Factuality Evaluation Framework (FEF) 
+
+Propaganda Detector (PD) 
+
+Deceptive Title Detector (DTD) 
+
+Bias Detector (BD) 
+
+[Article Text 1, TW1 (1) ]
+
+[Article Text 2, TW2 (0.5) ]
+
+[Article Text 3, TW3 (0.25) ]
+
+factual articles weighted sum:(1+0.5) = 1.5 Article 1 ( factual ) (1) 
+
+Article 2 ( factual ) (0.5) 
+
+Article 3 ( mixed ) (0.25) 
+
+mixed articles weighted sum: 0.25 
+
+misleading articles weighted sum: 0
+
+Article 1 ( honest ) (1) 
+
+Article 2 ( honest ) (0.5) 
+
+Article 3 ( honest ) (0.25) 
+
+Article 1 ( neutral ) (1) 
+
+Article 2 ( neutral ) (0.5) 
+
+Article 3( neutral ) (0.25) 
+
+Article 1 ( neutral ) (1) 
+
+Article 2 ( neutral ) (0.5) 
+
+Article 3 ( biased ) (0.25) 
+
+FEM classes weighted sum 
+
+DTD classes weighted sum 
+
+PD classes weighted sum 
+
+BD classes weighted sum 
+
+honest articles weighted sum:1+0.5+0.25 = 1.75 
+
+deceptive articles weighted sum: 0
+
+neutral articles weighted sum: 1+0.5+0.25 = 1.75 
+
+misleading articles weighted sum: 0
+
+neutral articles weighted sum: 1+0.5 = 
+
+1.5 
+
+biased articles weighted sum: 0.25 
+
+domain rank: A 
+
+WD3*TW3+WD2*TW2+WD1*TW1 
+
+Average by articles number 
+
+average temporal design score 
+
+Decision Tree 
+
+Domain web pages temporal scores sum 
+
+> Divide by sum
+> (1.5+0.25)
+
+factual articles portion: 0.86 
+
+mixed articles portion: 0.14 
+
+misleading articles portion: 0
+
+> Divide by sum
+> (1.75)
+> Divide by sum
+> (1.75)
+> Divide by sum
+> (1.75)
+
+honest articles portion: 1
+
+deceptive articles portion: 0
+
+neutral articles portion: 1
+
+misleading articles portion: 0
+
+neutral articles portion: 0.857 
+
+biased articles portion: 0.142 
+
+High 
+
+Medium 
+
+Low 
+
+Figure 2: Stage 2 (The Evaluation Stage): DCEF evaluates the credibility of a domain by assessing each of its articles and aggregating the article-level evaluations into a final domain-level credibility rating. The numbers in red are examples of temporal weights of each article produced in the preparation stage. The article text is inputted in the four intermediate modules (FEM, DTD, PD and BD) and each article is categorized. The temporal weights of the articles are associated with the articles categories and aggregated using Algorithm 1 per module to produce temporal normalized features that will be inputted to the decision tree (final classifier). Algorithm 1. Same process is performed on the classes of BD, PD and DTD. 
+
+Algorithm 1 Computation of Temporal features from FEM per Domain 
+
+Require: f actual _weights : list containing tem-poral weights of factual articles 
+
+Require: mixed _weights : list containing tempo-ral weights of mixed articles 
+
+Require: misleading _weights : list containing temporal weights of misleading articles  
+
+> 1:
+
+temp _f act ← P f actual _weights  
+
+> 2:
+
+temp _mixed ← P mixed _weights  
+
+> 3:
+
+temp _misleading ← P mislead _weights  
+
+> 4:
+
+normalizer ← temp _f act +temp _mixed +
+
+temp _mislead  
+
+> 5:
+
+temporal _f actual ← temp _f act normalizer  
+
+> 6:
+
+temporal _mixed ← temp _mixed normalizer  
+
+> 7:
+
+temporal _mislead ← temp _mislead normalizer  
+
+> 8:
+
+return 
+
+(temporal _f actual, temporal _mixed, temporal _mislead )
+
+The domain credibility classifier: We selected a 5-levels decision tree with minimum 5 samples per leaf as the final classifier (See Appendix A.1 for more details about the tree selection). It is worth noting that LLMs are used in the clas-sification of propaganda, bias, and factuality of ar-ticles , while decision trees will be used to classify the factuality, bias and credibility of domains .
+
+4 Dataset Creation 
+
+We constructed a balanced dataset to evaluate the credibility of 300 domains (100 low credibility, 100 medium and 100 high credibility domains) from MBFC based on their 25,141 articles. For each domain, we obtained credibility labels, bias cate-gories (left, right, left-centered, right-centered, pro-science, least-biased), and factuality ratings (low, mixed, mostly factual, high, very high). There are 14 diverse topics in our dataset shown in Table 2. We scraped the available English articles of these domains. Of these, the articles of 111 domains orig-inate from five benchmark datasets-Politifact (Garg and Sharma, 2020), MultiFC (Augenstein et al., 2019), PUBHEALTH (Kotonya and Toni, 2020), Credule (Chrysidis et al., 2024), and FakeNewsCor-pus (Pathak and Srihari, 2019)-while the articles of the remaining 189 were scraped from the web. Within the subset of the 189 domains, 60 domains               
+
+> Politics & Current Affairs 14868
+> Arts & Entertainment 1889
+> Health & Wellness 1694
+> Business & Money 1277
+> Social Impact & Voices 811
+> Sports 548
+> Style & Beauty 541
+> Environment 496
+> Technology & Science 491
+> Travel & Home 443
+> Education and Religion 415
+> Relationships & Family 410
+> Good and Weird News 263
+> Food and Drink 251
+> Table 2: Distribution of articles under each topic
+
+(20 high credibility, 20 medium credibility, and 20 low credibility) contain articles that were not seen by the tested LLMs. Among these, 30 domains completely emerged entirely after the release of the tested LLMs, while the remaining 30 domains (despite being well known) consist exclusively of articles published after the models’ release dates. When given only the article texts, Llama 3.3 was unable to correctly infer the identities of the 60 source domains (see Appendix A.4). Furthermore, each domain contains a different number of articles. We didn’t try to change or increase the number of articles per domain in order to examine the impact of varying article counts on credibility assessment. On average, each article contains 567.17 words. The dataset contribution is in the unified label-ing, de-duplication, and the augmentation of new content that has not been likely seen by Llama3.3. 
+
+5 Experiments and Results 
+
+To test the article-level signals produced by DCEF LLM modules, each module performance is evalu-ated against human annotations. The Pearson cor-relation between the majority vote of the three hu-man annotators, and the BD, DTD, PD and FEM is 0.816, 0.96, 0.854 and 0.888 respectively. The experiment details are in Appendix A.10. These significant correlations indicate that DCEF align reasonably well with human judgments. Regarding testing the domain-level signals, we report 5-fold cross-validation results and the stan-dard deviation (Std. Dev.) across the folds to ensure more stability. MBFC and many studies,(Vargas et al., 2023; Sánchez-Cortés et al., 2024; Lin et al., 2023; Mujahid et al., 2025), emphasize factuality and bias as the primary signals of credibility, while giving considerably less attention to other signals, precision recall f1-score macro avg 0.70 0.71 0.71 weighted avg 0.90 0.90 0.90 accuracy 0.90 
+
+> Table 3: 5-fold cross-validation metrics of FEM features without temporal weighting. Std. Dev is 0.019.
+
+such as propaganda and deceptive headlines. There-fore, We provide separate studies for the effect of temporal features on domain factuality and bias detection in Experiments 5.1 and 5.2. However, we evaluate the impact of all the temporal features like propaganda and deceptive titles on overall credi-bility assessment in Experiment 5.3. Although the domain factuality assessment and bias detection experiments each use separate decision trees, our aim isn’t to propose new factuality or bias detec-tion pipelines, but to assess the effectiveness of the temporal features on these two credibility signals. Lastly, we investigate if DCEF is capable of eval-uating new domains likely unseen by llama3.3 in Experiment 5.4. 
+
+5.1 Evaluating the temporal features impact on domain factuality ratings 
+
+This experiment evaluates the impact FEM features inputted to a decision tree in two setups , with and without the application of temporal weighting. As a baseline, we apply the method of (Mujahid et al., 2025) (SVM with TF-IDF) after modifying their prompts to follow the MBFC 5-level factuality la-bels on our dataset. It reported an accuracy of 0.849 and macro F1-score of 0.682. Most of their errors are in the 30 new domains likely because their method relies heavily on LLM’s prior knowledge. 
+
+Setup 1: Without temporal weighting: Per article, FEM outputs three classes—factual, mixed, and misleading. For each domain, we obtain the 
+
+number of articles classified as factual, mixed, and misleading, which serve as features. These features are used as input to a decision tree classifier to assign the domain factuality to one of five levels: very high, high, mostly factual, mixed, or low same as MBFC labels. The results are shown in Table 3. 
+
+Setup 2: With temporal weighting: Instead of the number of factual, or non-factual articles for each domain, we weight these numbers temporally and normalize them to produce FEM temporal nor-malized features as shown in Algorithm 1, then we input them into a decision tree to predict the factuality of the domain and the results are in Table precision recall f1-score macro avg 0.78 0.82 0.80 weighted avg 0.93 0.95 0.94 accuracy 0.95          
+
+> Table 4: 5-fold cross-validation metrics of FEM features with temporal weights. Std. Dev is 0.014.
+> precision recall f1-score macro avg 0.80 0.84 0.81 weighted avg 0.84 0.82 0.83 accuracy 0.82
+> Table 5: 5-fold cross-validation metrics of BD features without temporal weighting. Std. Dev is 0.006.
+
+4. By comparing the results of the two setups, it is observed that temporal features performs better. 
+
+This experiment shows that temporal features of domain articles improves the factuality classi-fication of the domain. Before applying temporal weights, there were 9 misclassifications; after ap-plying it, this number decreased to 4. Error exam-ples of articles / domains misclassifications before and after temporal features are in Appendix A.2.1. 
+
+5.2 Evaluating the temporal BD bias ratings 
+
+Based on the MBFC bias ratings, we evaluated the performance of the BD module, with and with-out temporal weighting. However, for the purpose of credibility assessment, we are not concerned with distinguishing between left-leaning and right-leaning bias; instead, we focus on whether bias is present. To this end, the fine-grained MBFC 
+
+Domain bias classes were aggregated: left-center 
+
+and right-center into less_bias ; left , extreme-left ,
+
+extreme-right and right were grouped into biased ;and least biased and pro-science into neutral .
+
+Setup 1: Without temporal weighting: For each domain, we obtain the number of articles clas-sified as neutral and the number of articles classi-fied as biased. These counts are used as input for a decision tree classifier to predict the domain’s credibility. The results are in Table 5. 
+
+Setup 2: Incorporating factuality: We added the numbers of factual, mixed and misleading ar-ticles to a similar decision tree without temporal weighting. Surprisingly, the performance metrics increased as shown in Table 6. Further analy-sis of the relationship between factuality and bias shows that bias detection can benefit from factuality, as shown in Table 7 for studying the feature importance, where the second important feature in bias detection is the number of mixed precision recall f1-score macro avg 0.88 0.91 0.89 weighted avg 0.91 0.90 0.90 accuracy 0.90 
+
+Table 6: 5-fold cross-validation metrics for BD features with factual features without temporal weighting. Std. Dev is 0.005.       
+
+> Feature Importance
+> temporal_neutral_articles 0.140185
+> temporal_biased_articles 0.493885
+> temporal_factual 0.078757
+> temporal_mixed 0.269210
+> temporal_misleading 0.017964
+
+Table 7: Feature importance table for bias classification 
+
+articles. Factuality plays a role in bias detection on the article level, for example, PolitiFact published Trump’s claim that unemployment rates fell be-low 2%. The article described the claim as "abso-lutely nonsense" . Since Trump’s claim was false, the statement doesn’t constitute bias. However, if the claim was true, using "absolutely nonsense" 
+
+would represent loaded language and bias. 
+
+Setup 3: Incorporating normalized temporal features and factuality: We decided to input the temporal FEM with the temporal BD features in the decision tree. The 5-fold cross-validation met-rics increased as shown in Table 8. This indicates that using temporal features of bias and factuality improves domain bias detection. Examples of the impact of temporal features on reducing misclas-sifications is in Appendix A.2.2. Compared to the BERT-based bias detection method of (Mujahid et al., 2025), which achieved 0.89 accuracy across five runs and struggled mainly with the 30 new do-mains, our approach using temporal features with factuality achieved a higher accuracy of 0.92. 
+
+5.3 Domain credibility evaluations with DCEF 
+
+We examine the impact of both subjective features-such as the design of a domain’s web pages-and ob-jective features-such as the domain’s factuality-on the MBFC domain credibility ratings by analyzing precision recall f1-score macro avg 0.89 0.92 0.90 weighted avg 0.91 0.91 0.91 accuracy 0.92 
+
+Table 8: 5-fold cross-validation metric evaluating the temporal BD and factual features. Std. Dev is 0.005             
+
+> Feature Importance temporal factual articles 0.567908
+> temporal mixed articles 0.005088
+> temporal misleading articles 0.051756
+> temporal neutral articles 0.006967
+> temporal biased articles 0.043129
+> temporal title honest articles 0.008346
+> temporal title deceptive articles 0.012944
+> temporal propagandistic articles 0.005653
+> temporal non-propagandistic articles 0.294327
+> temporal domain layout design score 0.000000 domain rank 0.003881
+
+Table 9: Feature importance after being fitted on a deci-sion tree for domain credibility classification. 
+
+feature importance. All features are provided as input to a decision tree to estimate the contribution of each feature and its importance. Table 9 shows that the most important features are objective. 
+
+The temporal features identified as most impor-tant in Table 9 were evaluated by comparing two setups: using all features versus using only the top five. The 5-fold cross-validation results show iden-tical performance in both cases, with an accuracy and a macro F1-score of 0.884. This indicates that the top five features are sufficient. When we used the non-temporal features, performance decreased. The 5-fold cross-validation accuracy and macro f1-score became 0.834 with standard deviation of 0.007. Due to limited prior work on predicting cred-ibility ratings, we prompt GPT-5.5 (Figure 9) as our baseline to rate the credibility of domains based on 5 articles (like (Mujahid et al., 2025)) or less (3 or 1) depending on the number of available arti-cles in our dataset. Then we apply majority voting. This baseline average accuracy and F1-score across 5 runs is 0.589 with standard deviation of 0.024 which aligns with Yang and Menczer (2025a). Our error analysis in one of the 5 folds revealed two dominant patterns in 11 misclassifications. The first occurs when the underlying LLM produces hallucinations in evaluating factuality, bias, pro-paganda, or deceptive titles of articles in domains with a relatively small number of articles. In such cases, errors in just one recent article can signifi-cantly impact the domain-level classification. For example, consider the domain act.tv, which con-tains only five articles. In this case, a hallucination occurred in the factuality assessment of the article titled “Jon Stewart Says Blame for Trump’s Win Goes Beyond Party Lines”, published in 2025. This article should have been labeled as mixed, but FEM Figure 3: Relationship between the frequency of mis-classifications and the number of articles per domain. 
+
+incorrectly classified it as factual. Since it is the most recent article, it received a temporal weight of 0.71, while the other four articles—published in 2016—each received a weight of 0.071. Due to this imbalance, the misclassification of a tempo-ral highly weighted article significantly influenced the prediction, shifting it from medium to high. The second pattern occurred in domains such as foxnews.com that lacked a sufficient representative sample of articles. According to MBFC, Fox News is rated as low credibility. Upon revisiting the data, we found that our dataset contained only a single article from Fox News, which was neutral, fac-tual, and unbiased. Consequently, the tree classifier predicted the domain to be highly credible. This error does not reflect a weakness in the tree classi-fier; rather, it highlights the importance of having a sufficient number of articles per domain. In both error patterns, the number of input articles is low . Figure 3 illustrates the relationship between the frequency of misclassifications and the number of articles per domain. No misclassifications oc-curred with domains containing 8 articles or more. Based on this observation, we recommend more than 8 most recent articles to decrease the probabil-ity of DCEF misclassifications. Error analysis with examples of articles and domain misclassifications are in Appendix A.2.3. 
+
+5.4 Testing DCEF on new content likely unseen by its underlying LLMs 
+
+In this experiment, we collect all 60 domains (20 low, 20 medium and 20 high credible domains) con-taining articles published after the release of Llama 3.3-70B and assign them to the test set, while all remaining domains are used for training. As a base-line, we prompted GPT-5.5 to classify the credibil-ity of these sixty domains based on its knowledge,          
+
+> Figure 4: Confusion matrix on new content for with classes; low (0), medium (1), and high credibility (2)
+> precision recall f1-score macro avg 0.92 0.92 0.92 weighted avg 0.92 0.92 0.92 accuracy 0.92
+> Table 10: classification report for temporal weighting on the content likely unseen by Llama3.3
+
+it provided an accuracy and F1-score of 0.557 with standard deviation of 0.011. For DCEF, we only used the top five temporal features in Table 9. No-tably, DCEF achieved an accuracy and F1-score of 0.92 on content that had never been seen by the underlying LLM. The strong performance in Table 10 and in the confusion matrix in Figure 4, demon-strate that automated credibility assessment can be effectively performed on newly emerging domains. The resulting decision tree is presented in Figure 12. The same error patterns observed in Experiment 5.3 are also present here, indicating that the perfor-mance remains consistent regardless of whether the underlying LLM in DCEF has previously encoun-tered the article. This suggests that the framework is not significantly influenced by prior exposure to the evaluated content. The 5 misclassifications in Figure 4 are analyzed in Appendix A.2.4. 
+
+6 Conclusion 
+
+We introduce DCEF, a temporal framework for do-main credibility evaluation. Our findings show that domain credibility expert ratings rely on objective temporal credibility indicators, and that bias de-tection improves when misinformation detection is inputted. We also provide a dataset of 25,141 articles enabling further study of the credibility of domains based on its articles. Limitations 
+
+1. In this study, we used all available English articles from established datasets. Because many article URLs were inaccessible, the number of retrieved articles varied substan-tially across domains, with some domains rep-resented by only a few articles and others by hundreds. Our primary goal was to exam-ine whether temporal article-level signals can support credibility assessment for emerging domains under realistic data constraints. That said, we acknowledge that representative sam-pling is important for capturing the full dis-tribution of a domain’s content. Future work will explore automated sampling methods, po-tentially guided by topic modeling, as well as uncertainty-aware aggregation to estimate whether the numer of available articles are sufficient for reliable domain-level inference. Addressing representative sampling remains an important direction, but it is beyond the scope of the present study. 2. We use MBFC credibility ratings as a practical source-level proxy because they provide broad coverage, a transparent public methodology, and labels that are widely used in computa-tional studies of media credibility and bias. Prior work has found substantial correspon-dence between MBFC and other news-quality rating systems, which suggests that the rat-ings capture a meaningful and reusable signal for comparative analysis. For instance, Lin et al. (2023), discovered that there is a sig-nificant pearson correlation (0.81) between MBFC and Newsguard domain ratings. How-ever, MBFC ratings reflect a specific editorial framework and may not fully capture topic-specific variation, or all forms of credibility relevant to every study. That is why we in-cluded propaganda and title deception as addi-tional signals although they were less empha-sized by MBFC. Furthermore, we don’t rely solely on MBFC ratings, as we do human val-idation experiments on credibility, factuality and bias in Appendix A.10. In addition, we avoided putting any learnable parameters in Equation 1 that might be influenced by MBFC specific editorial framework. 3. The use of Google search as evidence retrieval makes the factuality module hard to reproduce. However, the up-to-date evidence retrieval in realistic fact-checking settings, is inherently external and must be retrieved dynamically. We preferred this open-source alternative over commercial options such as Serper. 4. This paper didn’t put into consideration multi-lingual domain credibility evaluation and fo-cused on English articles only. In future work, multi-lingual evaluations will be performed. 
+
+References          
+
+> Isabelle Augenstein, Christina Lioma, Dongsheng Wang, Lucas Chaves Lima, Casper Hansen, Chris-tian Hansen, and Jakob Grue Simonsen. 2019. Mul-tifc: A real-world multi-domain dataset for evidence-based fact checking of claims. In Proceedings of the 2019 Conference on Empirical Methods in Natu-ral Language Processing and the 9th International Joint Conference on Natural Language Processing (EMNLP-IJCNLP) , pages 4685–4697. Ramy Baly, Giovanni Da San Martino, James Glass, and Preslav Nakov. 2020. We can detect your bias: Predicting the political ideology of news articles. In
+> Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP) ,EMNLP ’20, pages 4982–4991. Adrien Barbaresi. 2021. Trafilatura: A web scraping library and command-line tool for text discovery and extraction. In Proceedings of the 59th Annual Meet-ing of the Association for Computational Linguistics and the 11th International Joint Conference on Nat-ural Language Processing: System Demonstrations ,pages 122–131, Online. Association for Computa-tional Linguistics. Alberto Barrón-Cedeno, Giovanni Da San Martino, Is-raa Jaradat, and Preslav Nakov. 2019. Proppy: A system to unmask propaganda in online news. In
+> Proceedings of the AAAI conference on artificial in-telligence , volume 33, pages 9847–9848. Christopher R Brydges. 2019. Effect size guidelines, sample size calculations, and statistical power in gerontology. Innovation in Aging , 3(4):igz036. Zacharias Chrysidis, Stefanos-Iordanis Papadopoulos, Symeon Papadopoulos, and Panagiotis Petrantonakis. 2024. Credible, unreliable or leaked?: Evidence ver-ification for enhanced automated fact-checking. In
+> Proceedings of the 3rd ACM International Workshop on Multimedia AI against Disinformation , pages 73– 81. Giovanni Da San Martino, Alberto Barrón-Cedeño, Henning Wachsmuth, Rostislav Petrov, and Preslav Nakov. 2020. Semeval-2020 task 11: Detection of propaganda techniques in news articles. In Proceed-ings of the Fourteenth Workshop on Semantic Evalu-ation , pages 1377–1414.
+
+Dimitar Dimitrov, Bishr Bin Ali, Shaden Shaar, Firoj Alam, Fabrizio Silvestri, Hamed Firooz, Preslav Nakov, and Giovanni Da San Martino. 2021. Detect-ing propaganda techniques in memes. In Proceed-ings of the 59th Annual Meeting of the Association for Computational Linguistics and the 11th International Joint Conference on Natural Language Processing (Volume 1: Long Papers) , pages 6603–6617. Islam Eldifrawi, Shengrui Wang, and Amine Trabelsi. 2024. Automated justification production for claim veracity in fact checking: A survey on architectures and approaches. In Proceedings of the 62nd Annual Meeting of the Association for Computational Lin-guistics (Volume 1: Long Papers) , pages 6679–6692, Bangkok, Thailand. Association for Computational Linguistics. Jibril Frej, Marta Knezevic, and Tanja Kaser. 2024. Graph reasoning for explainable cold start recom-mendation. arXiv preprint arXiv:2406.07420 .Sonal Garg and Dilip Kumar Sharma. 2020. New poli-tifact: A dataset for counterfeit news. In 2020 9th International Conference System Modeling and Ad-vancement in Research Trends (SMART) , pages 17– 22. IEEE. Zhijiang Guo, Michael Schlichtkrull, and Andreas Vla-chos. 2022. A survey on automated fact-checking. 
+
+Transactions of the Association for Computational Linguistics , 10:178–206. Neema Kotonya and Francesca Toni. 2020. Explainable automated fact-checking for public health claims. In 
+
+Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP) ,pages 7740–7754. João A Leite, Olesya Razuvayevskaya, Kalina Bontcheva, and Carolina Scarton. 2025. Weakly su-pervised veracity classification with llm-predicted credibility signals. EPJ Data Science , 14(1):16. Hause Lin, Jana Lasser, Stephan Lewandowsky, Rocky Cole, Andrew Gully, David G Rand, and Gordon Pen-nycook. 2023. High level of correspondence across different news domain quality rating sets. PNAS nexus , 2(9):pgad286. Zain Muhammad Mujahid, Dilshod Azizov, Maha Tu-fail Agro, and Preslav Nakov. 2025. Profiling news media for factuality and bias using LLMs and the fact-checking methodology of human experts. In 
+
+Findings of the Association for Computational Lin-guistics: ACL 2025 , pages 798–819, Vienna, Austria. Association for Computational Linguistics. Archita Pathak and Rohini K Srihari. 2019. Break-ing! presenting fake news corpus for automated fact checking. In Proceedings of the 57th annual meet-ing of the association for computational linguistics: student research workshop , pages 357–362. Dairazalia Sánchez-Cortés, Sergio Burdisso, Esaú Villatoro-Tello, and Petr Motlicek. 2024. Mapping the media landscape: predicting factual reporting and political bias through web interactions. In Interna-tional Conference of the Cross-Language Evalua-tion Forum for European Languages , pages 127–138. Springer. Soumyadeep Sar and Dwaipayan Roy. 2024. Navigating nuance: In quest for political truth. In Proceedings of the 24th ACM/IEEE Joint Conference on Digital Libraries , pages 1–5. Soumyadeep Sar and Dwaipayan Roy. 2025. Navigat-ing Nuance: In Quest for Political Truth , chapter 3. Association for Computing Machinery, New York, NY, USA. Ivan Srba, Olesya Razuvayevskaya, João A Leite, Robert Moro, Ipek Baris Schlicht, Sara Tonelli, Fran-cisco Moreno García, Santiago Barrio Lottmann, De-nis Teyssou, Valentin Porcellini, and 1 others. 2024. A survey on automatic credibility assessment of tex-tual credibility signals in the era of large language models. arXiv e-prints , pages arXiv–2410. Francielle Vargas, Kokil Jaidka, Thiago Pardo, and Fab-rício Benevenuto. 2023. Predicting sentence-level factuality of news and bias of media outlets. In Pro-ceedings of the 14th International Conference on Recent Advances in Natural Language Processing ,pages 1197–1206. Martin Wessel, Tomas Horych, Terry Ruas, Akiko Aizawa, Bela Gipp, and Timo Spinde. 2023. Intro-ducing mbib-the first media bias identification bench-mark task and dataset collection. In Proceedings of the 46th International ACM SIGIR Conference on Research and Development in Information Retrieval ,pages 2765–2774. Kai-Cheng Yang and Filippo Menczer. 2025a. Accuracy and political bias of news source credibility ratings by large language models. In Proceedings of the 17th ACM Web Science Conference 2025 , Websci ’25, page 127–137, New York, NY, USA. Association for Computing Machinery. Kai-Cheng Yang and Filippo Menczer. 2025b. Accu-racy and political bias of news source credibility rat-ings by large language models. In Proceedings of the 17th ACM Web Science Conference 2025 , pages 127–137. 
+
+A Appendix 
+
+All experiments were conducted on a Quadro RTX 8000 GPU, with the temperature of all LLMs set to zero. 
+
+A.1 Decision Tree as a classifier Design choices and concerns about overfitting 
+
+We opted for an interpretable classifier, as our pri-mary objective is to understand and explain the classifier’s final decisions. To this end, we con-sidered three candidate approaches: decision trees, linear models, and logistic regression classifiers. Decision trees generally surpass linear or logis-tic regression when the underlying data has non-linear relationships, complex feature interactions, or requires minimal data preprocessing. While regression models assume a straight-line (or lin-ear log-odds) relationship, decision trees split data into smaller, manageable subspaces to identify non-monotonic patterns 1.Key scenarios where decision trees are superior: 2
+
+• Non-Linear Relationships. When the relation-ship between predictor variables and the out-come can’t be described by a straight line, decision trees can effectively capture these patterns, whereas linear models will fail. • Complex Feature Interactions: Decision trees naturally detect interaction effects (e.g., if fea-ture X and feature Y work together to produce an outcome), whereas logistic regression re-quires explicit, manual creation of interaction terms. • Irregular Data Distributions & Outliers: Deci-sion trees are robust to outliers, as splits are based on sample proportions within leaf nodes rather than absolute numerical values that affect line fitting in regression.Mixed Data Types and Preprocessing: Trees handle cat-egorical and numerical features effortlessly without needing normalization, standardiza-tion, or dummy encoding (one-hot encoding). • High-Dimensional Sparse Data: In datasets where many features are zero or missing, deci-sion trees can work effectively by partitioning data based on feature presence. A perfectly balanced binary tree of depth 5 has 32 leaf nodes. With 300 samples, each leaf would have an average of about 9.3 samples. This is enough to provide statistical significance for each leaf’s prediction, especially if a Decision Tree Clas-sifier with a min_samples_leaf setting of 5 or more is used to ensure robust decisions and decrease the probability of overfitting in trees 3.
+
+> 1https://gustavwillig.medium.com/ decision-tree-vs-logistic-regression-1a40c58307d0
+> 2https://www.researchgate.net/post/Should_I_ use_a_decision_tree_or_logistic_regression_for_ classification
+> 3https://medium.com/data-science/ how-to-tune-a-decision-tree-f03721801680
+
+A.2 Error Analysis 
+
+In this section we do deeper error analysis on the misclassified domains regarding their credibility evaluation. 
+
+A.2.1 Error analysis before and after using temporal features with FEM 
+
+Before applying temporal weighting, there were 9 misclassifications; after incorporating it, this num-ber decreased to 4. The analysis of the corrected cases shows that temporal weighting aligns the classifications more with MBFC ratings specially with domains that have articles with different pub-lication years. For example, consider the domain cbssports.com. In our sample, there are 16 fac-tual articles, 1 mixed article with title (What to watch: Baby Los Angeles Lakers play host to surg-ing Golden State Warriors), and 1 misleading arti-cle with title (The Ravens have an interesting idea to change the NFL’s kickoff rule). This corresponds to approximately 0.88 (16/18) factual content, and about 0.055 (1/18) each for mixed and misleading content. Based on these non-temporal features, the domain was classified as ’mostly factual’. After applying temporal weights, the proportions shifted: the mixed and misleading articles decreased to 0.05 each, based on Equation 1 and Algorithm 1 as they were published in 2016, while the proportion of factual articles increased to 0.9, since they were published between 2017 to 2020. Thus, the classi-fication changed to ’high’ similar to MBFC rating. The three other misclassifications (cnet, cnn, and thetruereporter) show the same pattern. 
+
+A.2.2 Examples of corrected errors after using temporal features with BD 
+
+One of the domains misclassified before apply-ing temporal weighting is medium.com, which in-cludes 1 neutral article and 3 biased ones. This results in a biased proportion of 0.75 (3/4) and a neutral proportion of approximately 0.25, leading to the domain being classified as biased. However, when temporal weighting is introduced, the clas-sification shifts. The neutral article—titled “Steve Scalise Says Ady Barkan asked Joe Biden, ‘Do we agree that we can redirect some of the fund-ing for police?’”—was published in 2020 and thus receives a higher temporal weight (0.4835). In con-trast, the three biased articles were published in 2016, resulting in a combined weight of 0.5616. This adjustment shifts the classification toward ’slightly_biased’. Figure 5: The confusion matrix on DECF predicted classes; low credibility (0), medium credibility (1), and high credibility (2) 
+
+A.2.3 Errors in credibility assessment of the domains using DCEF 
+
+As discussed in Experiment 5.3, two major patterns emerge among the 11 misclassifications (out of 91 test domains) in the credibility evaluation of web domains. The first pattern—hallucinations in the assessment of highly temporally weighted article features such as factuality, bias, propaganda, or title quality—was observed for domains including medium.com and thepostemail.com. Notably, these errors result in only minor shifts in the predicted credibility levels, such as from low to medium or from medium to high, rather than more significant misclassifications (e.g., from low to high or vice versa). The second pattern—errors arising from an in-sufficiently representative sample of articles from a given domain—is observed in the misclassifi-cations of twitchy.com, foxnews.com, and face-book.com. In this case, two out of the three do-mains exhibit substantial shifts in their credibility assessments, being predicted as highly credible de-spite actually having low credibility. This outcome is expected, as each domain is represented by only a single article, causing the evaluation to depend heavily on the features of that specific article rather than reflecting the domain’s overall characteristics. The remaining domains (guardianlv.com, unitynewsnetwork.co.uk, tamparepublic.com, upgazette.com, theregionnews.com, and act.tv) shows both patterns. Figure 5 shows the confusion matrix for the 11 misclassifications. 
+
+A.2.4 Errors in credibility assessment of the domains with new content 
+
+Regarding the 60 domains containing newly pub-lished articles that were not seen by Llama3.3-70B, a total of five misclassifications were observed: metro.co.uk, sonsof1776.com, upgazette.com, the-postemail.com, and wcalabamanews.com. As illus-trated in Figure 4, these misclassifications involve only moderate shifts in credibility (e.g., from low to medium or vice versa), rather than extreme errors. Among these cases, the second error pat-tern—stemming from insufficiently representative article samples—is observed for metro.co.uk and thepostemail.com. The remaining misclassifica-tions follow the first pattern, where errors arise due to hallucinations in the assessment of temporally high weighted article features. The performance metrics in this experiment are higher than those in Experiment 5.3 because the latter reports averages across five folds with vary-ing performance, while this experiment uses a fixed data split. 
+
+A.3 LLM Selection Experiments 
+
+The goal of the following experiments is to evalu-ate multiple LLMs of varying sizes from different providers as potential underlying models for DCEF. LLMs were selected over other supervised methods and PLMs due to their superior ability to general-ize across diverse topics and datasets (Srba et al., 2024). In addition, unlike PLMs, LLMs can pro-vide post-hoc justifications for their decisions. 
+
+A.3.1 LLM selection for the Propaganda Detection Module (PD) 
+
+Three different LLMs were evaluated on three datasets for the task of propaganda detection, with the goal of selecting the most effective model for the Propaganda Detector (PD) module. They are also compared against the SOTA DistilRoBERTa fine-tuned on Proppy (Barrón-Cedeno et al., 2019) in propaganda detection. The datasets include Proppy, PTC (Da San Martino et al., 2020), and the Memes Propaganda Detection dataset intro-duced by Dimitrov et al. (2021). The three LLMs tested are: Llama-3.3-70B (Meta), Gemma3-27B (Google), and Phi-4-14B (Microsoft). The mod-els except for DistilRoBERTa were CoT zero-shot prompted. The full prompt used for LLM-based models is provided in the Appendix A.5 Figure 11. As shown in Table 11, DistilRoBERTa achieves the highest F1-score on the Proppy dataset, which distil-roberta Llama-3.3-70B Gemm3-27B Phi-4-14B Proppy 0.92 0.82 0.81 0.72 PTC 0.71 0.72 0.70 0.61 Memes 0.62 0.84 0.82 0.59 
+
+Table 11: Showing micro F1-scores for classification of propaganda of four different models against three different datasets.      
+
+> Llama-3.3-70B Gemm3-27B Phi-4-14B Qwen-32B Deepseek-r1 -70B Acc 0.64 0.58 0.51 0.46 0.60
+
+Table 12: Showing accuracies for classification of bias of five different models. 
+
+is expected given that it was trained on this dataset. However, its F1-score drops significantly on the Memes dataset and is only moderate on PTC. This suggests that while DistilRoBERTa represents the state of the art on Proppy, but its superior perfor-mance does not generalize well across datasets. In contrast, Llama-3.3-70B achieves the best F1-scores on both PTC and the Memes dataset, while ranking second on Proppy. This demonstrates its strong generalization capability across differ-ent datasets without fine-tuning. Interestingly, Gemma3-27B performs comparably to Llama-3.3-70B in terms of F1-scores across datasets, despite having significantly fewer parameters, highlighting its efficiency relative to larger models in propa-ganda detection. Llama-3.3-70B has been chosen for the PD module based on Table 11 results as it has beaten the SOTA DistilRoBERTa (Barrón-Cedeno et al., 2019) in generalization and consis-tency. 
+
+A.3.2 LLM selection for the Bias Detector (BD). 
+
+Baly et al. (2020) have created a balanced dataset with two classes (biased, neutral) for the purpose of political bias detection in articles. They tried fine-tuning BERT with triplet loss and adversarial adaptation for de-biasing the effect of the domain on the article-level bias detection. They achieved an accuracy of 51.41% on their dataset. For the purpose of comparison, we use accuracy as the performance metric, and five LLMs were zero-shot prompted for bias detection and the prompt is in Figure 6. As shown in Table 12, Llama-3.3-70B has the highest accuracy surpassing all the models in bias detection and that is why it is chosed as the underlying LLM for BD. This is consistent with the findings of Sar and Llama-3.3-70B Gemm3-27B Phi-4-14B Qwen-32B Deepseek-r1 -70B F1-score 0.91 0.88 0.81 0.77 0.89 
+
+Table 13: Showing micro F1-score for classification of article veracity of five different models. Llama-3.3-70B showed the highest F1-score. 
+
+Roy (2024). They proved that using CoT and in-context learning made Llama3-70B achieve com-parable results with the SOTA ConvBert on the MMIB benchmark (Wessel et al., 2023). Llama-3.3-70B has been chosen after beating the SOTA model by Baly et al. (2020). 
+
+A.3.3 LLM selection for the Factuality Evaluation Module (FEM) 
+
+To evaluate the capability of the factuality evalua-tion module, we randomly sampled 508 records from the PolitiFact dataset (Garg and Sharma, 2020). This dataset classifies claims into six la-bels. For the purpose of our study, the original six labels in the dataset were consolidated into three categories. Specifically, the labels mostly-false, false, and pants-fire were grouped into mislead-ing; the labels true and mostly-true were grouped into factual; and the label half-true was renamed as mixed. The politifact sample contains 292 mis-leading claims, 101 factual and 92 mixed. We tried 5 different LLMs as shown in Table 13. The F1-score achieved by the Llama (FEM) is 91%. This performance encouraged us to use the Llama FEM in our following experiments. 
+
+A.4 Making sure that the underlying LLM (Llama3.3) used in DCEF can not guess the source web domain from the article text 
+
+From Section A.3, the top-performing model is Llama3.3-70B; therefore, all subsequent experi-ments focus on this LLM, which was released in December 2024. In this experiment, we assess whether Llama3.3-70B can correctly identify the domain of 60 domains containing content pub-lished after December 2024. This ensures that DCEF evaluates only genuinely new content that was not seen during the model’s training. This experiment is designed as a baseline for determining whether DCEF can reliably assess do-mains that contain previously unseen content. Setup: We randomly selected one article from each of the 60 domains, comprising 30 newly emerging domains (introduced after the release of Llama3.3) and 30 established domains, where the selected articles were published after the model’s release date. We then prompted Llama3.3-70B with the following instruction: “You are given the following article from an unknown web domain. Based on your knowledge, guess which domain this article belongs to ( the source web domain of the article). Restrict your output to the domain name only without any explanation.” We repeated this experiment for three times and each time a random article is chosen per domain. Results: LLama3.3 was unable to guess the cor-rect domains in the three runs as half of these domains (30 domains) were likely unseen by Llama3.3 and the other half’s content is totally new for the LLM. It is observed that, when presented with un-seen content, Llama3.3-70B tends to infer domains whose names are semantically similar to the arti-cle’s content. For example, given the article: “Eu-ropean Union leaders meeting at the 2026 summit agreed to deepen defense cooperation in response to ongoing security concerns along the bloc’s east-ern borders and shifting global geopolitical con-ditions.” the model predicted the domain “euroac-tiv.com,” whereas the true source was “truththe-ory.com.” Similarly, for the article: “Salmon Pasta Recipe. Combine salmon with creamy cheese and let it melt on your palate—add pasta and a beach and it’ll taste as good as a holiday.” the model predicted “vincenzosplate.com,” while the actual domain was “diply.com.” These examples illustrate that for new previously unseen content the model relies on topical cues and lexical associations rather than prior exposure to the specific source, further supporting the assump-tion that the content is indeed unseen. 
+
+A.5 Modules Prompts 
+
+All models were quantized (Q4_K_M) to address GPU RAM limitations. Models management and prompting were conducted using OLlama 4. For every module that relies on LLMs as its back-bone—such as FEM, DTD, PD, and BD—a dedi-cated prompt is defined. In this section, we present the prompts used across these modules. Political bias detection refers to the task of identifying whether a piece of content—such as 
+
+> 4
+
+https://oLlama.com/  
+
+> You are a neutral and rigorous political discourse analyst. Your task is to read a given article and determine whether its overall tone or framing leans left -wing, center, or right-wing. I want you to analyze a text to detect political bias using a step-by-step reasoning process. Follow these steps: 1. Identify key language or framing cues—such as loaded terms, ideological keywords, framing of issues, quoted sources, and detected omissions. 2. For each cue, note whether it is typically associated with left -leaning, center, or right-leaning discourse (or neutral). 3. Summarize how these cues combine: do they overwhelmingly lean in one direction, remain balanced, or conflict? 4. Assess the strength of evidence: is the framing overt, subtle, or ambiguous? 5. Provide your final classification: “Left”, “Center”, or “Right”, and a brief rationale grounded in steps 1–4, as a short paragraph. 6. Your output is a json object containing only two fields which are the label and the explanation. Here is an example for your output: ’Label’:’biased or neutral’, ’Explanation’: ’your explanation’ 7. Do not add the instructions or anything from the prompt. Your output is restricted to the json object containing the label and the explanation only. Now, apply this process to the following text: article: {article}
+
+Figure 6: Prompt used for political bias detection. 
+
+news articles, social media posts, or political speeches—shows a partisan leaning toward a par-ticular ideology, party, or perspective. It typically involves analyzing linguistic cues, framing, and patterns in how issues are presented. Below is the prompt used for political bias detection in the BD module: Credible articles typically have titles that align with their content. When a title is deceptive or contradictory to the article’s body, it often signals low credibility. The following prompt is used for deceptive article detection: Fact-checking generally involves two main stages. First, trustworthy information (evidence) relevant to a claim or article is retrieved. Then, the claim or article is evaluated based on its alignment with the retrieved evidence. The following prompt is used for evidence retrieval, while the subsequent one is for alignment checking. For propaganda detection, the prompt incor-porates 18 propaganda techniques as defined in (Da San Martino et al., 2020): 
+
+A.6 The Credibility Classifier 
+
+In this section, we present the 5-level decision tree classifier that classified the 60 domains (domains that contain unseen content by Llama3.3) credibil-ity in Figure 12. You will be given the title of an article and the full text of the article. Your task is to determine whether the title is deceptive clickbait or not clickbait, based on whether it misrepresents or exaggerates the actual content of the article. Instructions: 1. Analyze whether the title accurately reflects the article content. 2. Consider if the title is misleading, sensationalized, or uses curiosity gaps (e.g., "You won’t believe what happened next"). 3. A deceptive title often over-promises or omits key context to attract clicks, without delivering in the article. 4. An honest title should honestly summarize or reflect the content. 5. Your output should be in the following json format: {"Label": "deceptive or honest", "Justification": "Your explanation here"} Here is an example: Title: "Scientists Have Finally Found a Cure for Aging!" Article: [Full article text about a promising but early-stage anti-aging drug trial in mice] the output: {"Label": "Deceptive", "Justification": "The title implies a definitive cure for aging has been found, which is misleading. The article discusses early research in animals, not a proven cure."} Now here is the input you should evaluate: Title: {title} article: {article} 
+
+Figure 7: Prompt used for deceptive titles detection. 
+
+Provide me with information about the following article: {article} 
+
+Figure 8: Prompt used for evidence retrieval from Google search bar. 
+
+You are an expert media credibility analyst. Your task is to evaluate the credibility of {domain_name} based on the content of a provided articles. Provide me with a corresponding list of credibility ratings for: {article_list} 
+
+Figure 9: Prompt used by GPT-5.5 to evaluate domain credibility. 
+
+You are a senior fact-checker. You are provided with an article and with reference trustworthy information called the evidence. Check the alignment between the evidence "the reference" and the article. -If the article is completely aligned with the evidence, then the article is factual. -If the article is partially aligned with the evidence, the the article is mixed. -If the article is not in alignment with the evidence, then the article is misleading. Your output should be a label presenting your judgment on the article with justification. Your output should follow the following json form: {’Label’:’factual, mixed or misleading’, ’Explanation’: ’your explanation’} Article: {article} Evidence: {evidence} 
+
+Figure 10: Prompt used for fact-checking the article. 
+
+You are a senior media-literacy analyst. Your job is to determine whether a given article uses propaganda techniques. Think carefully and systematically. Do your detailed reasoning silently; only output the requested structured fields. follow the following steps and think silently: 1. Comprehend the article: main claims, targets, and calls-to-action. 2. Separate facts vs. opinions; check whether claims are supported. 3. Assess tone (neutral vs. emotional/manipulative). 4.Scan for propaganda techniques (see taxonomy below). 5.Evaluate intent (inform vs. persuade vs. manipulate) and likely impact. 6.Form a calibrated judgment. Propaganda Technique Taxonomy (detect any that apply): -For each technique, match with exact text spans and a brief explanation. -Loaded Language – emotionally charged wording to sway feelings rather than reason. -Name-Calling / Labeling – attaching pejorative or glamorous labels to peo-ple/groups/ideas. -Repetition – repeating key phrases/slogans to imprint a message. -Exaggeration / Minimization – overstating positives/negatives or downplaying opposing facts. -Doubt – seeding uncertainty about opponents, institutions, or evidence without solid grounds. -Appeal to Fear / Prejudice – arousing fear or bias to push a viewpoint or action. -Flag-Waving – linking a stance to patriotism, national duty, or group loyalty. -Causal Oversimplification – claiming a single/simple cause or cure for complex issues. -Slogans – short, memorable catchphrases used as proof or to replace argument. -Appeal to Authority – citing authority/expert/celebrity as proof, without ade-quate evidence or outside their expertise. -Black-and-White Fallacy – forcing a false “either/or” choice; ignoring nu-ance/alternatives. -Thought-Terminating Clichés – stock phrases that shut down inquiry (e.g., “It is what it is”). -Whataboutism – deflecting criticism by pointing to other wrongs instead of addressing the claim. -Reductio ad Hitlerum – smearing by comparing to Nazis/Hitler to discredit without argument. -Red Herring – introducing distractions/irrelevancies to derail or avoid the issue. -Bandwagon – asserting “everyone agrees/is doing this” to pressure conformity. -Obfuscation / Intentional Vagueness / Confusion – unclear terms, passive voice, or muddled info that hides meaning or responsibility. -Straw Man – distorting an opposing view to attack the weaker version. 7. Provide your final classification: “propaganda”, or “neutral”, and a brief rationale grounded in steps 1–6, as a short paragraph. 8. Your output is a json object containing only three fields which are the label, and the explanation. Here is an example for your output: {’Label’:’propaganda, or neutral’, ’Explanation’: ’your explanation’} 9. Do not add the instructions or anything from the prompt. Your output is restricted to the json object containing the label and the explanation only. Now, apply this process to the following text: the article: {article} 
+
+Figure 11: Prompt used for propaganda detection. Figure 12: The final classifier for domain credibility classification when all the new 60 domains were placed in the test set. A.7 Illustrative Examples of LLMs Credibility Ratings for new Emerging Domains 
+
+In this section, we present illustrative examples demonstrating how LLMs assess the credibility of newly emerged domains that they have not encoun-tered before and for which they lack prior knowl-edge. 
+
+A.7.1 LLAMA-3.3 rating examples 
+
+1. Regrading the low credibility domain good-daytemple.com as per MBFC, here is the out-put of LLAMA: 
+
+LLAMA Label: Low 
+
+Justification of LLAMA: I rate the credi-bility of gooddaytemple.com as low because I couldn’t find any information about this website being a reputable or well-established source. There is no readily available data on its track record, credentials, or expertise in any particular field. Without a clear un-derstanding of the website’s purpose, author-ship, or peer review process, it’s challenging to assess its credibility. Additionally, the do-main name "gooddaytemple" seems vague and doesn’t provide any immediate indication of the website’s focus or authority. As a result, I would approach information from this website with skepticism and verify any claims through more trustworthy sources. 
+
+Our Analysis: LLAMA rated this domain credibility as low based on the fact that it doesn’t have enough information about it. This is not a reliable result despite the fact that the label is correct. 2. Regrading the low credibility domain migra-tioncenter.co.uk as per MBFC, here is the out-put of LLAMA: 
+
+LLAMA Label : Medium 
+
+Justification of LLAMA: I rate the credibility of migrationcenter.co.uk as medium because it appears to be a website related to immi-gration and visa services, which is a niche area of expertise. While I couldn’t find any prominent red flags, I also couldn’t verify any notable credentials, certifications, or endorse-ments from reputable organizations. The web-site’s domain name suggests a focus on UK immigration, which could indicate some level of specialization. 
+
+Our Analysis: LLAMA rated this domain credibility based on an assumption (it appears to be a website related to immigration and visa services) that is not correct leading to an error in its label. 3. Regrading the high credibility domain wit-neygazette.com as per MBFC, here is the out-put of LLAMA: 
+
+LLAMA Label: Medium 
+
+Justification of LLAMA: I rate the credibil-ity of witneygazette.com as medium because it appears to be a local news website serving the Witney area in Oxfordshire, UK. The web-site’s domain name suggests a focus on local news, sports, and events, which is a relatively narrow scope. 
+
+Our Analysis: LLAMA rated this domain credibility based on an assumption (that it is a local news website) that is not correct leading to an error in its label. 4. Regrading the high credibility domain blue-grassinstitute as per MBFC, here is the output: 
+
+LLAMA Label: Low 
+
+Justification of LLAMA: I rate the credibil-ity of bluegrassinstitute.org as low because it appears to be a think tank with a clear ideologi-cal bias, which can compromise its objectivity and credibility. 
+
+Our Analysis: LLAMA is hallucinating. 
+
+A.7.2 Gemma3-27B Credibility Rating Examples 
+
+1. Regrading the low credibility domain good-daytemple.com as per MBFC, here is the out-put of Gemma: 
+
+Gemma Label: Medium 
+
+Justification: What the Site Is & Its Purpose: gooddaytemple.com is the official website for Good Day Temple, a non-profit organization based in Temple City, California. They fo-cus on providing resources and support (food, clothing, assistance programs) to low-income individuals and families in the San Gabriel Valley. This is a known, established char-ity. Professionalism & Transparency: The website has a fairly professional design, clear navigation, and contains a good amount of information about the organization’s mission, programs, and impact. They publicly list their address, contact information, and board mem-bers. Financial information (annual reports) is available on the site, which supports trans-parency. External Validation (Positive): Good Day Temple is listed on GuideStar, a rep-utable database for non-profit organizations. They also have a reasonable rating (currently 4 stars) on Charity Navigator. These external validations increase credibility. Our Analy-sis: Gemma is hallucinating and providing false information in the justification. 2. Regrading the low credibility domain migra-tioncenter.co.uk as per MBFC, here is the out-put of Gemma: 
+
+Gemma Label: Medium 
+
+Justification: What the Site Is & Its Pur-pose: migrationcenter.co.uk presents itself as a provider of information and support services related to UK immigration and visa applica-tions. They offer guides, checklists, and seem-ingly some consultancy/application assistance services. Professionalism: The website has a reasonably professional appearance, with clear navigation and a decent level of detail in some of the information provided. However, the design isn’t particularly modern and feels somewhat generic. Lack of Clear Credentials & Regulation: This is the biggest factor hold-ing the credibility back. While they state they offer "expert advice," the site lacks clear, read-ily visible information about the qualifications and regulatory status of their advisors. Immi-gration advice in the UK is heavily regulated; advisors must be registered with the Office of the Immigration Services Commissioner (OISC). 
+
+Our Analysis: Gemma is hallucinating and providing false information in the justifica-tion. 3. Regrading the low credibility domain quan-tisophy as per MBFC, here is the output of Gemma: 
+
+Gemma Label: High 
+
+Justification: What the Site Is & Its Purpose: quantisophy.com is the website of Dr. Laurent Balmès, a quantitative analyst (quant) special-izing in volatility trading and risk manage-ment. The site offers educational content (ar-ticles, videos) primarily focused on financial markets, options trading, and statistical anal-ysis. It also offers a premium subscription service with more in-depth content. Exper-tise & Credentials: Dr. Balmès has a strong academic background (Ph.D. in theoretical physics) and extensive experience working as a quantitative analyst in the financial in-dustry (specifically, volatility trading at Soci-ete Generale). This background lends signifi-cant weight to his analysis. He openly details his qualifications and experience on the site. Focus on Methodology & Transparency: A key strength of Quantisophy is its emphasis on the underlying quantitative methodologies. Dr. Balmès clearly explains his models and the statistical principles behind his analyses. While the math can be complex, he attempts to demystify it. 
+
+Our Analysis: Gemma is hallucinating and providing false information in the justifica-tion. 
+
+A.8 Interpretability and Explainability 
+
+A distinction should be made between interpretabil-ity and explainability, as these terms refer to related but conceptually different properties of a system. Interpretability refers to how well a human can understand the internal mechanics of a model. It describes how a model arrives at a decision based on its architecture and logic. Explainability refers to the ability to provide a post-hoc (after-the-fact) reason or justification for a specific output. For this reason, we argue that although the sys-tem may not be fully interpretable at the parameter level, it provides insights through its justifications at the architectural level. All the pipeline interme-diate modules provide justifications for their clas-sifications and the last classifier is a decision tree which is interpretable. It is important to note that we are not evaluating the quality of the justifica-tions produced by each model. Our objective is not to generate high-quality justifications, but rather to produce justifications that provide insight into each decision made by DCEF. Improving the quality of the justifications is left for future work. 
+
+A.9 Credibility and Factuality 
+
+Credibility pertains to the trustworthiness or author-ity of a source. A person can be credible because they have a PhD or a long history of honesty, which makes you perceive their message as true. On the ann_1_title_label ann_2_title_label ann_3_title_label ann_1_title_label 1.000000 0.921597 0.899376       
+
+> ann_2_title_label 0.921597 1.000000 0.903200
+> ann_3_title_label 0.899376 0.903200 1.000000
+
+Table 14: Pearson correlation between the three hu-man annotators on labeling whether the article title is decpetive or not            
+
+> ann_1_bias_label ann_2_bias_label ann_3_bias_label ann_1_bias_label 1.000000 0.815951 0.657129
+> ann_2_bias_label 0.815951 1.000000 0.805354
+> ann_3_bias_label 0.657129 0.805354 1.000000
+
+Table 15: Pearson correlation between the three human annotators on labeling whether the article is biased or not 
+
+other hand, factuality is the degree to which infor-mation aligns with objective reality. It is possible for a credible person (an honest expert) to be wrong in a specific instance (a clouded memory), leading to a lack of factuality in their statement. A highly credible source must be frequently factual. 
+
+A.10 Human Evaluations on article misinformation, bias, propaganda, and deceptive articles detection 
+
+To assess the article-level evaluations generated by the LLMs, we will compare their assessments with human evaluations and measure the level of agreement between them. Three human annotators (postgraduate students in computer science) were provided with 100 ar-ticles (web pages) along with reference informa-tion (evidence) to support factuality assessment. They were asked to determine whether each arti-cle contained bias, propaganda, deceptive titles, and/or misinformation. Their majority vote is then compared against the LLAMA-DCEF article eval-uations on bias, propaganda, misinformation and deceptive titles detection. The correlation between annotators is reported using Pearson correlation in Table 14 for deceptive title detection labels, Table 15 for bias detection, Table 16 for propaganda detection, and Table 17 for misinformation detection. It should be noted that the average inter-annotator correlation is 0.90 for deceptive title de-           
+
+> ann_1_propaganda ann_2_propaganda ann_3_propaganda ann_1_propaganda 1.000000 0.854135 0.652141
+> ann_2_propaganda 0.854135 1.000000 0.763510
+> ann_3_propaganda 0.652141 0.763510 1.000000
+
+Table 16: Pearson correlation between the three human annotators on labeling whether the article contains pro-paganda or not            
+
+> ann_1_fact_check ann_2_fact_check ann_3_fact_check ann_1_fact_check 1.000000 0.887997 0.812819
+> ann_2_fact_check 0.887997 1.000000 0.914920
+> ann_3_fact_check 0.812819 0.914920 1.000000
+
+Table 17: Pearson correlation between the three human annotators on labeling whether the article are factual, mixed or misleading.         
+
+> Bias Detection Deceptive title Detection Propaganda Detection misinformation detection Correlation 0.816 0.960 0.854 0.888
+> p-value 4.670e-25 4.243e-56 1.395e-29 7.798e-35
+
+Table 18: Pearson correlation between the DCEF frame-work using llama3.3-70B as its underlying LLM and the majority vote of the three human annotatos in four different tasks. 
+
+tection, 0.76 for bias detection, 0.75 for propaganda detection, and 0.87 for misinformation detection. Deceptive title detection achieves the highest correlation because it is a relatively straightforward task that primarily relies on assessing the align-ment between the article title and the article con-tent. Misinformation detection shows the second-highest correlation, as it depends on evaluating the consistency between the article and the reference evidence. In contrast, bias detection is more complex be-cause it does not involve a direct reference text for comparison. Finally, propaganda detection is the most challenging task among them, as it requires identifying 16 different propaganda techniques in order to determine the final label. These techniques are outlined in the instructions provided to the hu-man annotators. After obtaining the majority-vote labels for the four tasks from the three human annotators and comparing the resulting classifications, all Pearson correlation scores across the four tasks were above 0.8, as shown in Table 18, which is considered significant in the social sciences. Brydges (2019) note that while 0.8+ correlation is "strong" in a general sense, 0.5 and above is the threshold for a "strong" consistent pattern in typical behavioral research. 
+
+The annotation guidelines provided to the annotators are as follows: 
+
+You are provided with an article, its title, and some trustworthy reference information called the evidence. You have four different tasks: 
+
+Political bias detection: Analyze a text to detect political bias using a step-by-step process. • Identify key language or framing cues—such as loaded terms, ideological keywords, fram-ing of issues, quoted sources, and detected omissions. 
+
+• For each cue, note whether it is typically as-sociated with left- leaning, center, or right-leaning discourse (or neutral). 
+
+• Summarize how these cues combine: do they overwhelmingly lean in one direction, remain balanced, or conflict? 
+
+• Provide your final classification: neutral or biased 
+
+Deceptive titles detection: Your task is to deter-mine whether the title is deceptive clickbait or not clickbait, based on whether it misrepresents or ex-aggerates the actual content of the article: 
+
+• Analyze whether the title accurately reflects the article content. 
+
+• Consider if the title is misleading, sensational-ized, or uses curiosity gaps (e.g., "You won’t believe what happened next"). 
+
+• A deceptive title often over-promises or omits key context to attract clicks, without delivering in the article. 
+
+• An honest title should honestly summarize or reflect the content. 
+
+• Your output should be deceptive or honest 
+
+Misinformation detection: Check the alignment between the evidence "the reference" and the arti-cle. 
+
+• If the article is completely aligned with the evidence, then the article is factual. 
+
+• If the article is partially aligned with the evi-dence, the article is mixed. 
+
+• If the article is not in alignment with the evi-dence, then the article is misleading. Your output should be a label presenting your judg-ment on the article: factual, mixed, or misleading. 
+
+Propaganda detection: Determine if any of the following techniques are used in the article or not: 1. Loaded Language – emotionally charged wording to sway feelings rather than Reason. Ex: Only a heartless bureaucrat would sup-port this policy.” It uses emotional wording (“heartless”) to influence feelings instead of reasoning. 2. Name-Calling / Labeling – attaching pejorative or glamorous labels to peo-ple/groups/ideas. Ex: “Don’t listen to her—she’s just another radical extremist.” It Attaches a negative label to discredit without argument. 3. Repetition – repeating key phrases/slogans to imprint a message. Ex: “Our plan means jobs, jobs, jobs for everyone.” It repeats a phrase to make it stick in people’s minds. Exaggeration / Minimization – overstating positives/negatives or downplaying opposing facts. Ex: “It’s just a minor issue, nothing to worry about.” It overstates harm or downplaying significance. 4. Doubt – seeding uncertainty about opponents, institutions, or evidence without solid grounds. Ex: “Can we really trust these scientists? What if they’re hiding something?”. It Seeds suspicion without providing real evidence. 5. Appeal to Fear / Prejudice – arousing fear or bias to push a viewpoint or action. Ex: “If we don’t act now, our neighborhoods will become unsafe and overrun.”. It Triggers fear or bias to push action. Flag-Waving – linking a stance to patriotism, national duty, or group loyalty. Ex: “Support this policy—it’s the patriotic thing to do for our country.” It Links agreement with loyalty or national pride. 6. Causal Oversimplification – claiming a sin-gle/simple cause or cure for complex Is-sues. Ex: “Crime is rising because of one policy. Remove it, and everything will be fixed.”. It Reduces a complex issue to a single cause/solution. 7. Slogans – short, memorable catchphrases used as proof Ex: “Take Back Control!” Short, catchy phrase presented as if it proves some-thing. 8. Appeal to Authority – citing author-ity/expert/celebrity as proof, without adequate evidence or outside their expertise. Ex: “A famous actor says this diet works, so it must be true.”. It Relies on authority outside their expertise instead of evidence. 9. Black-and-White Fallacy – forcing a false “ei-ther/or” choice; ignoring nuance/alternatives. Ex: “You’re either with us, or you’re against us.”. It ignores any middle ground or nuance. 10. Thought-Terminating Clichés – stock phrases that shut down inquiry (e.g., “It is what it is”). Ex: “That’s just the way things are.”. It Ends discussion instead of engaging with the issue. 11. Whataboutism – deflecting criticism by point-ing to other wrongs instead of addressing the claim. Ex: “You’re criticizing this policy, but what about what your side did last year?” It Deflects instead of addressing the criticism. 12. Reductio ad Hitlerum – smearing by compar-ing to Nazis/Hitler to discredit without argu-ment. Ex: “That policy is exactly what Hitler would have supported.” It Discredits by ex-treme comparison rather than reasoning. 13. Red Herring – introducing distrac-tions/irrelevancies to derail or avoid the issue. Ex: “We shouldn’t focus on pollution—what about the jobs this factory creates?” It Diverts attention to an unrelated issue. 14. Bandwagon – asserting “everyone agrees/is doing this” to pressure conformity. Ex: “Ev-eryone is switching to this product—why aren’t you?” It Pressures conformity by claim-ing widespread support. 15. Obfuscation / Intentional Vagueness / Confu-sion – unclear terms, passive voice, or mud-dled info that hides meaning or responsibility. Ex: “Mistakes were made during the process.” It Avoids clarity and responsibility (who made the mistakes?). 16. Straw Man – distorting an opposing view to attack the weaker version. Ex: Person A: “We should regulate social media to reduce harm.” Person B: “So you want to censor all free speech?” It Misrepresents the original argu-ment to make it easier to attack. 
+
+Provide your final classification: “propaganda” or “neutral”

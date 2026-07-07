@@ -1,0 +1,460 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-07T21:34:02.410824+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 8,
+    "quick_skim_target": 11,
+    "quick_selected": 8
+  },
+  "deep_dive": [
+    {
+      "id": "2607.02587v1",
+      "title": "The Moving Target: A Longitudinal Audit of Trustworthiness Drift Across Twelve Checkpoints of Open-Source Chat LLMs",
+      "abstract": "Model cards quote trust-benchmark scores without recording when they were measured, and the same number is routinely carried across successive checkpoints of one release line as if the model behind it had not shifted. We test whether it has shifted by auditing four open-source release lines, Yi, Qwen, Mistral, and Gemma, at three successive generations each, on a fixed basket of trust benchmarks under multiple prompt templates. Mean absolute adjacent-generation drift lands well above an independence-based no-drift reference null, and the gap persists when we drop a benchmark, drop a release line, or switch to strict scoring. We therefore conclude that a trust score attached to a release line should not be carried forward to the next checkpoint without remeasurement; it should instead be reported as a checkpoint-bound, dated artefact, which we package as a longitudinal model card. Closed APIs, larger models, canonical benchmark protocols, and fixed month-cadence rules lie outside the audited scope and require their own evaluation.",
+      "authors": [
+        "Zhichao Fan",
+        "Yanhang Li",
+        "Zexin Zhuang",
+        "Xian Sun",
+        "Yingshuo Wang"
+      ],
+      "primary_category": "cs.SE",
+      "categories": [
+        "cs.SE",
+        "cs.LG"
+      ],
+      "published": "2026-07-01T05:44:48+00:00",
+      "link": "https://arxiv.org/pdf/2607.02587v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "audit of trustworthiness drift using trust benchmarks and strict scoring",
+      "llm_evidence_cn": "使用信任基准和严格评分对可信度漂移进行审计",
+      "llm_evidence": "使用信任基准和严格评分对可信度漂移进行审计",
+      "canonical_evidence": "使用信任基准和严格评分对可信度漂移进行审计",
+      "llm_tldr_en": "Audits trustworthiness drift in LLMs using longitudinal benchmarks to show scores change across model checkpoints.",
+      "llm_tldr_cn": "通过纵向基准测试审计大模型的信任度漂移，揭示模型版本更新中的信任评分变化。",
+      "llm_tldr": "通过纵向基准测试审计大模型的信任度漂移，揭示模型版本更新中的信任评分变化。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.05217v1",
+      "title": "Curated retrieval versus open web search in public AI information services: a coverage-trust trade-off",
+      "abstract": "Public institutions increasingly use large language models (LLMs) to answer citizens' questions, often pairing a curated knowledge base with live web search, yet whether the sources behind these answers can be trusted has received little empirical scrutiny. We report a pre-launch expert evaluation of Evrópuvefur, an independent, government-funded service run by the University of Iceland that answers questions about the European Union, conducted as Iceland prepared for its referendum of 29 August 2026 on whether to resume EU accession talks. Five domain experts produced 551 evaluations of 449 AI-generated answers, scoring each against a seven-criterion quality rubric and, separately, flagging individual cited sources. We compared two retrieval paths: a curated local corpus (RAG) and open web search. In more than a third of the reviewed web-search answers (35%, 65 of 187), at least one cited source was flagged, almost always as untrustworthy or irrelevant; curated sources were flagged far less often and only for being out of date. Web search answered more questions, but at the cost of source quality; the curated corpus was trustworthy yet limited in coverage, and the model declined to respond when it fell short. The citation mix also passed over strong sources: across all 287 web-search answers, the system never cited RÚV, the public broadcaster and the country's most widely used news source. A companion prompt ablation shows how weak prompt-level steering is: a trusted-domain list in the system prompt raised the share of citations to listed domains only from 12% to 21%. Fluency and topical fit did not predict source trustworthiness. We argue that source trustworthiness is a measurable yet largely invisible dimension of information quality in public AI services, and we discuss transparency-oriented responses and their trade-offs.",
+      "authors": [
+        "Hafsteinn Einarsson",
+        "Hafsteinn Birgir Einarsson",
+        "Jón Gunnar Ólafsson",
+        "Jón Gunnar Þorsteinsson"
+      ],
+      "primary_category": "cs.CY",
+      "categories": [
+        "cs.CY",
+        "cs.CL",
+        "cs.IR"
+      ],
+      "published": "2026-07-06T15:32:46+00:00",
+      "link": "https://arxiv.org/pdf/2607.05217v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Expert evaluation using a seven-criterion quality rubric to measure trust in AI answers",
+      "llm_evidence_cn": "使用七项质量准则的专家评估来衡量人工智能回答的信任度",
+      "llm_evidence": "使用七项质量准则的专家评估来衡量人工智能回答的信任度",
+      "canonical_evidence": "使用七项质量准则的专家评估来衡量人工智能回答的信任度",
+      "llm_tldr_en": "Evaluates trust in AI-generated answers using a multi-criterion rubric and expert assessment.",
+      "llm_tldr_cn": "通过多准则量表和专家评估，研究了人工智能生成答案的信任度权衡。",
+      "llm_tldr": "通过多准则量表和专家评估，研究了人工智能生成答案的信任度权衡。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "methods and metrics for measuring trust",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.04686v1",
+      "title": "ToolFailBench: Diagnosing Tool-Use Failures in LLM Agents",
+      "abstract": "Tool calling is central to modern language model agents, but aggregate benchmark scores often hide where tool use fails. A model that never calls a needed tool and a model that calls the tool but ignores the result can look similar under final task accuracy. We introduce ToolFailBench, a diagnostic benchmark for measuring tool-use failures across 1,000 tasks in finance, medicine, law, cybersecurity, and real estate. Tool-required tasks return values the model wouldn't guess, forcing it to trust the tool while control tasks attach the same tools but should be answered directly. We label each trace with Tool-Skip, Result-Ignore, Output-Fabrication, and Unnecessary-Tool-Use, using a rule classifier and two LLM judges aggregated by majority vote. Across 19 headline models, the best reaches 86.33% Clean Tool-Use Rate, showing that faithful tool use is not saturated. More importantly, models with similar aggregate scores fail in different ways: most stay disciplined on no-tool controls, while Llama-3.1 models show an Always-Call pattern, and at the same parameter scale Llama-3.1-70B and Qwen2.5-72B differ by 89 percentage points on control-task accuracy. Tool-use evaluation should measure not only whether agents call tools, but whether they use tool outputs correctly and avoid tools when none is needed.",
+      "authors": [
+        "Harsh Soni"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI",
+        "cs.SE"
+      ],
+      "published": "2026-07-06T05:25:21+00:00",
+      "link": "https://arxiv.org/pdf/2607.04686v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "diagnostic benchmark for measuring tool-use failures and trust",
+      "llm_evidence_cn": "衡量工具使用失败和信任的诊断基准",
+      "llm_evidence": "衡量工具使用失败和信任的诊断基准",
+      "canonical_evidence": "衡量工具使用失败和信任的诊断基准",
+      "llm_tldr_en": "Introduces ToolFailBench to diagnose failures in LLM agents, including misplaced trust in tools.",
+      "llm_tldr_cn": "引入 ToolFailBench 来诊断大模型智能体的失败，包括对工具的错误信任。",
+      "llm_tldr": "引入 ToolFailBench 来诊断大模型智能体的失败，包括对工具的错误信任。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.03447v1",
+      "title": "TRIAGE: Trustworthy Retrieval Instrumentation And Graph Evaluation",
+      "abstract": "Knowledge graphs (KGs) that underpin Graph-based Retrieval-Augmented Generation (Graph-RAG) are increasingly built automatically by LLM-driven extraction rather than curated by experts. Proper evaluation would require instrumenting all pertinent stages: extraction, graph construction, and inference, coherently enough to localize failures, so that a failure at one stage is not discovered as a wrong answer at the end. We introduce TRIAGE, a stage-aware instrumentation framework for automated, document-grounded graph-RAG that asks not only whether the underlying graph can be trusted but at what cost it can be queried. TRIAGE attaches stage-specific, independently interpretable metrics to three stages: the KG Implementation (triple confidence, source coverage, and schema and canonicalization checks), the KG Validation by expert (graph-level structural quality, with correctness and completeness computed only as offline calibration when a reference is available), and the KG Usage (retrieval coverage, faithfulness, and retrieval cost); the deployed metrics need no gold annotations, the gold-requiring ones serving only as offline calibration. At usage time these metrics form a diagnostic chain of necessary conditions whose first broken link localizes the failure, and the diagnosis maps to the stage levers that can remedy it: extraction, graph and schema, or retrieval. TRIAGE is a theoretical framework with a proof of concept and a reproducible evaluation protocol.",
+      "authors": [
+        "Axel TahmasebiMoradi",
+        "Lucas Schott",
+        "Martin Royer"
+      ],
+      "primary_category": "cs.IR",
+      "categories": [
+        "cs.IR",
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-07-03T16:01:20+00:00",
+      "link": "https://arxiv.org/pdf/2607.03447v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "stage-specific independently interpretable metrics for graph trustworthiness",
+      "llm_evidence_cn": "针对图谱可信度的阶段性独立可解释指标",
+      "llm_evidence": "针对图谱可信度的阶段性独立可解释指标",
+      "canonical_evidence": "针对图谱可信度的阶段性独立可解释指标",
+      "llm_tldr_en": "Proposes TRIAGE, a framework with specific metrics to evaluate the trustworthiness of Graph-RAG systems.",
+      "llm_tldr_cn": "提出TRIAGE框架，包含评估Graph-RAG系统可信度的特定阶段指标。",
+      "llm_tldr": "提出TRIAGE框架，包含评估Graph-RAG系统可信度的特定阶段指标。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.31759v1",
+      "title": "Decoupling Trust in Byzantine CRDTs: Fine-grained Post-Compromise Handling without Breaking Causality",
+      "abstract": "Conflict-free Replicated Data Types (CRDTs) provide strong eventual consistency without coordination, but classical approaches assume benign participants. In Byzantine settings, convergence is typically enforced through agreement on update validity, often relying on identity-based filtering. However, such approaches struggle in post-compromise scenarios, where a previously correct participant becomes malicious: retroactive exclusion of its updates may break causal dependencies and invalidate subsequent computations. In this paper, we decouple identity-based trust from content-based trust and introduce a fine-grained trust model that combines both dimensions. Building on deterministic reconstruction, our approach allows replicas to preserve previously accepted updates while enabling selective inclusion or exclusion based on both the originating identity (e.g., public keys) and the semantics of individual updates. Trust decisions can incorporate application-level policies, enabling precise control over the impact of each update on the system state. Our approach preserves causal consistency and enables robust and flexible handling of both Byzantine and faulty behavior in decentralized CRDT systems.",
+      "authors": [
+        "Amos Brocco"
+      ],
+      "primary_category": "cs.DC",
+      "categories": [
+        "cs.DC",
+        "cs.DS"
+      ],
+      "published": "2026-06-30T14:48:31+00:00",
+      "link": "https://arxiv.org/pdf/2606.31759v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "fine-grained trust model decoupling identity and content trust",
+      "llm_evidence_cn": "解耦身份和内容信任的细粒度信任模型",
+      "llm_evidence": "解耦身份和内容信任的细粒度信任模型",
+      "canonical_evidence": "解耦身份和内容信任的细粒度信任模型",
+      "llm_tldr_en": "Introduces a fine-grained trust model for Byzantine CRDTs to handle post-compromise scenarios without breaking causality.",
+      "llm_tldr_cn": "为拜占庭CRDT引入细粒度信任模型，在不破坏因果关系的情况下处理节点受损后的情况。",
+      "llm_tldr": "为拜占庭CRDT引入细粒度信任模型，在不破坏因果关系的情况下处理节点受损后的情况。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.31066v1",
+      "title": "Secure-CHG: A Comprehensive Framework for Robust and Fair Federated Learning via Hybrid Defense and Contribution-Aware Trust",
+      "abstract": "Federated Learning (FL) is highly susceptible to stealthy backdoor attacks, which aim to force a model into predicting an attacker-chosen target class for inputs containing a specific trigger. However, existing statistical defenses primarily focus on the early stages of model convergence. In this paper, we identify a fundamental vulnerability termed ``Late-stage Failure.'' We demonstrate that as the global model converges, decaying gradient norms render malicious and benign updates morphologically indistinguishable. This vanishing statistical variance effectively blinds traditional defenses, enabling adaptive adversaries to remain dormant and subsequently hijack the training process. To overcome these constraints, we propose Secure-CHG, a hybrid framework that pivots the defense paradigm from superficial morphological detection toward intrinsic semantic contribution verification. Secure-CHG employs an adaptive defense pipeline: a cascaded statistical filter stabilizes optimization during the early oscillatory phase, while a novel CHG-Shapley mechanism takes over during late-stage convergence. By leveraging sample hardness (i.e., local training loss) to project updates into a composite Hardness-Gradient space, it effectively amplifies adversarial semantic traces, enabling the isolation of stealthy attackers even as gradient norms vanish. Furthermore, we derive a closed-form solution for CHG-Shapley, facilitating low-complexity, retraining-free node valuation and trust-modulated aggregation. Extensive evaluations on CIFAR-10, MedMNIST, and NEU-SDDB demonstrate that Secure-CHG effectively mitigates Late-stage Failure. Specifically, it significantly suppresses advanced backdoor attacks, reducing their attack success rate by 2.3$\\times$ and 2.0$\\times$ relative to the mainstream Krum and Trimmed Mean baselines, respectively.",
+      "authors": [
+        "Guanming Che",
+        "Qiang Wang",
+        "Jian Xu",
+        "Fucai Zhou"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-06-30T02:53:16+00:00",
+      "link": "https://arxiv.org/pdf/2606.31066v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "contribution-aware trust framework for federated learning",
+      "llm_evidence_cn": "联邦学习中基于贡献感知的信任框架",
+      "llm_evidence": "联邦学习中基于贡献感知的信任框架",
+      "canonical_evidence": "联邦学习中基于贡献感知的信任框架",
+      "llm_tldr_en": "Develops a framework for robust federated learning using contribution-aware trust to defend against attacks.",
+      "llm_tldr_cn": "开发了一个利用贡献感知信任来防御攻击的鲁棒联邦学习框架。",
+      "llm_tldr": "开发了一个利用贡献感知信任来防御攻击的鲁棒联邦学习框架。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.31759v2",
+      "title": "Decoupling Trust in Byzantine CRDTs: Fine-grained Post-Compromise Handling without Breaking Causality",
+      "abstract": "Conflict-free Replicated Data Types (CRDTs) provide strong eventual consistency without coordination, but classical approaches assume benign participants. In Byzantine settings, convergence is typically enforced through agreement on update validity, often relying on identity-based filtering. However, such approaches struggle in post-compromise scenarios, where a previously correct participant becomes malicious: retroactive exclusion of its updates may break causal dependencies and invalidate subsequent computations. In this paper, we decouple identity-based trust from content-based trust and introduce a fine-grained trust model that combines both dimensions. Building on deterministic reconstruction, our approach allows replicas to preserve previously accepted updates while enabling selective inclusion or exclusion based on both the originating identity (e.g., public keys) and the semantics of individual updates. Trust decisions can incorporate application-level policies, enabling precise control over the impact of each update on the system state. Our approach preserves causal consistency and enables robust and flexible handling of both Byzantine and faulty behavior in decentralized CRDT systems.",
+      "authors": [
+        "Amos Brocco"
+      ],
+      "primary_category": "cs.DC",
+      "categories": [
+        "cs.DC",
+        "cs.DS"
+      ],
+      "published": "2026-06-30T14:48:31+00:00",
+      "link": "https://arxiv.org/pdf/2606.31759v2",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "fine-grained trust model decoupling identity and content trust",
+      "llm_evidence_cn": "解耦身份和内容信任的细粒度信任模型",
+      "llm_evidence": "解耦身份和内容信任的细粒度信任模型",
+      "canonical_evidence": "解耦身份和内容信任的细粒度信任模型",
+      "llm_tldr_en": "Introduces a fine-grained trust model for Byzantine CRDTs to handle post-compromise scenarios without breaking causality.",
+      "llm_tldr_cn": "为拜占庭CRDT引入细粒度信任模型，在不破坏因果关系的情况下处理节点受损后的情况。",
+      "llm_tldr": "为拜占庭CRDT引入细粒度信任模型，在不破坏因果关系的情况下处理节点受损后的情况。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.04560v1",
+      "title": "Can temporal article-level credibility signals improve domain-level credibility prediction?",
+      "abstract": "Web domain credibility evaluation is vital for combating misinformation. It is conducted by examining factors such as domain type, transparency, and overall reputation. However, assessing the credibility of newly emerging web domains remains challenging since they have no reputation yet. Expert fact-checkers evaluate the credibility of domains by analyzing the content of their articles, including the presence of misinformation, bias, or propaganda. Yet, the ease of large-scale content generation enabled by LLMs has accelerated the creation of new content, rendering manual assessment insufficient and underscoring the need for automated approaches to domain credibility evaluation. In this paper, we introduce our Domain Credibility Evaluation Framework (DCEF), a temporal framework for domain credibility evaluation grounded in expert ratings. DCEF enables us to investigate whether the credibility of web domains can be assessed from their published articles following the workflow of expert fact-checkers, without any prior knowledge of the source domains themselves.",
+      "authors": [
+        "Islam Eldifrawi",
+        "Shengrui Wang",
+        "Amine Trabelsi"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-07-06T00:21:27+00:00",
+      "link": "https://arxiv.org/pdf/2607.04560v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "automated approaches to domain credibility evaluation",
+      "llm_evidence_cn": "自动化的域名可信度评估方法",
+      "llm_evidence": "自动化的域名可信度评估方法",
+      "canonical_evidence": "自动化的域名可信度评估方法",
+      "llm_tldr_en": "Introduces a method for predicting web domain credibility using article-level signals.",
+      "llm_tldr_cn": "介绍了一种利用文章级信号预测网络域名可信度的方法。",
+      "llm_tldr": "介绍了一种利用文章级信号预测网络域名可信度的方法。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.02814v1",
+      "title": "SovereignNegotiation-Bench: Evaluating User-Owned Personal Agents In Delegated Bargaining Under Privacy, Consent, Evidence, And Institutional Pressure",
+      "abstract": "Personal agents will increasingly negotiate on behalf of users: splitting costs with other personal agents, appealing platform decisions, escalating support disputes, requesting refunds, changing subscriptions, and negotiating deadlines or reimbursements. Existing negotiation benchmarks emphasize agreement, surplus, or strategic competence, but a user-owned agent can reach an agreement while harming the user through privacy leakage, consent violation, unsupported advocacy, over-concession, failed escalation, or poor auditability. We introduce SovereignNegotiation-Bench, a trace-level multi-turn benchmark for delegated personal-agent negotiation under private utilities, disclosure constraints, evidence requirements, and institutional asymmetry. The benchmark separates agent-visible observable state from evaluator-only labels and evaluates agreement success jointly with user utility, privacy, consent, evidence grounding, concession discipline, escalation, and auditability. We report an artifact-backed validation over 240 scenarios, 4 model families, 14 baselines, 13,440 frozen-prompt live trajectories, 61,135 parsed action rows, and a blinded 3-annotator audit over 300 items. The strongest agreement-maximizing baseline achieves the highest agreement rate but low user utility and high privacy/consent risk; FullSovereign does not maximize agreement, but obtains the best sovereign negotiation score by preserving utility, minimizing leakage, grounding claims, and reducing unauthorized commitments. The results show that agreement success is insufficient for user-owned negotiation agents.",
+      "authors": [
+        "Dylan Zongmin Liu"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.AI",
+        "cs.CY"
+      ],
+      "published": "2026-07-02T23:03:15+00:00",
+      "link": "https://arxiv.org/pdf/2607.02814v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "benchmark for evaluating personal agents under privacy and auditability",
+      "llm_evidence_cn": "在隐私和可审计性下评估个人智能体的基准",
+      "llm_evidence": "在隐私和可审计性下评估个人智能体的基准",
+      "canonical_evidence": "在隐私和可审计性下评估个人智能体的基准",
+      "llm_tldr_en": "A benchmark for evaluating delegated personal-agent negotiations across multiple safety and trust dimensions.",
+      "llm_tldr_cn": "一个用于在多个安全和信任维度下评估委托个人智能体谈判的基准。",
+      "llm_tldr": "一个用于在多个安全和信任维度下评估委托个人智能体谈判的基准。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.05318v1",
+      "title": "PiSAs: Benchmarking Contextual Integrity in Multi-User Agentic Systems",
+      "abstract": "As LLM agents evolve from single-user assistants into shared organizational infrastructure, new privacy risks emerge: inappropriate information may not only be exposed through outputs for external recipients, but also internally across users through inter-agent messages, shared memory and agents. These data spillage risks are not captured by existing privacy benchmarks grounded in contextual integrity (CI) as they focus primarily on either single-user settings or interactions between independently owned agents. We introducePiSAs (Privacy in Shared Agentic systems), a benchmark for assessing unintentional leaks with dual CI annotations: whether an information is appropriate for the task, and which users may legitimately access it. This enables direct measurement of cross-user spillage across agentic system components and interfaces, such as outputs, inter-agent communication, and memory. PiSAsis system-agnostic and supports evaluation across different agent topologies and memory regimes. We find that, although system design improves CI compliance, results are bottlenecked by incorrect LLM judgment calls: even state-of-the-art models fail to reliably filter inappropriate content or restrict transmission to authorized users. Our findings underscore the need for privacy-preserving strategies, beyond those studied in this work.",
+      "authors": [
+        "Shubham Gupta",
+        "Nazanin Mohammadi Sepahvand",
+        "Abhinav Kumar",
+        "Cem Subakan",
+        "Spandana Gella",
+        "Pierre-André Noël",
+        "Perouz Taslakian",
+        "Eugene Bagdasarian",
+        "Valentina Zantedeschi"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.CR"
+      ],
+      "published": "2026-07-06T16:57:24+00:00",
+      "link": "https://arxiv.org/pdf/2607.05318v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "benchmark for assessing unintentional leaks and contextual integrity",
+      "llm_evidence_cn": "评估无意泄露和上下文完整性的基准",
+      "llm_evidence": "评估无意泄露和上下文完整性的基准",
+      "canonical_evidence": "评估无意泄露和上下文完整性的基准",
+      "llm_tldr_en": "Introduces PiSAs, a benchmark to measure privacy and contextual integrity in multi-user agentic systems.",
+      "llm_tldr_cn": "引入PiSAs基准，用于衡量多用户智能体系统中的隐私和上下文完整性。",
+      "llm_tldr": "引入PiSAs基准，用于衡量多用户智能体系统中的隐私和上下文完整性。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "methods and metrics for measuring trust",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.04023v1",
+      "title": "Termination of Binary Trust-Gossip Dynamics: A Constructive No-Limit-Cycles Theorem",
+      "abstract": "In the binary trust-gossip dynamics, $n$ agents each hold a directed binary opinion, trust or distrust, of every other agent, and a gossip step lets one agent copy another agent's opinion of a third whenever the copier trusts the source. We prove that under any fair schedule of such steps, every trajectory reaches an absorbing state in finitely many steps, one in which no gossip step changes any opinion; in particular, there are no limit cycles. The proof is constructive and rests on a single descent measure: the number of ordered pairs of distinct agents linked by a chain of trust. Trust-adding gossip leaves this count unchanged and trust-removing gossip can only lower it, so it never rises, and it is zero only at the all-distrust state. From any non-absorbing state we exhibit a finite run of steps that reaches an absorbing state or strictly lowers the count; since the count is a non-negative integer at most $n(n-1)$, the process halts at an absorbing state.",
+      "authors": [
+        "Nicholas Boichuk"
+      ],
+      "primary_category": "math.CO",
+      "categories": [
+        "math.CO",
+        "math.DS"
+      ],
+      "published": "2026-07-04T20:39:21+00:00",
+      "link": "https://arxiv.org/pdf/2607.04023v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "binary trust-gossip dynamics and descent measures for trust chains",
+      "llm_evidence_cn": "二元信任传播动力学及信任链下降度量",
+      "llm_evidence": "二元信任传播动力学及信任链下降度量",
+      "canonical_evidence": "二元信任传播动力学及信任链下降度量",
+      "llm_tldr_en": "Analyzes the convergence of binary trust-gossip dynamics using a descent measure based on trust chains.",
+      "llm_tldr_cn": "利用基于信任链的下降度量分析二元信任传播动力学的收敛性。",
+      "llm_tldr": "利用基于信任链的下降度量分析二元信任传播动力学的收敛性。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.04034v1",
+      "title": "The \"I Don't Know\" Filter: Enhancing Agentic Reliability in Function Calling",
+      "abstract": "The language models that underpin agents have seen a rapid rise in performance on function calling benchmarks. However, the metrics used in the training and evaluation of these models often encourage models to make positive claims even when the answer is uncertain, leading to hallucinations. Such hallucinations can be disastrous when language models are trusted to use function calls to make decisions in high stakes applications. To that end, we propose an agent evaluation metric that takes into account the negative outcomes associated with incorrect function calls. Further, to catch hallucinations before they can cause harm, we propose a lightweight trainable filter that can quantify a language model's uncertainty and remove potentially harmful function calls. By training that filter to detect and suppress uncertain function calls without modifying the underlying model, we demonstrate a practical path toward agents that know when to say \"I don't know,\" a property we argue is essential to production reliability.",
+      "authors": [
+        "Stefan Broecker",
+        "Mason del Rosario",
+        "Boris Selitser",
+        "Thomas Strohmer"
+      ],
+      "primary_category": "cs.SE",
+      "categories": [
+        "cs.SE",
+        "cs.AI"
+      ],
+      "published": "2026-07-04T21:27:40+00:00",
+      "link": "https://arxiv.org/pdf/2607.04034v1",
+      "tags": [
+        "keyword:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "agent evaluation metric for reliability and uncertainty quantification",
+      "llm_evidence_cn": "针对智能体可靠性和不确定性量化的评估指标",
+      "llm_evidence": "针对智能体可靠性和不确定性量化的评估指标",
+      "canonical_evidence": "针对智能体可靠性和不确定性量化的评估指标",
+      "llm_tldr_en": "Proposes an agent evaluation metric and filter to quantify uncertainty and prevent harmful hallucinations.",
+      "llm_tldr_cn": "提出一种智能体评估指标和过滤器，用于量化不确定性并防止有害的幻觉。",
+      "llm_tldr": "提出一种智能体评估指标和过滤器，用于量化不确定性并防止有害的幻觉。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

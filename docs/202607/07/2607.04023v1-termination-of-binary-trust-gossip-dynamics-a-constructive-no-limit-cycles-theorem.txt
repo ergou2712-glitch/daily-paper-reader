@@ -1,0 +1,410 @@
+Title: Termination of Binary Trust-Gossip Dynamics: A Constructive No-Limit-Cycles Theorem
+
+URL Source: https://arxiv.org/pdf/2607.04023v1
+
+Published Time: Tue, 07 Jul 2026 01:50:51 GMT
+
+Number of Pages: 18
+
+Markdown Content:
+# Termination of Binary Trust-Gossip Dynamics: A Constructive No-Limit-Cycles Theorem 
+
+Nicholas Boichuk 
+
+> Independent Researcher
+
+Abstract 
+
+In the binary trust-gossip dynamics, n agents each hold a directed binary opinion, trust or distrust, of every other agent, and a gossip step lets one agent copy another agent’s opinion of a third whenever the copier trusts the source. We prove that under any fair schedule of such steps, every trajectory reaches an absorbing state in finitely many steps, one in which no gossip step changes any opinion; in particular, there are no limit cycles. The proof is constructive and rests on a single descent measure: the number of ordered pairs of distinct agents linked by a chain of trust. Trust-adding gossip leaves this count unchanged and trust-removing gossip can only lower it, so it never rises, and it is zero only at the all-distrust state. From any non-absorbing state we exhibit a finite run of steps that reaches an absorbing state or strictly lowers the count; since the count is a non-negative integer at most n(n − 1) ,the process halts at an absorbing state. 
+
+Keywords: opinion dynamics, gossip, absorbing states, limit cycles, convergence, termination 
+
+1. Introduction 
+
+The companion paper [1] introduced the binary trust-gossip dynamics on 
+
+n agents, characterized its absorbing states completely, and counted them. To briefly describe the model: each agent holds a directed binary opinion (“trust” or “distrust”) of every other agent, encoded as a binary matrix M in which the entry Mij , written as i(j) ∈ { 0, 1}, is agent i’s opinion of agent   
+
+> Email address: nicholas.boichuk3@nhs.net (Nicholas Boichuk)
+
+1
+
+> arXiv:2607.04023v1 [math.CO] 4 Jul 2026
+
+j. Each row therefore holds one agent’s opinions of all the others, and the matrix is directed: i(j) and j(i) are independent. The diagonal entries of self-opinion i(i) are left undefined throughout, following the convention of [1]. A gossip event gos( M, a (y), z ) — written gos( M, a, z, y ) in [1] — where 
+
+a, z, y are distinct agents, has the listener z adopt the speaker a’s opinion of the target y (where a(y) is a’s opinion of y), if z trusts a:
+
+z(y) := a(y), provided z(a) = 1 . (1) A state is absorbing if no gossip event can change it, equivalently if for every triple (a, z, y ) of distinct agents, either z(a) = 0 or z(y) = a(y) (no agent trusts another agent whom they disagree with). The main results of the companion paper concerned the structure and count of these absorbing states. The Characterization Theorem of [1] estab-lishes a bijection between absorbing states on [n] and pairs consisting of a partition of [n] with a non-empty subset of each block highlighted as “core”. Enumerating these yields the OEIS sequences A143405 (labeled count) and A000219 (unlabeled count, the plane partitions); exhaustive enumeration confirms both counts for n ≤ 7.The companion paper also reports an empirical observation: for n ≤ 4,exhaustive construction of the state-transition graph finds that every initial state reaches an absorbing state, with no limit cycles detected. This paper proves that observation holds for all n.The descent argument here has a long lineage. That a game on a graph must halt because some integer quantity strictly drops is the principle behind the chip-firing game of Björner, Lovász, and Shor [2], its directed version [3], and Dhar’s abelian sandpile [4]. Bond and Levine [5] showed one commu-tativity axiom suffices: an abelian network halts, and the number of moves is fixed, independent of their order. However, our binary trust-gossip is not abelian: a gossip move overwrites the listener’s opinion rather than adding to it, and fires only when the listener trusts the speaker and the two dis-agree, so different fair schedules reach different absorbing states [1, Fig. 2]. The abelian halting theorem therefore does not apply, and |R(M )| is the monovariant we put in its place. The model itself belongs to the domain of opinion dynamics, where the classical models are continuous and average: DeGroot’s pooling [6], Hegselmann–Krause bounded confidence [7], and the gossip algorithms of Boyd et al. [10], in which gossip means pairwise averaging toward a 2common mean. The voter model [8, 9] is binary but copies a neighbor with no trust gating and settles at consensus. Coevolving models such as DeGroot–Friedkin [11] let the network change but keep opinion and influence apart. Binary trust-gossip differs on each count: a single binary matrix that is at once the opinions and the trust gating their spread, updated by overwriting, terminating at the core–periphery states of [1] rather than at consensus. 
+
+Sketch of the proof. Everything rests on one count: |R(M )|, the number of ordered pairs of agents joined by a direct or indirect trust path. Gossip that adds a trust edge creates no new reachability, since the listener adopting trust of a target from a speaker could, by construction, already reach the tar-get through the speaker, while gossip that removes an edge can only destroy reachability, so |R(M )| never rises (Section 3). The proof shows that from every non-absorbing state, some finite run of gossip either reaches an absorb-ing state or strictly lowers |R(M )|. Since |R(M )| is a non-negative integer, the descent can repeat only a finite number of times. We fully enumerate the possible arrangements of the strongly-connected clusters of the reachability graph (Section 4). We show that a cluster which reaches a commonly-trusted outsider can be dissolved, strictly decreasing |R(M )| (Section 5). A cluster that reaches no outsider is instead completed into a locked faction (a fully-trusting core plus a periphery that copies it) after which there is no possible gossip event which could change their opinions (Section 6). The agents left outside these factions can be absorbed into a faction they reach as a new peripheral, which lowers |R(M )| (Section 7). Then, existence turns into in-evitability: we only show that one finite path exists from every non-absorbing state to an absorbing one, and a fair schedule of firing moves cannot avoid it forever (Section 9). 
+
+2. Setup and notation 
+
+Throughout this paper, the number of agents n ≥ 3 is fixed to allow the gossip function to be defined. 
+
+Definition 1 (Firing move; pre-state and post-state) . A firing move is a gossip event gos( M, a (y), z ) in which a, z, y are distinct, z(a) = 1 , and z(y)̸ =
+
+a(y). A firing move changes M : we call M before the move the pre-state and the result M ′ the post-state .3As per [1], a state is absorbing if and only if no firing move is available. We classify each firing move by the direction of the change to M :
+
+Definition 2 (0 → 1 and 1 → 0 moves) . A firing move (a, z, y ) is a 0 → 1
+
+move if it adds a direct trust edge from z to y; that is, if z(y) = 0 and 
+
+a(y) = 1 , and therefore the move sets z(y) := 1 . The move is a 1 → 0 move 
+
+if it removes a direct trust edge; that is, z(y) = 1 and a(y) = 0 , therefore the move sets z(y) := 0 .
+
+Definition 3 (Reachability matrix) . R(M ), the reachability matrix, is the transitive closure of M . It has Ruv = 1 exactly when M contains a directed path u → · · · → v of length ≥ 1; like M , it is defined only off the diagonal. We write |R(M )| for its number of 1-entries, so |R(M )| ∈ { 0, 1, . . . , n (n−1) }.
+
+Definition 4 (R-cluster) . An R-cluster of M , or cluster for short, is a strongly-connected component of R(M ) with at least two agents: a maximal set C with |C| ≥ 2 in which every two distinct u, v are mutually reachable (Ruv = Rvu = 1 ). Since Ruv = 1 means exactly that u reaches v in M ,the mutually-reachable pairs are identical for M and R, so the two split the agents into the same strongly-connected components. A lone agent, mutually reachable with no one, forms its own component but is not a cluster. 
+
+Definition 5 (Flat and progress) . A firing move is flat if it preserves |R(M )|,and progress if it strictly decreases |R(M )|. Corollary 1 will show that these are the only two possibilities, i.e. that |R(M )| is monotone non-increasing under every firing move. Figure 1 shows a small n = 7 example state that the later step-by-step figures below refer to. 
+
+3. The descent measure Lemma 1 (0 → 1 moves are flat) . Every 0 → 1 move preserves R, and hence is flat. Proof. Suppose gos( M, a (y), z ) is a 0 → 1 move, so z(a) = a(y) = 1 pre-state, and the move sets z(y) := 1 . The pre-state contains the length-2
+
+path z → a → y. Any post-state path that uses the new edge (z, y ) can be rewritten by replacing that edge with the segment z → a → y; since the move modified no entry of M other than z(y), the rest of the path is unchanged and lies in the pre-state. Hence every post-state reachability already held in the pre-state, and since the move removes no edges, R(M ) is unchanged. 4Trust matrix M
+
+
+
+· 1 0 0 0 0 01 · 0 0 0 0 00 0 · 1 1 0 00 0 1 · 0 0 01 0 0 0 · 0 00 0 1 1 1 · 00 0 0 0 0 0 ·
+
+
+
+Reachability matrix R(M )
+
+
+
+· 1 0 0 0 0 01 · 0 0 0 0 0
+
+1 1 · 1 1 0 0
+
+1 1 1 · 1 0 01 1 0 0 · 0 0
+
+1 1 1 1 1 · 00 0 0 0 0 0 ·
+
+ 
+
+> 1
+> 2
+> 5
+> 3
+> 4
+> 67
+
+(a) Direct trust graph of M . 
+
+> 1
+> 2
+> 5
+> 3
+> 4
+> 67
+
+(b) Reachability graph; dashed red arrows are indirect-only R-edges.                       
+
+> Figure 1: The n= 7 running example. Top: the trust matrix Mand its reachability matrix
+> R(M); the entries highlighted in red are the eight indirect reachabilities, so |R(M)|= 17 .Bottom: (a) the trust graph and (b) the reachability graph, with indirect-only edges dashed red and the clusters shaded. Here {1,2}is inward and {3,4}is outward (since 3
+> trusts out of the cluster by trusting 5); 5,6, and 7are lone agents. Later figures revisit this example as the proof progresses.
+
+Corollary 1 (|R(M )| is monotone non-increasing) . For every firing move 
+
+M → M ′, |R(M )| ≥ | R(M ′)|.Proof. By Lemma 1, 0 → 1 moves preserve R, so |R(M )| = |R(M ′)|. A
+
+1 → 0 move removes one direct trust edge, z(y), from M . Removing an edge from a directed graph can only shrink the reachability relation: every path in the post-move graph is a path in the pre-move graph. So R(M ) ⊇ R(M ′),hence |R(M )| ≥ | R(M ′)|.From the above, any decrease in |R(M )| comes from a 1 → 0 move, and only when removing the direct edge z(y) also removes some pair from R.5Lemma 2 (Reachability invariance) . Any run of flat moves from M leaves 
+
+R unchanged. Proof. Let M → M ′ be a flat firing move. By Corollary 1, R(M ) ⊇ R(M ′);flatness gives |R(M )| = |R(M ′)|; a superset of equal size forces R(M ) = 
+
+R(M ′). Applying this along a flat-move sequence keeps R constant. 
+
+Corollary 2. Any run of flat moves leaves the R-clusters unchanged. 
+
+Lemma 3 (Paths stay in clusters) . Let u and v lie in a common R-cluster 
+
+C. Then every directed M -path from u to v has all its vertices in C.Proof. Let x be any vertex on the path. u reaches x in R, and x reaches v
+
+in R. Since u and v lie in the same cluster, v reaches u in R. Composing: x
+
+reaches v reaches u, so x reaches u. Combined with u reaches x, the vertex 
+
+x is mutually reachable with u, so x ∈ C.
+
+4. The two kinds of cluster 
+
+On a flat-closure the R-cluster structure is fixed (Corollary 2). We define two kinds of clusters. 
+
+Definition 6 (Inward and outward clusters) . A cluster C is outward if some outsider is reachable from C in R (that is, Ruy = 1 for some u ∈ C and 
+
+y / ∈ C), and inward otherwise. For C to be outward, some member must directly trust an outsider: any path leaving C takes a first step out, so if no member trusts an outsider, no member can reach one. And since C is strongly connected, an outsider reachable from one member is reachable from all, so being outward is a prop-erty of the cluster , not of any single member. The two are treated differently by this proof: in our sequence, an outward cluster gets disassembled so that its members no longer trust each other, while an inward one gets completed so that all its members directly trust each other. Figure 2 shows a minimal 
+
+n = 4 instance of each, and we will now describe the process in detail. 
+
+5. Outward clusters yield progress Definition 7 (Common trustee) . An outsider w / ∈ C is a common trustee of 
+
+C when every member of C trusts w. A common trustee trusts no member of C in return: otherwise w would reach all of C and be reached by all of C,putting w into the cluster by definition. 61           
+
+> 2
+> 3
+> 4
+> (a) Inward: C={1,2}has no trust edges to outsiders.
+> 1
+> 2
+> w4
+> (b) Outward: at least one member of
+> C={1,2}trusts the outsider w.
+> Figure 2: The two kinds of cluster.
+
+We dissolve an outward cluster by manufacturing a common trustee and using it as a speaker who causes all the agents in the cluster to distrust each other; this strictly lowers |R(M )|. An outward cluster may have a common trustee at the start, but if one does not exist, it can be manufactured out of a reachable outsider with a short run of flat moves, as we will show here. 
+
+Lemma 4 (Common trustee) . Let C be an outward cluster. A finite sequence of flat 0 → 1 moves makes some outsider w / ∈ C a common trustee of C (so 
+
+z(w) = 1 for every z ∈ C). Proof. Since C is outward, some member directly trusts an outsider; fix one such outsider w, so a(w) = 1 for some a ∈ C. Next, we spread that trust of w
+
+to the rest of the cluster. For any z ∈ C with z(w) = 0 , strong connectivity gives an M -path from z to a, which stays inside C by Lemma 3. Walk the opinion of w backward along this path: wherever consecutive vertices 
+
+zi → zi+1 have zi+1 (w) = 1 and zi(w) = 0 , fire gos( M, z i+1 (w), z i), a 0 → 1
+
+move that sets zi(w) := 1 and is flat by Lemma 1. Repeating over all members brings every z ∈ C to z(w) = 1 . Figure 3 shows the backward walk in general, and Figure 4 shows it on the running example. 
+
+Lemma 5 (Dissolution) . Let w be a common trustee of a cluster C. Then a finite sequence of firing moves brings M to a state in which z(y) = 0 for all distinct z, y ∈ C (no-one in the cluster trusts anyone else in the cluster anymore and it is said to be dissolved), and |R(M )| strictly decreases by at least |C|(|C| − 1) ≥ 2.
+
+7z0 z1 z2 a
+
+w   
+
+> z0(w) = 0 z1(w) = 0 z2(w) = 0 a(w) = 1
+
+(a) Before, only a directly trusts w
+
+(gold edge). 
+
+z0 z1 z2 a
+
+w   
+
+> z0(w) = 1 z1(w) = 1 z2(w) = 1 a(w) = 1
+
+(b) After, backward 0 → 1-walk has propagated 1 from a to z2 to z1 to z0.Every member of C now directly trusts w.
+
+Figure 3: The common-trustee process (Lemma 4) before and after the backwards opinion walk. Each backward step is a 0 → 1 move and therefore flat, so R never changes. 
+
+1
+
+2
+
+5
+
+3
+
+4
+
+6 7
+
+Figure 4: The common-trustee step. Cluster {3, 4} is outward, and a single move prop-agates 3’s trust of 5 across the edge 4 → 3, setting 4(5) := 1 (green dashed), so both members now trust 5.
+
+Proof. A common trustee trusts no member of C, so w(y) = 0 for every 
+
+y ∈ C. We use w as the speaker: while some distinct z, y ∈ C have z(y) = 1 ,apply gos( M, w (y), z ), which sets z(y) := 0 . Each pass deletes a distinct intra-cluster edge, so after finitely many passes M is zero on C × C, i.e. C
+
+is dissolved. 
+
+Strict drop. Before the process C is a cluster, so Rzy = 1 for all distinct 
+
+z, y ∈ C, worth |C|(|C| − 1) to |R(M )|. By Lemma 3, every M -path between 8two members of C has all its edges inside C × C; once those edges are gone, no path between two members survives, so every such Rzy falls to 0. Hence 
+
+|R(M )| drops by at least |C|(|C| − 1) ≥ 2. This is only a lower bound: an outside path routed through C is also severed when the cluster is dissolved, and its two endpoints need not both lie in C, so such a loss adds to the drop without appearing in |C|(|C| − 1) . Figure 5 shows the dissolution on the running example. 
+
+1
+
+2
+
+5
+
+3
+
+4
+
+6 7              
+
+> Figure 5: Dissolution. The common trustee 5acts as speaker for two moves, gos( M, 5(4) ,3)
+> and gos( M, 5(3) ,4) , removing the edges 3(4) and 4(3) (red dashed) and dissolving the cluster {3,4}; every other edge is unchanged.
+
+6. Inward clusters lock into factions 
+
+An inward cluster cannot be dissolved in this way since it trusts no out-sider who could be turned into a common trustee. Instead, we first saturate 
+
+the cluster until its members all trust each other, then align every outsider who trusts into the cluster by overwriting its opinions to match the cluster’s. The result is a structure that the companion paper [1] calls a faction : acluster of directly mutually-trusting agents (the core ) who only trust each other, together with the outsiders that directly trust this cluster and no-one else (the periphery ). We use C for a core, P (C) for its periphery, and 
+
+F (C) = C ∪ P (C) for the faction. (The companion paper uses slightly differ-ent notation: for faction index ℓ, there are faction Fℓ, core Cℓ, and peripherals 
+
+Fℓ \ Cℓ.) 9Definition 8 (Periphery and anchor) . For an inward cluster C, the periphery 
+
+of C, written P (C), consists of the agents outside C that directly trust some member of C. We read P (C) dynamically: it is evaluated when C is handled in the fixed order of the saturate–align process below. An agent that an earlier faction already captured has had its row overwritten to trust only that earlier core, so it no longer trusts into C and is not a candidate. For each peripheral z ∈ P (C), we fix an anchor az ∈ C with z(az ) = 1 .
+
+Definition 9 (Aligned peripheral) . A peripheral z ∈ P (C) is aligned with 
+
+its anchor az when row z agrees with row az everywhere off z(az ) and z(z);that is, z(y) = az (y) for every y / ∈ { az , z }.A peripheral already trusts its anchor, but its other opinions need not match az ’s yet. The alignment sequence for z brings them into line: while some y / ∈ { az , z } has z(y)̸ = az (y), fire gos( M, a z (y), z ), which sets z(y) := 
+
+az (y). Each move edits one such z(y) and introduces no new disagreement, so after finitely many moves z is aligned. The firing condition z(az ) = 1 
+
+holds throughout, since az is never a target if it is itself the speaker. 
+
+The saturate–align process. For each inward cluster C in some fixed order: 1. Saturate C: apply intra-C 0 → 1 firing moves greedily until M on 
+
+C × C equals KC (the complete digraph on C). 2. Align : for each z ∈ P (C), run the alignment sequence for z.Figure 6 shows the process on the running example. 
+
+Definition 10 (Silent and active agents) . After the saturate–align process, an agent is silent if it belongs to one of the factions F (C) built by the process, and active otherwise. These labels are assigned only where the saturate– align process runs, namely when every cluster is inward; an outward cluster is dissolved instead (Section 5) and its members are never sorted into silent and active. 
+
+Lemma 6 (Structure after saturate–align) . Suppose every cluster of M is inward, and run the saturate–align process on every cluster. Afterwards: (a) (Factions lock.) For every cluster C, each core agent ends up trusting exactly the other core agents and each peripheral trusts exactly the core; no member of F (C) can ever be a listener afterward. 
+
+10 (b) (Factions are disjoint.) F (C) ∩ F (C′) = ∅ whenever C̸ = C′.Proof. (a) Faction structure. Saturation applies intra-C 0 → 1 moves, each flat (Lemma 1) and adding a 1 to C × C, so no edge is added twice and the process halts within |C|(|C| − 1) moves. It halts only at KC : since C is an R-cluster, R restricted to C is complete by definition, and by Lemma 3 every 
+
+M -path between two members of C stays inside C, so the transitive closure of M restricted to C × C agrees with R restricted to C — also complete. So whenever M on C × C is not yet KC , it is not yet transitively closed: some triple p, r, q ∈ C has p(r) = 1 , r(q) = 1 , p(q) = 0 , which is exactly a legal 0 → 1 move (speaker r, listener p, target q). The process can always proceed until M on C × C is KC , at which point trust inside C is transitive by construction. 
+
+C stays inward. No move makes a C-member trust an outsider. A 1 → 0
+
+move only removes a trust edge. A 0 → 1 move makes a listener z ∈ C
+
+trust some new y, copied from its speaker a: since z trusts a, a ∈ C, and a
+
+trusts only C, so y ∈ C. Handling another cluster C′ never touches a C-row: saturating C′ will only edit C′-rows, and aligning C′ will only edit P (C′)-rows, which contain no C-member, since members of an inward C trust no outsiders. 
+
+Peripherals copy the core. Consider a peripheral z ∈ P (C) with anchor 
+
+az ∈ C. By the two paragraphs above, az trusts exactly C \ { az }. Aligning 
+
+z to az overwrites row z with row az on every column except z(az ) and z(z);with the anchor edge z → az still in place, z ends trusting exactly C. Distinct peripherals are defined by disjoint rows, so the alignments are independent and their order does not matter. 
+
+No more firing moves are possible. A faction member trusts only core members, and core members and peripherals alike trust exactly the core. So a faction member and any speaker it trusts agree on every target: each trusts a third agent precisely when it lies in the core, and the firing condition (a disagreement) never arises. 
+
+(b) Factions are disjoint. Distinct clusters are disjoint, and a core member of C trusts only C by part (a), so it cannot also be peripheral. Nor can an agent be peripheral to two different cores: suppose z ∈ P (C) and z ∈ P (C′).Aligning z to C leaves its row trusting only C, so by the time C′ is aligned 
+
+z trusts no member of C′ and has left P (C′). Hence each agent belongs to exactly one faction. 11 1
+
+2
+
+5
+
+3
+
+4
+
+6 7                   
+
+> Figure 6: Saturate–align process on the running example. {1, 2} happens to already be saturated; agent 5has anchor 1.The alignment sequence for 5is a single move setting
+> 5(2) := 1 (green dashed). After alignment, row 5equals row 1off the diagonal positions, and 5joins the faction as a peripheral member; F(C) = {1,2,5}becomes silent.
+
+7. Zipping the active agents into factions 
+
+After the saturate–align process, the formerly inward factions are locked: their members are silent and can never be listeners again. Each remaining 
+
+active agent will now be zipped into a faction it reaches, joining that faction’s periphery, as described below. 
+
+Definition 11 (Singleton core; generalized faction) . An agent that trusts no one forms a core by itself, a singleton core . From here on a core is either a multi-agent cluster locked by Lemma 6 or a singleton core; either kind trusts nothing outside itself. This matches the companion paper’s factions, whose core may be of any size [1]. An active agent never directly trusts a multi-agent core. An active agent’s row is never edited during the process, so if it trusts a core member now, it trusted that member already when the cluster was aligned; it was therefore in the periphery at that point (Definition 8), underwent alignment, and is silent — a contradiction. So an active agent only trusts peripherals or other active agents. 
+
+Lemma 7 (Active agents reach a core) . After the process, every active agent reaches a core member of a faction in R.
+
+12 Proof. Every cluster was silenced into a faction, so no active agent lies in one; two active agents that were mutually reachable would share a cluster, so distinct active agents are not mutually reachable and form a DAG in R.Starting from any active agent z, follow trust edges through active agents; the DAG has no cycle, so the walk halts at an active agent a that trusts no other active agent. By the remark above a trusts only peripherals, or no one. If no one, a is itself a singleton core. Otherwise a trusts a peripheral of a faction with core C, and that peripheral trusts the members of C, so active agent z reaches a core member of C in R.
+
+Lemma 8 (Zipping) . After the saturate–align process (Lemma 6), either (a) every active agent trusts no one, or trusts exactly one agent that itself trusts no one; then M is absorbing; or (b) otherwise, some active agent trusts multiple agents, and a finite se-quence of firing moves makes this active agent a peripheral of a core and strictly decreases |R(M )|.Proof. (a) An active agent that trusts no one is a singleton core; one that trusts a single trustless agent c is a peripheral of the singleton core {c}.Together with the silent agents, each trusting exactly its core by Lemma 6(a), every agent now trusts exactly the core of its faction (no-one, for a singleton core). Such a state is absorbing [1]. 
+
+(b) Some active agent z falls outside case (a): it trusts two or more agents, or a single agent that itself trusts someone. In neither case does z
+
+trust exactly a core: trusting exactly a multi-agent core would make it a silent peripheral, so by Lemma 7 agent z reaches a core member t; fix one, and let T be its cluster. Reachability means there is a directed M -path 
+
+z → z1 → · · · → t.
+
+Adopt up. Walk the path forward, adopting trust: whenever z trusts 
+
+zi and zi trusts the next vertex zi+1 but z does not yet trust zi+1 , fire 
+
+gos( M, z i(zi+1 ), z ) — a 0 → 1 move, flat by Lemma 1, setting z(zi+1 ) := 1 .After finitely many such moves z directly trusts the core member t.
+
+Align. Run the alignment sequence for z with anchor t (Definition 9). A core trusts only its other members, so t trusts exactly T \ { t}; alignment overwrites row z to match t, giving z(y) = 1 ⇐⇒ y ∈ T . Agent z now trusts every member of T , and no longer trusts anyone outside T , and is therefore a peripheral of T .13 Progress. Because z did not already trust exactly T , it previously reached at least one agent outside T (a vertex on the path, or a surplus trustee). After zipping, z trusts only T , and a core reaches only itself, so z now reaches exactly T . The reachabilities from z to those outside agents fall to 0, so 
+
+|R(M )| strictly decreases. Adoption and alignment edit only row z, so every multi-agent faction stays locked (Lemma 6(a)) and no core member comes to trust z; thus z joins T ’s periphery without creating a new cluster. Figure 7 shows the zipping of one agent, and Figure 8 completes the running example. 
+
+c1
+
+c2
+
+pz
+
+(a) Before. Active z (teal) trusts a peripheral p (gold) of the core 
+
+C = {c1, c 2} (blue), reaching the core only through p.
+
+c1
+
+c2
+
+pz
+
+(b) After. z has adopted trust up to 
+
+c1, c 2 and been aligned, so it trusts exactly the core (green): a new peripheral. Its edge to p is gone, so it no longer reaches p.          
+
+> Figure 7: Zipping an active agent into a faction (Lemma 8). zadopts the trust of agents along a path it reaches until it directly trusts a core member (flat 0→1moves), then is aligned onto that core anchor, overwriting its row to trust exactly the core. The reacha-bility Rzp is destroyed, so |R|drops.
+
+8. Descent and termination Theorem 1 (Descent claim) . From every non-absorbing state M , there exists a finite sequence of firing moves reaching either an absorbing state, or a state 
+
+M ′ with |R(M ′)| < |R(M )|.Proof. Either some available move at M is progress, which decreases |R(M )|,or every available move is flat, so R is constant on the flat-closure (Lemma 2) and the cluster structure is fixed (Corollary 2). If some cluster is outward, manufacture a common trustee by flat moves (Lemma 4), then dissolve the cluster (Lemma 5), strictly lowering |R(M )|.14 1 
+
+> 2
+> 5
+> 3
+> 4
+> 67
+
+(a) Zipping up agent 3. 
+
+> 1
+> 2
+> 5
+> 3
+> 4
+> 67
+
+(b) The absorbing state.                                 
+
+> Figure 8: Zipping process. (a) After saturate–align, 5is a peripheral of {1,2}and agent
+> 3is active, trusting 5.Adopt up makes 3trust the core directly (green dashed, 0→1,flat); aligning 3onto anchor 1then removes 3(5) (red dashed), so 3trusts exactly {1,2}
+> and joins the periphery, dropping |R|. (b) Zipping 4and 6in the same way, every agent trusts exactly the core {1,2}except 7, which trusts no one and is a singleton core; no firing move remains, so the state is absorbing.
+
+Otherwise every cluster is inward. Run the saturate–align process (Lemma 6); its moves are flat except possibly for a 1 → 0 alignment step that lowers |R(M )|, which locks the multi-agent factions. If some active agent can still be zipped, do so (Lemma 8(b)): flat adoptions then an alignment which lowers |R(M )|. Otherwise M is absorbing (Lemma 8(a)). 
+
+Corollary 3 (Termination) . From every non-absorbing state M , there exists a finite sequence of firing moves leading to an absorbing state. Proof. Apply Theorem 1 repeatedly. Each application either reaches an ab-sorbing state or strictly drops |R(M )|. Since |R(M )| is a non-negative integer bounded above by n(n − 1) , and |R(M )| = 0 forces M to be the empty trust matrix (itself absorbing), the procedure halts at an absorbing state after at most n(n − 1) iterations. 
+
+9. No limit cycles under fairness 
+
+A firing schedule is a sequence of firing-move choices, one per time step, where each chosen move is available at the corresponding state. A firing schedule is fair if, whenever a state M occurs infinitely often, every firing move available at M is fired from M infinitely often. Equivalently, a move cannot remain available at a recurring state yet never be fired. 15 Theorem 2 (No limit cycles) . Under any fair firing schedule, every trajec-tory of the binary trust-gossip dynamics reaches an absorbing state in finitely many steps. Proof. From every non-absorbing state an absorbing state is finitely many moves away (Corollary 3); write d(M ) for the fewest moves in which M
+
+reaches one. Suppose towards contradiction that some fair trajectory never absorbs. The state space is finite, so some state recurs at infinitely many steps; among those, consider N with d(N ) smallest. Since the trajectory never absorbs, N
+
+is not absorbing, so d(N ) ≥ 1. The first move of a shortest run from N leads to a state N ′ with d(N ′) = d(N ) − 1. That move is available whenever N
+
+occurs, hence at infinitely many steps, so by fairness it fires from N infinitely often, each time sending the trajectory to N ′; thus N ′ recurs infinitely often. If d(N ) = 1 , then N ′ is absorbing, so the trajectory reaches an absorbing state, contradicting the assumption that it never absorbs. If d(N ) > 1, then 
+
+N ′ is a non-absorbing recurring state with d(N ′) < d (N ), contradicting the minimality of d(N ).
+
+10. Discussion 
+
+Theorem 2 extends the companion paper’s empirical observation (no limit cycles for n ≤ 4) to all n. The proof is constructive, with an explicit per-iteration cost: each descent step takes O(n2) moves: in the outward case a backward propagation followed by a dissolution, in the all-inward case the saturate–align process followed by zipping an active agent (an adoption walk plus an alignment, each O(n) moves), and the outer loop runs at most n(n−1) 
+
+times, giving an overall bound of O(n4) moves to absorbing. Combined with the Characterization Theorem of [1], every initial state reaches one of the plane-partition-counted absorbing states. Because a gossip move overwrites rather than adds, the dynamics are not abelian: unlike the abelian chip-firing and sandpile systems, where each starting state has one destination, termination here does not come with a unique endpoint. We prove that every trajectory halts, but which absorbing state it reaches depends on the order of gossip moves. Three questions remain open. 1. A tighter bound. From any non-absorbing state, a short run of flat moves reaches a state that is absorbing or has a progress move available. 16 By exhaustive enumeration for n ≤ 5 and sampling for n = 6 , the longest such run needed is 1, 2, 4, 6 moves at n = 3 , 4, 5, 6. So the 
+
+O(n2)-per-phase factor in the O(n4) bound is likely too high and the true bound may be O(n3) or better; a proof would track which edges turn from flat to progress in each phase. 2. Basins of attraction. Which initial states reach which absorbing state, and with what probability under a given schedule? 3. Other dynamics. Does the argument carry over to higher-order opinions and to the other gossip types of [1]? 
+
+Acknowledgements 
+
+Formatted and illustrated using Overleaf. No competing interests to declare. This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors. Use of AI tools: Anthropic Claude Fable 5, Opus 4.8 and Sonnet 5 were used for assistance with drafting sections, conducting literature searches, and drawing figures. All mathematical content was verified independently by the author. 
+
+References 
+
+[1] N. Boichuk, Absorbing states of binary trust gossip are counted by plane partitions . Preprint, 2026. arXiv:2605.26792 .[2] A. Björner, L. Lovász, and P. W. Shor, Chip-firing games on graphs ,European J. Combin. 12 (1991), no. 4, 283–291. [3] A. Björner and L. Lovász, Chip-firing games on directed graphs , J. Al-gebraic Combin. 1 (1992), no. 4, 305–328. [4] D. Dhar, Self-organized critical state of sandpile automaton models ,Phys. Rev. Lett. 64 (1990), no. 14, 1613–1616. [5] B. Bond and L. Levine, Abelian networks I: foundations and examples ,SIAM J. Discrete Math. 30 (2016), no. 2, 856–874. [6] M. H. DeGroot, Reaching a consensus , J. Amer. Statist. Assoc. 69 
+
+(1974), no. 345, 118–121. 17 [7] R. Hegselmann and U. Krause, Opinion dynamics and bounded confi-dence: models, analysis and simulation , J. Artificial Societies and Social Simulation 5 (2002), no. 3. [8] P. Clifford and A. Sudbury, A model for spatial conflict , Biometrika 60 
+
+(1973), no. 3, 581–588. [9] R. A. Holley and T. M. Liggett, Ergodic theorems for weakly interacting infinite systems and the voter model , Ann. Probab. 3 (1975), no. 4, 643– 663. [10] S. Boyd, A. Ghosh, B. Prabhakar, and D. Shah, Randomized gossip algorithms , IEEE Trans. Inform. Theory 52 (2006), no. 6, 2508–2530. [11] P. Jia, A. MirTabatabaei, N. E. Friedkin, and F. Bullo, Opinion dynam-ics and the evolution of social power in influence networks , SIAM Rev. 
+
+57 (2015), no. 3, 367–397. 18

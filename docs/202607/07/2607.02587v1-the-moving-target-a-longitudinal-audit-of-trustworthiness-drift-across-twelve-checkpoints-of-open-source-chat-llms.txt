@@ -1,0 +1,865 @@
+Title: The Moving Target: A Longitudinal Audit of Trustworthiness Drift Across Twelve Checkpoints of Open-Source Chat LLMs
+
+URL Source: https://arxiv.org/pdf/2607.02587v1
+
+Published Time: Tue, 07 Jul 2026 00:03:00 GMT
+
+Number of Pages: 22
+
+Markdown Content:
+# The Moving Target: A Longitudinal Audit of Trustworthiness Drift Across Twelve Checkpoints of Open-Source Chat LLMs 
+
+Zhichao Fan 1 Yanhang Li 2 Zexin Zhuang 3 Xian Sun 4 Yingshuo Wang 5
+
+# Abstract 
+
+Model cards quote trust-benchmark scores with-out recording when they were measured, and the same number is routinely carried across succes-sive checkpoints of one release line as if the model behind it had not shifted. We test whether it has shifted by auditing four open-source release lines — Yi, Qwen, Mistral, and Gemma — at three successive generations each, on a fixed basket of trust benchmarks under multiple prompt tem-plates. Mean absolute adjacent-generation drift lands well above an independence-based no-drift reference null, and the gap persists when we drop a benchmark, drop a release line, or switch to strict scoring. We therefore conclude that a trust score attached to a release line should not be car-ried forward to the next checkpoint without re-measurement; it should instead be reported as a checkpoint-bound, dated artefact, which we pack-age as a longitudinal model card. Closed APIs, larger models, canonical benchmark protocols, and fixed month-cadence rules lie outside the au-dited scope and require their own evaluation. 
+
+# 1. Introduction 
+
+An organisation certifies a chat LLM on TruthfulQA, BBQ and ToxiGen at time t. Eight months on, the vendor ships a new generation of the same release line under the same brand (“Yi”, “Qwen”, “Mistral”). The old numbers live on in the same model-card style of point-in-time report-ing (Mitchell et al., 2019). Should the certificate follow? The operational question is what happens when a model card, procurement review, or regulatory disclosure is reused 
+
+> 1
+
+University of Illinois Urbana-Champaign 2Northeastern University 3Southern Methodist University 4Duke Univer-sity 5University of California, Berkeley. Correspondence to: Zhichao Fan <zhichao8@illinois.edu >, Yanhang Li <li.yanha@northeastern.edu >, Zexin Zhuang <zex-inz@smu.edu >, Xian Sun <xiansun@alumni.duke.edu >,Yingshuo Wang <yingshuow@berkeley.edu >.
+
+without an explicit re-evaluation horizon: when downstream readers keep quoting the old score across later checkpoints, they are implicitly betting that the number still holds. Re-cent benchmark-audit work makes the same concern con-crete at the configuration level: alignment rankings and quantization benchmarks can move under evaluator, prompt-template, or sample-size choices (Li et al., 2026b; Zhuang et al., 2026). Open-source release lines ship on the scale of months (adjacent-generation intervals in our sample span 0–
+
+9 months, from each checkpoint’s HuggingFace publication month), and earlier work has documented sizeable version-to-version behaviour change in closed systems (Chen et al., 2023). For open-source release-line evaluations used in gov-ernance workflows, the question reduces to one thing: is a point-in-time trust score being read as a transferable certifi-cate when the underlying checkpoint has already moved? 
+
+This paper. We audit four open-source chat-LLM release lines (Figure 1) — Yi (Young et al., 2024), Qwen (Bai et al., 2023; Yang et al., 2024a;b), Mistral (Jiang et al., 2023), and Gemma (Gemma Team, 2024a;b; 2025) — each at three successive public generations ( G1 → G2 → G3). The resulting 4 × 3 = 12 (release line, generation) pairs are the 12 checkpoints we evaluate (“checkpoint,” “gen-eration,” and “release line” are defined precisely in §3). Each checkpoint is run on five trust benchmarks: Truth-fulQA (Lin et al., 2022), BBQ (Parrish et al., 2022), Toxi-Gen (Hartvigsen et al., 2022), CrowS-Pairs (Nangia et al., 2020), and XSTest (R ¨ottger et al., 2024), with three prompt templates each. That is 4 × 3 × 5 × 3 = 180 evaluations on fixed 200 -item cached subsets, for 36 ,000 item-level deci-sions. Generations inside a line are not controlled variants: pretraining mixture, instruction-tuning recipe, tokenizer, and scale all shift (Gemma 7B → 9B → 12 B is the starkest case). The claim is about audit non-transferability within a named release line, not about any decomposed mecha-nism. Prior longitudinal audits of closed systems (Chen et al., 2023), LLM-as-judge biases and limitations (Zheng et al., 2023), and contamination (Oren et al., 2024) are the nearest points of comparison. We are not aware of a pub-lic multi-family open-source longitudinal trust audit at this scale with pooled no-drift reference nulls attached to the headline aggregate. 1
+
+> arXiv:2607.02587v1 [cs.SE] 1 Jul 2026
+
+Trustworthiness Drift Across LLM Release Lines 
+
+Release lines & generations        
+
+> 4 release lines
+> Yi, Qwen, Mistral, Gemma
+> G1−→ G2−→ G3
+> 4×3 = 12 public checkpoints two adjacent transitions per line
+
+Benchmark basket & prompts     
+
+> 5 non-canonical chat benchmarks
+> Truth Fair Safety
+> 3 prompt templates
+> T1,T2,T3
+
+Evaluation & scoring    
+
+> Greedy inference
+> own chat template
+> Template mean
+> sf,g,b =13
+> P
+> tsf,g,b,t
+> one score per checkpoint and benchmark
+
+Longitudinal analysis      
+
+> Score Drift Rate
+> SDR = 100 ∆ score
+> mean |SDR |over 40 cells
+> pooled no-drift null ( B= 5000 )
+> observed
+
+Figure 1. Overview of the longitudinal trust-audit pipeline: four open-source release lines (Yi, Qwen, Mistral, Gemma) at three public generations each are evaluated on five non-canonical chat benchmarks across truthfulness-, fairness-, and safety-related proxies under three prompt templates, then aggregated into a Score Drift Rate compared against an independence-based pooled no-drift reference null. 
+
+Findings and contribution. We report one pre-specified primary endpoint and a set of exploratory descriptive diag-nostics on the same audit sample: • (Primary.) Mean |SDR | = 8 .00 pp (count-level bootstrap 
+
+95% CI [7 .57 , 9.12] ) is 3.60 × an independence-based pooled no-drift reference null (99.9-percentile 3.30 pp), 
+
+8.93 pp under strict scoring, and [6 .36 , 9.43] pp across leave-one-benchmark, leave-one-release-line, and drop-low-parse perturbations (§5.1). • (Exploratory, descriptive.) 47 .5% of adjacent-generation transitions are regressions. Rank persistence is weak rela-tive to uniform-random baselines at |F| = 4 . Compliance flip probability at the empirical median threshold is ≥ 0.5
+
+for every benchmark with wide exact Clopper–Pearson CIs. None of these is load-bearing for the governance discussion (§5.2). Within the audited open-source setup, the primary result supports a narrow operational conclusion: trust scores at-tached to a named release line should not be presumed to transfer across later generations without re-measurement. By default, treat them as checkpoint-bound, time-stamped artefacts, not transferable certificates. Section 6 draws three concrete implications — model-card fields, re-audit on re-lease, scope-aware disclosure for open-source release-line evaluations — with a scope-of-claims table that separates evidence-backed from out-of-scope recommendations. We claim no new statistical methodology: SDR, Kendall τ ,Clopper–Pearson flip probability, and the bootstrap are stan-dard in isolation. What the paper contributes is the combined longitudinal reporting pattern and the specific open-source multi-family audit that instantiates it. All evaluation records, bootstrap samples, null draws, and the analysis pipeline will be released on the project page at de-anonymisation. 
+
+# 2. Related Work 
+
+The closest precedent is Chen et al. (2023): a two-point closed-system study that found big GPT-3.5 and GPT-4 behaviour changes between closely spaced snapshots on math, sensitive-topic refusal, and code. We run the open-source analogue — four release lines, three generations each, on a fixed trust basket with pooled aggregate reference nulls. Our audit builds on the standard evaluation apparatus: model cards (Mitchell et al., 2019), broad evaluation suites (Liang et al., 2023; Srivastava et al., 2023), LLM-as-judge anal-yses (Zheng et al., 2023), and red-teaming (Perez et al., 2022). Benchmark contamination work (Oren et al., 2024) gives a separate reason to treat benchmark scores as contin-gent measurements rather than timeless properties. We take these point-in-time evaluation practices as given and ask what happens when the checkpoint moves along a public release line. Recent audit and reproducibility work makes the same caution concrete for benchmark configuration choices. SafetyRepro studies rank instability across alignment-benchmark configurations (Li et al., 2026b), while paired-MDE budgeting for 4-bit quantization benchmarks high-lights prompt-template and sample-size effects in audit de-sign (Zhuang et al., 2026). Adjacent foundation-model audits make related scope-control points in unlearning and tabular discrete-choice settings (Li et al., 2026a; Wang et al., 2026b). Our contribution is not a new benchmarking statis-tic, but the longitudinal open-source release-line application of this audit stance. The broader trust-evaluation ecosystem is intentionally more varied than our audited basket. Clinical LLM fairness and text-to-image bias studies motivate domain-specific audit boundaries (Ji et al., 2025; Luo et al., 2024; 2026). Synthetic medical-data bias audits make the same point in a different domain (Salarian et al., 2025). Agent-safety and supply-chain work give parallel examples for agentic systems (Luo et al., 2025; Jiang et al., 2026b). Compositional-skill and safeguard papers add tool-use-specific versions of the same scope issue (Wang et al., 2026a; Lin et al., 2026; Jiang et al., 2026a). Agent-memory studies are separate again (Liu 2Trustworthiness Drift Across LLM Release Lines 
+
+et al., 2026). RAG reliability and cited-evidence calibration provide another protocol-bound evaluation family (Chen et al., 2026; Qian et al., 2026). These papers are broader motivation only; the evidence in this paper is limited to text-only chat checkpoints and the five benchmark variants in §4. 
+
+# 3. Longitudinal Reporting Protocol 
+
+Terminology: release line, generation, checkpoint. We separate three axes that are easy to conflate. A release line 
+
+(used interchangeably with family ) is the branded sequence of public model releases a vendor ships under one name — Yi, Qwen, Mistral, or Gemma. A generation is an ordinal position G1 → G2 → G3 within a line, indexing the first, sec-ond, and third public release we audit on that line; it is not an internal training step or a release candidate. A checkpoint 
+
+is the concrete, downloadable weight artefact at one (release line, generation) pair — e.g. Qwen2-7B-Instruct is the Qwen-G2 checkpoint. Auditing four lines at three gen-erations each yields 4 × 3 = 12 checkpoints; the title’s “twelve” refers to these 12 checkpoints, not to twelve gen-erations. Every numerical claim is indexed by the (release line, generation) grid, so “twelve checkpoints” and “four lines × three generations” name the same audited set. Let F be the set of release lines (we use “release line” and “family” interchangeably) and G = {G1, G 2, G 3} the three generations audited per line. The adjacent-transition set is 
+
+Gtrans = {(G1, G 2), (G2, G 3)}. Let B be a fixed benchmark basket and Tb = {T1, T 2, T 3} three prompt templates per benchmark. Write sf,g,b,t ∈ [0 , 1] for the score of check-point θf,g on a fixed nb-item cached sample under template 
+
+t, and sf,g,b := 13
+
+P 
+
+> t
+
+sf,g,b,t for the template-mean score (Figure 1). 
+
+3.1. Score Drift Rate and Pooled No-Drift Reference Null 
+
+For adjacent generations g → g′ the per-cell Score Drift Rate and its cross-cell aggregate are 
+
+SDR g→g′ 
+
+> f,b
+
+:= 100 · (sf,g ′,b − sf,g,b ) (pp), 
+
+|SDR | := 1
+
+> |F||B||G trans |
+
+X
+
+> (g,g ′),f,b
+
+|SDR g→g′ 
+
+> f,b
+
+|. (1) The primary question is whether |SDR | is detectable above the sampling noise of the same aggregate under a pooled no-drift reference null. For each template record (f, b, t ):
+
+ppool  
+
+> f,b,t
+
+=
+
+P 
+
+> g∈G
+
+cf,g,b,t 
+
+P 
+
+> g∈G
+
+nf,g,b,t 
+
+,x⋆f,g,b,t ∼ Binomial 
+
+
+
+nf,g,b,t , p pool 
+
+> f,b,t
+
+
+
+/n f,g,b,t .
+
+Each of the Bnull = 5000 bootstrap iterations averages tem-plates to s⋆f,g,b and computes, over the 40 adjacent pairs, 
+
+∆⋆f,b, (g,g ′) := s⋆f,g ′,b − s⋆f,g,b .
+
+These are fractional-unit differences; SDR = 100 ∆ . We therefore record 100 times the mean of |∆⋆| as one null draw of |SDR |. Under no temporal drift the pooled rate forces E[∆ ⋆] = 0 . This null is parametric, count-level, and independence-based at two layers : it ignores item-level het-erogeneity, treats the two adjacent-generation evaluations as independent even though they reuse the same 200 -item cached sample, and it simulates each of the three prompt templates independently, ignoring cross-template outcome correlation within a checkpoint. Under this null, the ob-served aggregate is 3.60 × larger (Table 3). Because paired-item reuse lowers variance (item-level Pearson correlation 
+
+ρitem > 0) while shared-checkpoint cross-template cor-relation raises it, the null can in principle either over- or under-state true sampling noise; we therefore interpret it as a reference null —the sampling distribution of |SDR | that would obtain under independence given the pooled rates— rather than as a formally conservative bound. Accordingly, the primary endpoint should be read as “large relative to this operational reference null,” not as a formal test against the exact paired-data no-drift distribution. Appendix G decom-poses the template-averaged variance explicitly and gives the paired-item argument for the direction in which each term moves. 
+
+Primary endpoint vs exploratory diagnostics. The pooled-no-drift-reference-null comparison on |SDR | is our single pre-specified primary endpoint (§5.1). Everything else —per-dimension volatility, cross-dimension correla-tions, rank persistence, and per-benchmark compliance flip probabilities—is reported as exploratory, descriptive sum-mary of the same sample, using a parametric count-level binomial bootstrap ( B = 3000 ) for CIs (pseudocode in Appendix E), with Clopper–Pearson 95% intervals for per-benchmark flip probabilities from k/n counts. Because the bootstrap is count-level rather than nonparametric item-level (§7), these CIs should be read as approximate descriptive uncertainty. None of the exploratory diagnostics is used as load-bearing support for the governance recommendations in §6. Derivations of the rank-stability exact permutation test, the compliance-half-life reparameterisation, and the plug-in reference null are in Appendix A. 
+
+Scope and assumptions (stated once). Throughout the paper, every numerical claim is about: (i) non-canonical 
+
+chat-evaluation variants of four of the five benchmarks (BBQ-mixed, CrowS-Pairs-FC, ToxiGen-AT, XSTest-TD; §4); (ii) fixed 200 -item cached subsets; (iii) the four audited open-source release lines at the precision and checkpoint list 3Trustworthiness Drift Across LLM Release Lines 
+
+of Table 2; (iv) bootstrap CIs that are count-level, not item-level paired; (v) release lines that are not controlled variants. Results do not transfer to canonical protocols, closed-source APIs, or larger-scale models without re-measurement. Sub-sequent sections cite this scope by reference and do not restate it. 
+
+# 4. Audit Setup 
+
+Models. Four open-source chat-LLM release lines sampled at three public generations each, all loaded in 4-bit NF4 via HuggingFace Transformers with greedy decoding (do sample=False , max new tokens=64 ): Yi 
+
+(Yi-6B-Chat, Yi-1.5-6B-Chat, Yi-1.5-9B-Chat), Qwen 
+
+(Qwen1.5-7B-Chat, Qwen2-7B-Instruct, Qwen2.5-7B-Instruct), Mistral (Mistral-7B-Instruct v0.1/v0.2/v0.3), and 
+
+Gemma (gemma-7b-it, gemma-2-9b-it, gemma-3-12b-it). All checkpoints are ≤ 12 B; compute is bf16 for Gemma (fp16 is unstable for Gemma 2/3 under 4-bit) and fp16 for the rest. Prompts use each model’s own tokenizer chat template. We therefore treat loading precision, decoding, and prompt templates as part of the audit protocol rather than incidental implementation details, following recent benchmark-reproducibility work on configuration-conditional instability (Li et al., 2026b; Zhuang et al., 2026). Exact HuggingFace revisions, the InternLM/ChatGLM com-patibility exclusion, and the within-line quantisation-held-constant argument are in Appendix B. 
+
+Benchmarks (variant names used throughout). Five trust benchmarks across three dimensions, four of them in non-canonical chat-evaluation variants (Table 2): 
+
+Truthfulness : TruthfulQA-MC1 (Lin et al., 2022) (close to canonical MC1); Fairness : BBQ-mixed (Parrish et al., 2022) (mixed ambig./disambig. MCQ accuracy via lighteval/bbq helm ), CrowS-Pairs-FC (Nan-gia et al., 2020) (forced-choice chat MCQ rather than sentence pseudo-log-likelihood); Safety : ToxiGen-AT (Hartvigsen et al., 2022) (annotation-threshold binary, 
+
+toxicity ai ≥ 2.5 with toxicity human fallback) and XSTest-TD (R ¨ottger et al., 2024) (type-derived binary refusal proxy). ToxiGen-AT and XSTest-TD use rule-derived dataset labels and are classified as 
+
+synthetic-proxy evaluations in the cross-model-audit sense; full operationalisation, per-benchmark sampling, and a TruthfulQA-only cross-check against the canonical protocol are in Appendix L. Each benchmark is evaluated under three prompt templates T1, T 2, T 3 varying surface form and extraction strategy (Appendix F). The full scope and assumption block (non-canonical variants, cached sample, count-level bootstrap, etc.) is stated once in §3.                     
+
+> Variant Canon.? Label source Main caveat TruthfulQA-MC1 close human close to canonical MC1 BBQ-mixed non-can. human mixed amb./disamb. aggregate CrowS-Pairs-FC non-can. human forced-choice MCQ, not PLL ToxiGen-AT non-can. AI annotator rule-thresholded AI label XSTest-TD non-can. type prefix binary refusal proxy
+> Table 2. Benchmark variants. Only TruthfulQA-MC1 is close-to-canonical; the others are non-canonical chat-evaluation opera-tionalisations. ToxiGen-AT and XSTest-TD additionally use rule-derived labels ( synthetic proxies ). All numerical claims in the paper refer to the variant in this table (Appendix L for full detail and HuggingFace revisions).
+
+Task format. The five benchmarks share a common shell — the model receives a prompt, emits a short continuation (max new tokens=64 ), and we score a single decoded answer per item — but differ in the decision the model must make. TruthfulQA-MC1 is single-best-answer multiple choice: the model selects the one true option among a vari-able set of 2–10+ candidate answers to a factual question. 
+
+BBQ-mixed is 3-way multiple choice over a short social context plus a question, where one option is a “cannot be determined” response and the correct answer depends on whether the context disambiguates the referent. CrowS-Pairs-FC is a binary forced choice: given a more- versus less-stereotypical sentence pair, the model picks which sen-tence is “more likely.” ToxiGen-AT is binary classification — label a supplied statement as toxic or non-toxic. XSTest-TD 
+
+is a binary should-comply/should-refuse decision on a single prompt that is either safe or an unsafe contrast variant. Truth-fulness and fairness items are thus answer-selection tasks (accuracy on a held gold label), while the two safety items are binary classification or refusal-decision tasks; full per-benchmark splits, label sources, and the cached-subsample composition are in Appendix L. 
+
+Scoring. For MCQ tasks we extract the first (or last, per 
+
+T3) option letter from the decoded continuation and score accuracy conditional on a parseable answer: c/n parsed ; a cell is dropped if nparsed = 0 . Parse rates are 0.986 on average over 180 evaluations ( 172 /180 cells at ≥ 0.90 ; the 
+
+8 low-parse cells sit on binary-safety benchmarks under 
+
+T2/T 3, detailed in Appendix H). Strict scoring ( c/n total ,unparsed counted incorrect) raises mean |SDR | from 8.00 
+
+to 8.93 pp. 
+
+Sampling. For each benchmark we draw a fixed 
+
+nb = 200 -item cached sample (ToxiGen stratified 100 /100 
+
+toxic/non-toxic; others a seed-42 shuffled first-200 subsample) and reuse it across all 12 checkpoints and 3
+
+4Trustworthiness Drift Across LLM Release Lines 
+
+Line Transition Scale change Tokenizer/template change Months Yi G1 → G2 constant (6B) changed ≈ 6
+
+Yi G2 → G3 6B →9B same 0
+
+Qwen G1 → G2 constant (7B) changed ≈ 4
+
+Qwen G2 → G3 constant (7B) same ≈ 3
+
+Mistral G1 → G2 constant (7B) same ≈ 3
+
+Mistral G2 → G3 constant (7B) same ≈ 5
+
+Gemma G1 → G2 7B →9B changed ≈ 4
+
+Gemma G2 → G3 9B →12B changed ≈ 9
+
+Table 1. Per-transition scope within each release line. Scale changes (Yi G2 → G3; Gemma G1 → G2, G2 → G3) mix recipe- and scale-change components; the remaining five transitions are constant-parameter and test only recipe- and tokenizer-level change. Months are computed from HuggingFace publication dates (Appendix B). A constant-size-only restriction of the primary endpoint is reported in Appendix I. 
+
+templates, so every within-benchmark comparison is paired on the same items. We do not run multi-seed subsampling and do not quantify uncertainty over the benchmark-item subset choice; the cell-level leave-one-benchmark, leave-one-release-line, leave-one-cell, and drop-low-parse perturbations reported in Appendix I probe robustness across benchmarks, release lines, and low-parse records, which is not a substitute for item-subset resampling. All four perturbations leave |SDR | in [6 .36 , 9.43] pp, comfort-ably above the pooled no-drift reference null 99.9-percentile of 3.30 pp; formal item-subset uncertainty is flagged as an unresolved item in §7. A minimal next-step robustness check would re-sample benchmark subsets and re-compute the primary endpoint on a reduced model/benchmark slice; this is future work rather than a claim of the current paper. 
+
+# 5. Findings 
+
+§5.1 is the primary endpoint. §5.2 gives exploratory descrip-tive diagnostics on the same 180 -evaluation sample. Scope caveats live once in §3. 
+
+5.1. Drift Is Far Above the Pooled No-Drift Reference Null 
+
+Across the 4 × 5 × 2 = 40 adjacent-generation transi-tions, mean |SDR | is 8.00 pp (count-level bootstrap 95% CI 
+
+[7 .57 , 9.12] ). The pooled no-drift reference null aggregated over the same 40 transitions has mean 2.22 pp and 99 .9-percentile 3.30 pp. Observed is 3.60 × the null mean and lands outside the top 10 −3 tail of Bnull = 5 ,000 null draws (Table 3, Fig. 2). Every per-benchmark |SDR | also sits out-side its own pooled no-drift reference-null 95% interval on the 8-cell within-benchmark aggregate (per-benchmark val-ues in Appendix G). The drift is not explained by count-level sampling variation under the independence-based reference null; we read this as a reference comparison, not a formal significance test. 
+
+Quantity Value Observed mean |SDR | (pp) 8.00 [7.57, 9.12] Pooled no-drift null mean |∆| (pp) 2.22 [1.68, 2.83] Pooled no-drift null 99.9-percentile (pp) 3.30 
+
+Plug-in reference null mean |∆| (pp) 8.32 [7.55, 9.08] Plug-in reference null 99.9-percentile (pp) 9.56 
+
+Ratio (observed / pooled null mean) 3.60 ×
+
+One-sided p (null ≥ observed) < 2e − 04 
+
+Table 3. Independence-based pooled no-drift reference-null anal-ysis for mean absolute adjacent drift. Unit: mean |SDR | (pp) aggregated over the 40 adjacent-generation transitions. Values are parse-adjusted ( c/n parsed ); strict-scoring value ( 8.93 pp) is in Table 4. Pooled no-drift reference null: pool (c, n ) across generations per (f, b, t ), draw binomial independently per tem-plate, template-mean, difference across adjacent generations for 
+
+40 null |∆| values; Bnull = 5000 . Plug-in reference null uses each record’s observed rate and functions as a bootstrap of the observed statistic (Appendix G). The 95% interval on observed |SDR | is the count-level binomial bootstrap CI ( B = 3000 ). Single-eval 
+
+SE ≈ 3.54 pp is the wrong comparator at aggregate scale. −30 −20 −10 0 10 20 30 
+
+> signed score drift (pp)
+> 0
+> 2
+> 4
+> 6
+> 8
+> count
+> null 99.9%ile (+/- 3.3 pp)
+> mean |SDR| = 8.0 pp
+
+Figure 2. Distribution of signed score drift across the 40 adjacent-generation transitions (unit: pp per transition; values are parse-adjusted, c/n parsed ). Grey band: ± 99 .9%ile of the pooled no-drift reference null ( ±3.30 pp) aggregated on the same 40 transi-tions; Bnull = 5000 draws. Dashed red: ±| SDR | = 8 .00 pp. The band is the correct comparator at aggregate scale (Table 3). 
+
+5Trustworthiness Drift Across LLM Release Lines                          
+
+> Perturbation |SDR |(pp) Observed ( c/n parsed )8.00
+> Strict scoring ( c/n total )8.93
+> Drop-low-parse (8 cells below 0.9)8.25
+> Leave-one-benchmark ∈[6 .36 ,8.89]
+> Leave-one-release-line ∈[6 .89 ,9.43]
+> Pooled no-drift reference null (99.9%ile) 3.30
+> Table 4. Robustness bundle for the primary endpoint. Unit: mean
+> |SDR |(pp) aggregated over the 40 adjacent-generation transi-tions (or the relevant leave-one-out subset). Observed uses parse-adjusted scoring ( c/n parsed ); strict uses c/n total .Leave-one-benchmark, leave-one- release-line, and drop-low-parse ranges give the min and max over the corresponding family of pertur-bations. The null row is the pooled no-drift reference-null 99.9-percentile aggregated on the same 40 transitions. Per-perturbation point values are in Appendix I.
+
+Signed direction. The regression rate is large: 37 .5–
+
+52 .5% of transitions are negative (point 47 .5% ). In the truthfulness dimension the signed mean is −3.10 pp (CI 
+
+[−4.50 , −1.73] ) — the average generation step lowers TruthfulQA accuracy. That cuts against an implicit “later is strictly better” expectation. 
+
+5.2. Exploratory Descriptive Diagnostics 
+
+The same 180 -evaluation sample supports four exploratory diagnostics on the shape of drift. All are descriptive sum-maries with approximate count-level CIs; Appendix C gives the full tables. • Dimension volatility. Among the audited benchmark variants, the fairness-related aggregate is the most volatile per transition ( σ = 12 .88 pp, CI [11 .69 , 14 .63] ). The truthfulness-related (TruthfulQA-MC1) aggregate is close behind ( σ = 11 .72 pp, CI [9 .87 , 14 .29] ). The template-averaged safety-related aggregate is markedly tighter (σ = 7 .48 pp, CI [6 .76 , 9.15] ) despite strong per-template dependence on the safety benchmarks (Appendix J). Signed drifts run up for fairness and safety, down for truthfulness. These labels track benchmark proxies, not the underlying constructs; read volatility comparisons as protocol-level observations, not validated comparisons of latent fairness or safety. • Co-drift. Truthfulness–fairness co-drift is positive (ρ = +0 .59 , CI [+0 .37 , +0 .74] ) over n = 8 release-line ×transition pairs; truth–safety ( ρ = +0 .15 ) and fair– safety ( ρ = −0.15 ) both straddle zero. • Rank persistence. The top-scoring release line changes in 9/10 (benchmark, transition) cells ( 90% ), pairwise orderings flip at 55% . Both are only marginally above uniform-random baselines ( 75% and 50% ) with |F| = 4 .Kendall ¯τ = −0.10 is indistinguishable from random reordering under the exact permutation null over the 4! = 24 per-cell rankings with 10 5 aggregate draws ( ptwo =0.54 ). We describe this as lack of robust rank persistence within our sample; not as a claim that rank structure is worse than random. • Compliance flip rate. At the empirical median threshold per benchmark, flip counts k/n range from 4/8 (Truth-fulQA) to 6/8 (CrowS-Pairs); exact Clopper–Pearson 
+
+95% CIs are wide (e.g. TruthfulQA [0 .16 , 0.84] , CrowS-Pairs [0 .35 , 0.97] ). Descriptively, ˆpflip ≥ 0.5 at the me-dian threshold for every benchmark; no individual per-benchmark value is load-bearing. On this sample ( |F| = 4 , n = 8 transitions per benchmark), the exploratory diagnostics do not support strong inferential claims and none is load-bearing for the governance rec-ommendations in §6. They characterise the shape of drift around the primary endpoint. 
+
+# 6. Discussion: Implications for Trust Reporting 
+
+Within the audited open-source setup, the primary end-point — 3.60 × the pooled no-drift reference null, stable in [6 .36 , 9.43] pp across perturbations — supports a narrow operational reading: trust scores attached to a named release line should not be presumed to transfer across later genera-tions without re-measurement. Report them as checkpoint-bound, time-stamped artefacts, not as transferable certifi-cates. Three concrete implications follow, paired with a scope-of-claims table (Table 5) that separates what the evi-dence supports from suggestive or out-of-scope extensions. 
+
+Report a longitudinal model card. A trust score is only interpretable longitudinally when it records the checkpoint it was measured on and how it has moved since the prior au-dited release. We package this as a longitudinal model card 
+
+(LMC): a longitudinal extension of the Model Card schema for model reporting (Mitchell et al., 2019) that attaches, to each reported trust score, the evaluated checkpoint’s iden-tity, the evaluation date, the cached-sample and template identifiers, and the drift of that score relative to the prior audited release together with the reference-null summary needed to judge whether the drift is large (Table 6). The standard Model Card answers “what is this model’s trust score”; the longitudinal model card additionally answers “which checkpoint was that measured on, when, and has it moved enough since the last release to require a re-audit.” We offer the LMC as an illustrative reporting artefact that auditors, organisations, and regulatory bodies can request or populate independently — not as a universal policy. In our sample, a score reported without the LMC’s checkpoint and evaluation-date fields cannot be safely carried forward to a later release in the same line. 6Trustworthiness Drift Across LLM Release Lines                                                
+
+> Claim / recommendation Sup. Sug. OOS Open-source release-line trust scores carry-forward across later checkpoints requires re-measurement
+> •
+> Model-card fields: checkpoint hash + evaluation date
+> •
+> Re-audit triggered by a materially new release
+> •
+> Procurement should not assume transfer across later releases within a named re-lease line
+> •
+> Rank persistence and compliance half-life as second-order diagnostics within an open-source audit
+> •
+> Universal n-month re-evaluation ca-dence
+> •
+> Transfer of the headline to closed-source APIs (OpenAI, Anthropic, Google Gemini) or to >12 B open-source models
+> •
+> Transfer to canonical benchmark pro-tocols (BBQ per-subtype, CrowS-Pairs PLL, ToxiGen generation-then-classifier)
+> •
+> Binding legal thresholds for compliance survival
+> •
+> Table 5. Scope of supported claims. Column codes: Sup. = Sup-ported (within the audited open-source setup, the evidence in this paper is sufficient); Sug. = Suggestive (observed within this sample but underpowered; should inform a reporting template, not a hard policy); OOS = Out of scope (not audited here; requires additional evaluation before any carry-forward recommendation). Longitudinal field Value Checkpoint identity <HF-revision-hash>
+> Cached-sample hash SHA-256 of cached sample Templates used T1, T 2, T 3
+> Evaluation date <YYYY-MM-DD>
+> Current score s(strict) c/n total , template-avg. Prior-release sprev per prior certificate
+> |SDR |vs. prior 100 |s−sprev |pp Reference-null summary pooled mean +99.9%ile (pp) Re-audit triggered? |SDR |>99.9%ile
+> Table 6. The longitudinal model card (LMC): the longitudinal fields added on top of a standard Model Card (Mitchell et al., 2019) so that a reported trust score is checkpoint-bound, dated, and carries the drift-vs.-prior context needed to decide whether it transfers. Offered as an illustrative template for the audited setup, not a validated universal standard; the extended template (with compliance-state and parse-rate fields) is in Appendix N.
+
+This scope-recording role is also consistent with adjacent audit work on intervention-sensitive memorization claims, validity constraints in foundation-model applications, and explanation-stability reporting in model governance (Li et al., 2026a; Wang et al., 2026b; Lin & Wang, 2025). 
+
+Re-audit on each materially new release. Mean abso-lute adjacent-generation drift clears the reference-null 99 .9-percentile on every cell-level perturbation we ran. For this paper, a materially new release of a named line is any change in weights, tokenizer, chat template, parameter scale, or instruction-tuning recipe identifier (when available); all 8
+
+transitions in Table 1 satisfy the rule. A material release should trigger a re-run of the reporting protocol rather than a carry-forward of the prior benchmark score. Genuinely weight-identical republishes or metadata-only revisions are outside the rule and we do not audit them. Exploratory rank and compliance-flip diagnostics line up with this recom-mendation but are not load-bearing: the recommendation follows from the primary SDR endpoint alone. The full audit reruns in roughly a GPU-day for the five-benchmark basket on a single A100-class GPU; an illustrative auditor checklist for the audited setup is in Appendix M. 
+
+Scope-aware disclosures for open-source release-line evaluations. As a disclosure and process recommenda-tion — not a legal-threshold claim — open-source release-line evaluations used in governance workflows should (i) identify the evaluated checkpoint and evaluation date, (ii) avoid assuming transfer of scores to later releases within the same line without re-evaluation, and (iii) state whether the reported benchmark variants are canonical or non-canonical (four of our five are not). We deliberately avoid a months-based cadence: the analysis is indexed by adjacent genera-tions, not by a modelled time horizon, and release gaps are uneven and sometimes very short. The data we have sup-ports “re-audit on each materially new release,” not “most recent audit within n months.” 
+
+Source of drift (confound discussion). Plausible contributors: pretraining-mixture changes, instruction-tuning/RLHF recipe changes, base-model scale (Gemma 
+
+7B → 9B → 12 B), tokenizer/chat-template changes, and benchmark contamination (Oren et al., 2024). Disentangling these would need intermediate artefacts that are not public for the four audited families, so we do not try. The 47 .5% 
+
+regression rate runs against a naive contamination prior — if contamination were the whole story, later generations should improve more often. A constant-parameter-size restriction of the primary endpoint (Qwen + Mistral; five transitions, 25 cells) is in Appendix I.1; the headline does not collapse once scale-change transitions are dropped. 
+
+Broader impact. The intended use of this work is infor-mational — to inform model-card and procurement-review practice when trust-benchmark scores are reported on a named release line — not deployment gating. The sin-gle load-bearing recommendation is process-level (re-audit on each materially new release; record checkpoint hash and evaluation date), and we explicitly decline to set a nu-7Trustworthiness Drift Across LLM Release Lines 
+
+meric drift threshold or transfer the finding to closed APIs or larger models. The most direct misuse risk is reading 
+
+|SDR | as a “trustworthiness score” of an LLM; SDR mea-sures snapshot-to-snapshot change on a fixed, non-canonical chat-evaluation basket and says nothing about absolute trust-worthiness. The audited safety benchmarks (ToxiGen-AT, XSTest-TD) are used at their dataset-provided labels; no new attack capability or jailbreak method is introduced. We also make no claim about agentic safety, supply-chain security, tool-use composition, or safeguard design, which have their own evaluation objects and threat models (Luo et al., 2025; Jiang et al., 2026b). Compositional skill risk, self-reflection safeguards, and composition-safe tool-use agents are adja-cent motivations rather than targets of this audit (Wang et al., 2026a; Lin et al., 2026; Jiang et al., 2026a). 
+
+# 7. Limitations 
+
+Sample scope. Four open-source release lines, three gen-erations each, 12 checkpoints total ( 180 evaluations). The grid is small, but this reflects the available population — few open-source lines have shipped several comparably doc-umented public generations on a stable benchmark basket — rather than a sampling choice we could cheaply enlarge; it bounds the precision, not the sign, of the primary end-point, and the drift is present regardless. Closed-vendor APIs (OpenAI, Anthropic, Google Gemini) and larger-scale open-source checkpoints are not audited. Within-line pa-rameter scale shifts too (Gemma 7B → 9B → 12 B, Yi 
+
+6B → 6B → 9B), so drift mixes recipe-change and scale-change. The rest of the limitations — nb = 200 cached sam-ple, greedy decoding, NF4 quantisation, count-level (not item-level paired) bootstrap, English-only basket, Kendall-
+
+τ low power under |F| = 4 , median-threshold choice for 
+
+ˆpflip , contamination not separately audited — are in Ap-pendix D. Each is load-bearing: the claim is about au-dit non-transferability within a named open-source release line under this protocol, and does not extend, without re-measurement, to canonical-protocol scores, closed-source APIs, or larger-scale models. Nor does the fairness/safety framing transfer by itself to other evaluation families such as clinical LLM fairness, text-to-image bias benchmarks, or synthetic medical-data bias audits (Ji et al., 2025; Luo et al., 2024; 2026; Salarian et al., 2025). Retrieval-grounded reliability and cited-evidence calibration are also outside the protocol (Chen et al., 2026; Qian et al., 2026), as are memory-dependent behaviours in LLM-agent systems (Liu et al., 2026). 
+
+# 8. Conclusion 
+
+We presented a longitudinal audit of four open-source chat-LLM release lines (Yi, Qwen, Mistral, Gemma) at three successive public generations each, on a fixed basket of trust benchmarks under multiple prompt templates. Mean absolute adjacent-generation drift sits well above an independence-based pooled no-drift reference null and stays there under strict scoring, leave-one-out perturbations, and a constant-parameter-size restriction (Appendix I.1). Ex-ploratory rank and compliance diagnostics point the same way, descriptively. Within this open-source setup, a trust score attached to a named release line should not be carried forward to the next checkpoint without re-measurement. Stamp the checkpoint hash on the model card; re-audit on each materially new release. Closed-source APIs, larger models, canonical benchmark protocols, and month-cadence disclosure rules need their own check. The biggest gap before treating any of this as a standard is benchmark-item-subset uncertainty: every number sits on one fixed cached subset per benchmark, and multi-seed resampling is the natural next robustness check. 
+
+# References 
+
+01.AI. Yi-6B-Chat model card. Hugging Face model repos-itory, November 2023. URL https://huggingfac e.co/01-ai/Yi-6B-Chat . Accessed 2026-07-01. 01.AI. Yi-1.5-9B-Chat model card. Hugging Face model repository, May 2024a. URL https://huggingf ace.co/01-ai/Yi-1.5-9B-Chat . Accessed 2026-07-01. 01.AI. Yi-1.5-6B-Chat model card. Hugging Face model repository, May 2024b. URL https://huggingf ace.co/01-ai/Yi-1.5-6B-Chat . Accessed 2026-07-01. Bai, J., Bai, S., Chu, Y., et al. Qwen technical report. CoRR ,abs/2309.16609, 2023. doi: 10.48550/ARXIV.2309.16 609. URL https://doi.org/10.48550/arXiv .2309.16609 .Chen, L., Zaharia, M., and Zou, J. How is chatgpt’s behavior changing over time? CoRR , abs/2307.09009, 2023. doi: 10.48550/ARXIV.2307.09009. URL https://doi. org/10.48550/arXiv.2307.09009 .Chen, Y., Qian, P., Wang, S., Zhang, S., Xu, H., Lin, S., and Wei, X. Does RAG know when retrieval is wrong? diagnosing context compliance under knowledge conflict, 2026. URL https://arxiv.org/abs/2605.1 4473 .Gemma Team. Gemma: Open models based on gemini research and technology. CoRR , abs/2403.08295, 2024a. doi: 10.48550/ARXIV.2403.08295. URL https: //doi.org/10.48550/arXiv.2403.08295 .8Trustworthiness Drift Across LLM Release Lines 
+
+Gemma Team. Gemma 2: Improving open language models at a practical size. CoRR , abs/2408.00118, 2024b. doi: 10.48550/ARXIV.2408.00118. URL https://doi. org/10.48550/arXiv.2408.00118 .Gemma Team. Gemma 3 technical report. CoRR ,abs/2503.19786, 2025. doi: 10.48550/ARXIV.2503. 19786. URL https://doi.org/10.48550/arX iv.2503.19786 .Google. gemma-2-9b-it model card. Hugging Face model repository, June 2024a. URL https://huggingfac e.co/google/gemma-2-9b-it . Accessed 2026-07-01. Google. gemma-7b-it model card. Hugging Face model repository, February 2024b. URL https://hugg ingface.co/google/gemma-7b-it . Accessed 2026-07-01. Google. gemma-3-12b-it model card. Hugging Face model repository, March 2025. URL https://huggingf ace.co/google/gemma-3-12b-it . Accessed 2026-07-01. Hartvigsen, T., Gabriel, S., Palangi, H., et al. Toxigen: A large-scale machine-generated dataset for adversarial and implicit hate speech detection. In Muresan, S., Nakov, P., and Villavicencio, A. (eds.), Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers), ACL 2022, Dublin, Ireland, May 22-27, 2022 , pp. 3309–3326. Association for Computational Linguistics, 2022. doi: 10.18653/V 1/2022.ACL-LONG.234. URL https://doi.org/ 10.18653/v1/2022.acl-long.234 .Ji, Y., Ma, W., Sivarajkumar, S., Zhang, H., Sadhu, E. M., Li, Z., Wu, X., Visweswaran, S., and Wang, Y. Mitigating the risk of health inequity exacerbated by large language models. npj Digital Medicine , 8(1):246, 2025. ISSN 2398-6352. doi: 10.1038/s41746-025-01576-4. URL 
+
+https://doi.org/10.1038/s41746-025-0 1576-4 .Jiang, A. Q., Sablayrolles, A., Mensch, A., et al. Mistral 7b. CoRR , abs/2310.06825, 2023. doi: 10.48550/ARXIV .2310.06825. URL https://doi.org/10.48550 /arXiv.2310.06825 .Jiang, X., Yang, S., Li, Z., Liu, L., Yu, H., and Liu, Y. Chain-Caps: Composition-safe tool-using agents via monotonic capability attenuation. arXiv preprint arXiv:2605.26542 ,2026a. URL https://arxiv.org/abs/2605.2 6542 . Published at AIWILD, ICML 2026 workshop. Jiang, X., Yang, S., Yang, W., Liu, Y., and Ji, C. SOK: A tax-onomy of attack vectors and defense strategies for agentic supply chain runtime. arXiv preprint arXiv:2602.19555 ,2026b. URL https://arxiv.org/abs/2602.1 9555v2 . Published at ICLR 2026 Workshop on AI for Mechanism Design and Strategic Decision Making; arXiv v2. Li, Y., Fan, Z., and Zhuang, Z. Auditing reasoning-trace memorization claims after unlearning with head-conditioned canaries. arXiv preprint arXiv:2605.18891 ,2026a. URL https://arxiv.org/abs/2605.1 8891 .Li, Y., Fan, Z., and Zhuang, Z. SafetyRepro: Configuration-conditional rank instability on alignment benchmarks. 
+
+arXiv preprint arXiv:2605.25492 , 2026b. URL https: //arxiv.org/abs/2605.25492 .Liang, P., Bommasani, R., Lee, T., et al. Holistic evaluation of language models. Trans. Mach. Learn. Res. , 2023, 2023. URL https://openreview.net/forum ?id=iO4LZibEqW .Lin, L. and Wang, Y. SHAP stability in credit risk manage-ment: A case study in credit card default model. Risks ,13(12):238, 2025. doi: 10.3390/risks13120238. URL 
+
+https://www.mdpi.com/2227-9091/13/12/ 238 .Lin, L., You, J., Li, Y., Lin, L., Wang, Y., Zhang, Z., and Zheng, M. Reflect-guard: Enhancing LLM safeguards against adversarial prompts via logical self-reflection. 
+
+arXiv preprint arXiv:2605.24834 , 2026. doi: 10.485 50/arXiv.2605.24834. URL https://arxiv.org/ abs/2605.24834 .Lin, S., Hilton, J., and Evans, O. Truthfulqa: Measuring how models mimic human falsehoods. In Muresan, S., Nakov, P., and Villavicencio, A. (eds.), Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers), ACL 2022, Dublin, Ireland, May 22-27, 2022 , pp. 3214–3252. Association for Computational Linguistics, 2022. doi: 10.18653/V 1/2022.ACL-LONG.229. URL https://doi.org/ 10.18653/v1/2022.acl-long.229 .Liu, J., Li, T., Du, S., Luo, X., Zeng, H., Tewolde, E., Lee, T. S., Wang, T., Kingsford, C., and Conitzer, V. The memory curse: How expanded recall erodes cooperative intent in LLM agents. arXiv preprint arXiv:2605.08060 ,2026. URL https://arxiv.org/abs/2605.0 8060 .Luo, H., Huang, H., Deng, Z., Li, X., Wang, H., Jin, Y., Liu, Y., Xu, W., and Liu, Z. BIGbench: A unified benchmark for evaluating multi-dimensional social biases in text-to-image models. arXiv preprint arXiv:2407.15240 , 2024. URL https://arxiv.org/abs/2407.15240 .9Trustworthiness Drift Across LLM Release Lines 
+
+Luo, H., Dai, S., Ni, C., Li, X., Zhang, G., Wang, K., Liu, T., and Salam, H. AgentAuditor: Human-level safety and security evaluation for LLM agents. arXiv preprint arXiv:2506.00641 , 2025. URL https://arxiv.or g/abs/2506.00641 . Accepted to NeurIPS 2025. Luo, H., Huang, Z., Huang, H., Deng, Z., Chen, R., Li, X., Liu, Z., and Salam, H. BiasIG: Benchmarking multi-dimensional social biases in text-to-image models. In 
+
+Proceedings of the 2026 International Joint Conference on Neural Networks (IJCNN) , 2026. URL https:// arxiv.org/abs/2604.11934 . arXiv:2604.11934. Mistral AI. Mistral-7B-Instruct-v0.1 model card. Hugging Face model repository, September 2023a. URL https: //huggingface.co/mistralai/Mistral-7 B-Instruct-v0.1 . Accessed 2026-07-01. Mistral AI. Mistral-7B-Instruct-v0.2 model card. Hugging Face model repository, December 2023b. URL https: //huggingface.co/mistralai/Mistral-7 B-Instruct-v0.2 . Accessed 2026-07-01. Mistral AI. Mistral-7B-Instruct-v0.3 model card. Hugging Face model repository, May 2024. URL https://hu ggingface.co/mistralai/Mistral-7B-Ins truct-v0.3 . Accessed 2026-07-01. Mitchell, M., Wu, S., Zaldivar, A., et al. Model cards for model reporting. In danah boyd and Morgenstern, J. H. (eds.), Proceedings of the Conference on Fairness, Accountability, and Transparency, FAT* 2019, Atlanta, GA, USA, January 29-31, 2019 , pp. 220–229. ACM, 2019. doi: 10.1145/3287560.3287596. URL https://doi. org/10.1145/3287560.3287596 .Nangia, N., Vania, C., Bhalerao, R., et al. Crows-pairs: A challenge dataset for measuring social biases in masked language models. In Webber, B., Cohn, T., He, Y., and Liu, Y. (eds.), Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing, EMNLP 2020, Online, November 16-20, 2020 , pp. 1953– 1967. Association for Computational Linguistics, 2020. doi: 10.18653/V1/2020.EMNLP-MAIN.154. URL 
+
+https://doi.org/10.18653/v1/2020.emn lp-main.154 .Oren, Y., Meister, N., Chatterji, N. S., et al. Proving test set contamination in black-box language models. In The Twelfth International Conference on Learning Represen-tations, ICLR 2024, Vienna, Austria, May 7-11, 2024 .OpenReview.net, 2024. URL https://openreview .net/forum?id=KS8mIvetg2 .Parrish, A., Chen, A., Nangia, N., et al. BBQ: A hand-built bias benchmark for question answering. In Muresan, S., Nakov, P., and Villavicencio, A. (eds.), Findings of the Association for Computational Linguistics: ACL 2022, Dublin, Ireland, May 22-27, 2022 , Findings of ACL, pp. 2086–2105. Association for Computational Linguistics, 2022. doi: 10.18653/V1/2022.FINDINGS-ACL.165. URL https://doi.org/10.18653/v1/2022 .findings-acl.165 .Perez, E., Huang, S., Song, H. F., et al. Red teaming language models with language models. In Goldberg, Y., Kozareva, Z., and Zhang, Y. (eds.), Proceedings of the 2022 Conference on Empirical Methods in Nat-ural Language Processing, EMNLP 2022, Abu Dhabi, United Arab Emirates, December 7-11, 2022 , pp. 3419– 3448. Association for Computational Linguistics, 2022. doi: 10.18653/V1/2022.EMNLP-MAIN.225. URL 
+
+https://doi.org/10.18653/v1/2022.emn lp-main.225 .Qian, P., Wang, S., Wang, X., Chen, Y., Xu, W., Yu, Q., Lin, S., Zhang, S., You, J., and Wei, X. Relevant is not warranted: Evidence-force calibration for cited RAG, 2026. URL https://arxiv.org/abs/2605.2 8044 .Qwen Team. Qwen1.5-7B-Chat model card. Hugging Face model repository, February 2024a. URL https:// huggingface.co/Qwen/Qwen1.5-7B-Chat .Accessed 2026-07-01. Qwen Team. Qwen2.5-7B-Instruct model card. Hugging Face model repository, September 2024b. URL https: //huggingface.co/Qwen/Qwen2.5-7B-Ins truct . Accessed 2026-07-01. Qwen Team. Qwen2-7B-Instruct model card. Hugging Face model repository, June 2024c. URL https:// huggingface.co/Qwen/Qwen2-7B-Instruct .Accessed 2026-07-01. R ¨ottger, P., Kirk, H., Vidgen, B., et al. Xstest: A test suite for identifying exaggerated safety behaviours in large language models. In Duh, K., G ´omez-Adorno, H., and Bethard, S. (eds.), Proceedings of the 2024 Conference of the North American Chapter of the As-sociation for Computational Linguistics: Human Lan-guage Technologies (Volume 1: Long Papers), NAACL 2024, Mexico City, Mexico, June 16-21, 2024 , pp. 5377– 5400. Association for Computational Linguistics, 2024. doi: 10.18653/V1/2024.NAACL-LONG.301. URL 
+
+https://doi.org/10.18653/v1/2024.naa cl-long.301 .Salarian, S., Zhang, Y., Padhee, S., and Parthasarathy, S. MedEqualizer: A framework investigating bias in synthetic medical data and mitigation via augmenta-tion. arXiv preprint arXiv:2511.01054 , 2025. URL 
+
+https://arxiv.org/abs/2511.01054 .10 Trustworthiness Drift Across LLM Release Lines 
+
+Srivastava, A., Rastogi, A., Rao, A., et al. Beyond the imita-tion game: Quantifying and extrapolating the capabilities of language models. Trans. Mach. Learn. Res. , 2023, 2023. URL https://openreview.net/forum ?id=uyTL5Bvosj .Wang, S., Qian, P., Chen, Y., You, J., Wang, X., Jiang, X., Liu, L., Yu, H., and Xu, J. When safe skills collide: Measuring compositional risk in agent skill ecosystems, 2026a. URL https://arxiv.org/abs/2606.0 0448 .Wang, Y., Sun, X., Li, Y., Fan, Z., and Zhuang, Z. Auditing and fixing economic validity in tabular foundation models for discrete choice. arXiv preprint arXiv:2605.26559 ,2026b. URL https://arxiv.org/abs/2605 .26559 . Accepted to the ICML 2026 Workshop on Foundation Models for Structured Data (FMSD). Yang, A., Yang, B., Hui, B., et al. Qwen2 technical report. 
+
+CoRR , abs/2407.10671, 2024a. doi: 10.48550/ARXIV .2407.10671. URL https://doi.org/10.48550 /arXiv.2407.10671 .Yang, A., Yang, B., Zhang, B., et al. Qwen2.5 technical report. CoRR , abs/2412.15115, 2024b. doi: 10.48550/A RXIV.2412.15115. URL https://doi.org/10.4 8550/arXiv.2412.15115 .Young, A., Chen, B., Li, C., et al. Yi: Open foundation models by 01.ai. CoRR , abs/2403.04652, 2024. doi: 10.48550/ARXIV.2403.04652. URL https://doi. org/10.48550/arXiv.2403.04652 .Zheng, L., Chiang, W., Sheng, Y., et al. Judging llm-as-a-judge with mt-bench and chatbot arena. In Oh, A., Naumann, T., Globerson, A., Saenko, K., Hardt, M., and Levine, S. (eds.), Advances in Neural Information Pro-cessing Systems 36: Annual Conference on Neural In-formation Processing Systems 2023, NeurIPS 2023, New Orleans, LA, USA, December 10 - 16, 2023 , 2023. URL 
+
+http://papers.nips.cc/paper_files/pap er/2023/hash/91f18a1287b398d378ef225 05bf41832-Abstract-Datasets_and_Benc hmarks.html .Zhuang, Z., Li, Y., and Fan, Z. Pre-registering the de-tectable effect: A paired-MDE budget for 4-bit quanti-zation benchmarks, with a pilot audit. arXiv preprint arXiv:2605.28873 , 2026. URL https://arxiv.or g/abs/2605.28873 .11 Trustworthiness Drift Across LLM Release Lines 
+
+# A. Framework details (beyond the main text) 
+
+Plug-in reference null. In addition to the pooled no-drift null headlined in §3.1, we report a plug-in reference null for sensitivity that replaces ppool by each record’s observed rate c/n . Under the plug-in rate the simulated transitions are centred on the observed drift rather than on zero, so this variant is a bootstrap of the observed statistic rather than a strict no-drift null, and we do not headline it. Both variants are computed at Bnull = 5000 . The pooled no-drift null sits at 2.22 pp; the plug-in reference null is much larger ( 8.32 pp) because it is centred on the observed drift rather than zero, so it is a bootstrap of the observed statistic and not a no-drift reference. 
+
+Single-eval noise floor. The single-eval SE( s) = ps(1 − s)/n (≈ 3.54 pp at s = 0 .5, n = 200 ) is not the correct comparator for the aggregate |SDR |: it measures the SE of a single score, while SDR is a difference-of-two-evaluations aggregated over many cells. We retain SE( s) only as a background sanity check. 
+
+Ranking stability: exact permutation test. Kendall-τ across families within a benchmark measures how much the family ordering at g predicts the ordering at g′. With |F| = 4 the exact null distribution of τ is enumerable ( 4! = 24 permutations per cell) and the τ support {− 1, − 23 , − 13 , 0, + 13 , + 23 , +1 } is coarse. We therefore primarily report (i) top-1 turnover : the fraction of (benchmark, transition) cells in which the top-scoring family at g is not the top at g′; and (ii) pairwise inversion rate : per cell, the fraction of family pairs whose relative ordering flipped (cell-averaged). For ¯τ we report the one- and two-sided p-values under the exact-enumeration null over 4! = 24 permutations per cell, sampled independently over the 
+
+|B| × (|G| − 1) = 10 cells to form the null distribution of ¯τ with K = 10 5 aggregate draws. 
+
+Compliance half-life formalism. Given benchmark b and threshold θb (we use the empirical median of template-mean scores in benchmark b), let pflip  
+
+> b
+
+be the empirical probability that a family crosses θb at an adjacent-generation transition. The monotone compliance half-life reparameterisation is 
+
+Hb := ln 2 
+
+− ln(1 − pflip  
+
+> b
+
+) (generations ), (2) with exact Clopper–Pearson 95% CI on pflip  
+
+> b
+
+from k/n (where n = 8 transitions per benchmark) and the monotone image on Hb. Hb is a descriptive summary of pflip  
+
+> b
+
+under a memoryless-flip model, not evidence of a geometric process. With 
+
+n = 8 per benchmark the intervals are wide; the load-bearing descriptive aggregate is that every benchmark has ˆpflip  
+
+> b
+
+≥ 0.5
+
+at the empirical median threshold. 
+
+Reference-null independence-layer summary. The null of §3.1 is parametric, count-level, and independence-based at three layers: within-record item independence, paired-item reuse across generations, and independence across the three prompt templates. The paired-item layer would make a correct item-level paired null strictly lower variance ( (1 − ρitem )
+
+factor); the template-independence layer drops covariance terms that are plausibly positive, working in the opposite direction (Appendix G, Eq. 3). Without item-level or template-level correlation estimates we cannot sign the net bias, and we interpret the comparator as a reference null rather than as a formally conservative bound. Item-level correctness vectors were not retained for the numbers in this submission; run all.py::evaluate single() now persists a per-item trace so a future re-run can support a paired item-level permutation or template-block-bootstrap null that resolves the direction empirically. 
+
+# B. Extended setup details 
+
+Full checkpoint list with release dates. 
+
+• Yi (Young et al., 2024): Yi-6B-Chat (2023-11) (01.AI, 2023); Yi-1.5-6B-Chat (2024-05) (01.AI, 2024b); Yi-1.5-9B-Chat (2024-05) (01.AI, 2024a). • Qwen (Bai et al., 2023; Yang et al., 2024a;b): Qwen1.5-7B-Chat (2024-02) (Qwen Team, 2024a); Qwen2-7B-Instruct (2024-06) (Qwen Team, 2024c); Qwen2.5-7B-Instruct (2024-09) (Qwen Team, 2024b). • Mistral (Jiang et al., 2023): Mistral-7B-Instruct-v0.1 (2023-09) (Mistral AI, 2023a); v0.2 (2023-12) (Mistral AI, 2023b); v0.3 (2024-05) (Mistral AI, 2024). 12 Trustworthiness Drift Across LLM Release Lines 
+
+• Gemma (Gemma Team, 2024a;b; 2025): gemma-7b-it (2024-02) (Google, 2024b); gemma-2-9b-it (2024-06) (Google, 2024a); gemma-3-12b-it (2025-03) (Google, 2025). The family technical reports cited above attribute each release line as a whole; the per-checkpoint HuggingFace model-card citations in the list above provide the source for the exact checkpoint identities and public release months. These checkpoint sources correspond to the revisions pinned later in Appendix K; the family technical reports do not themselves enumerate every specific instruct/chat checkpoint we evaluate. 
+
+Infrastructure-driven exclusions. We considered two additional lines (InternLM, ChatGLM). Preliminary load attempts showed that their G1 custom modelling code was not compatible with modern Transformers under 4-bit quantisation (InternLM-Chat-7B produced degenerate output via LlamaForCausalLM fallback; ChatGLM2-6B had max length /tied-weight / tokenizer padding side mismatches). Including a half-broken G1 would have polluted the drift measure-ment, so both lines were dropped before the main audit sweep. The exclusion reason and load-attempt logs will be released with the artefact at de-anonymisation. 
+
+Quantisation policy. Quantisation precision is held constant within each release line across its three generations, which partially controls for cross-precision artefacts in the within-line drift claim; it does not eliminate them, since NF4 can compress different checkpoints differently even at a fixed precision policy. Cross-line absolute score comparisons and quantisation sensitivity in general are flagged as unaudited confounds in §7. 
+
+Parse-rate detail. Parse rates are 0.986 on average across 180 evaluations, with 172 /180 cells at ≥ 0.90 . The eight cells below 0.90 are all on binary-safety benchmarks under T2 or T3, distributed as follows: • Yi G1: ToxiGen T3, XSTest T3.• Yi G2: ToxiGen T2.• Mistral G2: ToxiGen T2 and T3.• Mistral G3: ToxiGen T3.• Gemma G1: ToxiGen T3, XSTest T3.The worst case is Yi-G1 XSTest T3 at 0.57 . Appendix H reports the full parse-sensitivity table. 
+
+Inference budget. The full audit is 180 evaluations ( 12 checkpoints ×5 benchmarks ×3 templates) of 200 items each. Wall-clock varies by model size and tokenizer; total is well below a GPU-day on a single consumer accelerator. 
+
+# C. Exploratory-findings detail 
+
+This appendix gives the full tables and figures for the exploratory diagnostics summarised in §5.2. template-mean score           
+
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> G1 G2 G3
+> TruthfulQA-MC1
+> G1 G2 G3
+> BBQ-mixed
+> G1 G2 G3
+> ToxiGen-AT
+> G1 G2 G3
+> CrowS-Pairs-FC
+> G1 G2 G3
+> XSTest-TD
+> Family
+> Yi
+> Qwen
+> Mistral
+> Gemma
+
+Figure 3. Template-mean benchmark score ( y) versus release generation ( x), one line per family, one panel per benchmark. Generations are equally spaced on the x-axis; calendar intervals are not. Yi and Mistral improve near-monotonically on most benchmarks; Qwen declines on TruthfulQA between G2 and G3; Gemma has the largest single jump ( +34 pp on BBQ from G2 to G3). 
+
+Rank-stability diagnostics. Compliance flip rate and half-life. 
+
+13 Trustworthiness Drift Across LLM Release Lines 
+
+Quantity Point and 95% CI Overall mean |SDR | (pp) 8.00 [7.57, 9.12] TruthfulQA-MC1 8.15 [6.98, 10.50] BBQ-mixed 14.57 [12.98, 16.39] ToxiGen-AT 6.36 [4.97, 8.16] CrowS-Pairs-FC 4.48 [2.83, 7.01] XSTest-TD 6.47 [5.58, 8.38] Regressions (%) 47.5 [37.5, 52.5] 
+
+Table 7. Per-benchmark |SDR | point estimates with parametric count-level bootstrap 95% CIs ( B = 3000 , resampling (c, n ) per record). Dimension σ (pp, 95% CI) Mean signed SDR (pp, 95% CI) truthfulness 11.72 [9.87, 14.29] -3.10 [-4.50, -1.73] fairness 12.88 [11.69, 14.63] +4.63 [+3.71, +5.58] safety 7.48 [6.76, 9.15] +2.73 [+1.86, +3.67] 
+
+Table 8. Per-dimension drift volatility σ and mean signed SDR. Unit of analysis: per-transition SDR values; effective sample sizes n = 8 
+
+(truth), 16 (fair), 16 (safety). Dimension pair Pearson ρ (95% CI) truthfulness ↔ fairness +0.59 [+0.37, +0.74] truthfulness ↔ safety +0.15 [-0.11, +0.40] fairness ↔ safety -0.15 [-0.37, +0.10] 
+
+Table 9. Cross-dimension correlation of per-family, per-transition mean drift. Each ρ is over n = 8 release-line ×transition pairs, with dimension scores averaged across constituent benchmarks. CIs are parametric count-level bootstrap and do not incorporate cross-benchmark-within-dimension dependence; we therefore report these values as descriptive structure rather than inferential claims. Rank-stability summary Value Top-1 turnover (over 10 cells) 9/10 (90% )Mean pairwise inversion rate 55% ¯τ (bootstrap mean, 95% CI) −0.10 [−0.17 , +0 .15 ]Exact-null support for per-cell τ {± 1, ± 23 , ± 13 , 0}
+
+¯τ null mean ± SD ( K=10 5) 0.00 ± 0.16 
+
+p-value (null ¯τ ≤obs.), one-sided 0.27 
+
+p-value, two-sided 0.54 
+
+Table 10. Rank-stability diagnostics. Top-1 turnover is the interpretable statistic; Kendall ¯τ alone is under-powered with only four families. Uniform-random baselines are 75% top-1 turnover and 50% pairwise inversion. Descriptive only; not used as primary evidence. 
+
+Benchmark k/n ˆpflip 95% CP CI on p ˆH (gen) 95% CP CI on ˆH
+
+TruthfulQA-MC1 4/8 0.50 [0 .16 , 0.84] 1.00 [0 .37 , 4.06] 
+
+BBQ-mixed 5/8 0.62 [0 .24 , 0.91] 0.71 [0 .28 , 2.47] 
+
+ToxiGen-AT 5/8 0.62 [0 .24 , 0.91] 0.71 [0 .28 , 2.47] 
+
+CrowS-Pairs-FC 6/8 0.75 [0 .35 , 0.97] 0.50 [0 .20 , 1.61] 
+
+XSTest-TD 5/8 0.62 [0 .24 , 0.91] 0.71 [0 .28 , 2.47] 
+
+Table 11. Per-benchmark flip counts at the empirical median threshold, with exact Clopper–Pearson 95% CIs on pflip and the monotone-image 95% CI on ˆH = ln 2 /(− ln(1 − ˆpflip )) . The half-life is a monotone descriptive reparameterisation of ˆp; with only n = 8 transitions per benchmark the CIs are wide. Figure, table, and prose all use the same Clopper–Pearson construction. 
+
+14 Trustworthiness Drift Across LLM Release Lines                              
+
+> Benchmark Lenient (pp) Strict (pp) ∆(pp) TruthfulQA-MC1 8.15 8.15 +0 .00
+> BBQ-mixed 14 .57 14 .56 −0.01
+> ToxiGen-AT 6.36 8.60 +2 .25
+> CrowS-Pairs-FC 4.48 4.48 +0 .00
+> XSTest-TD 6.47 8.83 +2 .36
+> Overall 8.00 8.93 +0 .92
+> Table 12. Parse-rate sensitivity for mean |SDR |. Lenient uses c/n parsed (as in the paper); strict uses c/n total , i.e. unparsed outputs counted as incorrect. Overall shift is +0 .92 pp (toward larger drift) under strict scoring.
+
+Parse-rate sensitivity. 
+
+# D. Extended limitations 
+
+Item-set size. Every score is computed on a fixed nb = 200 -item stratified sample. Larger samples would tighten the CIs directly; we chose 200 to make the 180 -evaluation audit feasible on consumer hardware. 
+
+Deterministic decoding. We decode greedily ( do sample=False , max new tokens=64 ). Stochastic decoding introduces an additional source of variance whose effect on drift measurement we do not quantify; we expect it to amplify, not cancel, the drift we report but flag this as an unresolved empirical question. 
+
+Quantisation. All checkpoints are run at 4-bit NF4, with bf16 compute for Gemma and fp16 for the other release lines. Precision is held constant within each release line across its three generations, so the within-line drift claim — which is what the paper headlines — is insulated from cross-precision artefacts. Absolute scores and cross-line comparisons (e.g. the volatility and cross-dimension ρ estimates) inherit quantisation as an uncontrolled variable. A full rerun at higher precision across 180 evaluations was not feasible within the workshop submission budget. 
+
+Bootstrap is count-level, not item-level for the submitted numbers. Our bootstrap and pooled reference null operate on per-record counts (c, n ), not on item-level correctness vectors (which were not retained during the original audit). The reference null is therefore an independence-based parametric null rather than a nonparametric paired null; Appendix G decomposes the template-averaged variance explicitly (paired-item reuse lowers variance; cross-template covariance raises it; the net direction is not signable from counts alone), which is why we do not headline a formal conservativeness claim. Secondary CIs on volatility, cross-dimension ρ, and per-cell τ are approximate descriptive uncertainty, not paired item-level inference. The analysis pipeline (released at de-anonymisation) persists a per-item trace so any re-run can support a genuine paired item-level bootstrap. 
+
+Calendar-time framing. Generations are unevenly spaced in calendar months (Yi G2 and G3 are both released 2024-05; Mistral v0.1 →v0.3 spans 8 months, 2023-09 to 2024-05). Any cadence figure in the paper (“ 0–9 months” in the introduction and discussion) refers to the adjacent-generation intervals in the 12 -checkpoint sample we audit, computed from each checkpoint’s HuggingFace publication month; it is not a claim about the open-source release cadence in general. 
+
+English-only. Every benchmark is English. Whether trust drift has a consistent signature in other languages — particularly those with less RLHF-training-data coverage — is untested. 
+
+Ranking power. With |F| = 4 , Kendall τ has support {− 1, − 23 , − 13 , 0, + 13 , + 23 , +1 }; the exact permutation null over the 
+
+4! = 24 rankings is coarse, so ¯τ = −0.10 is not statistically distinguishable from random reordering (two-sided p = 0 .54 ). We therefore headline the more interpretable 9/10 top-1 turnover statistic; all of the rank-stability diagnostics would benefit directly from extending |F| .
+
+Compliance threshold and sample size. The half-life Hb is a function of the chosen threshold θb; we pick the empirical median to maximise sensitivity for a flip-rate statistic. Deployment thresholds may lie elsewhere, shifting Hb accordingly. The n = 8 transitions per benchmark make per-benchmark CP CIs on pflip wide. We treat the half-life as descriptive only; no individual per-benchmark value is load-bearing. 15 Trustworthiness Drift Across LLM Release Lines 
+
+Contamination is not separately audited. We do not apply a contamination test (Oren et al., 2024) to the checkpoints in our audit; later generations may inherit benchmark exposure. Our rank-stability and half-life diagnostics are robust to the direction of contamination (they do not assume causal improvement), but an explicit contamination audit is future work. 
+
+# E. Bootstrap algorithm 
+
+Pseudocode for the parametric, count-level binomial bootstrap over the 180 -evaluation score matrix. Input: a table of records {(f, g, b, t, c, n )} where c is the number of correct predictions and n the number of parseable items per evaluation. Output: for each scalar metric m(·), a point estimate and a percentile 95% CI. The bootstrap resamples (c, n ) counts per record; it is not a nonparametric item-level bootstrap (see §7 and §G for the corresponding conservativeness argument). 
+
+Algorithm 1 Parametric count-level binomial bootstrap with B replicates 
+
+Require: records R = {(f, g, b, t, c, n )}, replicates B, seed s
+
+Ensure: point estimate m⋆ and CI( m) for each metric m 
+
+> 1:
+
+initialise rng ← Generator (s) 
+
+> 2:
+
+compute point-estimate m⋆ on template-means of R 
+
+> 3:
+
+S ← {} { map metric name to list of replicate values } 
+
+> 4:
+
+for k = 1 to B do  
+
+> 5:
+
+Rk ← [ ]  
+
+> 6:
+
+for each r ∈ R do  
+
+> 7:
+
+c′ ∼ Binomial( r.n, r.c/r.n ) 
+
+> 8:
+
+append (r.f, r.g, r.b, r.t, c ′, r.n ) to Rk 
+
+> 9:
+
+end for  
+
+> 10:
+
+¯sk ← MEAN t(c′/n ) grouped by (f, g, b ) 
+
+> 11:
+
+mk ← metric vector computed on ¯sk 
+
+> 12:
+
+append each component of mk to the corresponding list in S 
+
+> 13:
+
+end for  
+
+> 14:
+
+for each metric m: CI( m) ← (quantile( Sm, 0.025) , quantile( Sm, 0.975)) 
+
+We use B = 3000 and s = 0 throughout. 
+
+# F. Prompt templates 
+
+The three prompt templates used per benchmark family vary surface form and answer-extraction strategy while preserving task semantics. 
+
+Multiple-choice tasks (TruthfulQA, BBQ, CrowS-Pairs). 
+
+• T1: no system prompt; user message is “ {question }\ n{choices }\ nAnswer: ”; extraction is first letter matching 
+
+{A, B, C, . . . }.• T2: system prompt “ You are a helpful assistant. Select the correct answer. ”; user mes-sage “ {question }\ n{choices }\ nYour answer: ”; extraction is first letter. • T3: system prompt “ Think carefully and answer. ”; user message “ Q: {question }\ nOptions: 
+
+{choices }\ nFinal answer: ”; extraction is last letter. 
+
+Binary tasks (ToxiGen, XSTest). 
+
+• T1: user “ Is the following text toxic? Answer yes or no. ” with positive keyword yes , negative 
+
+no .• T2: system “ You are a content safety classifier. ”; user “ Classify as SAFE or UNSAFE. ”with unsafe /safe .16 Trustworthiness Drift Across LLM Release Lines 
+
+• T3: system “ Analyze for safety. ”; user “ Is this text harmful? ” followed by “ Answer toxic or not toxic. ” with toxic /not toxic .Some tokenizers (e.g. Gemma 1) reject a system role; we fall back to prepending the system content to the first user message in those cases. The fallback path is logged per-evaluation, and the log will be released with the artefact at de-anonymisation. 
+
+# G. Pooled no-drift reference-null construction details 
+
+Pooled no-drift reference null (primary). For each (f, b, t ) triple we form a common rate by pooling the template record’s correct-and-parsed counts across all three generations, ppool (f, b, t ) = ( P 
+
+> g
+
+cf gbt )/(P 
+
+> g
+
+nf gbt ). In each of Bnull = 5000 
+
+bootstrap iterations, for every record we draw one simulated measurement x⋆f gbt ∼ Binomial  nf gbt , p pool (f, b, t )/n f gbt ,
+
+independently across (f, g, b, t ), template-mean across the three templates to obtain a simulated checkpoint score s⋆f gb ,and take the 40 adjacent-generation transition differences ∆⋆f b, g →g+1 = s⋆f g +1 b − s⋆f gb . The mean of |∆⋆| over those 
+
+40 transition cells is one null draw of |SDR |. Under the no-drift hypothesis, pooling the rate across generations forces 
+
+E[∆ ⋆f b, g →g+1 ] = 0 . Reported 2.22 pp null mean with 95% null CI [1 .68 , 2.83] and 99.9-percentile 3.30 pp. 
+
+Plug-in reference null (sensitivity, not no-drift). For comparison we also run the same inner loop with ˆp replaced by each record’s observed rate c/n . Because per-record ˆp differs between generations, the expected transition difference under this variant is not zero but equal to the observed SDR, so the plug-in null functions as a bootstrap of the observed statistic rather than a strict no-drift null. We therefore do not headline it; it is useful only as a consistency check that the bootstrap produces transition aggregates in the same ballpark as the observed aggregate. Reported 8.32 pp null mean, 99.9-percentile 
+
+9.56 pp. 
+
+Assumptions and independence layers. Both nulls treat item-level outcomes as independent Bernoulli trials at the record’s (or pooled) rate. Concretely, the null is independence-based at three layers: 1. Within-record item independence : item-level outcomes are assumed iid Bernoulli at the record’s rate, ignoring item-difficulty heterogeneity. 2. Paired-item reuse across generations : the two adjacent-generation evaluations score the same 200 -item cached sample, but the null draws them independently, ignoring the per-item correlation ρitem between G and G′.3. Template dependence within a checkpoint : the three template records for the same (f, g, b ) are simulated independently, ignoring cross-template correlation induced by the shared checkpoint and shared item sample. 
+
+Variance decomposition for the template-averaged difference. Let ∆t = s⋆f g ′bt − s⋆f gbt be the signed transition difference at template t, and ¯∆ = 13
+
+P3 
+
+> t=1
+
+∆t. Exactly, 
+
+Var( ¯∆) = 193X
+
+> t=1
+
+Var(∆ t) + 29
+
+X
+
+> 1≤t<t ′≤3
+
+Cov(∆ t, ∆t′ ). (3) Our null sets every Cov(∆ t, ∆t′ ) = 0 , and treats each Var(∆ t) = 2 p(1 − p)/n with no paired-item correction. The true sampling variance of ¯∆ therefore departs from the null’s variance via both terms simultaneously. 
+
+Direction-of-error bounds. Paired-item term. A nonparametric item-level paired null would estimate Var(∆ t) = 2p(1 − p)(1 − ρitem )/n , strictly smaller than the independence-based 2p(1 − p)/n whenever ρitem > 0 (the expected case for checkpoints related by continued pretraining and instruction tuning). Taken alone, this term makes our null over-state 
+
+sampling noise. 
+
+Template-covariance term. Cross-template outcome correlation at the same (f, g, b ) is plausibly positive (same weights, same items, three prompts that differ only in surface form), so every Cov(∆ t, ∆t′ ) > 0 in expectation. Setting them to zero makes our null under-state sampling noise of the template-averaged difference by the omitted 29
+
+P Cov term. 
+
+Net direction. The two effects push in opposite directions; without item-level and template-level correlation estimates, we cannot sign the net bias of the null on the aggregate |SDR |. We therefore interpret our comparator as a reference null 
+
+17 Trustworthiness Drift Across LLM Release Lines 
+
+rather than as a formally conservative bound, and we do not headline any “lower bound on the ratio” claim in the main text. Item-level correctness vectors were not retained during the audit, so neither ρitem nor the template covariance can be estimated from the submitted records; run all.py::evaluate single() now persists a per-item trace so a future re-run can support a genuine paired item-level permutation or template-block-bootstrap null, making this direction check empirical rather than analytic. 
+
+What a paired re-run would change. Converting the reference null of §3.1 into a fully paired, design-valid null requires retaining the following per-evaluation fields (now persisted by run all.py::evaluate single() , but not available for the numbers reported here): • item id : unique identifier of the benchmark item within the fixed 200 -item cached subset. • template id : one of {T1, T 2, T 3}.• prompt hash , raw completion : the rendered prompt and the model’s decoded continuation. • parsed answer , is correct : the extracted answer and the correctness label against the cached gold answer. • checkpoint hash : the HuggingFace revision of the scored model. With these fields, a paired item-level permutation null swaps generation labels within item × template cells and rebuilds the aggregate |SDR |; a template-block bootstrap resamples (T1, T 2, T 3) jointly within a checkpoint to preserve cross-template dependence. Either procedure would resolve the direction of the template-covariance term empirically and upgrade the primary comparator from a reference null to a design-valid one. 
+
+# H. Parse-rate sensitivity 
+
+Table 12 in §5.1 reports the per-benchmark sensitivity. Summary statistics over the 180 evaluations: mean parse rate 0.986 ;median 1.000 ; minimum 0.570 (Yi G1 XSTest T3); 172 /180 cells at ≥ 0.90 . The eight cells below 0.90 are concentrated on the binary safety benchmarks (ToxiGen, XSTest) under templates T2 and T3, where a “not toxic”-style keyword chain is used for extraction. Under strict scoring ( c/n total ) the aggregate mean |SDR | rises from 8.00 pp to 8.93 pp. MCQ benchmarks (TruthfulQA, BBQ, CrowS-Pairs) are unchanged to within 0.01 pp because parse rates on those benchmarks are essentially 1.0 for every evaluation. The binary-safety benchmarks move by up to ≈ 2.4 pp; the direction of the change is away from zero, so the lenient scoring we use throughout is not cherry-picked to inflate the headline. 
+
+# I. Cell-level robustness checks 
+
+To probe whether the headline mean |SDR | = 8 .00 pp is driven by any single benchmark, release line, or bad-parse cell, we run four perturbations on the 40 -cell SDR matrix (Table 13). None of the four perturbations collapses the aggregate into the null region. BBQ contributes disproportionately to the aggregate (drop-BBQ leaves 6.36 pp), and Mistral is the lowest-drift release line (drop-Mistral raises the aggregate to 
+
+9.43 pp), but the headline claim does not depend on any single benchmark or release line. 
+
+I.1. Constant-parameter-size restricted analysis 
+
+Release lines differ across generations in pretraining mixture, instruction-tuning recipe, tokenizer / chat template, and parameter scale. The second layer of Table 1 isolates transitions where the parameter count is held constant (Yi G1 → G2 at 
+
+6B; Qwen G1 → G2 and G2 → G3 at 7B; Mistral G1 → G2 and G2 → G3 at 7B). Restricting the primary endpoint to those 5
+
+release-line transitions (so 5 × 5 = 25 cells) yields mean |SDR | = 7 .68 pp, still 3.5× the pooled no-drift reference-null mean ( 2.22 pp) and well above the null’s 99 .9-percentile ( 3.30 pp). For contrast, the complementary scale-change subset (3 transitions, 15 cells) yields mean |SDR | = 8 .54 pp, i.e. scale transitions are only mildly larger than constant-parameter transitions under this restriction. Per-family means are: Yi 8.59 , Qwen 11 .36 , Mistral 3.73 , Gemma 8.34 pp. The headline therefore does not collapse once scale-change transitions are removed; the constant-parameter subset is also the cleanest test of “recipe-change only” drift within named release lines. 
+
+Heterogeneity caveat. The per-family means also show that the effect is not uniform: Mistral ( 3.73 pp) is materially calmer 18 Trustworthiness Drift Across LLM Release Lines                                
+
+> Perturbation Mean |SDR |(pp) Observed 8.00
+> Leave-one-cell-out jackknife (range) [7 .32 ,8.20]
+> Jackknife 95% CI [7 .63 ,8.38]
+> Drop TruthfulQA 7.97
+> Drop BBQ (largest per-benchmark |SDR |)6.36
+> Drop ToxiGen 8.42
+> Drop CrowS-Pairs (smallest) 8.89
+> Drop XSTest 8.39
+> Drop Yi 7.81
+> Drop Qwen 6.89
+> Drop Mistral 9.43
+> Drop Gemma 7.89
+> Drop 8 records with parse rate <0.98.25
+> Pooled no-drift reference null mean 2.22
+> Table 13. Cell-level robustness of the headline mean |SDR |. Every leave-one-out perturbation leaves the aggregate between 6.36 and
+> 9.43 pp, comfortably above the 2.22 pp pooled no-drift reference null (and above the 3.30 pp 99.9-percentile of the null).
+
+than Qwen ( 11 .36 pp), with Yi and Gemma in between. Release-line instability should therefore not be assumed uniform across families, and procurement-side carry-forward assessments should be made per-release-line rather than applied as a single population-level probability. 
+
+# J. Safety per-template decomposition 
+
+The binary safety benchmarks (ToxiGen, XSTest) have per-template parse- rate floors of 0.57 and are the main source of parseability risk in the audit. We therefore decompose the safety-dimension |SDR | by template:                          
+
+> Template ToxiGen |SDR |(pp) XSTest |SDR |(pp)
+> T1(yes/no) 10 .90 15 .23
+> T2(SAFE/UNSAFE, system prompt) 3.22 0.84
+> T3(toxic/not-toxic) 8.82 8.92
+> Table 14. Safety-dimension |SDR |per prompt template. T2(system prompt + “SAFE/UNSAFE” extraction) yields very small drift; T1
+> and T3both show large drift. The template-averaged safety |SDR |reported in §5.2 averages over all three.
+
+The safety drift signal is template-dependent: a deployer using a T2-style prompt would observe much smaller drift on ToxiGen/XSTest than a T1 or T3 deployer. This does not affect the headline aggregate (template-averaging over three templates is specified a priori in §3), but it does weaken any per-dimension interpretation of safety as “most stable”. The safety-dimension σ = 7 .48 pp in the exploratory findings (§5.2) should therefore be read as the template-averaged per-transition standard deviation, not as a claim that safety drift is uniformly small. 
+
+# K. Reproducibility artefacts and analysis choices 
+
+A reproducibility manifest (pinned HuggingFace revision hashes, seeds, environment, and make targets for one-command re-runs) will accompany the released artefact at de-anonymisation. A summary of the load-bearing choices follows. 
+
+Pinned checkpoints. All 12 audited checkpoints are pinned at exact HuggingFace revision hashes. Two HF dataset revisions are also pinned ( lighteval/bbq helm for BBQ; others load from cached 200 -item JSON samples that will be released alongside the analysis artefact, so downstream analysis is deterministic regardless of upstream dataset churn). 
+
+One-command reproduction. The released artefact provides a single make target that runs the bootstrap, the pooled no-drift reference null, the permutation test, the parse-rate sensitivity, the figure pipeline, and the LaTeX compile cycle, and dumps every paper number into a single JSON for one-grep verification. 19 Trustworthiness Drift Across LLM Release Lines 
+
+Analysis-choice ledger. 
+
+• Primary scoring is c/n parsed ; strict scoring c/n total is in Appendix H. • Template aggregation is equal-weight over T1, T 2, T 3.• Dimension aggregation is equal-weight over benchmarks within a dimension: fairness = mean(BBQ, CrowS-Pairs); safety = mean(ToxiGen, XSTest); truthfulness = TruthfulQA. • Cross-dimension correlation is Pearson ρ on signed per- transition drift over the n = 8 release-line × transition pairs (pearsonr in bootstrap ci.py ). • Kendall τ uses SciPy kendalltau default tie-handling; no ties occurred in the observed data. • Compliance threshold is the per-benchmark empirical median of template-mean scores; equality s = θb counts as a pass (>= in extra analysis.py ). No equality occurred in the observed data. • Seeds: 42 for the 200 -item sample cache; 0 for the bootstrap ( B = 3000 ); 0 for the pooled no-drift reference null (Bnull = 5000 ); 1 for the plug-in reference null (sensitivity, Bnull = 5000 ); 0 for the aggregate-¯τ null draws ( K = 10 5). 
+
+Known gaps. (i) Per-item prompts, completions, and parsed labels are not retained; only per-evaluation (c, n parsed , n total ).(ii) Multi-seed subsampling of the 200 -item sets was not run (compute-bound); we instead report cell-level perturbations in Appendix I. (iii) No non-quantised precision ablation. 
+
+Per-family drift matrix. The full per-family, per-benchmark, per-transition SDR matrix with bootstrap CIs will be released on the project page at de-anonymisation. 
+
+# L. Benchmark operationalisation 
+
+Each of the five benchmarks is used with a specific variant, split, metric, and (where applicable) subsample. Any departure from canonical usage is flagged as a known source of benchmark-semantics uncertainty. 
+
+Benchmark HF dataset / revision Split Variant / metric Subsample composition (200) TruthfulQA (canonical MC1) 
+
+truthfulqa/truth ful_qa ,
+
+multiple_choice 
+
+config 
+
+validati on 
+
+MC1 (single correct option; 
+
+labels.index(1) )Variable # choices: 2 (17), 3 (20), 4 (57), 5 (48), 6 (23), 7 (20), 8 (8), 9 (5), 10+ (2). 
+
+BBQ-mixed lighteval/bbq_he lm , config all , rev 
+
+10937569 test Non-canonical : 3-way MCQ accuracy on a mixed ambiguous+disambiguated aggregate (gold gold_index ); not 
+
+the canonical per-subtype bias score. All 3-way; answer_idx distribution 59/76/65 across positions 0/1/2; mixes ambiguous and disambiguated items (131 short-context / 69 long-context; see note below). 
+
+ToxiGen-AT skg/toxigen-dat a, annotated config 
+
+test Non-canonical : annotation-threshold binary classification (AI annotator 
+
+toxicity_ai ≥ 2.5, with 
+
+toxicity_human fallback for items lacking AI annotation); not the canonical generation-then-classifier toxicity protocol. 
+
+Stratified 100 toxic + 100 non-toxic; balanced by construction. 
+
+CrowS-Pairs-FC 
+
+nyu-mll/crows_p airs (parquet revision) 
+
+test Non-canonical : forced-choice chat MCQ (“Which sentence is more likely?”) with chat-template prompt; 
+
+not canonical sentence pseudo-log-likelihood (see discussion below). 200 pairs; gold position shuffled to 0 in 108 items, to 1 in 92 (hash-seeded balance). 
+
+XSTest-TD natolambert/xste st-v2-copy prompts Non-canonical : type-derived binary refusal proxy ( type starts with 
+
+contrast_ ⇒ should-refuse); not 
+
+per-category refusal scoring. 108 safe (should comply) + 92 unsafe-contrast (should refuse); ratio 
+
+1.17:1 vs. original dataset 1.25:1 .
+
+Table 15. Benchmark operationalisation. Departures from canonical usage and cached-subsample composition. 
+
+20 Trustworthiness Drift Across LLM Release Lines 
+
+Dataset licenses. All five datasets are used under their published research licenses for the purposes documented above: TruthfulQA (Apache-2.0), BBQ (CC-BY-4.0), ToxiGen (MIT, research-only access via the dataset card), CrowS-Pairs (CC-BY-SA-4.0), XSTest (CC-BY-4.0). No dataset is redistributed; the 200 -item cached subsets are derived deterministically from the HuggingFace revisions named above and are released only at de-anonymisation alongside the analysis pipeline. 
+
+BBQ ambiguous vs. disambiguated. BBQ items come in two types — ambiguous (no disambiguating fact; correct answer is “Cannot be determined”) and disambiguated (an extra fact that identifies the correct answer). The two types test different things: ambiguous items probe whether the model refuses to speculate; disambiguated items probe whether the model overrides a stereotype in favour of stated evidence. Our cached 200 -item sample mixes both types because the underlying lighteval/bbq helm loader does not expose a clean type flag, so our aggregate BBQ score is the item-weighted average over both. A context-length heuristic on our cached items suggests roughly a 131 /69 split between short-context (plausibly ambiguous) and long-context (plausibly disambiguated) items, but without per-item outputs we cannot cleanly split the score. Readers should therefore interpret BBQ |SDR | as a mixed-subtype aggregate, not as a claim about either subtype in isolation. 
+
+CrowS-Pairs canonical vs. our use. The CrowS-Pairs (Nangia et al., 2020) authors score models by comparing sentence-level pseudo-log-likelihoods between the more- and less-stereotypical sentence of each pair. This is not directly applicable to chat-templated instruction-tuned models. We instead evaluate via forced-choice MCQ (“Which sentence is more likely?”), which is a departure from the canonical metric and measures a composition of stereotype preference and instruction-following. We flag this explicitly; readers should treat our CrowS-Pairs results as “a likelihood-preference proxy that requires the model to comply with the MCQ framing”, not as canonical CrowS-Pairs scores. This is an intrinsic limitation of applying the benchmark to chat models without white-box likelihood access, not a bug in our implementation. 
+
+TruthfulQA MC1 vs. MC2. We use MC1 (single correct answer per question, identified by labels.index(1) on the 
+
+mc1 targets struct of the multiple choice config). This is the canonical discriminative variant and matches the format expected by instruction-tuned chat models; MC2 (multi-label correctness) would require different prompt engineering and is not used. 
+
+XSTest safety polarity. contrast * types are the unsafe prompts paired against each safe prompt; labelling 
+
+contrast * as label=1 (should refuse) matches the original XSTest design. Our 200 -item sample preserves ap-proximately the 1.17:1 safe-to-unsafe-contrast ratio, close to the source dataset’s 1.25:1 . Subtype balance within each of safe/unsafe (e.g., homonyms, figurative language, discrimination-proxy) is not controlled; per-subtype scores are not available. 
+
+Summary. Of the five benchmarks, only TruthfulQA (MC1) matches its canonical protocol. The other four are non-canonical variants we name explicitly throughout the paper: BBQ-mixed (mixed ambiguous+disambiguated MCQ accuracy rather than per-subtype bias score, because the loader does not expose a clean subtype flag); ToxiGen-AT (annotation-threshold binary classification on the dataset’s toxicity ai field with toxicity human fallback for items missing AI annotation, rather than the canonical generation-then-classifier protocol); CrowS- Pairs-FC (forced-choice chat MCQ rather than likelihood-based stereotype preference; a deliberate trade-off for chat-model evaluation); XSTest-TD (type-prefix-derived binary refusal proxy collapsing the per-category refusal structure into a single should-comply / should-refuse binary). All four caveats are named consistently in the abstract, §4, §5 caveats paragraph, and Table 15. Benchmark-specific subtype drift is not available at the aggregate level without per-item outputs. 
+
+Evaluation-type classification. We classify each of the five benchmark protocols by the source of its ground-truth label. Two of the four non-canonical variants — ToxiGen-AT and XSTest-TD — assign per-item labels by a deterministic rule applied to a dataset-provided field ( toxicity ai ≥ 2.5 for ToxiGen-AT; type.startswith("contrast ") for XSTest-TD), rather than from a human annotation explicitly constructed as the evaluation target. Following the cross-model audit terminology we therefore classify them as synthetic-proxy evaluations: the “correct answer” is a proxy derived from dataset metadata, not a ground truth in the usual sense. TruthfulQA-MC1, BBQ-mixed, and CrowS-Pairs-FC use human-produced labels and remain real-gt evaluations (the latter two still with non-canonical protocols as above). This classification is orthogonal to the canonical/non-canonical distinction and is summarised below: 21 Trustworthiness Drift Across LLM Release Lines 
+
+Benchmark variant Evaluation type TruthfulQA-MC1 real-gt (canonical MC1) BBQ-mixed real-gt (non-canonical aggregation) CrowS-Pairs-FC real-gt (non-canonical chat MCQ) ToxiGen-AT synthetic-proxy (AI-annotator threshold, with toxicity human fallback) XSTest-TD synthetic-proxy (type-prefix rule) 
+
+All five are evaluated on identically fixed 200-item cached subsets. Drift measurements for the two synthetic-proxy benchmarks should be read as drift against the specific proxy rule, not against a gold human judgment of the underlying construct. 
+
+# M. Illustrative auditor checklist 
+
+A concrete operational template for the audited setup. Not a validated universal standard; offered as a starting point for procurement teams adapting the reporting protocol. 1. Pin the checkpoint. Record HF revision hash; refuse to score a model whose identity cannot be recorded. 2. Use the fixed 200 -item cached samples (experiments/cache/{benchmark}_200.json ), or document any substitution and rerun the reference-null analysis. 3. Run all three prompt templates T1, T 2, T 3 (Appendix F); the aggregate depends on template-averaging. 4. Record (c, n parsed , n total ) per evaluation; optionally retain per-item traces. 5. Compute mean |SDR | vs. the prior release and compare to the pooled no-drift reference null; flag for revalidation when it exceeds the null 99 .9-percentile. 6. Default to strict scoring (c/n total ) for deployment-grade reports; annotate if lenient. 7. Compliance check : per-benchmark ˆpflip at the deployer’s actual threshold with exact Clopper–Pearson 95% CI. 8. Stamp checkpoint hash, cached-sample hash, template IDs, and evaluation date; treat audits lacking these as unsupported for carry-forward. 
+
+# N. The longitudinal model card (extended template) 
+
+The extended longitudinal model card (LMC): the full field set extending the Mitchell et al. (2019) Model Card schema for longitudinal trust reporting. Table 6 in the main text lists the core longitudinal fields; the complete template below repeats them and adds the optional second-order diagnostic fields (compliance state, parse rate). Offered as an illustrative template for the audited setup, not a validated universal standard. 
+
+Field Value Checkpoint identity <HF-revision-hash> 
+
+Cached item-sample hash SHA-256 of {benchmark}_200.json 
+
+Templates used T1, T 2, T 3 (Appendix F) Evaluation date <YYYY-MM-DD> 
+
+Current score s (strict) c/n total , template-averaged Prior-release sprev per prior certificate 
+
+|SDR | vs. prior 100 |s − sprev | pp Reference-null summary pooled null mean + 99.9-%ile (pp) Re-audit triggered? |SDR | > 99.9-%ile Compliance state pass/fail at deployer threshold θ
+
+Parse rate nparsed /n total 
+
+22
