@@ -1,0 +1,270 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-08T20:27:12.601484+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 6,
+    "quick_skim_target": 11,
+    "quick_selected": 6
+  },
+  "deep_dive": [
+    {
+      "id": "2607.05674v1",
+      "title": "Perceived System Predictability: Scale Development and Application",
+      "abstract": "How predictable users perceive an interactive system to be shapes how they interpret, trust, and rely on it, yet HCI lacks both a precise conceptualization and a validated instrument for this perception. We address this gap by introducing perceived system predictability (PSP) as a user-centered construct grounded in uncertainty theory, distinguishing epistemic, aleatory, and effective predictability. We contribute (i) a theoretical framework that situates PSP relative to adjacent constructs such as trust and understanding, (ii) a 6-item PSP scale, derived from a 60-item pool through expert review and cognitive interviews, and validated in a shape-classifier study ($N=200$) that supports both a unidimensional and a three-factor hierarchical structure, and (iii) a sentiment-classifier study ($N=200$) that varies explanations and stochasticity, and relates PSP to the correctness of users' predictions of system behavior, trust, subjective information processing awareness, and need for cognition. We find that PSP and prediction correctness capture distinct aspects of users' mental models and that both can diverge: PSP itself predicts correctness, explanations shift PSP but not correctness, and increased stochasticity degrades correctness without lowering PSP. PSP thus goes beyond existing objective and subjective measures and offers a principled foundation for designing transparent and trustworthy interactive systems.",
+      "authors": [
+        "Hendrik Schuff",
+        "Heike Adel",
+        "Ngoc Thang Vu"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC"
+      ],
+      "published": "2026-07-06T22:40:18+00:00",
+      "link": "https://arxiv.org/pdf/2607.05674v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "validated instrument for perception and 6-item scale",
+      "llm_evidence_cn": "经过验证的感知工具和6项量表",
+      "llm_evidence": "经过验证的感知工具和6项量表",
+      "canonical_evidence": "经过验证的感知工具和6项量表",
+      "llm_tldr_en": "Develops and validates a quantitative scale for perceived system predictability, a construct linked to trust.",
+      "llm_tldr_cn": "开发并验证了一个感知系统可预测性的定量量表，这是一个与信任相关的概念。",
+      "llm_tldr": "开发并验证了一个感知系统可预测性的定量量表，这是一个与信任相关的概念。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.05217v2",
+      "title": "Curated retrieval versus open web search in public AI information services: a coverage-trust trade-off",
+      "abstract": "Public institutions increasingly use large language models (LLMs) to answer citizens' questions, often pairing a curated knowledge base with live web search, yet whether the sources behind these answers can be trusted has received little empirical scrutiny. We report a pre-launch expert evaluation of Evrópuvefur, an independent, government-funded service run by the University of Iceland that answers questions about the European Union, conducted as Iceland prepared for its referendum of 29 August 2026 on whether to resume EU accession talks. Five domain experts produced 551 evaluations of 449 AI-generated answers, scoring each against a seven-criterion quality rubric and, separately, flagging individual cited sources. We compared two retrieval paths: a curated local corpus (RAG) and open web search. In more than a third of the reviewed web-search answers (35%, 65 of 187), at least one cited source was flagged, almost always as untrustworthy or irrelevant; curated sources were flagged far less often and only for being out of date. Web search answered more questions, but at the cost of source quality; the curated corpus was trustworthy yet limited in coverage, and the model declined to respond when it fell short. The citation mix also passed over strong sources: across all 287 web-search answers, the system never cited RÚV, the public broadcaster and the country's most widely used news source. A companion prompt ablation shows how weak prompt-level steering is: a trusted-domain list in the system prompt raised the share of citations to listed domains only from 12% to 21%. Fluency and topical fit did not predict source trustworthiness. We argue that source trustworthiness is a measurable yet largely invisible dimension of information quality in public AI services, and we discuss transparency-oriented responses and their trade-offs.",
+      "authors": [
+        "Hafsteinn Einarsson",
+        "Hafsteinn Birgir Einarsson",
+        "Jón Gunnar Ólafsson",
+        "Jón Gunnar Þorsteinsson"
+      ],
+      "primary_category": "cs.CY",
+      "categories": [
+        "cs.CY",
+        "cs.CL",
+        "cs.IR"
+      ],
+      "published": "2026-07-06T15:32:46+00:00",
+      "link": "https://arxiv.org/pdf/2607.05217v2",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Expert evaluation of AI answers using a seven-criterion quality rubric",
+      "llm_evidence_cn": "使用七项标准质量量表对AI回答进行专家评估",
+      "llm_evidence": "使用七项标准质量量表对AI回答进行专家评估",
+      "canonical_evidence": "使用七项标准质量量表对AI回答进行专家评估",
+      "llm_tldr_en": "Evaluates the trade-off between coverage and trust in public AI information services.",
+      "llm_tldr_cn": "评估公共AI信息服务中覆盖范围与信任度之间的权衡。",
+      "llm_tldr": "评估公共AI信息服务中覆盖范围与信任度之间的权衡。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.01711v1",
+      "title": "Trust Boundary Semantic Gaps: A Multi-dimensional Analysis and Mitigation for Security-by-Design",
+      "abstract": "Modern systems use format-, protocol-, and signature-based mechanisms before accepting artifacts across trust boundaries. These mechanisms are necessary: they show that an artifact is well formed, protocol-compliant, or properly authenticated. They do not, however, show that the artifact satisfies the semantic security properties required by the receiving domain. A signed update or an authenticated token may therefore be accepted yet enable compromise. We call this condition a Trust Boundary Semantic Gap (TBSG): an artifact crosses a trust boundary and passes correctly implemented syntactic validation, but the assertions established by that pass are insufficient to satisfy the receiving domain's security requirements. TBSG concerns what remains unestablished after a syntactic pass, not absent checks or implementation bugs. Analyzing 75 publicly reported security incidents (2014-2025) at the boundary level, we organize semantic misalignment into a four-dimensional analysis model: Identity, Spatial, Temporal, and Interpretation (MDTBSG). Building on it, we develop Trust Boundary Semantic Analysis and Mitigation (TBSAM), a design-time framework that identifies TBSGs from design specifications, prioritizes them, traces propagated gaps to their originating boundary, and maps each to candidate architectural controls. We apply TBSAM to a retrospective reconstruction of the SolarWinds/SUNBURST supply-chain attack, showing how it makes receiving-domain assumptions explicit, separates locally originating from propagated gaps, and identifies controls that interrupt the path. These results suggest that syntactic validation, while necessary, is not sufficient at trust boundaries, and that making trust-boundary assumptions explicit can complement Security-by-Design.",
+      "authors": [
+        "Doyeon Kim",
+        "Jin-Young Choi",
+        "Junghee Lee"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-07-02T05:06:57+00:00",
+      "link": "https://arxiv.org/pdf/2607.01711v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Analysis of trust boundaries and semantic security properties",
+      "llm_evidence_cn": "信任边界和语义安全属性的分析",
+      "llm_evidence": "信任边界和语义安全属性的分析",
+      "canonical_evidence": "信任边界和语义安全属性的分析",
+      "llm_tldr_en": "Analyzes Trust Boundary Semantic Gaps to improve security-by-design in modern systems.",
+      "llm_tldr_cn": "分析信任边界语义间隙，以改进现代系统中的安全性设计。",
+      "llm_tldr": "分析信任边界语义间隙，以改进现代系统中的安全性设计。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.06068v1",
+      "title": "A Dual-CRDT Architecture for Decentralized Trust Governance and Evolution",
+      "abstract": "While CRDTs provide decentralized replication and eventual consistency, Byzantine-resilient deployments require mechanisms for deciding which updates should be trusted and therefore contribute to the reconstructed state. In practice, the trust relationships underlying these decisions may evolve over time as participants join or leave, identities change, and governance rules are revised. However, the information used to make trust decisions is typically managed outside the replicated state itself. This paper introduces a dual-CRDT architecture composed of a \\emph{Trust CRDT} and a \\emph{Data CRDT}. The Trust CRDT stores and evolves governance information, while the Data CRDT is reconstructed according to the trust configuration derived from the Trust CRDT. Governance therefore becomes replicated state rather than an externally managed artifact. Building upon deterministic reconstruction and Byzantine trust filtering, the proposed model allows trust relationships and governance rules to evolve through ordinary CRDT updates. The resulting architecture provides a recursive governance model in which governance rules determine their own future evolution while simultaneously governing application data. The approach is implemented as a prototype on top of Melda and melda-sec and should be viewed as an initial exploration of decentralized trust governance and evolution for Byzantine-resilient CRDT systems.",
+      "authors": [
+        "Amos Brocco"
+      ],
+      "primary_category": "cs.DC",
+      "categories": [
+        "cs.DC",
+        "cs.CR"
+      ],
+      "published": "2026-07-07T09:39:58+00:00",
+      "link": "https://arxiv.org/pdf/2607.06068v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "architecture for decentralized trust governance and evolution",
+      "llm_evidence_cn": "去中心化信任治理与演化的架构",
+      "llm_evidence": "去中心化信任治理与演化的架构",
+      "canonical_evidence": "去中心化信任治理与演化的架构",
+      "llm_tldr_en": "Presents a dual-CRDT architecture to manage and evolve trust relationships in decentralized systems.",
+      "llm_tldr_cn": "提出了一种双CRDT架构，用于管理和演化去中心化系统中的信任关系。",
+      "llm_tldr": "提出了一种双CRDT架构，用于管理和演化去中心化系统中的信任关系。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.05363v1",
+      "title": "SovereignPA-Bench: Evaluating User-Owned Personal Agents under Evolving Intent, Platform Mediation, and Consent Constraints",
+      "abstract": "Personal agents are becoming persistent user-owned intermediaries: they remember preferences, filter platform-mediated information, use tools, and negotiate with services. Existing benchmarks evaluate tool use, web navigation, desktop control, personalization, recommendation, and evolving context, but rarely ask whether an agent preserves user sovereignty: advancing the user's current interests while respecting privacy, consent, evidence, user burden, and resistance to manipulative incentives. We introduce SovereignPA-Bench, an executable benchmark for evaluating user-owned personal agents under evolving intent, platform mediation, privacy boundaries, consent constraints, evidence requirements, and burden tradeoffs. The benchmark separates agent-visible ObservableState from evaluator-only HiddenLabels, reports component metrics for task success, alignment, privacy, consent, evidence, manipulation, burden, and auditability, and preserves paired scenario ordering for model and policy comparisons. We evaluate 120 sovereignty stress scenarios across 4 model families and 8 policy baselines, yielding 3,840 frozen-prompt trajectories with raw prompts, outputs, provider-form responses, parsed actions, recomputable metrics, hard-set analyses, qualitative cases, and a blinded 3-annotator audit over 240 items. Full-sovereign scaffolding improves sovereignty score over direct, memory-only, consent-only, evidence-only, ReAct/tool-use, safety-prompt, and judge-guard baselines while reducing privacy leakage, consent violation, over-concession, and manipulation capture. Human audit shows high agreement on privacy and consent and lower agreement on manipulation, identifying the subjective frontier of platform-persuasion judgments. These results show that personal-agent evaluation must move beyond task completion toward representative, consent-aware, evidence-grounded action.",
+      "authors": [
+        "Dylan Zongmin Liu"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-07-06T17:39:05+00:00",
+      "link": "https://arxiv.org/pdf/2607.05363v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Benchmark for evaluating user-owned agents against sovereignty and privacy constraints",
+      "llm_evidence_cn": "评估用户代理在主权和隐私约束下的基准测试",
+      "llm_evidence": "评估用户代理在主权和隐私约束下的基准测试",
+      "canonical_evidence": "评估用户代理在主权和隐私约束下的基准测试",
+      "llm_tldr_en": "Introduces SovereignPA-Bench to evaluate how personal agents respect user interests and privacy.",
+      "llm_tldr_cn": "引入SovereignPA-Bench基准，评估个人代理在尊重用户利益和隐私方面的表现。",
+      "llm_tldr": "引入SovereignPA-Bench基准，评估个人代理在尊重用户利益和隐私方面的表现。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "methods and metrics for measuring trust",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.05952v1",
+      "title": "Signed-Graph Recommendation as Structural Consistency Maximization",
+      "abstract": "While signed social recommendation has shown great potential by modeling both trust and distrust relations, its effectiveness is often hindered by structural noise and data sparsity. In this work, we first identify a fundamental inconsistency across the structural, propagation, and semantic layers of existing models, which leads to biased representations learned from sparse or noisy datasets. Furthermore, we observe that most existing methods treat the observed graph as fixed, failing to bridge the gap between noisy topologies and reliable social semantics. To address these issues, we propose a unified framework named SSC-Loop that treats signed social recommendation as the maximization of structural consistency. SSC-Loop includes three dedicated modules: ESA-DA for structural consistency, a P/N/O propagation mechanism for propagation consistency, and a contrastive learning objective for semantic consistency. Experiments on Epinions demonstrate that SSC-Loop achieves strong performance on explicit signed social rating prediction, while auxiliary results on Slashdot under a derived link-existence setting further suggest its ability to exploit signed social structures. Source code is available at https://github.com/Refrainwww/SSC-Loop.",
+      "authors": [
+        "Zifan Wang",
+        "Siyu Chen",
+        "Wenzhuo Song"
+      ],
+      "primary_category": "cs.SI",
+      "categories": [
+        "cs.SI",
+        "cs.AI"
+      ],
+      "published": "2026-07-07T07:53:23+00:00",
+      "link": "https://arxiv.org/pdf/2607.05952v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "modeling trust and distrust relations in social recommendation graphs",
+      "llm_evidence_cn": "在社交推荐图中建模信任与不信任关系",
+      "llm_evidence": "在社交推荐图中建模信任与不信任关系",
+      "canonical_evidence": "在社交推荐图中建模信任与不信任关系",
+      "llm_tldr_en": "Introduces SSC-Loop to improve signed social recommendation by maximizing structural consistency in trust relations.",
+      "llm_tldr_cn": "引入 SSC-Loop 框架，通过最大化信任关系中的结构一致性来改进符号社交推荐。",
+      "llm_tldr": "引入 SSC-Loop 框架，通过最大化信任关系中的结构一致性来改进符号社交推荐。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.06528v1",
+      "title": "Trust-Aware Citation Cartel Ranking in Scholarly Knowledge Graphs",
+      "abstract": "Citation-based systems usually treat each citation as an equal signal of scholarly influence, although citations can express very different relationships: direct method use, result comparison, broad background, or weak ceremonial acknowledgement. This distinction is crucial for citation-cartel analysis because dense internal citation alone is not suspicious; legitimate research communities are also densely connected. We present a trust-aware pipeline that combines citation graph structure with semantic citation intent to rank suspicious paper-level communities for audit. On a DBLP-derived graph with 500,000 papers and 4.87M citation edges, we use an LLM teacher to label 205,897 citation pairs, train a SciBERT student, and scale citation-intent typing to 2.04M unique graph edges. We then compute a Composite Cartel Index (CCI) that integrates internal density, citation inflation, reciprocity, semantic superficiality, degree assortativity, and trust-weighted PageRank shift. The highest-ranked community contains 1,079 papers and 8,603 internal citations, with 254.3x more internal citations than expected and 64.2% of them superficial. Comparisons against density-only, inflation-only, semantic-only, and random baselines show that CCI cannot be reduced to a single heuristic. Edge excision validation further shows that CCI-selected communities behave differently from matched random removals. The result is a reproducible, curator-facing ranking framework for prioritising communities that warrant closer inspection.",
+      "authors": [
+        "Pratyush Gupta",
+        "Vikranth Udandarao",
+        "Syam Sai Santosh Bandi"
+      ],
+      "primary_category": "cs.SI",
+      "categories": [
+        "cs.SI"
+      ],
+      "published": "2026-07-07T17:33:12+00:00",
+      "link": "https://arxiv.org/pdf/2607.06528v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "trust-aware pipeline to rank suspicious paper-level communities",
+      "llm_evidence_cn": "用于对可疑论文级社区进行排名的信任感知流水线",
+      "llm_evidence": "用于对可疑论文级社区进行排名的信任感知流水线",
+      "canonical_evidence": "用于对可疑论文级社区进行排名的信任感知流水线",
+      "llm_tldr_en": "Proposes a trust-aware pipeline combining graph structure and semantic intent to identify citation cartels.",
+      "llm_tldr_cn": "提出了一种结合图结构和语义意图的信任感知流水线，用于识别引用卡特尔。",
+      "llm_tldr": "提出了一种结合图结构和语义意图的信任感知流水线，用于识别引用卡特尔。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

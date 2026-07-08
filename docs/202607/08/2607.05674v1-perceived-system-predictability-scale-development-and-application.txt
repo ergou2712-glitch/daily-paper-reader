@@ -1,0 +1,893 @@
+Title: Perceived System Predictability: Scale Development and Application
+
+URL Source: https://arxiv.org/pdf/2607.05674v1
+
+Published Time: Wed, 08 Jul 2026 00:16:20 GMT
+
+Number of Pages: 39
+
+Markdown Content:
+# Perceived System Predictability: Scale Development and Application 
+
+## HENDRIK SCHUFF, University of Stuttgart, Germany 
+
+## HEIKE ADEL, Hochschule der Medien, Germany 
+
+## NGOC THANG VU, University of Stuttgart, Germany 
+
+How predictable users perceive an interactive system to be shapes how they interpret, trust, and rely on it, yet HCI lacks both a precise conceptualization and a validated instrument for this perception. We address this gap by introducing perceived system predictability 
+
+(PSP) as a user-centered construct grounded in uncertainty theory, distinguishing epistemic, aleatory, and effective predictability. We contribute (i) a theoretical framework that situates PSP relative to adjacent constructs such as trust and understanding, (ii) a 6-item PSP scale, derived from a 60-item pool through expert review and cognitive interviews, and validated in a shape-classifier study ( 𝑁 = 200 ) that supports both a unidimensional and a three-factor hierarchical structure, and (iii) a sentiment-classifier study (𝑁 = 200 ) that varies explanations and stochasticity, and relates PSP to the correctness of users’ predictions of system behavior, trust, subjective information processing awareness, and need for cognition. We find that PSP and prediction correctness capture distinct aspects of users’ mental models and that both can diverge: PSP itself predicts correctness, explanations shift PSP but not correctness, and increased stochasticity degrades correctness without lowering PSP. PSP thus goes beyond existing objective and subjective measures and offers a principled foundation for designing transparent and trustworthy interactive systems. 1
+
+Additional Key Words and Phrases: Scale Development, Validation, Questionnaire, Explainable AI, Human-AI Interaction 
+
+1 INTRODUCTION 
+
+Interaction between users and a system can be evaluated along a broad range of criteria. One common categorization divides these criteria into objective and subjective criteria. Objective criteria are measures such as the time a user spends interacting with a system or the number of successful task completions the user achieves. Subjective criteria typically refer to constructs that users perceive, such as usability, workload, or trust. Reliably measuring these requires the development and validation of appropriate scales. For example, well-known scales for usability include SUS [ 9] and UMUX [32, 33].‚ While a large set of scales has been proposed in prior work, evaluating users’ interaction with today’s increasingly complex and opaque systems can only partially be addressed with existing tools and requires the exploration of novel constructs and the development of corresponding validated instruments to measure them. In this paper, we therefore focus on conceptualizing and measuring perceived system predictability (PSP). In the following, we (i) argue why we need to measure PSP (Section 1.1), (ii) propose a theory of perceived system predictability comprising three facets (epistemic, aleatory, and effective predictability) (Section 3.1), (iii) develop a novel 6-item scale to measure PSP (Section 3.2), (iv) evaluate our scale (Section 3.3), (v) use our scale to explore the effects of explanations and system stochasticity, and (vi) examine how PSP relates to prediction correctness, trust, subjective information processing awareness (SIPA), and participants’ need for cognition (NFC), among other constructs (Section 4). Our findings show that (a) our scale exhibits desirable psychometric properties, (b) PSP cannot be predicted from objective measures such as users’ prediction correctness but itself predicts prediction correctness, (c) enriching a system’s output with an explanation of why it produced that output affects PSP but not prediction correctness, and (d) the system’s level of randomness, in turn, does not affect PSP but does affect prediction correctness. 
+
+> 1http://perceived-system-predictability.de Authors’ addresses: Hendrik Schuff, hendrik.schuff@ims.uni-stuttgart.de, University of Stuttgart, Germany; Heike Adel, Hochschule der Medien, Stuttgart, Germany, adel-vu@hdm-stuttgart.de; Ngoc Thang Vu, University of Stuttgart, Germany, thang.vu@ims.uni-stuttgart.de.
+
+1arXiv:2607.05674v1 [cs.HC] 6 Jul 2026 2 Schuff, Adel, and Vu 
+
+Statements Agreement rating (1-7) 
+
+> strongly disagree
+> do  not agree
+> somewhat disagree
+> neither agree nor disagree
+> generally agree
+> agree
+> strongly agree
+
+EF-1 The system behaves in a predictable manner. 
+
+EF-2 I can tell which responses the system will likely give. 
+
+EP-1 I observed enough system responses to predict how the system behaves. 
+
+EP-2 Based on past system responses, I know the responses the system will likely give me. 
+
+AL-1 I can tell the reasons for the system’s decisions. 
+
+AL-2 There is a consistent pattern in the system’s behavior. 
+
+> Table 1. Final PSP scale with items and rating options. EF, EP, and AL refer to the effective, epistemic, and aleatory aspects of predictability covered in the scale. The overall PSP score is computed as the mean across all six items; Appendix A.3 provides an illustrative scoring example. The choice of the seven agreement anchors builds upon recent findings on optimal conceptual anchor distances [15].
+
+1.1 The Need to Measure Perceived System Predictability 
+
+A user’s ability to predict a system’s behavior can be assessed both objectively and subjectively. While objective predictability, i.e., a user’s demonstrated ability to predict how the system will behave in an unseen situation, has been assessed frequently [39, 44, 90, 91], perceived predictability received less attention [81, 85]. We argue that objective predictability alone is not enough, that existing instruments are insufficient, and that PSP therefore requires a novel measurement instrument. 
+
+1.1.1 Objective Measures of Predictability Are Not Enough. Objective predictability might appear at least as informative as subjective predictability. However, measuring how able users feel to predict a system’s behavior can capture aspects of user interaction that are not accessible through objective predictability alone (see Figure 1). To motivate this hypothesis, we draw theoretical parallels to two evaluation settings: (i) measuring system usability within human-computer interaction and (ii) measuring the feeling of learning (FOL) in educational research. In Section 4.3, we provide empirical evidence that confirms our hypothesis. 
+
+Subjective Versus Objective Usability. Measuring usability is a key aspect of quantifying user experience [ 58 ]. Similarly to our context, measures related to usability can be grouped into subjective measures (e.g., obtained from questionnaires) and objective measures (e.g., task completion time) [ 46 , 69 ]. Nielsen and Levy [69] study how objective and subjective measures are related within a meta-analysis and found that—although there is an overall positive correlation—the two can yield contradictory conclusions. For example, users were observed to consistently prefer an interface with Perceived System Predictability: Scale Development and Application 3system 
+
+objective predictability :
+
+"How will the model decide 
+
+for an unseen input  ?" 
+
+perceived predictability :
+
+"I can tell which repsponses the 
+
+system will likely give. "
+
+observed system behavior 
+
+> Fig. 1. Objective and perceived predictability capture distinct aspects of a user’s mental model of a system. The metaphor of two flashlights illustrates how these two measures illuminate different parts of that mental model, which is formed in part through the user’s experience and interaction with the system, as indicated by the left box using plate notation.
+
+which they were slower than an alternative system with which they reached faster interactions before [ 41 ]. Similarly, MacLean et al . [64] observed that users preferred a slower input method as long as it was not more than 20% slower than the faster alternative. Hornbæk [46] lists numerous arguments why both—subjective as well as objective—usability measures should be assessed. Inter alia , Hornbæk [46] notes that objective and subjective measures can lead to different conclusions, for example, objective time measures and subjectively experienced time were shown to differ [ 20 , 29 , 89 ]. Similarly, Hornbæk [46] mentions the dissociation of objective performance and perceived workload discussed by Yeh and Wickens [93]. 
+
+Feeling of Learning Versus Actual Learning. In our second example, we consider the study of active learning classroom instructions (as opposed to passive lectures) of Deslauriers et al . [23] . Students were evaluated on (a) what they objectively learned during a class and (b) what they felt to have learned. While one may expect the two measures to be strongly correlated, Deslauriers et al . [23] find that students who participate in an active learning lecture (as opposed to a passive lecture) learn more but feel like they learn less. The authors argue that the increased cognitive effort of active learning improves learning while also producing a cognitive disfluency that students misread as learning less. This cognitive disfluency and the corresponding feelings of learning less can be major obstacles to the success and acceptance of active learning lectures because they threaten students’ motivation and engagement [ 23 ]. Measuring feeling of learning (FOL) allowed the authors to identify this disconnect and propose suitable interventions. Without measuring FOL, they would not have been able to uncover this effect or address the resulting problems. Similarly, measuring perceived predictability alongside objective predictability can help identify obstacles to outcomes such as user trust that would remain hidden without an adequate measurement instrument. 4 Schuff, Adel, and Vu system objective subjective 
+
+## system usability trust helpfulness objective predictability task performance completion time 
+
+## PSP 
+
+## (ours) 
+
+> Fig. 2. PSP is a subjective self-report measure. We argue that perceived predictability should be assessed alongside objective predictability and that existing subjective measures of related constructs are insufficient substitutes for PSP.
+
+1.1.2 Measuring Related Constructs Is Not Enough. One might argue that, instead of measuring perceived predictability directly, it is sufficient to study it indirectly via related measures of subjective constructs, such as trust, usability, or perceived helpfulness (as depicted in Figure 2). While a strong relation between perceived predictability and related constructs such as trust is plausible, measuring perceived predictability enables insights beyond what existing measures and constructs can capture. Our results show that the relation between trust and objective predictability systematically differs from the relation between perceived and objective predictability (Section 4). Prior studies on explanatory systems [ 10 , 44 ] leave open whether mismatches between subjective judgments and objective interaction outcomes stem from (a) a general dissociation between self-report and behavior or (b) commonly used subjective measures targeting constructs that are too distant from users’ perceived ability to anticipate system behavior. This second possibility deserves direct attention. Indeed, our results show that perceived predictability is a significant predictor of objective predictability, whereas trust is negatively associated with objective predictability (Section 4). 
+
+1.1.3 The Need for a Novel Instrument. Existing instruments do not yet provide an adequate validated measure of perceived predictability as a dedicated focal construct. Recent work has begun to operationalize adjacent constructs such as perceived shared understanding with AI [ 59 ], but these measures target perceived shared understanding rather than users’ perceived ability to anticipate how a system will behave. Schulz et al . [85] investigate how properties of a function (such as smoothness) affect the perceived predictability and ask participants to rate “how well could you predict this function?” with a 1-100 slider. While we agree that this scale is a suitable choice within the context studied by Schulz et al . [85] , we argue that it cannot be applied to general systems for two reasons. First, the wording is tailored to rating “this function,” which is ill-suited to general systems such as chatbots. Second, even if the wording were adapted to “this system”, the scale lacks demonstrated psychometric validity. Without dedicated validation, it would remain unclear whether asking “how well could you predict this system?” actually measures perceived predictability. This limitation applies to any ad-hoc single-item scale (i.e., one that has not been rigorously derived from a validated multi-item instrument), as a single item in isolation does not allow estimating the item’s correlation to the latent variable (perceived predictability). When using multiple items to measure a construct, the items’ correlation to the latent variable can be indirectly quantified via the item-item correlation [ 24 ]. Even if ultimately only a single item is retained, it is important to provide evidence that this item has a sufficiently strong relation to the construct intended to be measured. However, subjective ratings of explanatory systems typically rely on Perceived System Predictability: Scale Development and Application 5such ad-hoc scales deployed without conducting psychometric development and validation. While the resulting scales 
+
+can still be valid, without a dedicated analysis, there is no evidence that they actually are valid. An important exception to this is the SIPA scale [ 81 ]. Building on the theory of situation awareness [ 30 ], it measures transparency, understandability, and—most importantly for our work—predictability, using two items per dimension to yield an overall SIPA score. The SIPA scale adheres to a rigorous development process and demonstrates sound statistical properties, making it a strong point of comparison. However, predictability constitutes only one of SIPA’s three facets. As a result, predictability is captured only through a two-item subscale, effectively treating it as unidimensional. This leaves open whether perceived predictability could instead be measured as a multidimensional rather than a unidimensional construct, which we demonstrate to be feasible (Section 3.3). 
+
+2 RELATED WORK 
+
+We situate our work in relation to two strands of prior literature: (i) research on how explanations shape user judgments and behavior, and (ii) methodological work on developing validated questionnaires for user perceptions in HCI and psychology. 
+
+2.1 Effects of Explanations on Users 
+
+Prior work shows that explanations affect both how users judge a system and how they act on its outputs, but the size and direction of these effects vary across tasks, explanation modalities, and study designs. In a systematic review of 73 papers, Kim et al . [53] identify 30 components spanning in-context explanation quality, human-AI interaction, and human-AI performance in human-centered evaluations of explainable AI applications. Their review underscores that trust, understanding, usefulness, and performance are related but not interchangeable outcomes, and that evaluation practice remains methodologically heterogeneous. Recent work further argues that static explanation formats can provide an overly simplified picture and that interactive inspection may be necessary to reveal important aspects of model behavior [54]. 
+
+Calibration and Subjective Judgments. Explanations can shape users’ assessments of system performance and quality. In image classification, implausible explanations led participants to underestimate system accuracy relative to plausible explanations [ 70 ], whereas in stock price prediction, explanations improved users’ estimates of whether classifier outputs were correct [ 6 ]. Similar over- and under-estimation effects have been observed in explainable question answering [ 83 ]. Explanations have also been reported to increase acceptability and perceived usefulness in some settings [ 3, 18 , 45 , 52 ], while evidence for trust is mixed, ranging from null findings in recommender and news settings to positive effects in chatbot settings [ 18 , 52 , 77 ]. Taken together, these studies suggest that explanations shape users’ judgments, but not in a uniform or consistently beneficial way. 
+
+Agreement, Reliance, and Human-AI Performance. A broad body of work reports improved human decisions when explanations accompany AI outputs [ 10 , 31 , 40 , 56 , 57 , 62 , 72 , 94 ]. However, later work questions how far these gains generalize and shows that explanations can also increase users’ willingness to accept erroneous system outputs [ 3 ]. Related work in clinical decision support likewise documents the risk of over-reliance [ 12 ]. This literature therefore points to a central tension: explanations may improve human-AI performance in some settings while also encouraging uncritical agreement. 6 Schuff, Adel, and Vu 
+
+Perceived Helpfulness Versus Actual Helpfulness. Subjective impressions of explanations do not necessarily align with objective benefit. Buçinca et al . [10] show that users can prefer and trust one decision-support interface even when it yields worse task performance than an alternative, and Buçinca et al . [11] further identify a trade-off between subjective system quality ratings and effective human-AI performance. Comparative work likewise finds that perceived explainability correlates strongly with trust but only modestly with task accuracy, suggesting that subjective and objective effects need not move in lockstep [ 86 ]. Overall, the literature indicates that explanations influence both user perceptions and behavior, but their effects are heterogeneous and can diverge from, or even run counter to, objective performance. This literature points to a question that is central to our work: to what extent do explanations help users anticipate how a system will behave? For end users, this matters because explanations are often expected to calibrate reliance, helping users avoid both uncritical acceptance and unwarranted dismissal of system outputs [ 3, 12 ]. More broadly, explanations are commonly motivated as a means of supporting understanding and shaping users’ mental models of AI systems [ 65 , 79 ], and recent human-centered accounts explicitly connect understanding to prediction [ 17 ]. Yet prior work typically addresses predictability only as a facet of broader constructs [ 81 ] or via nearby outcomes such as trust and usefulness [ 3, 18 , 52 ]. We therefore argue that perceived predictability merits direct attention alongside broader outcomes such as trust, usefulness, and acceptability. 
+
+2.2 Scale Development 
+
+Validated questionnaires are a prerequisite for reliably measuring user perceptions in HCI, psychology, and adjacent fields, for example for usability, trust, cognitive load, social attribution, and user interface language quality [ 4, 9, 14 , 32 , 43 , 55 ]. Developing such instruments requires established psychometric practice, including careful item generation, expert review, target-population feedback, and quantitative validation [ 7, 24 ]. Recent scale-development work has produced validated instruments for adjacent user-centered constructs in human-AI interaction, including perceived shared understanding with AI and system trustworthiness [ 1 , 59 ]. Together with SIPA, these measures show growing interest in related constructs, but they do not directly operationalize perceived system predictability as the focal construct. Perceived shared understanding centers on whether users feel that they and the AI are on the same page, system trustworthiness targets evaluations of performance, purpose, and process. However, to the best of our knowledge, no validated scale currently measures perceived system predictability or its dimensions. Prior work therefore leaves open how perceived predictability can be assessed rigorously as a user-centered outcome. 
+
+3 SCALE DEVELOPMENT AND VALIDATION 
+
+We define perceived predictability as the degree to which a user feels able to predict how a system behaves . We develop a multidimensional theory of perceived predictability that distinguishes effective, epistemic, and aleatory predictability, drawing on structured target-population interviews and uncertainty theory. 
+
+3.1 A Theory of Perceived Predictability 
+
+3.1.1 Target Population Interviews. As a first step, we empirically validate that the construct of system predictability is salient in our target population’s mental models of automated, in particular, artificial intelligence (AI) systems. We ask 20 crowdworkers on Amazon Mechanical Turk (MTurk) to broadly state what “understanding an AI system” means to them, without explicitly prompting for predictability. We recruit crowdworkers from the US, Australia, and the UK within this and the following studies. We find that, besides transparency, technical details, and intended usage, Perceived System Predictability: Scale Development and Application 7epistemic  – I feel like I can predict an AI system’s behavior when I have interacted with it many times before.                
+
+> –If I use the AI frequently, I know what I can and cannot ask or do with the AI.
+> –Being able to anticipate how it will respond after some moderate use [...].
+> –I feel like I can predict how an AI system behaves the more I interact with it.
+> –I feel that as I gained more experience with the system it would become more and more predictable to me.
+> –knowing that result it is likely to give me, either based on it’s past responses or my own assumptions
+> aleatory  –[...] given a certain input it should always product [sic] the same output.
+> –means to me that the AI normally behaves in a consistent manner
+> –It may start following a certain pattern and I get an idea of how the algorithm works.
+> –I would definitely want such a system to give consistent and reliable results.
+> –I have a basic understand of the various rules or conditions that the AI system uses to make it’s judgments
+> effective  –its more of like you can guess how it will react.
+> –It means that I can guestimate how it comes to its conclusions.
+> –I can know what to expect.
+> –I can usually predict if the AI can answer the question I have in mind for it.
+> –a good overall understanding of the AI
+
+Table 2. Target population comments on what “having the feeling that you can predict how an AI system behaves” means to individual participants. We identify three aspects of perceived predictability: epistemic, aleatory, and effective predictability. 
+
+perceived predictability is intuitively mentioned by the majority of participants, confirming that predictability is a natural and central aspect of users’ system perception. Even at this initial stage, participant comments point towards a nuanced understanding of predictability. For instance, one participant notes: 
+
+“I would not trust a system that behaved randomly unless it was ’controlled random.’ [...] Like if a system was programmed to randomly select from a set of pictures for example” 
+
+Such remarks suggest that users intuitively distinguish between different underlying dimensions of predictability. In our second step, we ask another 20 participants what “having the feeling that you can predict how an AI system behaves” means to them in order to obtain a more focused picture of perceived predictability. Again, we observe responses suggesting multiple aspects of predictability: 
+
+“[...] it is following a set of rules [...], so given a certain input it should always produce the same output. I feel that as I gained more experience with the system it would become more and more predictable to me” 
+
+The first sentence can be interpreted as reflecting aleatory uncertainty (i.e., uncertainty arising from a phenomenon’s inherent randomness) and the second as reflecting epistemic uncertainty (i.e., uncertainty arising from a lack of observations). We discuss both terms and their relation to our theory of PSP in Section 3.1.2 below. Table 2 shows a list of target group participant comments. An additional observation is that users relate a slight level of unpredictability with a preferable or more powerful system by comments, such as: 
+
+“If it’s too predictable then I wonder what the point of having it is. The same as if it is too unpredictable. Sometimes like on a racing game with really good AI you can have races that you really can’t tell if it is a human or a bot. The same goes for chatbots that people test on MTurk. Some of them are uncanny at how real they are. I guess to sum it up AI needs to be just unpredictable enough and in the right way for me to like it and see a need for it.” 
+
+or 8 Schuff, Adel, and Vu epistemic 
+
+effective 
+
+aleatory 
+
+"I observed enough system responses 
+
+to predict how the system behaves." "I can tell which responses the system 
+
+will likely give." "There is a consistent pattern in the 
+
+system's behavior." 
+
+> predictability
+> Fig. 3. We decompose perceived predictability into three (partially overlapping) facets. In contrast to uncertainty in statistics, in which the total uncertainty is the sum of the epistemic and the aleatory uncertainty in terms of variances, our notion of “effective” predictability includes additional information beyond epistemic and aleatory predictability. Representative items from our final PSP scale are added to their respective facet on the right side of the figure.
+
+“with AI currently it seems you can usually within some reason, predict how the AI will answer or what actions it will give, i think its because its not a true AI as it stands. there is no conscious thought, just the data we gave it to act like its own self, which its just a shell of that. i do think in the somewhat future, not sure on distant or close, that AI will have its own conscious thought and then be slightly unpredictable in its answers/actions” 
+
+We revisit this effect in light of our quantitative results in Section 4. 
+
+3.1.2 Uncertainty Theory: Epistemic and Aleatory Uncertainty. Our evaluation of target population comments indicates that perceived predictability has multiple facets. These observed categories can be related to epistemic and aleatory uncertainty. In uncertainty theory, Fox and Ülkümen [35] distinguish two types of uncertainty: (a) epistemic uncertainty that relates to the uncertainty of not knowing something that could be known, e.g. due to a lack of observations of a phenomenon and (b) aleatory uncertainty that refers to a phenomenon’s inherent stochasticity and that cannot be addressed with a higher number of observations. For example, we can have perfect epistemic certainty about how a die functions and yet be unable to predict the outcome of rolling dice due to the aleatory uncertainty arising from the dice’s randomness. 
+
+3.1.3 Dimensions of Predictability: Epistemic, Aleatory, and Effective. The concepts of epistemic and aleatory uncertainty can be transferred to predictability (objective and perceived), as failing to predict a system’s behavior, or feeling unable to do so, can arise from (i) a lack of system behavior observations and/or (ii) inconsistencies in the system’s behavior. Regarding epistemic uncertainty, in the extreme case, if users had no exposure to a system at all, their (perceived) prediction abilities would be reduced to their general notion of an unknown system’s predictability. On the contrary, having observed a theoretically infinite number of system decisions removes this barrier to predictability. Regarding aleatory uncertainty, in the extreme case, the system takes completely random decisions. In this case, users will not be able to predict the system’s behavior, even with access to infinite observations. In contrast, a completely deterministic system can (in theory) be fully predictable by observing all possible contexts before making the prediction. For uncertainty, epistemic and aleatory uncertainty can be summed in terms of variances to yield the overall uncertainty. For perceived predictability, however, we argue that this additive view does not hold, and effective predictability covers more than the sum of epistemic and aleatory predictability. We illustrate our theory in Figure 3. Perceived System Predictability: Scale Development and Application 9expert interviews (N=6) 
+
+target population evaluation ( N=25) 
+
+40 items 12 items 
+
+scale administration (N=200) 
+
+6 items 
+
+item generation (N=40) 
+
+60 items  
+
+> Fig. 4. Overview of our scale development process. For each stage, we report the number of participants in parentheses and the resulting number of items retained in our scale in italics .
+
+3.2 Scale Development 
+
+We develop the scale in multiple stages following established best practices for item development and validation [ 7, 24 , 67 ]. Figure 4 displays an overview of the separate development stages and the respective number of participants and retained scale items. 
+
+3.2.1 Initial Item Pool. We start with an initial item pool of 60 candidate items based on (i) the target population interviews described above and (ii) our proposed theory of perceived predictability. We report the full item pool in Appendix A.1. 
+
+3.2.2 Expert Ratings. We ask experts to review each item within our initial item pool in order to ensure content validity, i.e., that our items capture the intended domain of perceived predictability. We had six experts rate our initial item pool in terms of relevance and clarity and collect additional textual feedback from each rater for each item. The experts are researchers with a background in artificial intelligence, natural language processing, and human-computer interaction. Based on the experts’ ratings, we remove eight items found to be irrelevant and 13 items found to be unclear. We additionally modify the wording of five items and add one new item based on expert feedback. Our revised item pool thus contains 40 items. 
+
+3.2.3 Target Population Evaluation. To assess the face validity of our scale (i.e., appropriateness for the target population), we conduct a crowdsourced adaptation of cognitive interviews [ 5 ] using probes from Willis [92] with 25 participants. In the first round, we present predictions of a hypothetical classification system to 20 MTurk crowdworkers (12 female, 8 male; mean age 42.0 years, SD=11.1). We ask participants to rate their agreement with each item on a 7-point Likert scale ranging from “strongly disagree” (1) to “strongly agree” (7). Details of the classification system and items are discussed in Section 3.3. Additionally, we ask crowdworkers to (i) rephrase each item in their own words and (ii) explain how they arrived at their answer. These responses allow us to identify ambiguous or unclear items. Based on this feedback, we remove 15 items, modify five, and add one new item. We merge similar items, streamline wording, and add items based on further discussion, resulting in a pool of 16 items. 
+
+Full Verbalization and Optimized Response Anchors. During interviews, we observed discrepancies between partici-pants’ intended neutral ratings and their numerical selections (e.g., verbalizing neutrality but selecting 5). To address this, we adopted a fully verbalized 7-point scale, as recommended by Menold and Bogner [67] . We selected response anchors based on Casper et al . [15] to aim for minimal overlap and approximately equal intervals: “strongly disagree”, “do not agree”, “somewhat disagree”, “neither agree nor disagree”, “generally agree”, “agree”, and “strongly agree”. We then conducted a second round of cognitive interviews with five crowdworkers (3 female, 2 male; mean age 43.6 years, SD=8.4). Based on their feedback, we removed four items and modified one, resulting in a final pool of 12 items (see Appendix A.2). 10 Schuff, Adel, and Vu BAABB
+
+input output 
+
+# BBBAB
+
+input output 
+
+Fig. 5. One of the five fictional classification system prediction scenarios we show to participants. The class prediction for the blue circle is inconsistent, introducing aleatory uncertainty in addition to the epistemic uncertainty caused, for example, by the lack of blue triangle inputs. We refer to this scenario as mixed .
+
+(a) Blue square (predictable with high cer-tainty). 
+
+(b) Orange triangle (predictable with lower certainty). 
+
+(c) Blue circle (unpredictable). Fig. 6. The three symbols we ask users to predict the system’s output for. Given the scenario shown in Figure 5, the system response for the first two shapes can be predicted (with different levels of certainty) and the system response to the third input is unpredictable. 
+
+3.3 Scale Evaluation 
+
+To further reduce the item pool and assess the scale’s psychometric properties, we collect ratings from 200 participants across five predictability scenarios of a fictional classification system. 
+
+3.3.1 Scenarios. To elicit varying levels of perceived predictability, we designed five versions of a fictional classification system that maps colored shapes (red/orange circles, squares, triangles) to classes A or B. We chose abstract shapes and class labels to prevent users from relying on prior knowledge or intuition about correct classifications. We revisit scale ratings with a real AI system in Section 4. The five scenarios vary by (a) the number of observed predictions and (b) the system’s stochasticity. Figure 5 illustrates the mixed scenario, which combines epistemic uncertainty (sparse examples) and aleatory uncertainty (inconsistent predictions for blue circles). The remaining scenarios are detailed in Appendix B.0.1. After viewing the scenario’s examples, participants predicted the system’s output for three test inputs (Figure 6). This task ensured participants engaged with the system’s logic to build a level of perceived predictability before completing the scale. 
+
+3.3.2 Scale Rating. Participants then rated the twelve candidate scale items. We randomized the item order to minimize carry-over effects and rating patterns that could confound psychometric estimates (e.g., item discrimination). The final scale uses a fixed order, which we evaluate in Section 4. Perceived System Predictability: Scale Development and Application 11                     
+
+> Item Difficulty Discrimination
+> EF-1 The system behaves in a predictable manner. 0.72 0.89 EF-2 I can tell which responses the system will likely give. 0.71 0.86 EP-1 I observed enough system responses to predict how the system behaves. 0.67 0.87 EP-2 Based on past system responses, I know the responses the system will likely give me. 0.70 0.90 AL-1 I can tell the reasons for the system’s decisions. 0.65 0.84 AL-2 There is a consistent pattern in the system’s behavior. 0.70 0.89
+
+Table 3. Item difficulty and item discrimination values of the items in our final scale (mean inter-item-correlation = 0.804, Cronbach’s 
+
+𝛼 =0.961). EF refers to the effective, EP to the epistemic, and AL to the aleatory PSP subscales. 
+
+3.3.3 Participants. We recruited 200 participants from the United States, Australia, and the United Kingdom on MTurk (80 female, 119 male, 1 non-binary; mean age 40.8 years, SD=11.2). 
+
+3.3.4 Item Reduction. We assess items along inter-item correlations, item-total correlations, item discrimination, and item difficulty. We reduce the scale to six items based on quantitative indicators as well as semantic overlap. We report the reasons for each of our removal decisions in Appendix A.2. Table 3 displays item difficulty and item discrimination values for the items retained in our final scale. To ensure the scale is applicable across diverse research contexts, we prioritized brevity while maintaining sufficient granularity. We retained two items per dimension to allow for reliability estimation and to validate their use as independent subscales. The resulting 6-item PSP scale is analyzed below. 
+
+3.3.5 Reliability. The overall Cronbach’s 𝛼 [19 ] and coefficient 𝜔 [ 73 ] of our PSP scale both equal 0.961. 2 Following the evaluation of the SIPA scale [ 81 ], we use Spearman-Brown coefficients to quantify the reliability of the two-item subscales. Eisinga et al . [28] recommend the Spearman-Brown coefficient as the reliability score of choice for two-item (sub)scales. We obtained coefficients of 𝑅 = 0.908 for the epistemic, 𝑅 = 0.889 for the aleatory, and 𝑅 = 0.881 for the effective subscale. These results demonstrate high internal consistency for both the overall scale and its individual dimensions. 
+
+3.3.6 Confirmatory Factor Analysis. We conduct CFA to compare two models: a unidimensional model (Figure 7a) and a three-factor model (Figure 7b). 3 We report common model fit measures in Table 4 and detailed model fits in Appendix B.2. Hu and Bentler [47] proposed the now widespread cutoff criteria for various fit indices: 0.06 for RMSEA, 0.08 for SRMR, and 0.95 for CFI and TLI. Both models fulfill all recommended criteria. While the three-factor model yields slightly better exact fit measures (CFI, TLI, RMSEA), the one-factor model is favored by parsimony indices (AIC, BIC). Given the minor differences in fit and the strong correlations between the three scale dimensions (see below), statistical evidence supports a unidimensional structure. Concretely, we observe Pearson correlations of 0.901 (𝑝 < 0.001 ) between effective and epistemic predictability, 0.889 ( 𝑝 < 0.001 ) between effective and aleatory predictability, and 0.876 ( 𝑝 < 0.001 ) between epistemic and aleatory predictability. 4 Overall, together with the identical differentiation patterns across the subscales and the total scale, our scale evaluation indicates that a unifactorial usage of our scale (i.e., measuring perceived predictability as the mean value over all six items) is warranted. However, we retain the theoretical distinction of the three-factor model as it allows for a more granular evaluation in applications where levels            
+
+> 2We use a CFA-based calculation of coefficient 𝜔 as described by Furr [37] (p. 515) using the R package semTools [ 50 ]. We additionally compute McDonald’s
+> 𝜔 [66] indices 𝜔 ℎand 𝜔 𝑡 based on hierarchical factor analysis using the R package psych [75], the resulting values are 0.894 and 0.967, respectively.
+> 3Note that the three-factor model is visualized as a higher-order model. With three first-order dimensions, a higher-order model is just-identified and equivalent to a correlated factors model with three dimensions.
+> 4Pearson correlations are calculated using list-wise deletion as implemented in sjPlot [63].
+
+12 Schuff, Adel, and Vu  
+
+> (a) One-factor model. (b) Three-factor model. Fig. 7. The two models we compare in confirmatory factor analysis (CFA) along with standardized coefficients. The rectangular boxes correspond to the six items of our scale as denoted in Table 3. Note that standardized coefficients are not bound to be less than or equal to one as discussed by Deegan [22] and Jöreskog [49].
+
+Fit Measure Model 
+
+One-factor Three-factor 
+
+𝜒 2 (↓) 12.67 ( 𝑝 =0.18) 7.14 ( 𝑝 =0.31) RMSEA ( ↓) 0.045 ([0.000, 0.098]) 0.031 ([0.000, .101]) SRMR ( ↓) 0.010 0.008 CFI ( ↑) 0.997 0.999 TLI ( ↑) 0.995 0.998 AIC ( ↓) 3354.034 3354.502 BIC ( ↓) 3393.613 3403.977 Adj. BIC ( ↓) 3355.596 3356.455   
+
+> Table 4. Fit indices reported per model following Dunn and McCray [26] . Higher-is-better fit measures are marked with ( ↑) while lower-is-better fit measures are marked with ( ↓). While exact fit measures (RMSEA, CFI, TLI) slightly favor the three-factor model, parsimony indices (AIC, BIC) favor the one-factor model. The RMSEA value is reported along with a 90% confidence interval.
+
+of epistemic and aleatory predictability are expected to differ, for example, when users have a very high epistemic predictability (stemming from, e.g., a long usage period) but very low aleatory predictability. 
+
+3.3.7 Differentiation by Known Groups. To assess construct validity, we evaluate the scale’s ability to differentiate between groups expected to differ in the construct of interest (known-groups validity). Specifically, we test if PSP scores vary across the five classifier scenarios designed to induce different levels of perceived predictability. We find strong evidence for the scale’s known-groups validity: A one-way ANOVA reveals a statistically significant and large main effect of the scenario on total PSP scores ( 𝐹 (4, 195 ) = 16 .25 , 𝑝 < 0.001 ; 𝜂 2 = 0.25 , 95% CI [0.16, 1.00]). This demonstrates that the scale is sensitive to the manipulated levels of predictability. Post-hoc comparisons using Tukey’s HSD test indicate significant differences for six out of ten scenario pairs. The four non-significant pairs correspond to scenarios Perceived System Predictability: Scale Development and Application 13 with theoretical, yet smaller, differences in predictability (e.g., mixed vs. mixed-less-aleatory ). These differences are smaller than for the other scenario contrasts. The lack of statistical significance suggests that these subtle differences were not perceived as distinct by participants. Detailed statistics are provided in Appendix B.1. 
+
+3.3.8 Concurrent and Predictive Validity. In an additional study, we assess how PSP scores associate with related measures. While Section 4 details the relation of PSP to trust, objective predictability, and NFC, we briefly summarize the key findings regarding concurrent and predictive validity here. Regarding concurrent validity, SIPA scores correlate strongly with PSP scores ( 𝑟 = 0.856 , 𝑝 < 0.001 ). However, this correlation is weaker than the internal correlations among PSP subscales (average 𝑟 = 0.889 , as reported above). This aligns with our expectation, as the two scales share an overlapping but distinct theoretical foundation. Regarding predictive validity, we find that PSP is a significant non-linear predictor of objective predictability, whereas we observe no significant association between SIPA and objective predictability. This confirms our theoretical expectation: While PSP scores should relate to objective predictability, SIPA is a higher-level construct that we expected to show a much weaker or no relation to objective predictability. 
+
+4 DRIVERS, CONSEQUENCES, AND OBJECTIVE PREDICTABILITY 
+
+Having developed and validated the PSP scale using the fictional shape classification setting, we now examine its properties in a realistic yet general application context. Specifically, we investigate the relationship between PSP and objective predictability, trust, SIPA, and Need for Cognition (NFC) in the context of a sentiment classification system. To explore PSP and its nomological network (i.e., its relationships with related constructs) in a range of realistic settings, we vary objective predictability by evaluating system variants with different levels of stochasticity. Furthermore, since explanations are a key mechanism for modulating predictability, we vary the form of explanations provided (saliency maps, bar charts, or none) to examine their effect on PSP. 
+
+4.1 Experiment Design 
+
+We conduct an additional user study with 200 participants to investigate PSP and its relationship with related constructs in the context of a simple yet real sentiment classification system. We deliberately use a transparent text classifier rather than a contemporary black-box model because the goal of this study is construct validation: we want to vary predictability and explanation access without simultaneously introducing uncertainty about whether the communicated explanation is faithful to the underlying model. 
+
+4.1.1 Sentiment Classification System. Our sentiment classifier aggregates word polarity scores from SentiWordNet3 5
+
+[ 2] to compute an overall sentiment score. Scores greater than zero indicate a positive prediction. Otherwise, the prediction is negative. We selected this straightforward system for three reasons: (i) it is inherently interpretable, such that word polarity scores coincide with the model’s decision rule and therefore provide faithful explanations, (ii) it produces identifiable systematic errors (e.g., failing to handle negations or contractions), and (iii) it supports on-demand execution, which is necessary for the interactive interface we explore in this study. This choice is deliberate for a second reason as well: PSP is intended as a model-agnostic construct, and validating it on a transparent system first avoids narrowing the scale to the idiosyncrasies of one contemporary model family. By contrast, using a large language model or another opaque system would have required a post-hoc explanation method whose own faithfulness and communicative adequacy could affect participants’ judgments, making it harder to attribute observed effects to 
+
+> 5https://github.com/aesuli/SentiWordNet
+
+14 Schuff, Adel, and Vu   
+
+> (a) No explanation. (b) Heatmap explanation. (c) Bar chart explanation. Fig. 8. The three explanations forms underlying the six explanation modalities used in our experiment.
+
+perceived predictability rather than to the explanation pipeline itself. We therefore treat this sentiment classifier as a conservative test bed that prioritizes internal validity while still constituting a real AI system in the sense that participants interact with a functioning model and observe its actual outputs and errors. To introduce stochasticity, we create system variants by adding independent, normally distributed noise to each word’s polarity score. Specifically, we sample noise from N ( 0, 1), scaled by 0.4 for medium noise or 0.8 for high noise, and clip the resulting sum to the range [-1, 1]. 
+
+4.1.2 Explanation Modalities. We compare six explanation modalities. First, we evaluate (i) no explanations, (ii) heatmap explanations, and (iii) bar chart explanations (Figure 8). Heatmap and bar chart explanations display absolute importance values, meaning we do not communicate class-specific importance scores. In addition, we include interactive versions of these three types. Concretely, we provide an interface allowing users to enter arbitrary text and receive the sentiment prediction and—for heatmap and bar chart conditions—the corresponding explanation. Figure 9 shows these interactive interfaces. 
+
+4.1.3 Procedure. We use a between-subjects experimental design and assign 25 participants to each of the six explanation modalities, using the noiseless prediction system. To explore the effect of noisy systems, we additionally assign 25 participants each to the medium noise and high noise system variants, using system prediction examples without explanations or an interactive interface. We ask each participant to complete three phases of our experiment. 
+
+Training Phase. In the first step, we show each participant 20 system predictions using the respective explanation modalities. For the interactive modalities, we present participants the same 20 examples of fictional restaurant reviews and additionally provide them with the interactive interface to give them the same context and ensure they receive the same information regarding the system’s behavior and quirks. Figure 10 depicts six of the 20 example predictions we display to participants in the heatmap conditions. We provide the full list of examples in Appendix C. Each participant receives the same 20 prediction examples but in a randomized order to mitigate carry-over effects. We compose the 20 fictional review sentences in such a way that half of them correspond to a positive system decision, and half of them to a negative decision, and such that each of these halves contains five correct system decisions and five incorrect system decisions. Further, the examples are chosen in a way that demonstrates that the model treats contractions, such as “don’t” differently from “do not” and does not correctly resolve negations. In addition, the examples contain two Perceived System Predictability: Scale Development and Application 15 
+
+> (a) Interactive heatmap explanation.
+> (b) Interactive bar chart explanation. Fig. 9. Two of the three additional interactive explanation modalities.
+
+sentences that are each repeated to make participants aware of (non-)deterministic model behavior, which is relevant for the noisy systems described above. 
+
+Prediction Phase. In the second step, we ask participants to predict which predictions the system will make for new, unseen sentence inputs (e.g., “I love the food at this place!” and “I expected it to be better.”). We provide the full list of sentences in Appendix C. We again randomize the order of sentences across participants. 
+
+Questionnaire Phase. In the third step, we ask participants for self-reports of (i) PSP using our scale, (ii) SIPA using the respective scale proposed by Schrills et al . [81] , (iii) system trust using the facets of system trustworthiness (FOST) scale [ 36 ], and (iv) participants’ individual NFC using the NCS-6 scale [ 21 ]. We choose to include a measure of NFC based on Buçinca et al . [11] who find that their intervention on explanation presentation to reduce over-reliance disproportionately affected participants who reported a high NFC. 16 Schuff, Adel, and Vu 
+
+> Fig. 10. Subset of the system predictions shown to users in the heatmap conditions.
+
+4.1.4 Participants. We recruited 200 participants from the United States, Australia, and the United Kingdom on MTurk (89 female, 110 male, 1 non-binary; mean age 43.2 years, SD=12.2). Across the entire experiment, the population’s mean PSP rating was 5.39 (SD=0.89). 
+
+4.2 Reliability Reproduction 
+
+Before analyzing the relation between constructs and objective performance measures, we re-assess each scale’s internal reliability. Table 5 reports Cronbach’s 𝛼 [ 19 ] and McDonald’s 𝜔 [66 ]. As in our first reliability assessment, we quantify the reliability of the PSP subscales using the Spearman-Brown coefficient and find 𝑅 = 0.718 for the epistemic subscale, 
+
+𝑅 = 0.726 for the aleatory subscale, and 𝑅 = 0.698 for the effective subscale, indicating high reliability across subscales. Perceived System Predictability: Scale Development and Application 17 
+
+Reliability measure Scale 
+
+PSP SIPA FOST NCS-6 
+
+𝛼 0.874 0.852 0.780 0.766 
+
+𝜔 ℎ 0.713 0.593 0.100 0.392 
+
+𝜔 𝑡 0.896 0.886 0.830 0.834 
+
+Table 5. All four scales demonstrate adequate internal reliability ( 𝑁 = 200 ), with Cronbach’s 𝛼 [19 ] exceeding 0.75. Notably, our PSP scale achieves the highest reliability across all measures. 𝜔 ℎ and 𝜔 𝑡 denote hierarchical and total McDonald’s 𝜔 [66]. 1 2 3 4 54.0  4.5  5.0  5.5 
+
+trust perceived predictability 
+
+(a) Trust (FOST) 1 2 3 4 5 62 3 4 5 6 7
+
+SIPA perceived predictability (b) Situational Information Processing Awareness (SIPA) Fig. 11. Partial effect plots for factors with significant effects on perceived predictability in our GAM analysis. The plots show all significant smooth effects while accounting for the remaining parametric and smooth terms. Note that the y-axes are scaled separately for each plot. Notably, no objective score, such as prediction correctness or completion time, is a significant predictor of PSP, highlighting the complementary nature of subjective and objective measures of predictability. 
+
+4.3 Predictors of Perceived Predictability 
+
+Next, we examine which factors predict PSP scores. In particular, we test whether PSP scores can be predicted from objective measures such as completion time or prediction correctness. To this end, we model PSP scores using a generalized additive model (GAM). 
+
+4.3.1 Model. GAMs allow us to model additive, smooth, non-linear effects of numeric covariates. We include smooth terms for prediction correctness, completion time during the prediction phase, FOST trust scores, SIPA scores, NCS-6 NFC scores, and participant age. We also include parametric terms for explanation format (none, saliency, and bar charts), interactivity 6, noise level, and participant identification to account for the experiment design and control for potential confounds. We include gender identification and participant age solely as control covariates to account for potential confounds; consistent with our expectations, neither showed a significant effect in any model. Finally, we include an interaction term between explanation format and interactivity, as we expect different explanation formats to induce different levels of interaction motivation. 
+
+> 6We find that 21.3% of participants in the interactive conditions did not use the interactive prediction interface. We therefore define the “interactivity” factor to distinguish between participants who interacted with a prediction interface and those who did not, including participants who could have used the interface but chose not to.
+
+18 Schuff, Adel, and Vu 
+
+df F p
+
+explanation format 2.00 3.44 0.03 
+
+interactivity 1.00 1.80 0.18 explanation format:interactivity 2.00 3.18 0.04 
+
+noise level 2.00 0.41 0.67 identification 2.00 0.37 0.69 
+
+> Table 6. Wald tests for the parametric terms in our model of PSP scores. Explanation format (none, saliency, or bar chart) and its interaction with interactivity have significant effects on PSP scores.
+
+4.3.2 Results. We report Wald tests for the parametric and smooth terms in Table 6 and Table 7, respectively. 
+
+Objective Scores Do Not Predict PSP. Notably, we do not find significant effects of the studied objective scores (i.e., prediction correctness and completion time) on PSP scores, supporting our assumption that PSP captures a construct distinct from objective predictability. Separate Pearson correlations between PSP and prediction correctness ( 𝑟 = 0.050 ,
+
+𝑝 = 0.478 ) and between PSP and completion time ( 𝑟 = 0.109 , 𝑝 = 0.125 ) yield the same conclusion. This result indicates that PSP scores capture information that cannot be substituted by automatic scores and, in general, suggests that (AI) systems cannot be evaluated adequately without subjective human evaluation, as has also been argued in the context of AI and natural language processing (NLP) [ 13 , 61 , 71 , 74 , 87 ], and explainability in particular [ 16 , 17 , 38 , 60 , 76 , 80 , 82 , 88 ]. Conversely, we will show that, in the opposite direction (i.e., predicting prediction correctness from PSP scores), subjective ratings are significant predictors of prediction correctness in Section 4.4. 
+
+Strong Association Between PSP and SIPA. We find that higher trust and SIPA scores are associated with higher PSP scores, consistent with the Pearson correlations reported in Table 10. Figure 11 displays the respective partial effects of trust and SIPA ratings. Again, the strong association between PSP and SIPA is consistent with their overlapping theoretical background: SIPA models predictability as one facet of situational information processing awareness, whereas PSP “zooms in” on predictability and models it using the three proposed facets. 
+
+Effects of Explanation Modality and No Effect of Noise Level. For the parametric terms shown in Table 6, we find a significant main effect of explanation format as well as a significant interaction effect between explanation format and interactivity. Detailed parametric estimates are reported in Appendix C. A post hoc Wald comparison of the contrasts for explanation formats revealed a significant difference between saliency and bar chart explanation formats (𝜒 2 (1) = 6.619 , 𝑝 = 0.010 ), with saliency explanations associated with significantly higher PSP ratings. A joint post hoc test of explanation formats and interactivity further revealed differences between non-interactive bar charts and non-interactive no-explanation sentences ( 𝜒 2 (1) = 3.963 , 𝑝 = 0.047 ), non-interactive bar charts and interactive bar charts ( 𝜒 2 (1) = 4.759 , 𝑝 = 0.029 ), and non-interactive bar charts and non-interactive saliencies ( 𝜒 2 (1) = 6.619 , 𝑝 = 0.010 ). Interestingly, we do not find a significant effect of noise level on PSP scores. We revisit this observation below in the context of the effect of noise level on prediction correctness. 
+
+4.4 Perceived Predictability Versus Prediction Correctness 
+
+In the previous analysis, we examined which factors predict PSP scores. We now investigate whether and how PSP scores and additional factors relate to objective prediction correctness. Perceived System Predictability: Scale Development and Application 19 
+
+edf Ref.df F p
+
+s(prediction correctness) 0.69 9.00 0.15 0.14 s(trust) 3.20 9.00 5.82 <0.001 
+
+s(completion time) 0.00 9.00 0.00 0.39 s(SIPA) 2.79 9.00 44.13 <0.001 
+
+s(NFC) 0.00 9.00 0.00 0.53 s(age) 0.00 9.00 0.00 0.66 
+
+> Table 7. Wald tests for the smooth terms in our model of PSP scores. Trust and SIPA ratings have significant effects on PSP scores. Notably, no objective score (correctness or completion time) is a significant predictor of PSP scores.
+
+4.4.1 Model. We analyze the relation between perceived predictability and prediction correctness using another GAM. We consider smooth terms for PSP scores, FOST trust scores, SIPA scores, NCS-6 NFC scores, completion time, and participant age. In addition, we consider parametric terms for explanation format, interactivity, noise level, and participant identification. As before, we include gender identification and participant age solely as control covariates; neither showed a significant effect in this model either. As in the GAM discussed above, we also include an interaction term between explanation format and interactivity. 
+
+4.4.2 Results. We report Wald tests for the parametric and smooth terms in Table 8 and Table 9, respectively. Detailed results are reported in Appendix C. 
+
+Subjective Ratings Are Predictive of Objective Correctness. While objective prediction correctness did not have a significant effect on subjective PSP scores in Section 4.3, PSP scores have a significant effect on prediction correctness. As shown in Figure 12a, our model associates higher PSP scores with a moderate increase in objective prediction correctness. In addition, we find a strong effect in the opposite direction for trust. As shown in Figure 12b, higher levels of participant trust in the system correspond to lower prediction correctness. Hase and Bansal [44] found that subjective explanation quality ratings of “Does this explanation show me why the system thought what it did?” are not predictive of user correctness. Similarly, Buçinca et al . [10] found that trust ratings are not predictive of prediction performance. In contrast to Buçinca et al . [10] , Hase and Bansal [44] , we find that PSP and trust ratings are predictive of prediction correctness. Although differences in the particular scale-score combinations and usage contexts do not allow us to draw general conclusions in either direction, we note that, unlike their work, we model non-linear effects of subjective ratings on prediction correctness using GAMs and likewise find the resulting function estimates to be non-linear (Figures 12a and 12b). 
+
+Better Predictions Need Time. Figure 12c shows that, within our model, longer prediction completion times are associated with a moderate increase in prediction correctness. We attribute this effect to substantial differences in participants’ interest in the prediction task and, correspondingly, in their willingness to think about the system’s behavior. Although this finding is not surprising, it supports time-based detection of insufficient-effort responding, consistent with the findings of Bowling et al. [8]. 
+
+Noise Level Affects Prediction Correctness. Among the parametric terms, only noise level has a significant effect on prediction correctness. In particular, explanation format does not have a significant effect. A post hoc Wald comparison of the contrasts for noise level revealed significant differences between a noise level of 0.0 and 0.4 ( 𝜒 2 (1) = 28 .196 ,
+
+𝑝 < 0.001 ) and 0.0 and 0.8 ( 𝜒 2 (1) = 34 .539 , 𝑝 < 0.001 ). The difference between 0.4 and 0.8 was not significant 20 Schuff, Adel, and Vu 
+
+df F p
+
+explanation format 2.00 1.44 0.24 interactivity 1.00 0.55 0.46 explanation format:interactivity 2.00 0.85 0.43 noise level 2.00 22.13 <0.01 
+
+identification 2.00 0.66 0.52 
+
+> Table 8. Wald tests for the parametric terms in our model of prediction correctness scores. Noise level (i.e., the level of system stochasticity) has a significant effect on prediction correctness.
+
+edf Ref.df F p
+
+s(PSP) 1.66 9.00 0.79 0.01 
+
+s(trust) 2.34 9.00 2.45 <0.01 
+
+s(completion time) 0.80 9.00 0.45 0.02 
+
+s(SIPA) 0.00 9.00 0.00 0.85 s(NFC) 0.86 9.00 0.20 0.11 s(age) 0.48 9.00 0.08 0.22 
+
+> Table 9. Wald tests for the smooth terms in our model of prediction correctness. PSP scores, trust scores, and completion time have significant effects on prediction correctness.
+
+2 3 4 5 6 70.45  0.55  0.65 
+
+perceived predictability prediction correctness 
+
+> (a) PSP
+
+1 2 3 4 50.4  0.5  0.6  0.7 
+
+trust prediction correctness (b) Trust 0 1000 2000 3000 0.50  0.60  0.70 
+
+completion time [s] prediction correctness (c) Prediction time Fig. 12. Partial effect plots for factors with significant effects on objective prediction correctness in our analysis. The plots show all significant smooth effects while accounting for the remaining parametric and smooth terms. Note that the y-axes are scaled separately for each plot. 
+
+(𝜒 2 (1) = 0.347 , 𝑝 = 0.556 ). These findings are consistent with the box plots of prediction correctness (i.e., objective predictability) shown in Figure 13. 
+
+Subjective ≠ Objective Predictability. Comparing our findings on subjective PSP scores and objective prediction correctness, we observe that PSP scores are affected by explanation modality, whereas prediction correctness is affected by noise level. While using saliency visualizations instead of bar charts results in a significant increase in PSP ratings, we find no effect of explanation format on prediction correctness. This observation is consistent with Haag’s recent Perceived System Predictability: Scale Development and Application 21 0.4 0.6 0.8 1.0   
+
+> 00.4 0.8
+
+## noise level  
+
+> pred. correctness and normalized PSP
+> objective perceived
+> Fig. 13. Boxplot showing the distributions of prediction correctness and normalized PSP scores for different levels of system stochasticity and no additional explanations.
+
+meta-analysis of the effect of explainable AI in decision support systems on task performance [ 42 ], which finds no significant difference between explanation types. Similarly, adding noise to the system’s word polarity estimates corresponds to a significant drop in prediction correctness without affecting PSP ratings. This observation supports our hypothesis that objective predictability and subjective predictability measure distinct characteristics of the user’s mental model of a system (as illustrated in Figure 1). Our results further suggest that seemingly minor visualization decisions can affect users’ perception of explanations, consistent with prior work on biased perception of saliency scores [48, 84]. 
+
+Hallucinated (Lack of) Predictability. Although heatmaps and bar charts communicate the same objective information, we hypothesize that heatmaps have properties that induce a stronger sense of information gain than bar charts. Note that the results of this experiment do not allow us to judge whether this increase in perceived predictability is beneficial or misleading. Similarly, our results do not show whether the observed difference reflects an increase induced by heatmaps or a decrease induced by bar charts. Related work on the perceptual misinterpretation of bar charts identified the “within-the-bar bias,” users’ tendency to perceive values contained within the bar (i.e., below the top edge) as more probable when, for example, inspecting means depicted using bars and being asked about the probability of equidistant values above and below the bar’s edge [ 68 ]. We hypothesize that part of our observations can be explained by this effect and the supposedly corresponding underestimation of importance scores, which, in turn, leads to a less concise mental model of the system. Kang et al . [51] investigate modifications of the bar chart visualization and find that cumulative bar charts (i.e., also filling the upper part using a different color) can reduce this bias. Consequently, we recommend using cumulative bar charts as shown in Figure 14. 
+
+Illusion of Explanatory Depth. The invariance of PSP scores across noise levels, alongside the observed drop in prediction correctness and the demonstrated discrimination of known groups in Section 3.3, raises the question of why participants did not notice their reduced ability to predict the system’s behavior while remaining sensitive to 22 Schuff, Adel, and Vu  
+
+> Fig. 14. Enhanced bar chart explanation visualization using cumulative bars as proposed by Kang et al . [51] to mitigate “within-the-bar bias” [68] and the supposedly associated underestimation of importance scores.
+
+the choice of explanation visualization. We hypothesize that this phenomenon may be explained by the illusion of explanatory depth explored by Rozenblit and Keil [78] . Concretely, we hypothesize that participants’ own judgments of the sentences’ sentiment predispose them to form an illusion of explanatory depth. In contrast, the fictional shape classification task does not allow participants to fall back on their own judgments or purported familiarity with the domain and instead forces them to reflect on what they actually know. Similarly, Gonzalez et al . [38] explore how explainees are affected by belief bias and argue that fictional domains might mitigate its distorting influence. 
+
+4.5 Relation to Trust, SIPA, and Need for Cognition 
+
+In Section 4.3, we explored the extent to which PSP scores can be predicted from other subjective ratings (such as trust ratings), objective performance measures (such as completion time), and properties of the system and its explanations (such as explanation type). The focus of that GAM analysis was to combine these factors into a prediction of PSP scores. Among the three related scale scores collected for trust, SIPA, and NFC, we found trust and SIPA scores to be significantly related to PSP scores. In contrast, once all other terms were accounted for, NFC did not have a significant effect. In the following analysis, we investigate a related but slightly different question: how strongly are ratings on one scale related, in isolation , to ratings on another scale, without accounting for their relations to additional scales? To answer this question, we examine pairwise Pearson correlations between the paired responses collected with the four scales. 
+
+4.5.1 Results. Table 10 displays Pearson correlations and the respective Holm-adjusted 𝑝 values. 
+
+Confirming the Association Between PSP and SIPA, as Well as Trust. We observe a strong linear correlation between PSP and SIPA ratings ( 𝑟 = 0.856 , 𝑝 < 0.001 ), consistent with our theory-driven expectations (see Section 4.3) as well as our empirical results from the GAM analysis (see Figure 11b). Similarly, our correlation analysis confirms the association between PSP and trust ( 𝑟 = 0.558 , 𝑝 < 0.001 ), which we also observed in the GAM analysis. 
+
+Predictors of Trust. Schrills et al . [81] also evaluate the correlations between SIPA scores and FOST trust scores and find that, across three different samples, correlations vary between 0.55 and 0.84. We confirm their finding that SIPA and trust Perceived System Predictability: Scale Development and Application 23 
+
+SIPA FOST NCS-6 PSP 0.856  
+
+> (<0.001 )
+
+0.558  
+
+> (<0.001 )
+
+0.248  
+
+> (<0.001 )
+
+SIPA 0.424  
+
+> (<0.001 )
+
+0.272  
+
+> (<0.001 )
+
+FOST 0.118     
+
+> (0.096)
+> Table 10. Pearson correlation coefficients between PSP, SIPA, trust (FOST), and NFC (NCS-6). Numbers in parentheses correspond to Holm-adjusted 𝑝 values. Significant correlation coefficients are highlighted in bold font.
+
+have a significant linear association. We statistically compare the strength of the SIPA-trust correlation with that of the PSP-trust correlation using the cocor R package [ 25 ]. 7 We find that, in our study, the correlation between PSP and trust is significantly stronger than the correlation between SIPA and trust. We argue that this difference can be explained by the theoretical foundations of the PSP and SIPA scales. While SIPA measures the facets transparency, understandability, and predictability, our PSP scale focuses on (three facets of) predictability. We therefore hypothesize that trust depends more strongly on predictability and less on potentially preceding effects such as perceived understandability. To test this hypothesis, we analyze the correlations between trust and the respective SIPA subscales. Consistent with this hypothesis, the SIPA predictability subscale should show significantly higher correlations with trust than the transparency and understandability subscales. We find that the SIPA predictability subscale has a stronger correlation to trust ( 𝑟 = 0.447 ,
+
+𝑝 < 0.001 ) than the transparency subscale ( 𝑟 = 0.318 , 𝑝 < 0.001 ) and the understandability subscale ( 𝑟 = 0.351 ,
+
+𝑝 < 0.001 ). The corresponding cocor tests of differences in correlation strengths all indicate that the predictability subscale has higher correlations with trust than the remaining two subscales. This supports our hypothesis that the stronger correlation between our PSP scale and trust, relative to the SIPA scale and trust, can be attributed to the focused construct of the PSP scale and the stronger association between predictability and trust. In another experiment, Ford et al . [34] found that an increased rate of system misclassifications was associated with lower self-reported trust. We fit another GAM model to assess whether we can replicate their observations. 8 In contrast to their findings, we do not find a significant effect of noise level on trust. However, we do find a significant effect of explanation modality on trust. A post hoc Wald comparison of the contrasts of explanation modality reveals significant pairwise differences between bar charts and saliency explanations ( 𝜒 2 (1) = 8.007 , 𝑝 = 0.005 ) as well as between no explanation and saliency explanations (𝜒 2 (1) = 8.161 , 𝑝 = 0.004 ). For both pairs, saliency explanations are associated with significantly lower trust scores. We report detailed test statistics for the discussed and additional effects in Appendix C. This pattern contrasts with our finding for PSP, for which saliency explanations were associated with a significant increase in PSP relative to bar chart explanations (see Section 4.3). This conflict indicates that PSP ratings not only offer an additional perspective alongside objective scores, but also capture information beyond related subjective constructs whose association with PSP should be investigated in more depth in future work. 
+
+Effect of High Need for Cognition. Our correlation analysis identifies a significant linear association between PSP and NFC. As the results of Buçinca et al . [11] indicate that users’ NFC affects the effect that explanations have on their decision behavior, it is plausible to assume that NFC has an effect on perceived predictability as well. Interestingly,    
+
+> 7The cocor package provides numerous tests including Dunn and Clark’s z [ 27 ] and Zou’s confidence interval [ 95 ]. All implemented tests indicate a significant difference between the two correlation coefficients.
+> 8We include the same smooth and parametric terms as for our analysis of PSP ratings and swap PSP and trust.
+
+24 Schuff, Adel, and Vu however, we do not find an effect of NFC scores on prediction correctness in our scenario. 9 An analysis of the correlation between NFC and prediction correctness confirms this result ( 𝑟 = 0.071 , 𝑝 = 0.318 ). At the same time, we do not observe a significant correlation between NFC and trust. We therefore hypothesize that participants’ need for cognition affects their system perception in a way that is captured neither by prediction correctness nor trust, yet still positively affects PSP. 
+
+5 OVERALL DISCUSSION 
+
+In this paper, we developed and evaluated a novel 6-item scale and applied it to explore the effects of explanations and system stochasticity on perceived system predictability, as well as the relation of PSP to, inter alia , prediction correctness, trust, SIPA, and participants’ NFC. Overall, we collected opinions from 40 participants to guide our theory development grounded in uncertainty theory, incorporated feedback from six experts to improve our initial item pool, conducted written cognitive interviews with 25 participants to further refine and filter our items, ran a study with a functional shape classification system involving 200 participants to distill and evaluate the final version of our scale, and conducted an additional study with different variants of a sentiment classification system to confirm our evaluation and explore the relation of PSP to related scales and prediction correctness. Our scale evaluations demonstrate that the PSP scale exhibits desirable psychometric properties, including consistently high internal reliability, and indicate that it can be used both as (a) a unidimensional measure of perceived predictability as well as (b) a hierarchical measure of perceived predictability with three subscales for epistemic, aleatory, and effective predictability. Our results suggest that (i) PSP cannot be predicted from automatic measures such as prediction correctness or completion time, (ii) conversely, prediction correctness is significantly affected by subjective scores, with higher PSP scores being associated with higher prediction correctness and higher trust scores being associated with notably lower prediction correctness, (iii) explanation format affects PSP but not prediction correctness, and (iv) higher system stochasticity affects prediction correctness but not PSP. Overall, we find that subjective PSP and objective prediction correctness capture distinct aspects of users’ mental models of a system and can therefore diverge, highlighting the need to examine both subjective and objective pre-dictability. We relate our observations to the “within-the-bar bias” [ 68 ] and the illusion of explanatory depth [ 78 ], and recommend using cumulative bars in bar chart visualizations as shown in Figure 14. 
+
+6 LIMITATIONS 
+
+Our empirical validation relies on deliberately constrained task settings: (i) a fictional shape classification task for scale development and (ii) a sentiment classification task for the second study. These settings let us tightly control prediction rules, stochasticity, and error patterns, but they do not cover the full diversity of contemporary AI applications. At the same time, the contrast between the two studies is informative: the fictional shape task deliberately suppresses participants’ prior beliefs about what the system should output, whereas the sentiment task reveals how readily such pre-existing expectations can shape perceived predictability judgments. Accordingly, we do not claim that the magnitude of the observed explanation or noise effects will transfer unchanged to higher-stakes domains, longer-term use, or more complex deployed systems.  
+
+> 9We additionally evaluate a binarized NFC covariate following a partition of subjects above and under the median NFC as applied by Buçinca et al . [11] and still do not find a significant effect of NFC.
+
+Perceived System Predictability: Scale Development and Application 25 A second limitation is that the second study uses a transparent sentiment classifier rather than an opaque model such as a large language model. We consider this a deliberate trade-off in favor of construct validation and explanation faithfulness: because PSP is intended as a model-agnostic user perception, we first tested it in a setting where the communicated explanation coincides with the actual decision rule by design. Using an opaque model would have required a post-hoc explanation method whose own faithfulness and communicative adequacy could affect participants’ judgments, making it difficult to separate perceived predictability from effects of the explanation pipeline itself. This choice therefore strengthens internal validity, but it also limits the external validity of our findings for contemporary black-box systems. Future work should extend the scale to LLMs and other opaque models, ideally in designs that either treat explanation method as an explicit independent factor or otherwise characterize explanation faithfulness sufficiently to keep these influences analytically distinct. Finally, our nomological validation covers trust, SIPA, NFC, and prediction correctness, but not the full range of adjacent human-AI constructs. Additional work should therefore investigate how PSP relates to constructs such as mental demand or reliance calibration and should complement questionnaire data with qualitative methods, such as think-aloud studies, to better explain why PSP can diverge from trust or objective correctness. 
+
+7 CONCLUSION 
+
+We introduced perceived system predictability as a user-centered construct grounded in uncertainty theory, developed and validated a 6-item PSP scale that supports both unidimensional use and a three-factor hierarchical interpretation across epistemic, aleatory, and effective predictability, and demonstrated the scale’s empirical value in two complementary studies. Our findings show that (a) PSP cannot be inferred from automatic measures such as completion time or prediction correctness, yet it itself predicts the correctness of users’ predictions of system behavior, (b) explanations shift PSP without affecting correctness, and (c) increased system stochasticity degrades correctness without lowering PSP. Together, these results establish PSP as a measurable construct that captures aspects of users’ mental models which existing objective and subjective measures leave unaddressed. By providing both a theoretical framework and a validated instrument, our work enables HCI researchers and practitioners to study perceived predictability systematically and to design interactive systems whose behavior users can meaningfully anticipate – a prerequisite for calibrated reliance and accountable human-AI interaction. 
+
+REFERENCES                   
+
+> [1] Gene M. Alarcon, August A. Capiola, Michael A. Lee, Sasha M. Willis, Izz Aldin Hamdan, Sarah A. Jessup, and Krista N. Harris. 2024. Development and Validation of the System Trustworthiness Scale. Hum. Factors 66, 7 (2024), 1893–1913. https://doi.org/10.1177/00187208231189000 [2] Stefano Baccianella, Andrea Esuli, and Fabrizio Sebastiani. 2010. SentiWordNet 3.0: An Enhanced Lexical Resource for Sentiment Analysis and Opinion Mining. In Proceedings of the Seventh International Conference on Language Resources and Evaluation (LREC’10) . European Language Resources Association (ELRA), Valletta, Malta. http://www.lrec-conf.org/proceedings/lrec2010/pdf/769_Paper.pdf [3] Gagan Bansal, Tongshuang Wu, Joyce Zhou, Raymond Fok, Besmira Nushi, Ece Kamar, Marco Túlio Ribeiro, and Daniel S. Weld. 2021. Does the Whole Exceed its Parts? The Effect of AI Explanations on Complementary Team Performance. In CHI ’21: CHI Conference on Human Factors in Computing Systems, Virtual Event / Yokohama, Japan, May 8-13, 2021 , Yoshifumi Kitamura, Aaron Quigley, Katherine Isbister, Takeo Igarashi, Pernille Bjørn, and Steven Mark Drucker (Eds.). ACM, 81:1–81:16. https://doi.org/10.1145/3411764.3445717 [4] Javier A Bargas-Avila and Florian Brühlmann. 2016. Measuring user rated language quality: development and validation of the user interface Language Quality Survey (LQS). International Journal of Human-Computer Studies 86 (2016), 1–10. [5] Paul C Beatty and Gordon B Willis. 2007. Research synthesis: The practice of cognitive interviewing. Public opinion quarterly 71, 2 (2007), 287–311. [6] Or Biran and Kathleen R. McKeown. 2017. Human-Centric Justification of Machine Learning Predictions. In Proceedings of the Twenty-Sixth International Joint Conference on Artificial Intelligence, IJCAI 2017, Melbourne, Australia, August 19-25, 2017 , Carles Sierra (Ed.). ijcai.org, 1461–1467. https://doi.org/10.24963/ijcai.2017/202
+
+26 Schuff, Adel, and Vu 
+
+[7] Godfred O. Boateng, Torsten B. Neilands, Edward A. Frongillo, Hugo R. Melgar-Quiñonez, and Sera L. Young. 2018. Best Practices for Developing and Validating Scales for Health, Social, and Behavioral Research: A Primer. Frontiers in Public Health 6 (2018), 149. https://doi.org/10.3389/fpubh. 2018.00149 [8] Nathan A. Bowling, Jason L. Huang, Cheyna K. Brower, and Caleb B. Bragg. 2021. The Quick and the Careless: The Construct Validity of Page Time as a Measure of Insufficient Effort Responding to Surveys. Organizational Research Methods 26 (2021), 323 – 352. [9] John Brooke. 1996. SUS: a “quick and dirty’usability. Usability evaluation in industry (1996), 189. [10] Zana Buçinca, Phoebe Lin, Krzysztof Z. Gajos, and Elena L. Glassman. 2020. Proxy tasks and subjective measures can be misleading in evaluating explainable AI systems. In IUI ’20: 25th International Conference on Intelligent User Interfaces, Cagliari, Italy, March 17-20, 2020 , Fabio Paternò, Nuria Oliver, Cristina Conati, Lucio Davide Spano, and Nava Tintarev (Eds.). ACM, 454–464. https://doi.org/10.1145/3377325.3377498 [11] Zana Buçinca, Maja Barbara Malaya, and Krzysztof Z. Gajos. 2021. To Trust or to Think: Cognitive Forcing Functions Can Reduce Overreliance on AI in AI-assisted Decision-making. Proc. ACM Hum. Comput. Interact. 5, CSCW1 (2021), 188:1–188:21. https://doi.org/10.1145/3449287 [12] Adrian Bussone, Simone Stumpf, and Dympna O’Sullivan. 2015. The Role of Explanations on Trust and Reliance in Clinical Decision Support Systems. In 2015 International Conference on Healthcare Informatics, ICHI 2015, Dallas, TX, USA, October 21-23, 2015 , Prabhakaran Balakrishnan, Jaideep Srivatsava, Wai-Tat Fu, Sanda M. Harabagiu, and Fei Wang (Eds.). IEEE Computer Society, 160–169. https://doi.org/10.1109/ICHI.2015.26 [13] Chris Callison-Burch, Miles Osborne, and Philipp Koehn. 2006. Re-evaluating the Role of Bleu in Machine Translation Research. In 11th Conference of the European Chapter of the Association for Computational Linguistics . Association for Computational Linguistics, Trento, Italy, 249–256. https://aclanthology.org/E06-1032 [14] Colleen M. Carpinella, Alisa B. Wyman, Michael A. Perez, and Steven J. Stroessner. 2017. The Robotic Social Attributes Scale (RoSAS): Development and Validation. In Proceedings of the 2017 ACM/IEEE International Conference on Human-Robot Interaction . ACM, Vienna Austria, 254–262. https: //doi.org/10.1145/2909824.3020208 [15] Wm Casper, Bryan D Edwards, J Craig Wallace, Ronald S Landis, Dustin A Fife, et al . 2020. Selecting response anchors with equal intervals for summated rating scales. Journal of Applied Psychology 105, 4 (2020), 390. [16] Eric Chu, Deb Roy, and Jacob Andreas. 2020. Are Visual Explanations Useful? A Case Study in Model-in-the-Loop Prediction. CoRR abs/2007.12248 (2020). arXiv:2007.12248 https://arxiv.org/abs/2007.12248 [17] Julien Colin, Thomas Fel, Rémi Cadène, and Thomas Serre. 2022. What I Cannot Predict, I Do Not Understand: A Human-Centered Evaluation Framework for Explainability Methods. In Advances in Neural Information Processing Systems 35: Annual Conference on Neural Information Processing Systems 2022, NeurIPS 2022, New Orleans, LA, USA, November 28 - December 9, 2022 , Sanmi Koyejo, S. Mohamed, A. Agarwal, Danielle Belgrave, K. Cho, and A. Oh (Eds.). http://papers.nips.cc/paper_files/paper/2022/hash/13113e938f2957891c0c5e8df811dd01-Abstract-Conference.html [18] Henriette S. M. Cramer, Vanessa Evers, Satyan Ramlal, Maarten van Someren, Lloyd Rutledge, Natalia Stash, Lora Aroyo, and Bob J. Wielinga. 2008. The effects of transparency on trust in and acceptance of a content-based art recommender. User Model. User Adapt. Interact. 18, 5 (2008), 455–496. https://doi.org/10.1007/s11257-008-9051-3 [19] Lee Joseph Cronbach. 1951. Coefficient alpha and the internal structure of tests. Psychometrika 16 (1951), 297–334. [20] Mary Czerwinski, Eric Horvitz, and Edward Cutrell. 2001. Subjective duration assessment: An implicit probe for software usability. In Proceedings of IHM-HCI 2001 conference , Vol. 2. 167–170. [21] Gabriel Lins de Holanda Coelho, Paul H. P. Hanel, and Lukas J Wolf. 2018. The Very Efficient Assessment of Need for Cognition: Developing a Six-Item Version*. Assessment 27 (2018), 1870 – 1885. [22] John P. Deegan. 1978. On the Occurrence of Standardized Regression Coefficients Greater Than One. Educational and Psychological Measurement 38 (1978), 873 – 888. [23] Louis Deslauriers, Logan S. McCarty, Kelly Miller, Kristina Callaghan, and Greg Kestin. 2019. Measuring actual learning versus feeling of learning in response to being actively engaged in the classroom. Proceedings of the National Academy of Sciences 116, 39 (2019), 19251–19257. https://doi.org/10.1073/pnas.1821936116 arXiv:https://www.pnas.org/doi/pdf/10.1073/pnas.1821936116 [24] Robert F DeVellis and Carolyn T Thorpe. 2021. Scale development: Theory and applications . Sage publications. [25] Birk Diedenhofen and Jochen Musch. 2015. cocor: A Comprehensive Solution for the Statistical Comparison of Correlations. PLoS ONE 10 (2015). [26] Karen Dunn and Gareth McCray. 2020. The Place of the Bifactor Model in Confirmatory Factor Analysis Investigations Into Construct Dimensionality in Language Testing. Frontiers in Psychology 11 (2020). [27] Olive Jean Dunn and Virginia A. Clark. 1969. Correlation Coefficients Measured on the Same Individuals. J. Amer. Statist. Assoc. 64 (1969), 366–377. [28] Rob Eisinga, Manfred te Grotenhuis, and Ben Pelzer. 2013. The reliability of a two-item scale: Pearson, Cronbach, or Spearman-Brown? International Journal of Public Health 58 (2013), 637–642. [29] Hannes Eisler. 1976. Experiments on subjective duration 1868-1975: A collection of power function exponents. Psychological Bulletin 83, 6 (1976), 1154. [30] Mica R Endsley. 1988. Situation awareness global assessment technique (SAGAT). In Proceedings of the IEEE 1988 national aerospace and electronics conference . IEEE, 789–795. [31] Shi Feng and Jordan L. Boyd-Graber. 2019. What can AI do for me?: evaluating machine learning interpretations in cooperative play. In Proceedings of the 24th International Conference on Intelligent User Interfaces, IUI 2019, Marina del Ray, CA, USA, March 17-20, 2019 , Wai-Tat Fu, Shimei Pan, Oliver Brdiczka, Polo Chau, and Gaelle Calvary (Eds.). ACM, 229–239. https://doi.org/10.1145/3301275.3302265 [32] Kraig Finstad. 2010. The usability metric for user experience. Interacting with Computers 22, 5 (2010), 323–327. Perceived System Predictability: Scale Development and Application 27 
+
+[33] Kraig Finstad. 2013. Response to commentaries on ’The Usability Metric for User Experience’. Interact. Comput. 25, 4 (2013), 327–330. https: //doi.org/10.1093/iwc/iwt005 [34] Courtney Ford, Eoin M. Kenny, and Mark T. Keane. 2020. Play MNIST For Me! User Studies on the Effects of Post-Hoc, Example-Based Explanations & Error Rates on Debugging a Deep Learning, Black-Box Classifier. CoRR abs/2009.06349 (2020). arXiv:2009.06349 https://arxiv.org/abs/2009.06349 [35] Craig R Fox and Gülden Ülkümen. 2011. Distinguishing two dimensions of uncertainty. Fox, Craig R. and Gülden Ülkümen (2011),“Distinguishing Two Dimensions of Uncertainty,” in Essays in Judgment and Decision Making, Brun, W., Kirkebøen, G. and Montgomery, H., eds. Oslo: Universitetsforlaget 
+
+(2011). [36] Thomas Franke, Maria Trantow, Madlen Günther, Josef F. Krems, Viktoria Zott, and Andreas Keinath. 2015. Advancing electric vehicle range displays for enhanced user experience: the relevance of trust and adaptability. In Proceedings of the 7th International Conference on Automotive User Interfaces and Interactive Vehicular Applications, AutomotiveUI 2015, Nottingham, United Kingdom, September 1-3, 2015 , Gary E. Burnett, Joseph L. Gabbard, Paul A. Green, and Sebastian Osswald (Eds.). ACM, 249–256. https://doi.org/10.1145/2799250.2799283 [37] R Michael Furr. 2022. Psychometrics: an introduction . SAGE publications. [38] Ana Valeria Gonzalez, Anna Rogers, and Anders Søgaard. 2021. On the Interaction of Belief Bias and Explanations. In Findings of the Association for Computational Linguistics: ACL/IJCNLP 2021, Online Event, August 1-6, 2021 (Findings of ACL, Vol. ACL/IJCNLP 2021) , Chengqing Zong, Fei Xia, Wenjie Li, and Roberto Navigli (Eds.). Association for Computational Linguistics, 2930–2942. https://doi.org/10.18653/v1/2021.findings-acl.259 [39] Yash Goyal, Ziyan Wu, Jan Ernst, Dhruv Batra, Devi Parikh, and Stefan Lee. 2019. Counterfactual Visual Explanations. In Proceedings of the 36th International Conference on Machine Learning, ICML 2019, 9-15 June 2019, Long Beach, California, USA (Proceedings of Machine Learning Research, Vol. 97) , Kamalika Chaudhuri and Ruslan Salakhutdinov (Eds.). PMLR, 2376–2384. http://proceedings.mlr.press/v97/goyal19a.html [40] Ben Green and Yiling Chen. 2019. The Principles and Limits of Algorithm-in-the-Loop Decision Making. Proc. ACM Hum. Comput. Interact. 3, CSCW (2019), 50:1–50:24. https://doi.org/10.1145/3359152 [41] Jonathan Grudin and Allan MacLean. 1985. Adapting A Psychophysical Method To Measure Performance And Preference Tradeoffs In Human-Computer Interaction. In Human-Computer Interaction - INTERACT ’84 (human-computer interaction - interact ’84 ed.). Elsevier Science Publishers B.V. (North-Holland), 737–741. https://www.microsoft.com/en-us/research/publication/adapting-psychophysical-method-measure-performance-preference-tradeoffs-human-computer-interaction/ [42] Felix Haag. 2025. The Effect of Explainable AI-based Decision Support on Human Task Performance: A Meta-Analysis. [43] Sandra G Hart and Lowell E Staveland. 1988. Development of NASA-TLX (Task Load Index): Results of empirical and theoretical research. In 
+
+Advances in psychology . Vol. 52. Elsevier, 139–183. [44] Peter Hase and Mohit Bansal. 2020. Evaluating Explainable AI: Which Algorithmic Explanations Help Users Predict Model Behavior?. In 
+
+Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics . Association for Computational Linguistics, Online, 5540–5552. https://doi.org/10.18653/v1/2020.acl-main.491 [45] Jonathan L. Herlocker, Joseph A. Konstan, and John Riedl. 2000. Explaining collaborative filtering recommendations. In CSCW 2000, Proceeding on the ACM 2000 Conference on Computer Supported Cooperative Work, Philadelphia, PA, USA, December 2-6, 2000 , Wendy A. Kellogg and Steve Whittaker (Eds.). ACM, 241–250. https://doi.org/10.1145/358916.358995 [46] Kasper Hornbæk. 2006. Current practice in measuring usability: Challenges to usability studies and research. International Journal of Human-Computer Studies 64, 2 (2006), 79–102. https://doi.org/10.1016/j.ijhcs.2005.06.002 [47] Li-tze Hu and Peter M. Bentler. 1999. Cutoff criteria for fit indexes in covariance structure analysis : Conventional criteria versus new alternatives. 
+
+Structural Equation Modeling 6 (1999), 1–55. [48] Alon Jacovi, Hendrik Schuff, Heike Adel, Ngoc Thang Vu, and Yoav Goldberg. 2023. Neighboring Words Affect Human Interpretation of Saliency Explanations. In Findings of the Association for Computational Linguistics: ACL 2023 , Anna Rogers, Jordan Boyd-Graber, and Naoaki Okazaki (Eds.). Association for Computational Linguistics, Toronto, Canada, 11816–11833. https://doi.org/10.18653/v1/2023.findings-acl.750 [49] Karl G Jöreskog. 1999. How large can a standardized coefficient be. (1999). [50] Terrence D. Jorgensen, Sunthud Pornprasertmanit, Alexander M. Schoemann, and Yves Rosseel. 2022. semTools : Useful tools for structural equation modeling . https://CRAN.R-project.org/package=semTools R package version 0.5-6. [51] Hyun Seung Kang, Jeayeong Ji, Yeji Yun, and Kwang Hee Han. 2021. Estimating Bar Graph Averages: Overcoming Within-the-Bar Bias. i-Perception 
+
+12 (2021). [52] Anjali Khurana, Parsa Alamzadeh, and Parmit K. Chilana. 2021. ChatrEx: Designing Explainable Chatbot Interfaces for Enhancing Usefulness, Transparency, and Trust. In IEEE Symposium on Visual Languages and Human-Centric Computing, VL/HCC 2021, St Louis, MO, USA, October 10-13, 2021 , Kyle J. Harms, Jácome Cunha, Steve Oney, and Caitlin Kelleher (Eds.). IEEE, 1–11. https://doi.org/10.1109/VL/HCC51201.2021.9576440 [53] Jenia Kim, Henry Maathuis, and Danielle Sent. 2024. Human-centered evaluation of explainable AI applications: a systematic review. Frontiers Artif. Intell. 7 (2024). https://doi.org/10.3389/FRAI.2024.1456486 [54] Matthias Kirchler, Martin Graf, Marius Kloft, and Christoph Lippert. 2021. Explainability Requires Interactivity. CoRR abs/2109.07869 (2021). arXiv:2109.07869 https://arxiv.org/abs/2109.07869 [55] Moritz Körber. 2018. Theoretical considerations and development of a questionnaire to measure trust in automation. In Congress of the International Ergonomics Association . Springer, 13–30. [56] Vivian Lai, Han Liu, and Chenhao Tan. 2020. "Why is ’Chicago’ deceptive?" Towards Building Model-Driven Tutorials for Humans. In CHI ’20: CHI Conference on Human Factors in Computing Systems, Honolulu, HI, USA, April 25-30, 2020 , Regina Bernhaupt, Florian ’Floyd’ Mueller, David Verweij, 28 Schuff, Adel, and Vu 
+
+Josh Andres, Joanna McGrenere, Andy Cockburn, Ignacio Avellino, Alix Goguey, Pernille Bjøn, Shengdong Zhao, Briane Paul Samson, and Rafal Kocielnik (Eds.). ACM, 1–13. https://doi.org/10.1145/3313831.3376873 [57] Vivian Lai and Chenhao Tan. 2019. On Human Predictions with Explanations and Predictions of Machine Learning Models: A Case Study on Deception Detection. In Proceedings of the Conference on Fairness, Accountability, and Transparency, FAT* 2019, Atlanta, GA, USA, January 29-31, 2019 , danah boyd and Jamie H. Morgenstern (Eds.). ACM, 29–38. https://doi.org/10.1145/3287560.3287590 [58] James R. Lewis. 2018. Measuring Perceived Usability: The CSUQ, SUS, and UMUX. International Journal of Human–Computer Interaction 34 (2018), 1148 – 1156. [59] Qingyu Liang and Jaime Banks. 2025. Perceived shared understanding between humans and artificial intelligence: Development and validation of a self-report scale. Technology, Mind, and Behavior (2025). [60] Q Vera Liao, Yunfeng Zhang, Ronny Luss, Finale Doshi-Velez, and Amit Dhurandhar. 2022. Connecting Algorithmic Research and Usage Contexts: A Perspective of Contextualized Evaluation for Explainable AI. In Proceedings of the AAAI Conference on Human Computation and Crowdsourcing ,Vol. 10. 147–159. [61] Chia-Wei Liu, Ryan Lowe, Iulian Serban, Mike Noseworthy, Laurent Charlin, and Joelle Pineau. 2016. How NOT To Evaluate Your Dialogue System: An Empirical Study of Unsupervised Evaluation Metrics for Dialogue Response Generation. In Proceedings of the 2016 Conference on Empirical Methods in Natural Language Processing . Association for Computational Linguistics, Austin, Texas, 2122–2132. https://doi.org/10.18653/v1/D16-1230 [62] Scott M. Lundberg, Bala G. Nair, Monica S. Vavilala, Mayumi Horibe, Michael J. Eisses, Trevor Adams, David Liston, Daniel King-Wai Low, Shu-Fang Newman, Jerry H. Kim, and Su-In Lee. 2018. Explainable machine-learning predictions for the prevention of hypoxaemia during surgery. Nature biomedical engineering 2 (2018), 749 – 760. [63] Daniel Lüdecke. 2023. sjPlot: Data Visualization for Statistics in Social Science . https://CRAN.R-project.org/package=sjPlot R package version 2.8.14. [64] A MacLean, PJ Barnard, and MD Wilson. 1985. Evaluating the human interface of a data entry system: user choice and performance measures yield different tradeoff functions. People and computers: Designing the interface 5, 7 (1985), 45–61. [65] Andreas Madsen, Siva Reddy, and Sarath Chandar. 2023. Post-hoc Interpretability for Neural NLP: A Survey. ACM Comput. Surv. 55, 8 (2023), 155:1–155:42. https://doi.org/10.1145/3546577 [66] Roderick P. Mcdonald. 1999. Test Theory: A Unified Treatment. [67] N Menold and K Bogner. 2016. Design of rating scales in questionnaires. GESIS survey guidelines 4 (2016). [68] George E. Newman and Brian J. Scholl. 2012. Bar graphs depicting averages are perceptually misinterpreted: The within-the-bar bias. Psychonomic Bulletin & Review 19 (2012), 601–607. [69] Jakob Nielsen and Jonathan Levy. 1994. Measuring Usability: Preference vs. Performance. Commun. ACM 37, 4 (1994), 66–75. https://doi.org/10.114 5/175276.175282 [70] Mahsan Nourani, Samia Kabir, Sina Mohseni, and Eric D. Ragan. 2019. The Effects of Meaningful and Meaningless Explanations on Trust and Perceived System Accuracy in Intelligent Systems. Proceedings of the AAAI Conference on Human Computation and Crowdsourcing 7, 1 (Oct. 2019), 97–105. https://ojs.aaai.org/index.php/HCOMP/article/view/5284 [71] Jekaterina Novikova, Ondřej Dušek, Amanda Cercas Curry, and Verena Rieser. 2017. Why We Need New Evaluation Metrics for NLG. In Proceedings of the 2017 Conference on Empirical Methods in Natural Language Processing . Association for Computational Linguistics, Copenhagen, Denmark, 2241–2252. https://doi.org/10.18653/v1/D17-1238 [72] Forough Poursabzi-Sangdeh, Daniel G. Goldstein, Jake M. Hofman, Jennifer Wortman Vaughan, and Hanna M. Wallach. 2021. Manipulating and Measuring Model Interpretability. In CHI ’21: CHI Conference on Human Factors in Computing Systems, Virtual Event / Yokohama, Japan, May 8-13, 2021 , Yoshifumi Kitamura, Aaron Quigley, Katherine Isbister, Takeo Igarashi, Pernille Bjørn, and Steven Mark Drucker (Eds.). ACM, 237:1–237:52. https://doi.org/10.1145/3411764.3445315 [73] Tenko Raykov. 2001. Estimation of congeneric scale reliability using covariance structure analysis with nonlinear constraints. The British journal of mathematical and statistical psychology 54 Pt 2 (2001), 315–23. [74] Ehud Reiter. 2018. A Structured Review of the Validity of BLEU. Computational Linguistics 44, 3 (Sept. 2018), 393–401. https://doi.org/10.1162/coli _a_00322 [75] William Revelle. 2022. psych: Procedures for Psychological, Psychometric, and Personality Research . Northwestern University, Evanston, Illinois. https://CRAN.R-project.org/package=psych R package version 2.2.9. [76] Mireia Ribera and Àgata Lapedriza. 2019. Can we do better explanations? A proposal of user-centered explainable AI. In Joint Proceedings of the ACM IUI 2019 Workshops co-located with the 24th ACM Conference on Intelligent User Interfaces (ACM IUI 2019), Los Angeles, USA, March 20, 2019 (CEUR Workshop Proceedings, Vol. 2327) , Christoph Trattner, Denis Parra, and Nathalie Riche (Eds.). CEUR-WS.org. http://ceur-ws.org/Vol-2327/IUI19WS-ExSS2019-12.pdf [77] Delphine Ribes, Nicolas Henchoz, Hélène Portier, Lara Défayes, Thanh-Trung Phan, Daniel Gatica-Perez, and Andreas Sonderegger. 2021. Trust Indicators and Explainable AI: A Study on User Perceptions. In Human-Computer Interaction - INTERACT 2021 - 18th IFIP TC 13 International Conference, Bari, Italy, August 30 - September 3, 2021, Proceedings, Part II (Lecture Notes in Computer Science, Vol. 12933) , Carmelo Ardito, Rosa Lanzilotti, Alessio Malizia, Helen Petrie, Antonio Piccinno, Giuseppe Desolda, and Kori Inkpen (Eds.). Springer, 662–671. https://doi.org/10.1007/978-3-030-85616-8_39 [78] Leon Rozenblit and Frank C. Keil. 2002. The misunderstood limits of folk science: an illusion of explanatory depth. Cognitive science 26 5 (2002), 521–562. Perceived System Predictability: Scale Development and Application 29 
+
+[79] Heleen Rutjes, Martijn Willemsen, and Wijnand IJsselsteijn. 2019. Considerations on explainable AI and users’ mental models. In Where is the Human? Bridging the Gap Between AI and HCI . Association for Computing Machinery, Inc, United States. CHI 2019 Workshop : Where is the Human? Bridging the Gap Between AI and HCI ; Conference date: 04-05-2019 Through 04-05-2019. [80] Viktor Schlegel, Erick Mendez Guzman, and Riza Batista-Navarro. 2022. Towards Human-Centred Explainability Benchmarks For Text Classification. In Workshop Proceedings of the 16th International AAAI Conference on Web and Social Media, ICWSM 2022 Workshops, Atlanta, Georgia, USA [hybrid], June 6, 2022 , Pedro O. S. Vaz de Melo, Wei Jeng, and Cody Buntain (Eds.). https://doi.org/10.36190/2022.93 [81] Tim P P Schrills, Susanne Kargl, Mona Bickel, and Thomas Franke. 2022. Perceive, Understand & Predict - Empirical Indication for Facets in Subjective Information Processing Awareness. https://doi.org/10.31234/osf.io/3n95u [82] Hendrik Schuff, Heike Adel, Peng Qi, and Ngoc Thang Vu. 2022. Challenges in Explanation Quality Evaluation. CoRR abs/2210.07126 (2022). https://doi.org/10.48550/ARXIV.2210.07126 arXiv:2210.07126 [83] Hendrik Schuff, Heike Adel, and Ngoc Thang Vu. 2020. F1 is Not Enough! Models and Evaluation Towards User-Centered Explainable Question Answering. In Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP) . Association for Computational Linguistics, Online, 7076–7095. https://doi.org/10.18653/v1/2020.emnlp-main.575 [84] Hendrik Schuff, Alon Jacovi, Heike Adel, Yoav Goldberg, and Ngoc Thang Vu. 2022. Human Interpretation of Saliency-Based Explanation Over Text. In 2022 ACM Conference on Fairness, Accountability, and Transparency (Seoul, Republic of Korea) (FAccT ’22) . Association for Computing Machinery, New York, NY, USA, 611–636. https://doi.org/10.1145/3531146.3533127 [85] Eric Schulz, Joshua B. Tenenbaum, David N. Reshef, Maarten Speekenbrink, and Samuel Gershman. 2015. Assessing the Perceived Predictability of Functions. In Proceedings of the 37th Annual Meeting of the Cognitive Science Society, CogSci 2015, Pasadena, California, USA, July 22-25, 2015 , David C. Noelle, Rick Dale, Anne S. Warlaumont, Jeff Yoshimi, Teenie Matlock, Carolyn D. Jennings, and Paul P. Maglio (Eds.). cognitivesciencesociety.org. https://mindmodeling.org/cogsci2015/papers/0365/index.html [86] Andrew Silva, Mariah Schrum, Erin Hedlund-Botti, Nakul Gopalan, and Matthew C. Gombolay. 2023. Explainable Artificial Intelligence: Evaluating the Objective and Subjective Impacts of xAI on Human-Agent Interaction. Int. J. Hum. Comput. Interact. 39, 7 (2023), 1390–1404. https: //doi.org/10.1080/10447318.2022.2101698 [87] Elior Sulem, Omri Abend, and Ari Rappoport. 2018. BLEU is Not Suitable for the Evaluation of Text Simplification. In Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing . Association for Computational Linguistics, Brussels, Belgium, 738–744. https://doi.org/10.18653/v1/D18-1081 [88] Rachel L Thomas and David Uminsky. 2022. Reliance on metrics is a fundamental challenge for AI. Patterns 3, 5 (2022), 100476. Publisher: Elsevier. [89] Noam Tractinsky and Joachim Meyer. 2001. Task structure and the apparent duration of hierarchical search. International Journal of Human-Computer Studies 55, 5 (2001), 845–860. https://doi.org/10.1006/ijhc.2001.0506 [90] Pei Wang and Nuno Vasconcelos. 2020. SCOUT: Self-Aware Discriminant Counterfactual Explanations. In 2020 IEEE/CVF Conference on Computer Vision and Pattern Recognition, CVPR 2020, Seattle, WA, USA, June 13-19, 2020 . Computer Vision Foundation / IEEE, 8978–8987. https://doi.org/10.1 109/CVPR42600.2020.00900 [91] Xinru Wang and Ming Yin. 2021. Are Explanations Helpful? A Comparative Study of the Effects of Explanations in AI-Assisted Decision-Making. In 
+
+IUI ’21: 26th International Conference on Intelligent User Interfaces, College Station, TX, USA, April 13-17, 2021 , Tracy Hammond, Katrien Verbert, Dennis Parra, Bart P. Knijnenburg, John O’Donovan, and Paul Teale (Eds.). ACM, 318–328. https://doi.org/10.1145/3397481.3450650 [92] Gordon B Willis. 2004. Cognitive interviewing: A tool for improving questionnaire design . sage publications. [93] Yei-Yu Yeh and Christopher D. Wickens. 1988. Dissociation of Performance and Subjective Measures of Workload. Human Factors 30, 1 (1988), 111–120. https://doi.org/10.1177/001872088803000110 arXiv:https://doi.org/10.1177/001872088803000110 [94] Yunfeng Zhang, Q. Vera Liao, and Rachel K. E. Bellamy. 2020. Effect of confidence and explanation on accuracy and trust calibration in AI-assisted decision making. In FAT* ’20: Conference on Fairness, Accountability, and Transparency, Barcelona, Spain, January 27-30, 2020 , Mireille Hildebrandt, Carlos Castillo, L. Elisa Celis, Salvatore Ruggieri, Linnet Taylor, and Gabriela Zanfir-Fortuna (Eds.). ACM, 295–305. https://doi.org/10.1145/3351095. 3372852 [95] Guang Yong Zou. 2007. Toward using confidence intervals to compare correlations. Psychological methods 12 4 (2007), 399–413. 30 Schuff, Adel, and Vu 
+
+A ITEM GENERATION A.1 Initial Item Pool 
+
+Our initial item pool contains 60 items. Concretely, these items are: 
+
+• "My knowledge about the system behavior is complete." 
+
+• "I know a lot about the system’s behavior." 
+
+• "I do not need to learn more about the system’s behavior." 
+
+• "I understand how the system functions." 
+
+• "The system behaves as expected (including ’controlled random’)." 
+
+• "I can explain how the system functions." 
+
+• "I have a lot of experience with this system." 
+
+• "I observed the system’s behavior in many different situations." 
+
+• "I know enough about the system to predict how it behaves." 
+
+• "Seeing more of the system’s behavior will not surprise me." 
+
+• "Based on past responses, I know the responses the system will likely give me." 
+
+• "I have interacted with the system many times." 
+
+• "I am able to anticipate how the system will respond after having used it." 
+
+• "I have an understanding of the system based on its responses to the given input." 
+
+• "I have a comfortable feeling of knowing." 
+
+• "I engaged with the system a lot." 
+
+• "I have personal experiences with the system." 
+
+• "I have an educated guess on how the system will behave." 
+
+• "I have experience with the system." 
+
+• "I can identify rules and patterns in the system’s decisions. 
+
+• "The system does not take random decisions." 
+
+• "The system takes consistent decisions." 
+
+• "I feel a sense of order and direction." 
+
+• "There is a consistent pattern in the system’s decisions." 
+
+• "Given a fixed input, the system always takes the same decision" 
+
+• "I know the reasons for the system’s decisions." 
+
+• "I know what brought the system to its decisions." 
+
+• "The system’s logic is similar to mine." 
+
+• "The system’s knowledge is similar to mine." 
+
+• "The system is following a certain pattern." 
+
+• "I get an idea of how the algorithm works." 
+
+• "I know how the system is likely to interpret input." 
+
+• "I feel like the results the system gives are reliable." 
+
+• "The system behaves in a predictable manner." 
+
+• "The system gives consistent results." 
+
+• "The system gives reliable results." 
+
+• "The system normally behaves in a consistent manner." Perceived System Predictability: Scale Development and Application 31 
+
+• "I know how the system will respond in a given situation." 
+
+• "I am able to predict how the system will react." 
+
+• "The system’s decisions are predictable." 
+
+• "I have an understanding how the system makes its judgements." 
+
+• "The system’s decision process is straightforward." 
+
+• "I know how the system ’thinks’." 
+
+• "I have a good overall understanding of the system." 
+
+• "I know the responses the system will likely give." 
+
+• "I can guess how the system will behave." 
+
+• "I know if the system is biased." 
+
+• "I know how the system was created." 
+
+• "I know the system’s quirks." 
+
+• "I have an understanding of why the systems responded in the way it did." 
+
+• "I can guess how the system will react." 
+
+• "I feel like I can predict how the system will behave." 
+
+• "I have knowledge about what the system is supposed to do." 
+
+• "I know what I can expect from the system." 
+
+• "I am certain about the system’s behavior." 
+
+• "I can guess how the system comes to its conclusions." 
+
+• "I can estimate how the system comes to its conclusions." 
+
+• "I can usually predict if the system can answer the question I have in mind for it." 
+
+• "I know what I can and cannot do with the system." 
+
+• "I know how to use the system efficiently." 
+
+A.2 Intermediate Item Pool 
+
+After the expert ratings and two rounds of cognitive interviews with target population participants, we filtered and refined the item pool used in our first large-scale evaluation to the following items. We mark items included in our final scale version with “ ∗” and report reasons for our removal decisions in parentheses: 
+
+• ∗ "I can tell which responses the system will likely give." 
+
+• "I can predict how the system will behave most of the time." ( > 0.85 inter-item correlation to previous item) 
+
+• ∗ "The system behaves in a predictable manner." 
+
+• "The system’s responses are predictable for me." (strong content similarity to previous item, removed for brevity) 
+
+• "I can identify rules and patterns in the system’s responses." (lower item discrimination value than all other items) 
+
+• "I understand the system well enough to predict how it behaves." (least categorizable item regarding our three-facet theory) 
+
+• ∗ "There is a consistent pattern in the system’s behavior." 
+
+• ∗ "I can tell the reasons for the system’s decisions." 
+
+• "I have an understanding of why the systems responded in the way it did." (strong similarity to previous item but more complex wording, removed for brevity) 32 Schuff, Adel, and Vu 
+
+• ∗ "I observed enough system responses to predict how the system behaves." 
+
+• ∗ "Based on past system responses, I know the responses the system will likely give me." 
+
+• "The number of system responses I have seen is large enough to predict the system’s behavior." ( > 0.85 inter-item correlation to previous item) 
+
+A.3 Worked Scoring Example 
+
+To illustrate how the PSP scale can be scored, Table 11 shows one example response pattern. The primary score is the overall PSP score, computed as the mean across all six items. When a more granular analysis is warranted, the effective, epistemic, and aleatory subscale scores can additionally be computed as the means of the respective item pairs. 
+
+Item Example rating 
+
+EF-1 4EF-2 5EP-1 3EP-2 3AL-1 6AL-2 5
+
+Overall PSP 4.3 Effective PSP (EF) 4.5 Epistemic PSP (EP) 3.0 Aleatory PSP (AL) 5.5 
+
+> Table 11. Illustrative scoring example for the PSP scale. The overall PSP score is the mean across all six items, and the EF, EP, and AL subscale scores are the means of the corresponding item pairs.
+
+B SCALE EVALUATION 
+
+B.0.1 Colored Shapes Experiment Interface. In addition to the scenario depicted in Figure 5, we included the scenarios depicted in Figures 15 to 18 as described in Section 3. Perceived System Predictability: Scale Development and Application 33 BABBB
+
+input output 
+
+# BBBAB
+
+input output 
+
+Fig. 15. A scenario with mixed uncertainty, but slightly more aleatory uncertainty than the scenario shown in Figure 5 (i.e., less predictability). We refer to this scenario as mixed-less-aleatory .BAABB
+
+input output 
+
+# BBBAB
+
+input output Text 
+
+# AB
+
+input output 
+
+# BA BAB
+
+input output 
+
+# BBB
+
+Fig. 16. A scenario with mixed uncertainty, but twice the number of examples of the scenario shown in Figure 5 (i.e., more epistemic predictability). We refer to this scenario as mixed-more-epistemic .34 Schuff, Adel, and Vu ABBB
+
+# A
+
+input output 
+
+# AB
+
+# A
+
+# AB
+
+input output 
+
+# BA
+
+# BBA
+
+input output 
+
+# AB
+
+# ABA
+
+input output 
+
+Fig. 17. A scenario with strong aleatory uncertainty (i.e., low predictability). We refer to this scenario as low-aleatory .AABBA
+
+input output 
+
+# B
+
+# A
+
+# BAB
+
+input output 
+
+# B
+
+# ABBA
+
+input output 
+
+# AAB
+
+# BA
+
+input output 
+
+Fig. 18. A scenario with a high degree of epistemic and aleatory certainty. We refer to this scenario as high-both .Perceived System Predictability: Scale Development and Application 35 
+
+B.1 Differentiation by Known Groups 
+
+Table 12 shows details of the Tukey HSD post hoc test to determine significant differences between our scenarios. 
+
+Scenario pair difference CI-upper CI-lower p (adjusted) 
+
+high-both vs. low-aleatory 2.025 1.177 2.873 <0.0001 
+
+mixed vs. low-aleatory 1.088 0.240 1.935 0.005 
+
+mixed-less-aleatory vs. low-aleatory 0.250 -0.598 1.098 0.927 
+
+mixed-more-epistemic vs. low-aleatory 1.588 0.740 2.435 <0.0001 
+
+mixed vs. high-both -0.938 -1.785 -0.090 0.022 
+
+mixed-less-aleatory vs. high-both -1.775 -2.623 -0.927 <0.0001 
+
+mixed-more-epistemic vs. high-both -0.438 -1.285 0.410 0.615 
+
+mixed-less-aleatory vs. mixed -0.8375 -1.685 0.010 0.0546 
+
+mixed-more-epistemic vs. mixed 0.500 -0.348 1.348 0.484 
+
+mixed-more-epistemic vs. mixed-less-aleatory 1.338 0.490 2.185 <0.001   
+
+> Table 12. Tukey HSD test result details for our perceived system predictability (PSP) scores between known groups, i.e. scenarios. Pairs with significant differences are highlighted in bold font.
+
+B.2 Confirmatory Factor Analysis 
+
+Table 13 and Table 14 show detailed parameter estimates of the one-factor and three-factor models. 
+
+LHS op RHS estimate SE z p CI-lower CI-upper 
+
+predictability =∼ EF1 1.00 0.00 1.00 1.00 predictability =∼ EF2 0.96 0.05 19.62 0.00 0.86 1.06 predictability =∼ EP1 1.04 0.05 19.95 0.00 0.94 1.14 predictability =∼ EP2 1.01 0.05 22.28 0.00 0.92 1.10 predictability =∼ AL1 0.98 0.05 18.41 0.00 0.88 1.09 predictability =∼ AL2 1.00 0.05 21.58 0.00 0.91 1.09 EF1 ∼∼ EF1 0.48 0.06 8.11 0.00 0.36 0.59 EF2 ∼∼ EF2 0.60 0.07 8.62 0.00 0.46 0.73 EP1 ∼∼ EP1 0.66 0.08 8.53 0.00 0.51 0.81 EP2 ∼∼ EP2 0.40 0.05 7.67 0.00 0.29 0.50 AL1 ∼∼ AL1 0.77 0.09 8.89 0.00 0.60 0.95 AL2 ∼∼ AL2 0.44 0.06 7.99 0.00 0.33 0.55 predictability ∼∼ predictability 2.28 0.27 8.34 0.00 1.75 2.82 
+
+> Table 13. Detailed parameter estimates of the one-factor model.
+
+C SENTIMENT CLASSIFIER EXPERIMENTS 
+
+Figure 19 shows the full list of system prediction examples we showed to users. While Figure 19 shows examples of the heatmap conditions, we respectively use bar charts or no explanations in the other conditions. 36 Schuff, Adel, and Vu 
+
+Fig. 19. System predictions shown to users. Figure showing examples in the heatmap conditions, sentences were equal across conditions. Sentence order is randomized across participants. Perceived System Predictability: Scale Development and Application 37 
+
+LHS op RHS estimate SE z p CI-lower CI-upper 
+
+effective =∼ EF1 1.00 0.00 1.00 1.00 effective =∼ EF2 0.96 0.05 18.99 0.00 0.86 1.06 epistemic =∼ EP1 1.00 0.00 1.00 1.00 epistemic =∼ EP2 0.97 0.05 21.34 0.00 0.88 1.06 aleatory =∼ AL1 1.00 0.00 1.00 1.00 aleatory =∼ AL2 1.02 0.05 19.11 0.00 0.92 1.13 predictability =∼ epistemic 1.00 0.00 1.00 1.00 predictability =∼ aleatory 0.94 0.06 16.83 0.00 0.83 1.05 predictability =∼ effective 0.98 0.05 19.70 0.00 0.88 1.08 EF1 ∼∼ EF1 0.52 0.07 7.49 0.00 0.39 0.66 EF2 ∼∼ EF2 0.64 0.08 8.31 0.00 0.49 0.79 EP1 ∼∼ EP1 0.63 0.08 7.96 0.00 0.47 0.78 EP2 ∼∼ EP2 0.36 0.06 6.28 0.00 0.25 0.48 AL1 ∼∼ AL1 0.75 0.09 8.37 0.00 0.58 0.93 AL2 ∼∼ AL2 0.39 0.06 6.05 0.00 0.26 0.52 effective ∼∼ effective -0.09 0.05 -1.89 0.06 -0.19 0.00 epistemic ∼∼ epistemic 0.07 0.05 1.28 0.20 -0.04 0.17 aleatory ∼∼ aleatory 0.06 0.05 1.14 0.26 -0.04 0.16 predictability ∼∼ predictability 2.43 0.31 7.88 0.00 1.83 3.03 
+
+> Table 14. Detailed parameter estimates of the three-factor model.
+
+The sentences we asked users to predict the system’s decision for are (we provide the system predictions in parentheses and use italics to highlight wrong model decisions): 
+
+• I love the food at this place! (pos) 
+
+• Absolutely sensational! (pos) 
+
+• Quite nice! (pos) 
+
+• Tasty food! (pos) 
+
+• Super good place! (pos) 
+
+• Would not go there again. (neg) 
+
+• Pretty bad place. (neg) 
+
+• The food made me sick... (neg) 
+
+• Quite bad. (neg) 
+
+• Do not eat there! (neg) 
+
+• I don’t like this restaurant very much! ( pos )
+
+• Wouldn’t recommend. ( pos )
+
+• The water was the best part of the meal... ( pos )
+
+• Nice ads but didn’t hold up the high expectations. ( pos )
+
+• I expected it to be better. ( pos )
+
+• Have not expected such a good place! ( neg )
+
+• I was so sad when I heard that they will close! ( neg )
+
+• I have not eaten at a better restaurant! ( neg )38 Schuff, Adel, and Vu   
+
+> •Not too bad at all! ( neg )
+> •Have not expected such a good place! ( neg )
+
+## Estimate Std. Error t value Pr( >|t|)
+
+## (Intercept) 4.78 0.42 11.41 0.00 bar charts -0.08 0.10 -0.78 0.44 saliency 0.22 0.11 1.90 0.06 interactivity 0.16 0.12 1.34 0.18 female -0.18 0.42 -0.43 0.67 male -0.13 0.42 -0.32 0.75 noise level L 0.06 0.08 0.77 0.44 noise level Q -0.04 0.08 -0.44 0.66 bar charts : interactivity 0.09 0.17 0.55 0.58 saliency : interactivity -0.32 0.18 -1.84 0.07 
+
+> Table 15. Parametric terms details for our model of PSP scores.
+
+## Estimate Std. Error t value Pr( >|t|)
+
+## (Intercept) 0.56 0.11 5.12 0.00 bar charts 0.04 0.03 1.32 0.19 saliency 0.05 0.03 1.53 0.13 interactivity 0.02 0.03 0.74 0.46 female 0.10 0.11 0.88 0.38 male 0.11 0.11 0.97 0.33 noise level L -0.12 0.02 -5.88 0.00 noise level Q 0.05 0.02 2.57 0.01 bar charts : interactivity -0.04 0.04 -0.96 0.34 saliency : interactivity 0.01 0.05 0.29 0.77 
+
+> Table 16. Parametric terms details for our model of prediction correctness scores.
+
+Perceived System Predictability: Scale Development and Application 39 
+
+## df F pexplanation format 2.00 5.15 0.01 
+
+## interactivity 1.00 0.12 0.73 
+
+## explanation format:interactivity 2.00 7.44 0.00 
+
+## noise level 2.00 2.66 0.07 identification 2.00 0.11 0.90 
+
+> Table 17. Wald tests for the parametric terms in our model of FOST trust scores.
+
+## edf Ref.df F ps(prediction correctness) 2.58 9.00 3.38 0.00 s(PSP) 0.98 9.00 5.41 0.00 s(completion time) 0.84 9.00 0.57 0.01 
+
+## s(SIPA) 1.01 9.00 0.18 0.18 
+
+## s(NFC) 2.32 9.00 1.38 0.00 
+
+## s(age) 0.50 9.00 0.11 0.16
