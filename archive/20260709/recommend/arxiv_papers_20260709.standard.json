@@ -1,0 +1,196 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-09T21:07:36.728319+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2607.07689v1",
+      "title": "Agent Delivery Engineering Predictive Reliability Framework",
+      "abstract": "Long-horizon LLM multi-agent systems face reliability risks invisible to infrastructure monitoring. We propose the ADE Predictive Reliability Framework (ADE-PRF), enabling proactive health trajectory prediction from passive degradation detection. ADE-PRF aggregates 20 heterogeneous signals across five layers into a Trust Margin (TM) metric (39.2-point dynamic range). Triple-method parallel prediction enables 8-hour forecasts: the Exponential method achieves MAE=1.228, Direction Accuracy=76.8%, with 99.65% within +/-10-point tolerance. Production validation spans 380,227 predictions and 280,579 validations across six agent profiles over 15 continuous days, plus seven sandbox-controlled experiments. Key findings include detection of \"false prosperity\" -- degradation concealed by normal surface metrics -- and immediate TM coupling with ground-truth states upon ADE plugin integration, with 16/20 factors relying on ADE-collected data. Exponential consistently outperforms Kalman. ADE-PRF provides among the earliest reliability quantification with forward-looking warnings for production LLM agents.",
+      "authors": [
+        "Dexing Liu"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA"
+      ],
+      "published": "2026-07-08T17:49:08+00:00",
+      "link": "https://arxiv.org/pdf/2607.07689v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Trust Margin (TM) metric for predictive reliability",
+      "llm_evidence_cn": "用于预测可靠性的信任余量 (TM) 指标",
+      "llm_evidence": "用于预测可靠性的信任余量 (TM) 指标",
+      "canonical_evidence": "用于预测可靠性的信任余量 (TM) 指标",
+      "llm_tldr_en": "Introduces the Trust Margin (TM) metric to proactively predict reliability in multi-agent systems.",
+      "llm_tldr_cn": "引入了信任余量 (TM) 指标，用于主动预测多智能体系统的可靠性。",
+      "llm_tldr": "引入了信任余量 (TM) 指标，用于主动预测多智能体系统的可靠性。",
+      "llm_tags": [
+        "query:q4"
+      ],
+      "matched_query_tag": "query:q4",
+      "matched_query_text": "quantitative metrics used to assess trust",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.05680v1",
+      "title": "Beyond Accuracy: How Humans Evaluate Legally Correct but Socially Controversial Legal Advice from Machines",
+      "abstract": "AI systems are increasingly used to provide legal advice, raising questions about whether laypeople accept guidance from algorithms--especially when that advice is legally correct but socially controversial. We report a preregistered survey experiment with 3,348 adults in mainland China examining how people evaluate identical legal advice when it is attributed either to an AI system or to a human lawyer, and when it is accompanied by reasoning or not.   Contrary to expectations of algorithm aversion, attribution to an AI system has no net effect on perceived reasonableness. However, mediation analyses reveal opposing psychological pathways underlying this null result. AI-attributed advice is perceived as more objective, which increases perceived reasonableness, but also as less comprehensive and less attentive to special circumstances, which decreases perceived reasonableness. By contrast, providing legal reasoning substantially increases perceived reasonableness regardless of source, largely by enhancing perceptions of objectivity. Qualitative responses corroborate this tension between objectivity and contextual sensitivity in evaluations of legal advice.   Together, these findings suggest that public responses to AI legal advisors are shaped not by rigid attitudes toward automation, but by the balancing of competing normative expectations. The results have implications for theories of algorithm aversion and the design of AI recommendation systems in normatively salient domains.",
+      "authors": [
+        "Benjamin Minhao Chen",
+        "Zhiyu Li"
+      ],
+      "primary_category": "cs.CY",
+      "categories": [
+        "cs.CY",
+        "cs.AI",
+        "cs.HC"
+      ],
+      "published": "2026-07-06T22:50:14+00:00",
+      "link": "https://arxiv.org/pdf/2607.05680v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "human evaluation and mediation analysis of perceived reasonableness and trust",
+      "llm_evidence_cn": "对感知合理性和信任的人类评估与中介分析",
+      "llm_evidence": "对感知合理性和信任的人类评估与中介分析",
+      "canonical_evidence": "对感知合理性和信任的人类评估与中介分析",
+      "llm_tldr_en": "Studies how humans evaluate and trust AI-generated legal advice through survey experiments and psychological metrics.",
+      "llm_tldr_cn": "通过调查实验和心理指标研究人类如何评估和信任AI生成的法律建议。",
+      "llm_tldr": "通过调查实验和心理指标研究人类如何评估和信任AI生成的法律建议。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "methods and metrics for measuring trust",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.06687v1",
+      "title": "Exploring the Interaction of Explanation Styles, Context, and Trust of AI Privacy Redaction in AI-mediated Interactions",
+      "abstract": "AI-mediated communication is increasingly being utilized to help facilitate interactions; however, in privacy sensitive domains, an AI mediator has the additional challenge of considering how to preserve privacy. In these contexts, a mediator may redact or withhold information, raising questions about how users perceive these interventions and whether explanations of system behavior can improve trust. In this work, we investigate how explanations of redaction operations can affect user trust in AI-mediated communication. We devise a scenario where a validated system removes sensitive content from messages and generates explanations of varying detail to communicate its decisions to recipients. We then conduct a user study with 180 participants that studies how user trust and preferences vary for cases with different amounts of redacted content and different levels of explanation detail. Our results show that participants believed our system was more effective at preserving privacy when explanations were provided (p<0.05, Cohen's d ~ 0.3). We also found that contextual factors had an impact; participants relied more on explanations and found them more helpful when the system performed extensive redactions (p<0.05, Cohen's f ~ 0.2). We also found that explanation preferences depended on individual differences as well, and factors such as age and baseline familiarity with AI affected user trust in our system. These findings highlight the importance and challenge of balancing transparency and privacy in AI-mediated communications and suggest that adaptive, context-aware explanations are essential for designing privacy-aware, trustworthy AI systems.",
+      "authors": [
+        "Roshni Kaushik",
+        "Maarten Sap",
+        "Koichi Onoue"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC"
+      ],
+      "published": "2026-07-07T18:04:51+00:00",
+      "link": "https://arxiv.org/pdf/2607.06687v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "investigating how explanations affect user trust in AI-mediated communication",
+      "llm_evidence_cn": "研究解释如何影响用户对AI中介通信的信任",
+      "llm_evidence": "研究解释如何影响用户对AI中介通信的信任",
+      "canonical_evidence": "研究解释如何影响用户对AI中介通信的信任",
+      "llm_tldr_en": "Explores the impact of different explanation styles on user trust during AI privacy redaction.",
+      "llm_tldr_cn": "探讨了AI隐私脱敏过程中不同解释风格对用户信任的影响。",
+      "llm_tldr": "探讨了AI隐私脱敏过程中不同解释风格对用户信任的影响。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "methods and metrics for measuring trust",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.07196v1",
+      "title": "Validate the Dream Before You Trust Its Verdict: Admissibility for World-Model Simulators",
+      "abstract": "Across robotics, World Models (WMs) are increasingly used to evaluate action policies by simulating the consequences of actions in an imagined world, and returning a success or safety verdict. Yet a verdict is only as trustworthy as the WM that produced it, and the WM itself needs to be certified. In video-generation WMs, fidelity metrics such as Fréchet Video Distance (FVD) reward visual realism, but ignore whether the world responds correctly to the policy's actions, including those unseen in training. Classical simulation-based validation assumes a trusted simulator evaluating an untrusted policy, whereas generative WMs are themselves unverified learned artifacts. Hence, we argue that any WM used as a test oracle must first be accredited before its verdicts can serve as evidence. Building on credibility practices from safety-critical simulation, including Verification, Validation & Accreditation (VV&A), Safety of the Intended Functionality (SOTIF), and scenario-based testing standards, we define an admissibility ladder (L0-L4) that a WM must climb before its closed-loop verdicts are accepted as assurance evidence. Our framework is embodiment-agnostic, and is instantiated in autonomous driving (AD), where assurance methods for traditional simulation are most mature. Applied to two driving WMs, the lower rungs reveal a reversal: the model that ranks higher on visual generation quality (L0) ranks lower on action-following (L1-L2), so visual fidelity does not predict the action-robustness a closed-loop verdict depends on.",
+      "authors": [
+        "Christian Oefinger",
+        "Finn Rasmus Schäfer",
+        "Korbinian Moller",
+        "Mattia Piccinini",
+        "Johannes Betz"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.AI",
+        "cs.LG",
+        "cs.SE"
+      ],
+      "published": "2026-07-08T09:30:31+00:00",
+      "link": "https://arxiv.org/pdf/2607.07196v1",
+      "tags": [
+        "keyword:信任测量"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "metrics for certifying trustworthiness of world-model simulators",
+      "llm_evidence_cn": "认证世界模型模拟器可信度的指标",
+      "llm_evidence": "认证世界模型模拟器可信度的指标",
+      "canonical_evidence": "认证世界模型模拟器可信度的指标",
+      "llm_tldr_en": "Discusses the need for metrics to certify the trustworthiness of generative world models used as test oracles.",
+      "llm_tldr_cn": "讨论了认证作为测试预言机的生成式世界模型可信度所需的指标。",
+      "llm_tldr": "讨论了认证作为测试预言机的生成式世界模型可信度所需的指标。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "methods and metrics for measuring trust",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.06984v1",
+      "title": "Modeling Misinformation as a Commons Problem",
+      "abstract": "Misinformation often harms society not just by spreading a single false belief, but by breaking down the shared trust people rely on to evaluate what is true. This paper presents an agent-based simulation that frames trust as a collective resource and attention as a scarce private budget: when aggregate attention shifts toward low credibility content, the trust environment degrades, making credible information harder to process and correct. Across experiments, the model produces four recurring modes: credible stability, misinformation dominance, polarization, and a mixed baseline, with distinct signatures in trust trajectories and network structure. The results separate two control problems that matter for simulation-based policy exploration: the balance of trust repair versus harm largely determines whether the system recovers or collapses, while homophily and rewiring determine whether disagreement remains integrated or separates into persistent clusters. This foundation provides a transparent testbed for comparative experiments on interventions that must address both trust restoration and structural conditions for cross-cutting exposure.",
+      "authors": [
+        "Vrinda Malhotra"
+      ],
+      "primary_category": "cs.CY",
+      "categories": [
+        "cs.CY",
+        "cs.SI"
+      ],
+      "published": "2026-07-08T04:11:48+00:00",
+      "link": "https://arxiv.org/pdf/2607.06984v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "framing trust as a collective resource with distinct signatures in trust trajectories",
+      "llm_evidence_cn": "将信任视为集体资源，并分析信任轨迹中的特征",
+      "llm_evidence": "将信任视为集体资源，并分析信任轨迹中的特征",
+      "canonical_evidence": "将信任视为集体资源，并分析信任轨迹中的特征",
+      "llm_tldr_en": "Uses agent-based simulation to model trust as a collective resource affected by misinformation.",
+      "llm_tldr_cn": "使用基于代理的模拟将信任建模为受虚假信息影响的集体资源。",
+      "llm_tldr": "使用基于代理的模拟将信任建模为受虚假信息影响的集体资源。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

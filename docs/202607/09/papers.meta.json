@@ -1,0 +1,79 @@
+{
+  "label": "2026-07-09",
+  "date": "2026-07-09",
+  "generated_at": "2026-07-09T21:08:51",
+  "count": 5,
+  "papers": [
+    {
+      "paper_id": "202607/09/2607.07689v1-agent-delivery-engineering-predictive-reliability-framework",
+      "section": "deep",
+      "title_en": "Agent Delivery Engineering Predictive Reliability Framework",
+      "authors": "Dexing Liu",
+      "date": "2026-07-08",
+      "pdf": "https://arxiv.org/pdf/2607.07689v1",
+      "score": "9.0",
+      "evidence": "用于预测可靠性的信任余量 (TM) 指标",
+      "tldr": "针对长周期大语言模型多智能体系统面临的隐蔽可靠性风险，本文提出ADE-PRF框架。该框架通过整合五层架构中的20种异构信号，构建了“信任余量”（TM）指标，并利用三重并行预测方法实现提前8小时的健康轨迹预测。在生产环境的大规模验证表明，该框架能有效识别“虚假繁荣”现象，为生产级智能体提供了前瞻性的可靠性量化与预警。",
+      "tags": "query:q4",
+      "abstract_en": "Long-horizon LLM multi-agent systems face reliability risks invisible to infrastructure monitoring. We propose the ADE Predictive Reliability Framework (ADE-PRF), enabling proactive health trajectory prediction from passive degradation detection. ADE-PRF aggregates 20 heterogeneous signals across five layers into a Trust Margin (TM) metric (39.2-point dynamic range). Triple-method parallel prediction enables 8-hour forecasts: the Exponential method achieves MAE=1.228, Direction Accuracy=76.8%, with 99.65% within +/-10-point tolerance. Production validation spans 380,227 predictions and 280,579 validations across six agent profiles over 15 continuous days, plus seven sandbox-controlled experiments. Key findings include detection of \"false prosperity\" -- degradation concealed by normal surface metrics -- and immediate TM coupling with ground-truth states upon ADE plugin integration, with 16/20 factors relying on ADE-collected data. Exponential consistently outperforms Kalman. ADE-PRF provides among the earliest reliability quantification with forward-looking warnings for production LLM agents.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/09/2607.05680v1-beyond-accuracy-how-humans-evaluate-legally-correct-but-socially-controversial-legal-advice-from-machines",
+      "section": "deep",
+      "title_en": "Beyond Accuracy: How Humans Evaluate Legally Correct but Socially Controversial Legal Advice from Machines",
+      "authors": "Benjamin Minhao Chen, Zhiyu Li",
+      "date": "2026-07-06",
+      "pdf": "https://arxiv.org/pdf/2607.05680v1",
+      "score": "8.0",
+      "evidence": "对感知合理性和信任的人类评估与中介分析",
+      "tldr": "本研究探讨了公众对AI提供法律建议的接受度，特别是在建议合法但具社会争议的情况下。通过对3348名中国成年人的实验调查，研究对比了AI与人类律师提供相同建议时的评价差异。结果发现，AI身份本身不影响合理性评分，但其客观性优势与缺乏情境敏感性的劣势相互抵消。提供法律推理能显著提升合理性。该研究揭示了算法评价背后的心理权衡，为AI推荐系统的设计提供了理论依据。",
+      "tags": "query:q3",
+      "abstract_en": "AI systems are increasingly used to provide legal advice, raising questions about whether laypeople accept guidance from algorithms--especially when that advice is legally correct but socially controversial. We report a preregistered survey experiment with 3,348 adults in mainland China examining how people evaluate identical legal advice when it is attributed either to an AI system or to a human lawyer, and when it is accompanied by reasoning or not.   Contrary to expectations of algorithm aversion, attribution to an AI system has no net effect on perceived reasonableness. However, mediation analyses reveal opposing psychological pathways underlying this null result. AI-attributed advice is perceived as more objective, which increases perceived reasonableness, but also as less comprehensive and less attentive to special circumstances, which decreases perceived reasonableness. By contrast, providing legal reasoning substantially increases perceived reasonableness regardless of source, largely by enhancing perceptions of objectivity. Qualitative responses corroborate this tension between objectivity and contextual sensitivity in evaluations of legal advice.   Together, these findings suggest that public responses to AI legal advisors are shaped not by rigid attitudes toward automation, but by the balancing of competing normative expectations. The results have implications for theories of algorithm aversion and the design of AI recommendation systems in normatively salient domains.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/09/2607.06687v1-exploring-the-interaction-of-explanation-styles-context-and-trust-of-ai-privacy-redaction-in-ai-mediated-interactions",
+      "section": "deep",
+      "title_en": "Exploring the Interaction of Explanation Styles, Context, and Trust of AI Privacy Redaction in AI-mediated Interactions",
+      "authors": "Roshni Kaushik, Maarten Sap, Koichi Onoue",
+      "date": "2026-07-07",
+      "pdf": "https://arxiv.org/pdf/2607.06687v1",
+      "score": "8.0",
+      "evidence": "研究解释如何影响用户对AI中介通信的信任",
+      "tldr": "本研究探讨了在AI中介通信中，隐私脱敏操作的解释方式如何影响用户信任。通过对180名参与者的实验，研究了不同脱敏程度和解释详细度对用户感知的影响。结果表明，提供解释能显著提升用户对系统隐私保护能力的信任，且在脱敏内容较多时解释的作用更明显。研究强调了设计可信AI系统时，需要根据上下文和个体差异提供自适应的解释。",
+      "tags": "query:q3",
+      "abstract_en": "AI-mediated communication is increasingly being utilized to help facilitate interactions; however, in privacy sensitive domains, an AI mediator has the additional challenge of considering how to preserve privacy. In these contexts, a mediator may redact or withhold information, raising questions about how users perceive these interventions and whether explanations of system behavior can improve trust. In this work, we investigate how explanations of redaction operations can affect user trust in AI-mediated communication. We devise a scenario where a validated system removes sensitive content from messages and generates explanations of varying detail to communicate its decisions to recipients. We then conduct a user study with 180 participants that studies how user trust and preferences vary for cases with different amounts of redacted content and different levels of explanation detail. Our results show that participants believed our system was more effective at preserving privacy when explanations were provided (p<0.05, Cohen's d ~ 0.3). We also found that contextual factors had an impact; participants relied more on explanations and found them more helpful when the system performed extensive redactions (p<0.05, Cohen's f ~ 0.2). We also found that explanation preferences depended on individual differences as well, and factors such as age and baseline familiarity with AI affected user trust in our system. These findings highlight the importance and challenge of balancing transparency and privacy in AI-mediated communications and suggest that adaptive, context-aware explanations are essential for designing privacy-aware, trustworthy AI systems.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/09/2607.07196v1-validate-the-dream-before-you-trust-its-verdict-admissibility-for-world-model-simulators",
+      "section": "deep",
+      "title_en": "Validate the Dream Before You Trust Its Verdict: Admissibility for World-Model Simulators",
+      "authors": "Christian Oefinger, Finn Rasmus Schäfer, Korbinian Moller, Mattia Piccinini, Johannes Betz",
+      "date": "2026-07-08",
+      "pdf": "https://arxiv.org/pdf/2607.07196v1",
+      "score": "8.0",
+      "evidence": "认证世界模型模拟器可信度的指标",
+      "tldr": "本研究针对机器人和自动驾驶领域中世界模型（WM）作为策略评估工具的可靠性问题，指出仅凭视觉真实感指标不足以证明其有效性。为此，研究者借鉴安全关键仿真标准，提出了一个包含五个等级（L0-L4）的“准入阶梯”框架，用于在接受WM评估结论前对其进行认证。通过在自动驾驶领域的实验，研究揭示了视觉保真度与动作遵循能力之间的背离，强调了建立WM准入机制对保障闭环评估可信度的重要性。",
+      "tags": "query:q3",
+      "abstract_en": "Across robotics, World Models (WMs) are increasingly used to evaluate action policies by simulating the consequences of actions in an imagined world, and returning a success or safety verdict. Yet a verdict is only as trustworthy as the WM that produced it, and the WM itself needs to be certified. In video-generation WMs, fidelity metrics such as Fréchet Video Distance (FVD) reward visual realism, but ignore whether the world responds correctly to the policy's actions, including those unseen in training. Classical simulation-based validation assumes a trusted simulator evaluating an untrusted policy, whereas generative WMs are themselves unverified learned artifacts. Hence, we argue that any WM used as a test oracle must first be accredited before its verdicts can serve as evidence. Building on credibility practices from safety-critical simulation, including Verification, Validation & Accreditation (VV&A), Safety of the Intended Functionality (SOTIF), and scenario-based testing standards, we define an admissibility ladder (L0-L4) that a WM must climb before its closed-loop verdicts are accepted as assurance evidence. Our framework is embodiment-agnostic, and is instantiated in autonomous driving (AD), where assurance methods for traditional simulation are most mature. Applied to two driving WMs, the lower rungs reveal a reversal: the model that ranks higher on visual generation quality (L0) ranks lower on action-following (L1-L2), so visual fidelity does not predict the action-robustness a closed-loop verdict depends on.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/09/2607.06984v1-modeling-misinformation-as-a-commons-problem",
+      "section": "quick",
+      "title_en": "Modeling Misinformation as a Commons Problem",
+      "authors": "Vrinda Malhotra",
+      "date": "2026-07-08",
+      "pdf": "https://arxiv.org/pdf/2607.06984v1",
+      "score": "6.0",
+      "evidence": "将信任视为集体资源，并分析信任轨迹中的特征",
+      "tldr": "本研究将误导信息视为一种“公地悲剧”问题，通过基于主体的模拟实验，将信任视为集体资源，将注意力视为稀缺预算。研究发现，当注意力转向低可信度内容时，信任环境会恶化，导致可信信息难以处理。模型识别出可信稳定、误导信息主导、极化和混合基准四种模式，揭示了信任修复与伤害的平衡决定系统存亡，而同质性则决定了极化程度。该模型为评估信任恢复和结构性干预提供了透明的实验平台。",
+      "tags": "query:profile-1",
+      "abstract_en": "Misinformation often harms society not just by spreading a single false belief, but by breaking down the shared trust people rely on to evaluate what is true. This paper presents an agent-based simulation that frames trust as a collective resource and attention as a scarce private budget: when aggregate attention shifts toward low credibility content, the trust environment degrades, making credible information harder to process and correct. Across experiments, the model produces four recurring modes: credible stability, misinformation dominance, polarization, and a mixed baseline, with distinct signatures in trust trajectories and network structure. The results separate two control problems that matter for simulation-based policy exploration: the balance of trust repair versus harm largely determines whether the system recovers or collapses, while homophily and rewiring determine whether disagreement remains integrated or separates into persistent clusters. This foundation provides a transparent testbed for comparative experiments on interventions that must address both trust restoration and structural conditions for cross-cutting exposure.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
