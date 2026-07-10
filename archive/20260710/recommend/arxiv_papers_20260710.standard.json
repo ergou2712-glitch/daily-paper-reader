@@ -1,0 +1,127 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-10T20:34:25.152330+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2607.08666v1",
+      "title": "TRM-Raft: A Byzantine-Resistant Raft Consensus via Integrated Trust and Reputation Model",
+      "abstract": "Internetware envisions autonomous software entities collaborating over the open Internet. Raft consensus is widely adopted for its simplicity and performance in distributed coordination, e.g., service registries and blockchains. However, Raft assumes crash faults only, making it vulnerable to Byzantine behaviors like election forgery and log tampering. Existing BFT protocols incur high overhead, while ad-hoc hardening lacks unified defense.   We propose \\textbf{TRM-Raft}, a Byzantine-resistant enhancement that non-intrusively integrates a Blockchain-based Trust and Reputation Model (B-TRM) into the consensus core. It quantifies multi-dimensional node behaviors, applies adaptive penalties distinguishing accidental faults from malice, and embeds reputation into leader election and log replication. A reputation-aware election penalizes term/index forgery, excluding low-reputation nodes from leadership. A Schnorr-signature-based mechanism lets followers verify log integrity; tampering triggers reputation decay and leader replacement. Evaluated on Hyperledger Fabric in a realistic Internetware setting, TRM-Raft keeps malicious leader ratio below 5\\% even with 40\\% Byzantine nodes, with <10\\% throughput loss and <5\\% latency increase over vanilla Raft. TRM-Raft offers a lightweight, practical trustworthiness path for Internetware systems relying on Raft.",
+      "authors": [
+        "Jie Zhang",
+        "Xubo Fan",
+        "Xiaohong Li",
+        "Zhiyong Feng"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-07-09T16:34:46+00:00",
+      "link": "https://arxiv.org/pdf/2607.08666v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "quantifies node behaviors via trust and reputation model",
+      "llm_evidence_cn": "通过信任和声誉模型量化节点行为",
+      "llm_evidence": "通过信任和声誉模型量化节点行为",
+      "canonical_evidence": "通过信任和声誉模型量化节点行为",
+      "llm_tldr_en": "Integrates a trust and reputation model into Raft consensus to quantify and penalize Byzantine behaviors.",
+      "llm_tldr_cn": "将信任和声誉模型集成到Raft共识中，以量化和惩罚拜占庭行为。",
+      "llm_tldr": "将信任和声誉模型集成到Raft共识中，以量化和惩罚拜占庭行为。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "papers on trust measurement methodologies and metrics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.08285v1",
+      "title": "Psychological Competence as a Missing Dimension in AI Evaluation",
+      "abstract": "Current AI evaluation frameworks focus primarily on technical performance, including accuracy, robustness, reasoning ability, and policy compliance. These measures remain essential, but they are not sufficient for systems that interact directly with users through natural language. Human-facing AI systems are increasingly used as advisors, coaches, tutors, and companions. In these roles, their responses can shape how users reason, interpret emotions, form beliefs, calibrate trust, and make decisions. The relevant unit of evaluation is therefore not only the model, but the human-AI interaction. This paper introduces psychological competence as a missing dimension in AI evaluation. We define psychological competence as the capacity of a human-facing AI system to support user cognition, emotional interpretation, and behavioral decision-making in ways that are appropriate to the user, context, and purpose of the interaction. This includes interaction properties such as framing, tone, perceived authority, responsiveness, uncertainty handling, and conversational guidance. Existing evaluation approaches capture parts of this problem but rarely assess these psychological effects directly. Drawing on behavioral science and human-AI interaction research, we outline a conceptual framework for psychological competence and its core domains. Rather than proposing a specific benchmark, we define the construct, clarify its boundaries, and describe how it may be assessed through scenario-based probes, structured human evaluation, and model-assisted evaluation methods. We argue that psychological competence should become a core consideration for model providers, deploying organizations, researchers, and regulators concerned with the real-world effects of human-facing AI systems.",
+      "authors": [
+        "Marcos Economides",
+        "Paul M. Sacher",
+        "Samuel Salzer",
+        "Alexis Michelle Abellar",
+        "Fendi Tsim",
+        "Antoine Ferrère"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-07-09T09:29:01+00:00",
+      "link": "https://arxiv.org/pdf/2607.08285v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "evaluating how AI shapes user trust calibration",
+      "llm_evidence_cn": "评估AI如何影响用户信任校准",
+      "llm_evidence": "评估AI如何影响用户信任校准",
+      "canonical_evidence": "评估AI如何影响用户信任校准",
+      "llm_tldr_en": "Introduces psychological competence as a dimension for evaluating human-AI interaction and trust calibration.",
+      "llm_tldr_cn": "引入心理胜任力作为评估人机交互和信任校准的一个维度。",
+      "llm_tldr": "引入心理胜任力作为评估人机交互和信任校准的一个维度。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 请帮我查找关于信任测量的论文, especially work that connects or combines: h; t; methods and metrics for measuring trust; quantitative metrics used to assess trust; papers on trust measurement methodologies and metrics.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.08017v1",
+      "title": "Can We Trust LLM's Logic? Quantifying Uncertainty, Coherence, and Robustness via a Graph-Based Framework",
+      "abstract": "Large-Language Models (LLMs) can be prone to flawed and unfaithful reasoning that decoding strategies like Self-Consistency (SC) fail to detect as they evaluate only final-answer agreement while ignoring the logical validity of intermediate steps. This raises three fundamental questions: How can we reliably quantify uncertainty in LLM reasoning? Can semantic, structural, and causal awareness select more faithful reasoning compared to naïve majority voting? and How robust is reasoning topology under adversarial conditions? To address these questions, we introduce GRAPHEVAL, a graph-based reasoning framework that re-frames uncertainty quantification (UQ) as a holistic reasoning fidelity problem. We propose a novel UQ metric, Graph Reasoning Coherence Score (GRCS), that quantifies semantic-structural consensus of the reasoning space and captures pathological mode collapse and confident hallucinations. We find that GRCS is the only metric that is consistently negatively correlated with reasoning faithfulness across both more capable and smaller models. Additionally, we introduce Graph Self-Consistency (GSC), a medoid-based decoding strategy that trades nominal accuracy for reasoning fidelity, exposing the degree to which SC is inflated by unfaithful lucky guesses in smaller models, while preserving or improving accuracy in more capable ones. Finally, through adversarial medoid ablation, we demonstrate that the GSC-selected path acts as a \"load-bearing path\" and forcing models away from it degrades reasoning faithfulness and, in targeted cases, causes drops in accuracy.",
+      "authors": [
+        "Riccardo Revalor",
+        "Jalees Rehman",
+        "Debjit Pal"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI"
+      ],
+      "published": "2026-07-09T00:45:26+00:00",
+      "link": "https://arxiv.org/pdf/2607.08017v1",
+      "tags": [
+        "keyword:信任测量",
+        "query:信任测量"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "quantifying uncertainty and reasoning fidelity in LLMs",
+      "llm_evidence_cn": "量化大语言模型中的不确定性与推理忠实度",
+      "llm_evidence": "量化大语言模型中的不确定性与推理忠实度",
+      "canonical_evidence": "量化大语言模型中的不确定性与推理忠实度",
+      "llm_tldr_en": "Introduces GraphEval to quantify uncertainty and logical robustness in LLM reasoning steps.",
+      "llm_tldr_cn": "引入 GraphEval 框架，量化大语言模型推理步骤中的不确定性和逻辑鲁棒性。",
+      "llm_tldr": "引入 GraphEval 框架，量化大语言模型推理步骤中的不确定性和逻辑鲁棒性。",
+      "llm_tags": [
+        "query:q4"
+      ],
+      "matched_query_tag": "query:q4",
+      "matched_query_text": "quantitative metrics used to assess trust",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}

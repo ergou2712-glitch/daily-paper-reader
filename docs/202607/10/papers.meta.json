@@ -1,0 +1,51 @@
+{
+  "label": "2026-07-10",
+  "date": "2026-07-10",
+  "generated_at": "2026-07-10T20:35:11",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202607/10/2607.08666v1-trm-raft-a-byzantine-resistant-raft-consensus-via-integrated-trust-and-reputation-model",
+      "section": "deep",
+      "title_en": "TRM-Raft: A Byzantine-Resistant Raft Consensus via Integrated Trust and Reputation Model",
+      "authors": "Jie Zhang, Xubo Fan, Xiaohong Li, Zhiyong Feng",
+      "date": "2026-07-09",
+      "pdf": "https://arxiv.org/pdf/2607.08666v1",
+      "score": "9.0",
+      "evidence": "通过信任和声誉模型量化节点行为",
+      "tldr": "针对Raft共识算法无法抵御拜占庭攻击的问题，本文提出TRM-Raft。该方案通过非侵入式地集成基于区块链的信任与声誉模型（B-TRM），量化节点行为并实施自适应惩罚。TRM-Raft将声誉机制引入领导者选举和日志复制，利用Schnorr签名验证日志完整性。实验表明，在40%拜占庭节点环境下，该系统能有效抑制恶意节点当选，且性能损耗极低，为互联网软件系统提供了轻量级且实用的可信共识路径。",
+      "tags": "query:q5",
+      "abstract_en": "Internetware envisions autonomous software entities collaborating over the open Internet. Raft consensus is widely adopted for its simplicity and performance in distributed coordination, e.g., service registries and blockchains. However, Raft assumes crash faults only, making it vulnerable to Byzantine behaviors like election forgery and log tampering. Existing BFT protocols incur high overhead, while ad-hoc hardening lacks unified defense.   We propose \\textbf{TRM-Raft}, a Byzantine-resistant enhancement that non-intrusively integrates a Blockchain-based Trust and Reputation Model (B-TRM) into the consensus core. It quantifies multi-dimensional node behaviors, applies adaptive penalties distinguishing accidental faults from malice, and embeds reputation into leader election and log replication. A reputation-aware election penalizes term/index forgery, excluding low-reputation nodes from leadership. A Schnorr-signature-based mechanism lets followers verify log integrity; tampering triggers reputation decay and leader replacement. Evaluated on Hyperledger Fabric in a realistic Internetware setting, TRM-Raft keeps malicious leader ratio below 5\\% even with 40\\% Byzantine nodes, with <10\\% throughput loss and <5\\% latency increase over vanilla Raft. TRM-Raft offers a lightweight, practical trustworthiness path for Internetware systems relying on Raft.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/10/2607.08017v1-can-we-trust-llms-logic-quantifying-uncertainty-coherence-and-robustness-via-a-graph-based-framework",
+      "section": "deep",
+      "title_en": "Can We Trust LLM's Logic? Quantifying Uncertainty, Coherence, and Robustness via a Graph-Based Framework",
+      "authors": "Riccardo Revalor, Jalees Rehman, Debjit Pal",
+      "date": "2026-07-09",
+      "pdf": "https://arxiv.org/pdf/2607.08017v1",
+      "score": "8.0",
+      "evidence": "量化大语言模型中的不确定性与推理忠实度",
+      "tldr": "针对大语言模型推理逻辑不透明及现有自一致性方法仅关注最终答案的局限，本文提出GRAPHEVAL框架。该框架通过构建推理图，引入GRCS指标量化语义与结构的共识，并提出GSC解码策略。实验证明GRCS能有效识别虚假推理，而GSC在提升推理忠实度的同时，揭示了模型推理的鲁棒性与关键逻辑路径。",
+      "tags": "query:q4",
+      "abstract_en": "Large-Language Models (LLMs) can be prone to flawed and unfaithful reasoning that decoding strategies like Self-Consistency (SC) fail to detect as they evaluate only final-answer agreement while ignoring the logical validity of intermediate steps. This raises three fundamental questions: How can we reliably quantify uncertainty in LLM reasoning? Can semantic, structural, and causal awareness select more faithful reasoning compared to naïve majority voting? and How robust is reasoning topology under adversarial conditions? To address these questions, we introduce GRAPHEVAL, a graph-based reasoning framework that re-frames uncertainty quantification (UQ) as a holistic reasoning fidelity problem. We propose a novel UQ metric, Graph Reasoning Coherence Score (GRCS), that quantifies semantic-structural consensus of the reasoning space and captures pathological mode collapse and confident hallucinations. We find that GRCS is the only metric that is consistently negatively correlated with reasoning faithfulness across both more capable and smaller models. Additionally, we introduce Graph Self-Consistency (GSC), a medoid-based decoding strategy that trades nominal accuracy for reasoning fidelity, exposing the degree to which SC is inflated by unfaithful lucky guesses in smaller models, while preserving or improving accuracy in more capable ones. Finally, through adversarial medoid ablation, we demonstrate that the GSC-selected path acts as a \"load-bearing path\" and forcing models away from it degrades reasoning faithfulness and, in targeted cases, causes drops in accuracy.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/10/2607.08285v1-psychological-competence-as-a-missing-dimension-in-ai-evaluation",
+      "section": "deep",
+      "title_en": "Psychological Competence as a Missing Dimension in AI Evaluation",
+      "authors": "Marcos Economides, Paul M. Sacher, Samuel Salzer, Alexis Michelle Abellar, Fendi Tsim, Antoine Ferrère",
+      "date": "2026-07-09",
+      "pdf": "https://arxiv.org/pdf/2607.08285v1",
+      "score": "8.0",
+      "evidence": "评估AI如何影响用户信任校准",
+      "tldr": "针对当前AI评估侧重技术性能而忽视人机交互心理影响的问题，本文提出了“心理胜任力”这一新维度。该维度定义为AI支持用户认知、情感解读和决策的能力，涵盖语气、框架和对话引导等属性。研究构建了相关概念框架，并探讨了通过情境探测和人工评估等方法进行衡量的路径，旨在提升人机交互系统的实际应用效果与安全性。",
+      "tags": "query:profile-1",
+      "abstract_en": "Current AI evaluation frameworks focus primarily on technical performance, including accuracy, robustness, reasoning ability, and policy compliance. These measures remain essential, but they are not sufficient for systems that interact directly with users through natural language. Human-facing AI systems are increasingly used as advisors, coaches, tutors, and companions. In these roles, their responses can shape how users reason, interpret emotions, form beliefs, calibrate trust, and make decisions. The relevant unit of evaluation is therefore not only the model, but the human-AI interaction. This paper introduces psychological competence as a missing dimension in AI evaluation. We define psychological competence as the capacity of a human-facing AI system to support user cognition, emotional interpretation, and behavioral decision-making in ways that are appropriate to the user, context, and purpose of the interaction. This includes interaction properties such as framing, tone, perceived authority, responsiveness, uncertainty handling, and conversational guidance. Existing evaluation approaches capture parts of this problem but rarely assess these psychological effects directly. Drawing on behavioral science and human-AI interaction research, we outline a conceptual framework for psychological competence and its core domains. Rather than proposing a specific benchmark, we define the construct, clarify its boundaries, and describe how it may be assessed through scenario-based probes, structured human evaluation, and model-assisted evaluation methods. We argue that psychological competence should become a core consideration for model providers, deploying organizations, researchers, and regulators concerned with the real-world effects of human-facing AI systems.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
