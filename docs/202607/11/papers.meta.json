@@ -1,0 +1,23 @@
+{
+  "label": "2026-07-11",
+  "date": "2026-07-11",
+  "generated_at": "2026-07-11T20:45:05",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202607/11/2607.07762v1-trustworthy-machine-learning-through-the-lens-of-combinatorial-optimization-survey-and-research-perspectives",
+      "section": "quick",
+      "title_en": "Trustworthy Machine Learning through the Lens of Combinatorial Optimization: Survey and Research Perspectives",
+      "authors": "Thibaut Vidal, Julien Ferry",
+      "date": "2026-07-08",
+      "pdf": "https://arxiv.org/pdf/2607.07762v1",
+      "score": "6.0",
+      "evidence": "关于机器学习透明度、鲁棒性和可认证性的综述",
+      "tldr": "本综述探讨了如何利用组合优化（CO）提升机器学习的可信度。针对现代模型在解释性、鲁棒性、公平性和隐私保护等方面的挑战，CO 提供了超越启发式方法的全局保证和形式化证明。文章系统总结了 CO 在可解释模型学习、解释生成、鲁棒性分析、公平性审计及隐私保护等领域的应用，并指出尽管面临扩展性挑战，CO 仍是构建可信 ML 系统的关键工具。",
+      "tags": "query:profile-1",
+      "abstract_en": "Modern machine learning (ML) increasingly relies on complex models whose behavior is difficult to characterize beyond empirical performance metrics. Across a wide range of tasks, including prediction, generation, and decision-making, models with similar empirical performance can exhibit markedly different properties in terms of their transparency, interpretability, robustness, fairness, privacy, and certifiability. This survey highlights how optimization- and certification-oriented reasoning can provide a useful framework for reasoning about such differences, supporting tasks ranging from model training and selection to auditing and certification. We review and synthesize recent advances at the intersection of combinatorial optimization (CO) and trustworthy ML, covering both training and post-training tasks, including interpretable model learning, explanation generation, robustness analysis, fairness auditing, model compression, and privacy attacks and protections. Across these domains, CO formulations offer additional capabilities over purely heuristic approaches, e.g., gradient-based ones, notably global guarantees, formal certificates, and explicit treatment of trade-offs. While scalability remains an important challenge, continued progress in solvers and hybrid algorithms suggests a growing role for CO in the design and deployment of trustworthy ML systems.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

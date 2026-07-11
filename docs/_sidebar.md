@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-07-11 <!--dpr-date:20260711-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202607/11/2607.07762v1-trustworthy-machine-learning-through-the-lens-of-combinatorial-optimization-survey-and-research-perspectives" data-sidebar-item="{&quot;title&quot;: &quot;Trustworthy Machine Learning through the Lens of Combinatorial Optimization: Survey and Research Perspectives&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2607.07762v1-trustworthy-machine-learning-through-the-lens-of-combinatorial-optimization-survey-and-research-perspectives&quot;, &quot;score&quot;: &quot;6.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;profile-1&quot;}], &quot;evidence&quot;: &quot;关于机器学习透明度、鲁棒性和可认证性的综述&quot;}">Trustworthy Machine Learning through the Lens of Combinatorial Optimization: Survey and Research Perspectives</a>
   * 2026-07-10 <!--dpr-date:20260710-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202607/10/2607.08666v1-trm-raft-a-byzantine-resistant-raft-consensus-via-integrated-trust-and-reputation-model" data-sidebar-item="{&quot;title&quot;: &quot;TRM-Raft: A Byzantine-Resistant Raft Consensus via Integrated Trust and Reputation Model&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2607.08666v1-trm-raft-a-byzantine-resistant-raft-consensus-via-integrated-trust-and-reputation-model&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;q5&quot;}], &quot;evidence&quot;: &quot;通过信任和声誉模型量化节点行为&quot;}">TRM-Raft: A Byzantine-Resistant Raft Consensus via Integrated Trust and Reputation Model</a>

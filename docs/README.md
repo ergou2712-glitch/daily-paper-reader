@@ -6,32 +6,26 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-07-10
-- 运行时间：2026-07-10 20:35:03 UTC
+- 最新运行日期：2026-07-11
+- 运行时间：2026-07-11 20:45:04 UTC
 - 运行状态：成功
-- 本次总论文数：3
-- 精读区：3
-- 速读区：0
+- 本次总论文数：1
+- 精读区：0
+- 速读区：1
 
 ### 今日简报（AI）
-今日聚焦分布式共识与大模型逻辑的“信任”课题，深度解析了拜占庭容错优化与 LLM 推理可靠性评估。
-重点关注 TRM-Raft 通过信任模型强化共识安全，以及利用图框架量化 LLM 逻辑的不确定性与鲁棒性。
-建议关注如何将信任机制引入去中心化协议，并审慎评估 AI 生成内容的逻辑一致性。
-- 详情：[/202607/10/README](/202607/10/README)
+- 今日共生成 1 篇推荐（精读 0 篇，速读 1 篇）
+- 速读：《Trustworthy Machine Learning through the Lens of Combinatorial Optimization: Survey and Research Perspectives》（6.0/10）
+- 这些结果覆盖了当下较热的方向，建议先看精读区论文的关键问题与方法。
+- 详情：[/202607/11/README](/202607/11/README)
 
 ### 精读区论文标签
-1. [TRM-Raft: A Byzantine-Resistant Raft Consensus via Integrated Trust and Reputation Model](/202607/10/2607.08666v1-trm-raft-a-byzantine-resistant-raft-consensus-via-integrated-trust-and-reputation-model)  
-   标签：评分：9.0/10、query:q5
-   evidence：通过信任和声誉模型量化节点行为
-2. [Can We Trust LLM's Logic? Quantifying Uncertainty, Coherence, and Robustness via a Graph-Based Framework](/202607/10/2607.08017v1-can-we-trust-llms-logic-quantifying-uncertainty-coherence-and-robustness-via-a-graph-based-framework)  
-   标签：评分：8.0/10、query:q4
-   evidence：量化大语言模型中的不确定性与推理忠实度
-3. [Psychological Competence as a Missing Dimension in AI Evaluation](/202607/10/2607.08285v1-psychological-competence-as-a-missing-dimension-in-ai-evaluation)  
-   标签：评分：8.0/10、query:profile-1
-   evidence：评估AI如何影响用户信任校准
+- 本次无精读推荐。
 
 ### 速读区论文标签
-- 本次无速读推荐。
+1. [Trustworthy Machine Learning through the Lens of Combinatorial Optimization: Survey and Research Perspectives](/202607/11/2607.07762v1-trustworthy-machine-learning-through-the-lens-of-combinatorial-optimization-survey-and-research-perspectives)  
+   标签：评分：6.0/10、query:profile-1
+   evidence：关于机器学习透明度、鲁棒性和可认证性的综述
 
 
 <div class="dpr-home-promo-card">
